@@ -1,0 +1,79 @@
+= Certificates
+:toc:
+
+== Convert p12 to pfx
+
+Converting from p12 to pfx is super easy as these files are in the same binary format. Just rename the file from .p12 to .pfx
+
+=== Linux and MacOS
+
+[source, shell]
+----
+mv cert.p12 cert.pfx
+----
+
+=== Windows
+
+[source, shell]
+----
+rename cert.p12 cert.pfx
+----
+
+== Convert pfx to jks
+
+[source, shell]
+----
+keytool -importkeystore -srckeystore cert.pfx -srcstoretype pkcs12 -destkeystore cert.jks -deststoretype JKS
+----
+
+== View a certificate
+
+=== Linux and MacOS
+
+=== Windows
+
+[source, shell]
+----
+keytool -list -v -keystore cert.jks -storepass <PASSWORD>
+----
+
+== Generate a self signed certificate
+
+[source, shell]
+----
+keytool -genkey -keyalg RSA -alias selfsigned -keystore permanent-keystore.jks -storetype PKCS12 -storepass password -validity 99999 -keysize 2048
+----
+
+== Dealing with Cert with no password
+
+Default keystore password is *changeit*
+Import PEM into p12 type keystore
+
+[source, shell]
+----
+$ keytool -importcert -keystore cert.p12 -storepass "password123" -file cert.pem -alias "cert"
+----
+
+Convert p12 keystore into JKS keystore
+
+[source, shell]
+----
+$ keytool -importkeystore -srckeystore cert.p12 -srcstoretype pkcs12 -destkeystore cert.jks -deststoretype jks
+----
+
+View keystore to validate type
+
+[source, shell]
+----
+$ keytool -list -v -keystore cert.jks
+----
+
+== Reference
+
+* https://akbarahmed.com/2011/11/04/convert-p12-to-pfx/
+* https://serverfault.com/questions/344040/cant-import-ssl-key-using-keytool
+* https://stackoverflow.com/questions/57985138/convert-pem-to-jks-with-out-key-file
+* https://stackoverflow.com/questions/22525388/push-notification-caused-by-java-io-ioexception-toderinputstream-rejects-tag
+
+
+

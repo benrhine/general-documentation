@@ -1,0 +1,27 @@
+= Git: Trunk Based Development
+
+Trunk-based development is a paradigm where everyone works off of main/master with the goal of main/master always being a deployable state. This can work two different ways, 1. everyone commits directly into main/master or 2. everyone cuts from main/master and changes must be reviewed and approved for a merge prior to dev deployment to ensure that main/master is always in a deployable state.
+
+== Reasons for setting up this way
+
+* Easier git process / streamlined flow
+* less divergence from main/master (ie always only one branch away)
+* auto tagging is easier
+* small projects (ie normally only 1 or 2 people working on a project at a time)
+* well-thought-out ci/cd
+
+== Reasons to not set up this way
+
+* large projects with multiple people commiting at the same time
+* lack automation tests
+* lack unit/int tests
+* lack of ci/cd
+
+
+
+
+
+
+
+
+

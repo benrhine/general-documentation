@@ -1,0 +1,121 @@
+= Compare: Creating an Event Rule
+:toc:
+
+[NOTE]
+Creating resources within both CloudFormation and Serverless Framework are exactly the same. Whenever you create a resource
+in Serverless, it is just RAW CloudFormation, Serverless is *only unique* when not creating resources.
+
+== Creating an Event Rule
+
+To create a new Event Rule using either CloudFormation or Serverless Framework, you can add the following to
+either your CloudFormation template or your `serverless.yml`
+
+=== CloudFormation / Serverless declaration
+
+[source, yaml]
+----
+Resources:
+    ...
+  CodePipelineEventRule:
+    Type: AWS::Events::Rule
+    DependsOn:
+      - CodeReplicationPipeline
+      - CodePipelineEventRuleRole
+    Properties:
+      Description: !Sub This rule will trigger the ${ProjectName}-pipeline on each push into main
+      EventBusName: default
+      EventPattern:
+        source:
+          - aws.codecommit
+        detail-type:
+          - CodeCommit Repository State Change
+        resources:
+          - !Join [ '', [ 'arn:aws:codecommit:', !Ref 'AWS::Region', ':', !Ref 'AWS::AccountId', ':', !Ref GitRepoName ] ]
+        detail:
+          event:
+            - referenceCreated
+            - referenceUpdated
+          referenceType:
+            - branch
+          referenceName:
+            - main
+      Name: !Sub ${ProjectName}-pipeline-rule
+      State: ENABLED
+      Targets:
+        - Id: !Sub codepipeline-${ProjectName}-replication-pipeline
+          Arn: !Join [ '', [ 'arn:aws:codepipeline:', !Ref 'AWS::Region', ':', !Ref 'AWS::AccountId', ':', !Ref CodeReplicationPipeline ] ]
+          RoleArn: !GetAtt CodePipelineEventRuleRole.Arn
+----
+
+=== The equivalent Terraform code is the following ...
+
+.module main.tf
+[source, shell]
+----
+resource "aws_cloudwatch_event_rule" "codepipeline_trigger" {
+  name              = var.event_rule_name
+  description       = var.event_rule_description
+  event_bus_name    = var.event_bus_name
+  state             = var.event_bus_state
+
+  event_pattern     = jsonencode({
+    source          = var.event_pattern_source
+    detail-type     = var.event_pattern_detail_type
+    resources       = var.event_pattern_resources
+    detail = {
+      event         = var.event_pattern_detail_event
+      referenceType = var.event_pattern_detail_reference_type
+      referenceName = var.event_pattern_detail_reference_name
+    }
+  })
+}
+
+resource "aws_cloudwatch_event_target" "codepipeline" {
+  rule              = aws_cloudwatch_event_rule.codepipeline_trigger.name
+  target_id         = var.aws_codepipeline_target_id
+  arn               = var.aws_codepipeline_project_arn
+  role_arn          = var.service_role_arn
+}
+
+----
+
+=== Include Event Rule module
+
+.main.tf
+[source, shell]
+----
+module "event_rule" {
+  source                        = "./modules/event-rule"                                  # Where to find the module
+  ######################################################################################################################
+  event_rule_name               = "${var.project_name}-pipeline-rule"                     # Custom defined value
+  event_rule_description        = "This rule will trigger the ${var.project_name}-pipeline on each push into main"  # Custom defined value
+  event_pattern_resources       = ["arn:aws:codecommit:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:${var.git_repo_name}"]  # Custom defined value
+  // Target
+  aws_codepipeline_target_id    = "codepipeline-${var.project_name}-replication-pipeline" # Custom defined value
+  aws_codepipeline_project_arn  = module.codepipeline.aws_codepipeline_project_arn        # Value retrieved from module outputs.tf
+  service_role_arn              = module.iam_roles.create_codepipeline_event_rule_role_arn# Value retrieved from module outputs.tf
+
+# ALL COMMENTED VALUES HAVE REASONABLE DEFAULT VALUES ASSIGNED IN variables.tf
+#   event_bus_name              = "default"                             # Value is defaulted in module variables.tf only set here if overriding
+#   event_bus_state             = "ENABLED"                             # Value is defaulted in module variables.tf only set here if overriding
+#   event_pattern_source        = ["aws.codecommit"]                    # Value is defaulted in module variables.tf only set here if overriding
+#   event_pattern_detail_type   = ["CodeCommit Repository State Change"] # Value is defaulted in module variables.tf only set here if overriding
+#   event_pattern_detail_event  = ["referenceCreated", "referenceUpdated"] # Value is defaulted in module variables.tf only set here if overriding
+#   event_pattern_detail_reference_type = ["branch"]                    # Value is defaulted in module variables.tf only set here if overriding
+#   event_pattern_detail_reference_name = ["main"]                      # Value is defaulted in module variables.tf only set here if overriding
+
+  # event_rules module instantiation depends on the following modules; resources in modules declared within "depends_on"
+  # must complete instantiation prior to event_rules instantiation.
+  depends_on = [
+    module.iam_roles,
+    module.codepipeline
+  ]
+}
+----
+
+
+
+[source, shell]
+----
+
+----

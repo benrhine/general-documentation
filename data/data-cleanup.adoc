@@ -1,0 +1,66 @@
+= Data: Cleanup
+
+Data cleanup during development commonly proves to be one of the biggest challenges that plague development teams.
+I believe that this issue can be remediated by planning and using good data design. Additionally,
+structuring your data as discussed below will allow for better and more flexible test data.
+
+== What is the problem?
+
+There are several problems that can occur involving data during the development process ...
+
+- The Database is already polluted with other data
+- It's not clear if data in the database is test data or not
+- It's not clear what data (if any) can be removed
+- Running delete queries may have unintended side effects and may delete data that was wanted or needed
+
+== What is the solution?
+
+I believe the solution is adopting a good meta-data structure that allows for helping identify which data is which
+(see link:data-company-wide-meta-data.adoc[here]). Additionally, using the defined meta-data to specify the type of data
+in the database (prod, test, ect, see link:data-type.adoc[here]). By marking the data on an environment basis it is now
+possible to construct cleanup actions that can be guaranteed to only remove the specified data.
+
+=== Example
+
+[CAUTION]
+The following example has not been executed and is intended for instructional purposes.
+
+[source, sql]
+----
+DELETE FROM Some_table WHERE purgeable='test_purgeable';
+----
+
+The above will delete all data in `Some_table` where the `purgeable` field is set to `test_purgeable`; meaning that specific
+data was created by a test or for a test and that it is ok to remove.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

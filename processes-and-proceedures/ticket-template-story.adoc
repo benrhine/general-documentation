@@ -1,0 +1,36 @@
+= Ticket Template - Story
+
+== Description
+
+Description field should include area of work and a one line description of the work
+
+* [ FRONTEND | BACKEND | DB | UI | TEST ONLY ] This store is responsible for doing X
+
+== Acceptance Criteria
+
+All acceptance criteria should be written in the Given / When / Then / And format. If a ticket has more than 5 acceptance
+criteria that is a good indicator that a ticket is to large and should be further broken down.
+
+[CAUTION]
+This should be written in such a way that even if it is the only part of the story that is read that the functionality
+would be correct and complete.
+
+[NOTE]
+Acceptance criteria should be reviewed by both the BA and QA prior to a dev picking up the story. If they have not been
+reviewed it is the Devs responsibility for setting up a quick meeting with the BA and QA to review before he starts work.
+
+== Story
+
+A human-readable version of the acceptance criteria i.e. the business case for the functionality.
+
+== Resources
+
+Tickets should have all the necessary resources attached to them. This can be through linking to a technical spec and or individually attached resources. Resources include but are not limited to the following …
+
+* If a ticket involves connecting to communicating with another team/application it is ticket creators responsibility (probably the BA) to reach out to the other team and request connection details. This includes postmans, instructions to authenticate, a list of all the various environments, any restrictions.
+* Who to reach out to for questions
+* Who to reach out to for any usernames or passwords
+* Test data
+** At a minimum a success case, and a fail case
+
+

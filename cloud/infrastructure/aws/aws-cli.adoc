@@ -1,0 +1,224 @@
+
+= CLI: Usage
+:toc:
+
+This page is intended to collect common commands that are executed from the CLI as a easy reference for how to run them
+and what they do.
+
+== Sign in or Sign in with a specific profile
+.Click here to expand ...
+[%collapsible%open]
+====
+*Default sign in*
+[source, bash]
+----
+aws sso login
+----
+
+*Sign in with profile*
+[source, bash]
+----
+aws sso login --profile YOUR-CONFIGURED-PROFILE-NAME
+----
+====
+
+== Get Account
+.Click here to expand ...
+[%collapsible%open]
+====
+The following command will return the AWS account that is currently being used / is authenticated
+[source, bash]
+----
+aws sts get-caller-identity --query "Account" --output text
+----
+====
+
+== Get all deployed APIs in a region
+.Click here to expand ...
+[%collapsible%open]
+====
+[source, bash]
+----
+aws apigatewayv2 get-apis
+----
+====
+
+== Get all information about a deployed stack
+.Click here to expand ...
+[%collapsible%open]
+====
+To check all info about a deployed stack run the following
+
+[NOTE]
+To find a list of stacks and stack names see here.
+
+[source, bash]
+----
+aws cloudformation describe-stacks --stack-name <THE-GIVEN-STACK-NAME>
+----
+Expected output
+----
+$ aws cloudformation describe-stacks --stack-name ltr-service-dev
+{
+    "Stacks": [
+        {
+            "StackId": "arn:aws:cloudformation:us-west-2:npAccountNum:stack/your-service-dev/d6933c20-1750-11ee-b068-069a11ef8357",
+            "StackName": "your-service-dev",
+            "ChangeSetId": "arn:aws:cloudformation:us-west-2:npAccountNum:changeSet/your-service-dev-change-set/11a2e1b3-962a-4647-9d2f-b6c30060f4de",
+            "Description": "The AWS CloudFormation template for this Serverless application",
+            "CreationTime": "2023-06-30T14:17:26.216000+00:00",
+            "LastUpdatedTime": "2023-07-03T15:37:53.383000+00:00",
+            "RollbackConfiguration": {},
+            "StackStatus": "UPDATE_COMPLETE",
+            "DisableRollback": false,
+            "NotificationARNs": [],
+            "Capabilities": [
+                "CAPABILITY_IAM",
+                "CAPABILITY_NAMED_IAM"
+            ],
+            "Outputs": [
+                {
+                    "OutputKey": "ProxyTokenRequestLambdaFunctionQualifiedArn",
+                    "OutputValue": "arn:aws:lambda:us-west-2:npAccountNum:function:your-service-dev-proxyTokenRequest:172",
+                    "Description": "Current Lambda function version",
+                    "ExportName": "sls-your-service-dev-proxyTokenRequestLambdaFunctionQualifiedArn"
+                },
+                {
+                    "OutputKey": "HttpApiId",
+                    "OutputValue": "ju6aexgn7c",
+                    "Description": "Id of the HTTP API",
+                    "ExportName": "sls-your-service-dev-HttpApiId"
+                },
+                {
+                    "OutputKey": "ServerlessDeploymentBucketName",
+                    "OutputValue": "sls-regional-domain-deploy",
+                    "ExportName": "sls-your-service-dev-ServerlessDeploymentBucketName"
+                },
+                {
+                    "OutputKey": "HttpApiUrl",
+                    "OutputValue": "https://ju6aexgn7c.execute-api.us-west-2.amazonaws.com",
+                    "Description": "URL of the HTTP API",
+                    "ExportName": "sls-your-service-dev-HttpApiUrl"
+                }
+            ],
+            "Tags": [
+                {
+                    "Key": "STAGE",
+                    "Value": "dev"
+                }
+            ],
+            "EnableTerminationProtection": false,
+            "DriftInformation": {
+                "StackDriftStatus": "NOT_CHECKED"
+            }
+        }
+    ]
+}
+----
+====
+
+== How to get Api Gateway Url
+.Click here to expand ...
+[%collapsible%open]
+====
+The following command will get all the values available from the
+[source, bash]
+----
+aws cloudformation describe-stacks --stack-name your-service-dev --query "Stacks[0].Outputs[*].{OutputValueValue:OutputValue}" --output text
+----
+expected output
+----
+$ aws cloudformation describe-stacks --stack-name your-service-dev --query "Stacks[0].Outputs[*].{OutputValueValue:OutputValue}" --output text
+arn:aws:lambda:us-west-2:npAccountNum:function:ltr-service-dev-proxyTokenRequest:172
+ju6aexgn7c
+sls-regional-domain-deploy
+https://ju6aexgn7c.execute-api.us-west-2.amazonaws.com
+----
+get deployed url
+----
+aws cloudformation describe-stacks --stack-name your-service-dev --query "Stacks[0].Outputs[*].{OutputValueValue:OutputValue}" --output text
+----
+====
+
+== List all SQS Queues in an account
+.Click here to expand ...
+[%collapsible%open]
+====
+[source, bash]
+----
+aws sqs list-queues
+----
+====
+
+== How to test send SQS message
+.Click here to expand ...
+[%collapsible%open]
+====
+[source, bash]
+----
+aws sqs send-message --queue-url YOUR-QUEUE-URL --message-body YOUR-MSG-AS-A-STRING
+----
+====
+
+== How to test send and retrieve SQS message
+.Click here to expand ...
+[%collapsible%open]
+====
+* http://example.org?q=label[How To: Configure SNS or SQS]
+* https://medium.com/@schogini/aws-cli-and-sqs-a-tiny-demonstration-18e7136d0258[AWS CLI and SQS - a Tiny Demonstration]
+* https://www.howtoforge.com/manage-aws-sqs-queues-using-aws-cli/[Manage AWS SQS Queues using aws-cli]
+====
+
+== How to get all versions of a layer
+.Click here to expand ...
+[%collapsible%open]
+====
+[source, bash]
+----
+aws lambda list-layer-versions --layer-name YOUR-LAYER-NAME--region us-west-2
+----
+====
+
+== How to just the current version numbers of a layer
+.Click here to expand ...
+[%collapsible%open]
+====
+[source, bash]
+----
+aws lambda list-layer-versions --layer-name powertools --region us-west-2 --query 'LayerVersions[0].Version'
+----
+====
+
+== How to send SNS message
+.Click here to expand ...
+[%collapsible%open]
+====
+[source, bash]
+----
+aws sns publish --topic-arn arn:aws:sns:us-west-2:xxxxxxxxx:lpsc-queue-topic-dev --message YOUR-MESSAGE-AS-A-STRING
+----
+====
+
+----
+aws sqs list-queues
+aws sqs list-queues --queue-name-prefix "lpsc"
+aws sqs get-queue-attributes --queue-url https://sqs.us-west-2.amazonaws.com/ACCOUNT-ID/lpsc-queue-dev --attribute-names All
+aws sqs send-message --queue-url https://sqs.us-west-2.amazonaws.com/ACCOUNT-ID/lpsc-queue-dev --message-body "this is a test"
+aws sqs get-queue-attributes --queue-url https://sqs.us-west-2.amazonaws.com/ACCOUNT-ID/lpsc-queue-dev --attribute-names All
+aws sqs --region us-west-2 receive-message --queue-url https://sqs.us-west-2.amazonaws.com/ACCOUNT-ID/lpsc-queue-dev
+aws sqs get-queue-attributes --queue-url https://sqs.us-west-2.amazonaws.com/ACCOUNT-ID/lpsc-queue-dev --attribute-names All
+aws sqs --region us-west-2 receive-message --queue-url https://sqs.us-west-2.amazonaws.com/ACCOUNT-ID/lpsc-queue-dev
+aws sqs --region us-west-2 receive-message --queue-url https://sqs.us-west-2.amazonaws.com/ACCOUNT-ID/lpsc-queue-dev
+aws sqs list-queues --queue-name-prefix "lpsc"
+aws sqs send-message --queue-url https://sqs.us-west-2.amazonaws.com/ACCOUNT-ID/lpsc-queue-dev --message-body "this is a test"
+aws sqs get-queue-attributes --queue-url https://sqs.us-west-2.amazonaws.com/ACCOUNT-ID/lpsc-queue-dev --attribute-names All
+----
+
+== Not what you were looking for?
+
+* link:../cloud/infrastructure/aws/aws-setup-cli.adoc[Setup: Aws CLI]
+* link:../setups/configure-aws-cli-quick-start.adoc[Aws CLI Quickstart]
+
+== Reference
+* https://medium.com/@schogini/aws-cli-and-sqs-a-tiny-demonstration-18e7136d0258[AWS CLI and SQS - a Tiny Demonstration]
+* https://www.howtoforge.com/manage-aws-sqs-queues-using-aws-cli/[Manage AWS SQS Queues using aws-cli]

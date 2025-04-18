@@ -1,0 +1,43 @@
+= Aws IaC
+
+This folder contains IaC documentation that is specific to Aws.
+
+== Create an IAM role with associated policies
+
+[TIP]
+The complete process to create a new IAM role including associated policies
+
+* link:aws-cf-create-role-complete.adoc[CloudFormation: Create an IAM role]
+* link:../serverless/sls-aws-create-role-complete.adoc[Serverless: Create an IAM role]
+* link:../terraform/tf-aws-create-role-complete.adoc[Terraform: Create an IAM role]
+* link:../comparison/compare-iac-role.adoc[Compare: IAM role creation across frameworks]
+* link:../comparison/compare-iac-role-policies.adoc[Compare: IAM role policy creation across frameworks]
+
+== Create a DynamoDB table
+
+[CAUTION]
+I have not tested any of these beyond experimentally
+
+* link:aws-cf-create-dynamo-table.adoc[CloudFormation: Create DynamoDB table]
+* link:../serverless/sls-aws-create-dynamo-table.adoc[Serverless: Create DynamoDB table]
+* link:../terraform/tf-aws-create-dynamo-table.adoc[Terraform: Create DynamoDB table]
+* [Compare: DynamoDB across frameworks]
+
+== Create a System Manager property/parameter
+
+* link:aws-cf-create-system-property.adoc[CloudFormation: Create System Property/Parameter]
+* link:../serverless/sls-aws-create-system-property.adoc[Serverless: Create System Property/Parameter]
+* link:../terraform/tf-aws-create-system-property.adoc[Terraform: Create System Property/Parameter]
+* link:../comparison/compare-ssm.adoc[Compare: SSM across frameworks]
+
+== Get a System Manager property/parameter
+
+* link:aws-cf-get-system-property.adoc[CloudFormation: Get System Property]
+* link:../serverless/sls-aws-get-system-property.adoc[Serverless: Get System Property]
+* link:../terraform/tf-aws-get-system-property.adoc[Terraform: Get System Property]
+* link:../comparison/compare-ssm.adoc[Compare: SSM across frameworks]
+
+[NOTE]
+To see how to access SSM properties within the CI process see
+link:../../build/build-ci-codebuild-properties.adoc[CI: CodeBuild property access]
+

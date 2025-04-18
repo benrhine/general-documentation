@@ -1,0 +1,130 @@
+= Compare: Creating a S3 Policy
+:toc:
+
+[NOTE]
+Creating resources within both CloudFormation and Serverless Framework are exactly the same. Whenever you create a resource
+in Serverless, it is just RAW CloudFormation, Serverless is *only unique* when not creating resources.
+
+== Creating a new S3 bucket policy
+
+[WARNING]
+This is the first real short-coming of Terraform that has been found and that is there is no easy way to set the `DeletionPolicy`
+flag that is available to CloudFormation/Serverless.
+
+To create a new S3 bucket policy using either CloudFormation or Serverless Framework, you can add the following to
+either your CloudFormation template or your `serverless.yml`
+
+=== CloudFormation / Serverless declaration
+
+[source, yaml]
+----
+Resources:
+    ...
+  DeploymentBucketPolicy:                                         # Resource name
+    Type: AWS::S3::BucketPolicy                                   # Resource type
+    DeletionPolicy: Retain                                        # DO NOT DELETE IF CLOUDFORMATION STACK IS REMOVED
+    DependsOn: DeployBucket                                       # Policy creation is dependent on bucket being previously created
+    Properties:
+      Bucket: !Sub ${AccountName}-${AWS::Region}-${S3DeploymentBucket}  # Set bucket name from configurable parameter
+      PolicyDocument:
+        Statement:
+          - Action:
+              - s3:GetLifecycleConfiguration
+              - s3:ListBucket
+              - s3:Get*
+              - s3:PutObject
+              - s3:DeleteObject
+            Resource:                                             # Limit permissions to THIS bucket
+              - !Sub arn:aws:s3:::${AccountName}-${AWS::Region}-${S3DeploymentBucket}
+              - !Sub arn:aws:s3:::${AccountName}-${AWS::Region}-${S3DeploymentBucket}/*
+            Effect: Allow
+            Principal:
+              AWS:
+                - arn:aws:iam::npAccountNum:role/sls-external-service-role
+                - arn:aws:iam::pAccountNum:role/sls-external-service-role
+----
+
+=== The equivalent Terraform code is the following ...
+
+.module variables.tf
+[source, shell]
+----
+variable "bucket_policy_allowed_actions" {
+  type    = list(string)
+  default = [
+    "s3:Get*",
+    "s3:ListBucket",
+    "s3:GetLifecycleConfiguration",
+    "s3:PutObject",
+    "s3:DeleteObject"
+  ]
+}
+----
+
+The data file receives the value from variables ...
+
+.module data.tf
+[source, shell]
+----
+data "aws_iam_policy_document" "bucket_policy" {
+  statement {
+    principals {
+      type        = "AWS"
+      identifiers = var.bucket_policy_identifiers
+    }
+    actions = var.bucket_policy_allowed_actions
+
+    resources = [
+      var.bucket_arn,
+      "${var.bucket_arn}/*",
+    ]
+  }
+}
+----
+
+and the module main attaches the policy created in the `data.tf` to the `bucket_id` that will be received when the module
+is instantiated.
+
+.module main.tf
+[source, shell]
+----
+resource "aws_s3_bucket_policy" "bucket_policy" {
+  bucket = var.bucket_id                       # Passed in from s3 module
+  policy = data.aws_iam_policy_document.bucket_policy.json  # Created in THIS module
+}
+----
+
+=== Include S3 policy module
+
+.main.tf
+[source, shell]
+----
+module "s3_policies" {
+  source                        = "./modules/s3-policies"                                 # Where to find the module
+  #####################################################################################
+  aws_region                    = data.aws_region.current.name                            # Value retrieved in data.tf
+  aws_account                   = data.aws_caller_identity.current.account_id             # Value retrieved in data.tf
+  project_name                  = var.project_name                                        # Value passed in via variables.tf
+  bucket_arn                    = module.s3.aws_s3_bucket.arn                             # Value retrieved from module outputs.tf
+  bucket_id                     = module.s3.aws_s3_bucket.id                              # Value retrieved from module outputs.tf
+
+  # s3_policies module instantiation depends on the following modules; resources in modules declared within "depends_on"
+  # must complete instantiation prior to s3_policies instantiation.
+  depends_on = [
+    module.s3
+  ]
+}
+----
+
+
+
+
+
+
+
+
+
+
+
+
+

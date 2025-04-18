@@ -1,0 +1,71 @@
+= How To: Build and publish a library
+:toc:
+
+This page is to explain how to publish java libraries to an Aws CodeArtifact repository.
+
+[NOTE]
+This assumes an Aws Artifactory domain and repository has already been configured
+
+== How to get CodeArtifact token
+
+[source, shell]
+----
+aws codeartifact get-authorization-token --domain artifacts-br-np-benrhine --domain-owner YOUR-AWS-ACCOUNT-NUM --region us-west-2 --query authorizationToken
+----
+
+== Project Configuration
+
+Assuming you can get the CodeArtifact token ensure the following (or your library name / url) is added to your `build.gradle`
+
+[source, groovy]
+----
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+}
+
+publishing {
+    publications {
+        lambdaUtils(MavenPublication) {
+            from(components.java)
+        }
+    }
+    repositories {
+        maven {
+            name = "br-np-libraries"
+            url = uri("https://artifacts-br-np-benrhine-accountNumber.d.codeartifact.us-west-2.amazonaws.com/maven/br-np-libraries/")
+            credentials {
+                username "$vcsUser"
+                password "$vcsPass"
+            }
+        }
+    }
+}
+----
+
+== How to Publish
+
+To publish a test version of this artifact into your local `.m2` execute the following
+
+[source, shell]
+----
+./gradlew clean publishToMavenLocal
+----
+
+To publish from your local machine to the Aws CodeArtifact repo ...
+
+* Retrieve a code artifact token as described at the top of the README
+* Set the token into env var `CODEARTIFACT_AUTH_TOKEN`
+* Execute the following
+
+[source, shell]
+----
+./gradlew clean publish
+----
+
+== Reference
+
+- https://stackoverflow.com/questions/47657423/get-github-git-branch-for-aws-codebuild
+- https://github.com/clarityai-eng/codeartifact-gradle-plugin
+- https://medium.com/@chauyan/use-aws-codeartifact-in-your-project-7bf5d3e0d3dc
+

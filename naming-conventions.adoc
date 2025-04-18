@@ -1,0 +1,43 @@
+== Naming Conventions
+Naming conventions should be clear and conciese as well as clearly documented as to there meaning.
+
+=== Repositories
+It is suggested to give repositories a descriptive name. It is even better to give the repository a name that can be the same as the deployment name (i.e. in Docker, Aws, ect) for easy reference.
+
+=== Repositories that share an underlying technology
+It is suggested to give repositories names that not only reflect what the application is intended to do but if possible some of the technology that is used (i.e `TECHNOLOGY-APPLICATION-NAME`). This improves the clarity of the intent.
+
+==== Lambda
+Suggest repos that are intended to be deployed to Aws Lambda be named simlar to as follows `lambda-application-name`
+
+=== Deployed Lambda Services
+To improve visibility of a deployed application it is important that naming conventions are consistent so it is easy to say this item is associated with this product/project. It is also important that the naming conventions is concise as some interfaces can only display so many characters reducing the visiibility of portions of the application. For this reason clear and documented abbreviations (short names) are recommended to keep the AWS Console clean and easy to read.
+
+Once deployed all lambda services should share the following naming convention (i.e. `TECHNOLOGY-APPLIATION-NAME`) which results in names like the following ...
+
+* lan-service
+* lbc-service
+
+Thus it is more or less following the same convention as the repository naming convention except we are shortening the names for clarity but still reflecting the technology and the action intent.
+
+* ex. (l)ambda-(a)pplication-(n)ame-service - _lan-service_
+
+=== Short Names (ABV)
+Short names are leveraged throughout these applications to provide a clear and consistent naming convention for deployed applications, dynamodb tables, sns, sqs, roles, and policy names. So why do this?
+
+* makes groups of application resources quickly visible to the casual viewer
+* easy searchability within Aws interfaces. i.e. its easy to search for lpsc and get all related resources back where it is much more cumbersome to search `lambda-application-name` 
+* short names are used in the creation of all resources (roles, policies, db, sns, sqs, service deploy)
+
+=== Other variations
+You may also see the following
+
+* CONTROLLING-TECHNOLOGY-NAME-ENVIRONMENT
+** sls-ltr-dev
+** what technology was used to implement this, what this is, where it is
+* NAME-TOOL-ENVIRONMENT
+** ldr-queue-topic-dev
+** what this is, what tool is being used, where it is
+* NAME-TOOL-ENVIRONMENT-EXTRA
+** ldr-queue-topic-dev-alert
+** what this is, what tool is being used, where it is, modifier

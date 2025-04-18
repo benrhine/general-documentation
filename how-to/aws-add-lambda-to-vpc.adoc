@@ -1,0 +1,34 @@
+= How To: Add a lambda function to a VPC
+
+When using Serverless Framework it is actually exceptionally easy to add a Lambda function to a pre-configured VPC.
+In order to do this just update your `serverless.yml` file with the following ...
+
+[source, yaml]
+----
+provider:
+  ...
+  vpc:
+    securityGroupIds:
+      - YOUR-SECURITY-GROUP-IDS
+    subnetIds:
+      - YOUR-SUBNET-IDS
+      - YOUR-SUBNET-IDS
+      - YOUR-SUBNET-IDS
+----
+
+[WARNING]
+Adding this causes *EXTREMELY* long delete times. In the event that you need to remove a lambda that has been added to a
+VPC expect that remove time goes from a minute or two to approximately an hour or longer. This may also cause a versioning
+issue as after having added this I have seen intermittent deploy failures related to Aws not being able to version correctly.
+
+[WARNING]
+This can be solved by keeping another lambda stub running that is connected to the VPC.
+
+== Reference
+
+- https://www.reddit.com/r/aws/comments/w7nj57/cloudformation_stack_stuck_in_delete_in_progress/
+- https://stackoverflow.com/questions/47957820/lambda-in-vpc-deletion-takes-more-time
+- https://www.serverless.com/framework/docs/providers/aws/guide/functions#vpc-configuration
+- https://stackoverflow.com/questions/50498620/serverless-framework-add-lambda-to-an-existing-vpc-and-subnet
+
+

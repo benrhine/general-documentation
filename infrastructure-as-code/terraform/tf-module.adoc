@@ -1,0 +1,53 @@
+= Terraform Modules
+:toc:
+
+== What is a Terraform Module?
+Terraform modules are a way to modularize sections of a project terraform code for re-use in order to increase readability,
+reduce code duplication, and to potentially be time-saving re-use between multiple projects.
+
+[NOTE]
+https://developer.hashicorp.com/terraform/language/modules[Official Documentation on Modules]
+
+== How is it similar to the ROOT Module?
+
+This nomenclature may seem confusing when first starting out as you are thinking what is the ROOT module? The ROOT module
+is simply the minimum required terraform files declared in your top level project directory. These files were discussed
+in detail on the main Terraform page link:tf.adoc#_add_terraform_to_your_project[here]. In short modules are extremely
+similar to the root module. It should be expected that all modules will have most of the following files ...
+
+* `terraform.tf`
+* `main.tf`
+* `data.tf`
+* `variables.tf`
+* `outputs.tf`
+
+== Should each module declare a provider?
+
+No. generally each Terraform module should not declare is own provider; instead, the provider configuration should be
+defined in the root module and inherited by all child modules, meaning only the rood module needs to explicitly declare
+providers within its `required_providers` block.
+
+== How are they different?
+
+Modules should be developed with the intent that they are configurable and re-usable. Meaning, define the module in such
+a way that specific values can be passed in to configure the resource but that the module can be used to create any number
+of that given resource provided the appropriate configuration.
+
+
+
+
+
+== Reference
+
+- https://spacelift.io/blog/what-are-terraform-modules-and-how-do-they-work
+- https://developer.hashicorp.com/terraform/tutorials/modules/module-create
+- https://developer.hashicorp.com/terraform/language/modules
+
+
+
+
+
+
+
+
+

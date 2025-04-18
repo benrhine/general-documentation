@@ -1,0 +1,88 @@
+= Serverless: (AWS) Create DynamoDB table
+
+[WARNING]
+*READ THIS FIRST!!!* There are several large issues to this page; while this will create a dynamo table I am _VERY_ unsure
+of if the attributes are correct. I have not had to put a table into production, so I do not know if the read/write
+capacity causes issues.
+
+[CAUTION]
+The `DeletionPolicy` is tricky and may cause deployment issues. Enabling it does ensure that
+the table will not be deleted, but if you re-run the deployment, it will cause issues as there is no way to "skip" an
+existing resource. Additionally, if you attempt to remove the infrastructure, this will fail, and while it may be the only
+failing component of the remove and it is expected it will mark the whole build as failed. Lastly, the `DeletionPolicy`
+is not an attribute that is available to every IaC framework.
+
+[CAUTION]
+For DynamoDB access to be successful the application using the table must be running with a role that has a minimum `dynamodb`
+access policy as defined under link:sls-aws-create-dynamo-table.adoc#_permissions_required[permissions required].
+
+
+[NOTE]
+Be aware this process is exactly the same as link:../aws/aws-cf-create-dynamo-table.adoc[CloudFormation: (AWS) Create DynamoDB table]
+*_EXCEPT_* for the `Resources` block being contained under an additional `resources` block. This is due to how
+Serverless creates resources; Serverless resource creation is just pure CloudFormation.
+
+[NOTE]
+To view details on DynamoDB, see link:../../cloud/infrastructure/aws/aws-dynamodb.adoc[Aws: DynamoDB]
+
+[TIP]
+DynamoDB has a free tier and provides 25GB of storage, along with 25 provisioned Write and 25 provisioned Read Capacity
+Units (WCU, RCU) which is enough to handle 200M requests per month
+(see https://aws.amazon.com/dynamodb/pricing/[here]).
+
+
+[source, yaml]
+----
+resources:                               # Specify all resources below
+  Resources:                             # Resource list
+    PersonsDynamoDBTable:
+      Type: AWS::DynamoDB::Table
+      #DeletionPolicy: Retain  # makes sure it does not get deleted but will still fail when it attempts to recreate
+      Properties:
+        TableName: ${self:custom.tablePerson}
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: N
+        #          - AttributeName: name
+        #            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        #          - AttributeName: name
+        #            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+----
+
+== Permissions Required
+
+Minimum required permissions set to be attached to the role that is being used to execute the application in order for
+it to be able to access DynamoDB.
+
+[source, yaml]
+----
+  - PolicyName: ${self:custom.appShortName}-dynamo-policy
+    PolicyDocument:
+      Version: '2012-10-17'
+      Statement:
+        - Effect: Allow
+          Action:
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+          Resource:
+            - { "Fn::GetAtt": [ "PersonsDynamoDBTable", "Arn" ] }
+----
+
+
+
+
+
+
+== Reference
+
+

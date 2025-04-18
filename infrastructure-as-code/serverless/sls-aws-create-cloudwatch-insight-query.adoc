@@ -1,0 +1,82 @@
+= Serverless: (AWS) Create CloudWatch Insight Query
+
+[CAUTION]
+Please be aware that to be able to save a Log Insight Query using IaC the executing role
+will require the `logs:PutQueryDefinition` IAM permission.
+
+[NOTE]
+Be aware this process is exactly the same as link:../aws/aws-cf-create-cloudwatch-insight-query.adoc[CloudFormation: (AWS) Create CloudWatch Insight Query]
+*_EXCEPT_* CloudFormation only has a single `Resources` block. It does not require the additional `resources` block that
+Serverless uses.
+
+[NOTE]
+To view suggested pre-defined queries see link:../../cloud/infrastructure/aws/aws-cloudwatch-insights-json.adoc[CloudWatch Insights for JSON logs]
+
+.serverless.yml
+[source, yaml]
+----
+resources:
+	Resources:
+    # Pre-defined Log Insights Queries ---------------------------------------------------------------------------------
+    generalFindAllDebugQueryDefinition:
+      Type: AWS::Logs::QueryDefinition
+      Properties:
+        Name: "general-find-all-debug"
+        QueryString: 'DEBUG'
+    generalFindAllInfoQueryDefinition:
+      Type: AWS::Logs::QueryDefinition
+      Properties:
+        Name: "general-find-all-info"
+        QueryString: 'INFO'
+    generalFindAllWarningsQueryDefinition:
+      Type: AWS::Logs::QueryDefinition
+      Properties:
+        Name: "general-find-all-warnings"
+        QueryString: 'WARNING'
+    generalFindAllErrorsQueryDefinition:
+      Type: AWS::Logs::QueryDefinition
+      Properties:
+        Name: "general-find-all-errors"
+        QueryString: 'ERROR'
+    generalFindAllAwsXrayQueryDefinition:
+      Type: AWS::Logs::QueryDefinition
+      Properties:
+        Name: "general-find-all-aws-xray"
+        QueryString: 'AWS_XRAY'
+    generalFindAllJsonDebugQueryDefinition:
+      Type: AWS::Logs::QueryDefinition
+      Properties:
+        Name: "general-find-all-json-debug"
+        QueryString: 'fields @timestamp, @message, @logStream, @log | filter level = "WARN" | sort @timestamp desc | limit 20'
+    generalFindAllJsonInfoQueryDefinition:
+      Type: AWS::Logs::QueryDefinition
+      Properties:
+        Name: "general-find-all-json-info"
+        QueryString: 'fields @timestamp, @message, @logStream, @log | filter level = "INFO" | sort @timestamp desc | limit 20'
+    generalFindAllJsonWarningsQueryDefinition:
+      Type: AWS::Logs::QueryDefinition
+      Properties:
+        Name: "general-find-all-json-warnings"
+        QueryString: 'fields @timestamp, @message, @logStream, @log | filter level = "WARN" | sort @timestamp desc | limit 20'
+    generalFindAllJsonErrorsQueryDefinition:
+      Type: AWS::Logs::QueryDefinition
+      Properties:
+        Name: "general-find-all-json-errors"
+        QueryString: 'fields @timestamp, @message, @logStream, @log | filter level = "ERROR" | sort @timestamp desc | limit 20'
+    generalFindAllJsonColdStartTrueQueryDefinition:
+      Type: AWS::Logs::QueryDefinition
+      Properties:
+        Name: "general-find-all-json-cold-start-true"
+        QueryString: 'fields @timestamp, @message, @logStream, @log | filter coldStart = "true" | sort @timestamp desc | limit 20'
+    generalFindAllJsonColdStartFalseQueryDefinition:
+      Type: AWS::Logs::QueryDefinition
+      Properties:
+        Name: "general-find-all-json-cold-start-false"
+        QueryString: 'fields @timestamp, @message, @logStream, @log | filter coldStart = "false" | sort @timestamp desc | limit 20'
+----
+
+
+
+
+
+

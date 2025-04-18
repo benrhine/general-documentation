@@ -1,0 +1,617 @@
+= Chechov
+
+.Click here to expand ...
+[%collapsible]
+====
+[source, shell]
+----
+╰ checkov -d ~/Repository/experiments/learn-terraform-role-test/learn-terraform-role-test                                                                                                21.0.4+7-LTS 
+[ secrets framework ]: 100%|████████████████████|[21/21], Current File Scanned=/Users/fz203f/Repository/experiments/learn-terraform-role-test/learn-terraform-role-test/modules/s3-policies/variables.tf
+[ terraform framework ]: 100%|████████████████████|[18/18], Current File Scanned=variables.tf                    
+
+
+       _               _
+   ___| |__   ___  ___| | _______   __
+  / __| '_ \ / _ \/ __| |/ / _ \ \ / /
+ | (__| | | |  __/ (__|   < (_) \ V /
+  \___|_| |_|\___|\___|_|\_\___/ \_/
+
+By Prisma Cloud | version: 3.2.370
+Update available 3.2.370 -> 3.2.372
+Run pip3 install -U checkov to update
+
+
+terraform scan results:
+
+Passed checks: 97, Failed checks: 5, Skipped checks: 0
+
+Check: CKV_AWS_41: "Ensure no hard coded AWS access key and secret key exists in provider"
+        PASSED for resource: aws.default
+        File: /main.tf:2-5
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/secrets-policies/bc-aws-secrets-5
+Check: CKV_AWS_274: "Disallow IAM roles, users, and groups from using the AWS AdministratorAccess policy"
+        PASSED for resource: module.base-roles.aws_iam_role.create_base_assumed_service_role
+        File: /modules/iam-base-roles/main.tf:13-30
+        Calling File: /main.tf:19-21
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-274
+Check: CKV_AWS_60: "Ensure IAM role allows only specific services or principals to assume it"
+        PASSED for resource: module.base-roles.aws_iam_role.create_base_assumed_service_role
+        File: /modules/iam-base-roles/main.tf:13-30
+        Calling File: /main.tf:19-21
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-iam-44
+Check: CKV_AWS_274: "Disallow IAM roles, users, and groups from using the AWS AdministratorAccess policy"
+        PASSED for resource: module.base-roles.aws_iam_role_policy_attachment.attach_managed_policy
+        File: /modules/iam-base-roles/main.tf:33-36
+        Calling File: /main.tf:19-21
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-274
+Check: CKV_AWS_274: "Disallow IAM roles, users, and groups from using the AWS AdministratorAccess policy"
+        PASSED for resource: module.base-roles.aws_iam_role_policy_attachment.attach-policy
+        File: /modules/iam-base-roles/main.tf:43-50
+        Calling File: /main.tf:19-21
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-274
+Check: CKV_AWS_274: "Disallow IAM roles, users, and groups from using the AWS AdministratorAccess policy"
+        PASSED for resource: module.base-roles.aws_iam_role.create_base_service_role
+        File: /modules/iam-base-roles/main.tf:61-82
+        Calling File: /main.tf:19-21
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-274
+Check: CKV_AWS_61: "Ensure AWS IAM policy does not allow assume role permission across all services"
+        PASSED for resource: module.base-roles.aws_iam_role.create_base_service_role
+        File: /modules/iam-base-roles/main.tf:61-82
+        Calling File: /main.tf:19-21
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-iam-45
+Check: CKV_AWS_60: "Ensure IAM role allows only specific services or principals to assume it"
+        PASSED for resource: module.base-roles.aws_iam_role.create_base_service_role
+        File: /modules/iam-base-roles/main.tf:61-82
+        Calling File: /main.tf:19-21
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-iam-44
+Check: CKV_AWS_274: "Disallow IAM roles, users, and groups from using the AWS AdministratorAccess policy"
+        PASSED for resource: module.base-roles.aws_iam_role_policy_attachment.attach_tf_resource_iam_policy
+        File: /modules/iam-base-roles/main.tf:92-99
+        Calling File: /main.tf:19-21
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-274
+Check: CKV_AWS_274: "Disallow IAM roles, users, and groups from using the AWS AdministratorAccess policy"
+        PASSED for resource: module.base-roles.aws_iam_role_policy_attachment.attach_tf_codebuild_resource_policy
+        File: /modules/iam-base-roles/main.tf:101-108
+        Calling File: /main.tf:19-21
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-274
+Check: CKV_AWS_274: "Disallow IAM roles, users, and groups from using the AWS AdministratorAccess policy"
+        PASSED for resource: module.base-roles.aws_iam_role_policy_attachment.attach_tf_codepipeline_resource_policy
+        File: /modules/iam-base-roles/main.tf:110-117
+        Calling File: /main.tf:19-21
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-274
+Check: CKV_AWS_274: "Disallow IAM roles, users, and groups from using the AWS AdministratorAccess policy"
+        PASSED for resource: module.base-roles.aws_iam_role_policy_attachment.attach_tf_ssm_policy
+        File: /modules/iam-base-roles/main.tf:118-125
+        Calling File: /main.tf:19-21
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-274
+Check: CKV_AWS_274: "Disallow IAM roles, users, and groups from using the AWS AdministratorAccess policy"
+        PASSED for resource: module.base-roles.aws_iam_role_policy_attachment.attach_tf_assume_role_policy
+        File: /modules/iam-base-roles/main.tf:126-133
+        Calling File: /main.tf:19-21
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-274
+Check: CKV_AWS_358: "Ensure AWS GitHub Actions OIDC authorization policies only allow safe claims and claim order"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-resource-iam-policy
+        File: /modules/iam-policies/data.tf:13-28
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/iam-358
+Check: CKV_AWS_108: "Ensure IAM policies does not allow data exfiltration"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-resource-iam-policy
+        File: /modules/iam-policies/data.tf:13-28
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-do-not-allow-data-exfiltration
+Check: CKV_AWS_111: "Ensure IAM policies does not allow write access without constraints"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-resource-iam-policy
+        File: /modules/iam-policies/data.tf:13-28
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-do-not-allow-write-access-without-constraint
+Check: CKV_AWS_49: "Ensure no IAM policies documents allow "*" as a statement's actions"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-resource-iam-policy
+        File: /modules/iam-policies/data.tf:13-28
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-iam-43
+Check: CKV_AWS_107: "Ensure IAM policies does not allow credentials exposure"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-resource-iam-policy
+        File: /modules/iam-policies/data.tf:13-28
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-do-not-allow-credentials-exposure
+Check: CKV_AWS_356: "Ensure no IAM policies documents allow "*" as a statement's resource for restrictable actions"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-resource-iam-policy
+        File: /modules/iam-policies/data.tf:13-28
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-356
+Check: CKV_AWS_109: "Ensure IAM policies does not allow permissions management / resource exposure without constraints"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-resource-iam-policy
+        File: /modules/iam-policies/data.tf:13-28
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-do-not-allow-permissions-management-resource-exposure-without-constraint
+Check: CKV_AWS_283: "Ensure no IAM policies documents allow ALL or any AWS principal permissions to the resource"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-resource-iam-policy
+        File: /modules/iam-policies/data.tf:13-28
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-283
+Check: CKV_AWS_1: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-resource-iam-policy
+        File: /modules/iam-policies/data.tf:13-28
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/iam-23
+Check: CKV_AWS_110: "Ensure IAM policies does not allow privilege escalation"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-resource-iam-policy
+        File: /modules/iam-policies/data.tf:13-28
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-does-not-allow-privilege-escalation
+Check: CKV_AWS_358: "Ensure AWS GitHub Actions OIDC authorization policies only allow safe claims and claim order"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-codebuild-resource-policy
+        File: /modules/iam-policies/data.tf:30-40
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/iam-358
+Check: CKV_AWS_108: "Ensure IAM policies does not allow data exfiltration"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-codebuild-resource-policy
+        File: /modules/iam-policies/data.tf:30-40
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-do-not-allow-data-exfiltration
+Check: CKV_AWS_49: "Ensure no IAM policies documents allow "*" as a statement's actions"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-codebuild-resource-policy
+        File: /modules/iam-policies/data.tf:30-40
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-iam-43
+Check: CKV_AWS_107: "Ensure IAM policies does not allow credentials exposure"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-codebuild-resource-policy
+        File: /modules/iam-policies/data.tf:30-40
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-do-not-allow-credentials-exposure
+Check: CKV_AWS_109: "Ensure IAM policies does not allow permissions management / resource exposure without constraints"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-codebuild-resource-policy
+        File: /modules/iam-policies/data.tf:30-40
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-do-not-allow-permissions-management-resource-exposure-without-constraint
+Check: CKV_AWS_283: "Ensure no IAM policies documents allow ALL or any AWS principal permissions to the resource"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-codebuild-resource-policy
+        File: /modules/iam-policies/data.tf:30-40
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-283
+Check: CKV_AWS_1: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-codebuild-resource-policy
+        File: /modules/iam-policies/data.tf:30-40
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/iam-23
+Check: CKV_AWS_110: "Ensure IAM policies does not allow privilege escalation"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-codebuild-resource-policy
+        File: /modules/iam-policies/data.tf:30-40
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-does-not-allow-privilege-escalation
+Check: CKV_AWS_358: "Ensure AWS GitHub Actions OIDC authorization policies only allow safe claims and claim order"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-codepipeline-resource-policy
+        File: /modules/iam-policies/data.tf:42-54
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/iam-358
+Check: CKV_AWS_108: "Ensure IAM policies does not allow data exfiltration"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-codepipeline-resource-policy
+        File: /modules/iam-policies/data.tf:42-54
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-do-not-allow-data-exfiltration
+Check: CKV_AWS_49: "Ensure no IAM policies documents allow "*" as a statement's actions"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-codepipeline-resource-policy
+        File: /modules/iam-policies/data.tf:42-54
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-iam-43
+Check: CKV_AWS_107: "Ensure IAM policies does not allow credentials exposure"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-codepipeline-resource-policy
+        File: /modules/iam-policies/data.tf:42-54
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-do-not-allow-credentials-exposure
+Check: CKV_AWS_109: "Ensure IAM policies does not allow permissions management / resource exposure without constraints"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-codepipeline-resource-policy
+        File: /modules/iam-policies/data.tf:42-54
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-do-not-allow-permissions-management-resource-exposure-without-constraint
+Check: CKV_AWS_283: "Ensure no IAM policies documents allow ALL or any AWS principal permissions to the resource"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-codepipeline-resource-policy
+        File: /modules/iam-policies/data.tf:42-54
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-283
+Check: CKV_AWS_1: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-codepipeline-resource-policy
+        File: /modules/iam-policies/data.tf:42-54
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/iam-23
+Check: CKV_AWS_110: "Ensure IAM policies does not allow privilege escalation"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-codepipeline-resource-policy
+        File: /modules/iam-policies/data.tf:42-54
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-does-not-allow-privilege-escalation
+Check: CKV_AWS_358: "Ensure AWS GitHub Actions OIDC authorization policies only allow safe claims and claim order"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-ssm-policy
+        File: /modules/iam-policies/data.tf:56-65
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/iam-358
+Check: CKV_AWS_108: "Ensure IAM policies does not allow data exfiltration"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-ssm-policy
+        File: /modules/iam-policies/data.tf:56-65
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-do-not-allow-data-exfiltration
+Check: CKV_AWS_111: "Ensure IAM policies does not allow write access without constraints"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-ssm-policy
+        File: /modules/iam-policies/data.tf:56-65
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-do-not-allow-write-access-without-constraint
+Check: CKV_AWS_49: "Ensure no IAM policies documents allow "*" as a statement's actions"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-ssm-policy
+        File: /modules/iam-policies/data.tf:56-65
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-iam-43
+Check: CKV_AWS_107: "Ensure IAM policies does not allow credentials exposure"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-ssm-policy
+        File: /modules/iam-policies/data.tf:56-65
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-do-not-allow-credentials-exposure
+Check: CKV_AWS_356: "Ensure no IAM policies documents allow "*" as a statement's resource for restrictable actions"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-ssm-policy
+        File: /modules/iam-policies/data.tf:56-65
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-356
+Check: CKV_AWS_109: "Ensure IAM policies does not allow permissions management / resource exposure without constraints"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-ssm-policy
+        File: /modules/iam-policies/data.tf:56-65
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-do-not-allow-permissions-management-resource-exposure-without-constraint
+Check: CKV_AWS_283: "Ensure no IAM policies documents allow ALL or any AWS principal permissions to the resource"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-ssm-policy
+        File: /modules/iam-policies/data.tf:56-65
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-283
+Check: CKV_AWS_1: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-ssm-policy
+        File: /modules/iam-policies/data.tf:56-65
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/iam-23
+Check: CKV_AWS_110: "Ensure IAM policies does not allow privilege escalation"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-ssm-policy
+        File: /modules/iam-policies/data.tf:56-65
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-does-not-allow-privilege-escalation
+Check: CKV_AWS_358: "Ensure AWS GitHub Actions OIDC authorization policies only allow safe claims and claim order"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-assume-role-policy
+        File: /modules/iam-policies/data.tf:71-79
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/iam-358
+Check: CKV_AWS_108: "Ensure IAM policies does not allow data exfiltration"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-assume-role-policy
+        File: /modules/iam-policies/data.tf:71-79
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-do-not-allow-data-exfiltration
+Check: CKV_AWS_111: "Ensure IAM policies does not allow write access without constraints"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-assume-role-policy
+        File: /modules/iam-policies/data.tf:71-79
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-do-not-allow-write-access-without-constraint
+Check: CKV_AWS_49: "Ensure no IAM policies documents allow "*" as a statement's actions"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-assume-role-policy
+        File: /modules/iam-policies/data.tf:71-79
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-iam-43
+Check: CKV_AWS_107: "Ensure IAM policies does not allow credentials exposure"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-assume-role-policy
+        File: /modules/iam-policies/data.tf:71-79
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-do-not-allow-credentials-exposure
+Check: CKV_AWS_356: "Ensure no IAM policies documents allow "*" as a statement's resource for restrictable actions"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-assume-role-policy
+        File: /modules/iam-policies/data.tf:71-79
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-356
+Check: CKV_AWS_109: "Ensure IAM policies does not allow permissions management / resource exposure without constraints"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-assume-role-policy
+        File: /modules/iam-policies/data.tf:71-79
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-do-not-allow-permissions-management-resource-exposure-without-constraint
+Check: CKV_AWS_283: "Ensure no IAM policies documents allow ALL or any AWS principal permissions to the resource"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-assume-role-policy
+        File: /modules/iam-policies/data.tf:71-79
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-283
+Check: CKV_AWS_1: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-assume-role-policy
+        File: /modules/iam-policies/data.tf:71-79
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/iam-23
+Check: CKV_AWS_110: "Ensure IAM policies does not allow privilege escalation"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-assume-role-policy
+        File: /modules/iam-policies/data.tf:71-79
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-does-not-allow-privilege-escalation
+Check: CKV_AWS_358: "Ensure AWS GitHub Actions OIDC authorization policies only allow safe claims and claim order"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-log-policy
+        File: /modules/iam-policies/data.tf:81-93
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/iam-358
+Check: CKV_AWS_108: "Ensure IAM policies does not allow data exfiltration"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-log-policy
+        File: /modules/iam-policies/data.tf:81-93
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-do-not-allow-data-exfiltration
+Check: CKV_AWS_111: "Ensure IAM policies does not allow write access without constraints"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-log-policy
+        File: /modules/iam-policies/data.tf:81-93
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-do-not-allow-write-access-without-constraint
+Check: CKV_AWS_49: "Ensure no IAM policies documents allow "*" as a statement's actions"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-log-policy
+        File: /modules/iam-policies/data.tf:81-93
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-iam-43
+Check: CKV_AWS_107: "Ensure IAM policies does not allow credentials exposure"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-log-policy
+        File: /modules/iam-policies/data.tf:81-93
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-do-not-allow-credentials-exposure
+Check: CKV_AWS_356: "Ensure no IAM policies documents allow "*" as a statement's resource for restrictable actions"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-log-policy
+        File: /modules/iam-policies/data.tf:81-93
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-356
+Check: CKV_AWS_109: "Ensure IAM policies does not allow permissions management / resource exposure without constraints"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-log-policy
+        File: /modules/iam-policies/data.tf:81-93
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-do-not-allow-permissions-management-resource-exposure-without-constraint
+Check: CKV_AWS_283: "Ensure no IAM policies documents allow ALL or any AWS principal permissions to the resource"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-log-policy
+        File: /modules/iam-policies/data.tf:81-93
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-283
+Check: CKV_AWS_1: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-log-policy
+        File: /modules/iam-policies/data.tf:81-93
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/iam-23
+Check: CKV_AWS_110: "Ensure IAM policies does not allow privilege escalation"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-log-policy
+        File: /modules/iam-policies/data.tf:81-93
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-does-not-allow-privilege-escalation
+Check: CKV_AWS_63: "Ensure no IAM policies documents allow "*" as a statement's actions"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy.tf_resource_iam_policy
+        File: /modules/iam-policies/main.tf:5-9
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/iam-48
+Check: CKV_AWS_62: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy.tf_resource_iam_policy
+        File: /modules/iam-policies/main.tf:5-9
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-iam-45
+Check: CKV_AWS_63: "Ensure no IAM policies documents allow "*" as a statement's actions"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy.tf_codebuild_resource_policy
+        File: /modules/iam-policies/main.tf:11-15
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/iam-48
+Check: CKV_AWS_62: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy.tf_codebuild_resource_policy
+        File: /modules/iam-policies/main.tf:11-15
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-iam-45
+Check: CKV_AWS_63: "Ensure no IAM policies documents allow "*" as a statement's actions"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy.tf_codepipeline_resource_policy
+        File: /modules/iam-policies/main.tf:17-21
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/iam-48
+Check: CKV_AWS_62: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy.tf_codepipeline_resource_policy
+        File: /modules/iam-policies/main.tf:17-21
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-iam-45
+Check: CKV_AWS_63: "Ensure no IAM policies documents allow "*" as a statement's actions"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy.tf_ssm_policy
+        File: /modules/iam-policies/main.tf:23-27
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/iam-48
+Check: CKV_AWS_62: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy.tf_ssm_policy
+        File: /modules/iam-policies/main.tf:23-27
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-iam-45
+Check: CKV_AWS_63: "Ensure no IAM policies documents allow "*" as a statement's actions"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy.tf_assume_role_policy
+        File: /modules/iam-policies/main.tf:29-33
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/iam-48
+Check: CKV_AWS_62: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+        PASSED for resource: module.base-roles.module.iam_policies.aws_iam_policy.tf_assume_role_policy
+        File: /modules/iam-policies/main.tf:29-33
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-iam-45
+Check: CKV_AWS_358: "Ensure AWS GitHub Actions OIDC authorization policies only allow safe claims and claim order"
+        PASSED for resource: module.s3.module.s3_policies.aws_iam_policy_document.deployment_bucket_policy
+        File: /modules/s3-policies/data.tf:7-30
+        Calling File: /modules/s3/main.tf:4-8
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/iam-358
+Check: CKV_AWS_108: "Ensure IAM policies does not allow data exfiltration"
+        PASSED for resource: module.s3.module.s3_policies.aws_iam_policy_document.deployment_bucket_policy
+        File: /modules/s3-policies/data.tf:7-30
+        Calling File: /modules/s3/main.tf:4-8
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-do-not-allow-data-exfiltration
+Check: CKV_AWS_111: "Ensure IAM policies does not allow write access without constraints"
+        PASSED for resource: module.s3.module.s3_policies.aws_iam_policy_document.deployment_bucket_policy
+        File: /modules/s3-policies/data.tf:7-30
+        Calling File: /modules/s3/main.tf:4-8
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-do-not-allow-write-access-without-constraint
+Check: CKV_AWS_49: "Ensure no IAM policies documents allow "*" as a statement's actions"
+        PASSED for resource: module.s3.module.s3_policies.aws_iam_policy_document.deployment_bucket_policy
+        File: /modules/s3-policies/data.tf:7-30
+        Calling File: /modules/s3/main.tf:4-8
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-iam-43
+Check: CKV_AWS_107: "Ensure IAM policies does not allow credentials exposure"
+        PASSED for resource: module.s3.module.s3_policies.aws_iam_policy_document.deployment_bucket_policy
+        File: /modules/s3-policies/data.tf:7-30
+        Calling File: /modules/s3/main.tf:4-8
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-do-not-allow-credentials-exposure
+Check: CKV_AWS_356: "Ensure no IAM policies documents allow "*" as a statement's resource for restrictable actions"
+        PASSED for resource: module.s3.module.s3_policies.aws_iam_policy_document.deployment_bucket_policy
+        File: /modules/s3-policies/data.tf:7-30
+        Calling File: /modules/s3/main.tf:4-8
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-356
+Check: CKV_AWS_109: "Ensure IAM policies does not allow permissions management / resource exposure without constraints"
+        PASSED for resource: module.s3.module.s3_policies.aws_iam_policy_document.deployment_bucket_policy
+        File: /modules/s3-policies/data.tf:7-30
+        Calling File: /modules/s3/main.tf:4-8
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-do-not-allow-permissions-management-resource-exposure-without-constraint
+Check: CKV_AWS_283: "Ensure no IAM policies documents allow ALL or any AWS principal permissions to the resource"
+        PASSED for resource: module.s3.module.s3_policies.aws_iam_policy_document.deployment_bucket_policy
+        File: /modules/s3-policies/data.tf:7-30
+        Calling File: /modules/s3/main.tf:4-8
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-283
+Check: CKV_AWS_1: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+        PASSED for resource: module.s3.module.s3_policies.aws_iam_policy_document.deployment_bucket_policy
+        File: /modules/s3-policies/data.tf:7-30
+        Calling File: /modules/s3/main.tf:4-8
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/iam-23
+Check: CKV_AWS_110: "Ensure IAM policies does not allow privilege escalation"
+        PASSED for resource: module.s3.module.s3_policies.aws_iam_policy_document.deployment_bucket_policy
+        File: /modules/s3-policies/data.tf:7-30
+        Calling File: /modules/s3/main.tf:4-8
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-does-not-allow-privilege-escalation
+Check: CKV_AWS_93: "Ensure S3 bucket policy does not lockout all but root user. (Prevent lockouts needing root account fixes)"
+        PASSED for resource: module.s3.module.s3_policies.aws_s3_bucket_policy.deployment_bucket_policy
+        File: /modules/s3-policies/main.tf:8-11
+        Calling File: /modules/s3/main.tf:4-8
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/bc-aws-s3-24
+Check: CKV_AWS_93: "Ensure S3 bucket policy does not lockout all but root user. (Prevent lockouts needing root account fixes)"
+        PASSED for resource: module.s3.aws_s3_bucket.deploy_bucket
+        File: /modules/s3/main.tf:10-20
+        Calling File: /main.tf:7-9
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/bc-aws-s3-24
+Check: CKV_AWS_53: "Ensure S3 bucket has block public ACLS enabled"
+        PASSED for resource: module.s3.aws_s3_bucket_public_access_block.deploy_bucket
+        File: /modules/s3/main.tf:32-39
+        Calling File: /main.tf:7-9
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/bc-aws-s3-19
+Check: CKV_AWS_54: "Ensure S3 bucket has block public policy enabled"
+        PASSED for resource: module.s3.aws_s3_bucket_public_access_block.deploy_bucket
+        File: /modules/s3/main.tf:32-39
+        Calling File: /main.tf:7-9
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/bc-aws-s3-20
+Check: CKV_AWS_55: "Ensure S3 bucket has ignore public ACLs enabled"
+        PASSED for resource: module.s3.aws_s3_bucket_public_access_block.deploy_bucket
+        File: /modules/s3/main.tf:32-39
+        Calling File: /main.tf:7-9
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/bc-aws-s3-21
+Check: CKV_AWS_56: "Ensure S3 bucket has 'restrict_public_buckets' enabled"
+        PASSED for resource: module.s3.aws_s3_bucket_public_access_block.deploy_bucket
+        File: /modules/s3/main.tf:32-39
+        Calling File: /main.tf:7-9
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/bc-aws-s3-22
+Check: CKV_AWS_337: "Ensure SSM parameters are using KMS CMK"
+        PASSED for resource: module.ssm.aws_ssm_parameter.deployment_bucket_name_property
+        File: /modules/ssm/main.tf:4-14
+        Calling File: /main.tf:11-14
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/bc-aws-337
+Check: CKV_AWS_337: "Ensure SSM parameters are using KMS CMK"
+        PASSED for resource: module.ssm.aws_ssm_parameter.deployment_legacy_bucket_name_property
+        File: /modules/ssm/main.tf:31-41
+        Calling File: /main.tf:11-14
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/bc-aws-337
+Check: CKV_AWS_61: "Ensure AWS IAM policy does not allow assume role permission across all services"
+        FAILED for resource: module.base-roles.aws_iam_role.create_base_assumed_service_role
+        File: /modules/iam-base-roles/main.tf:13-30
+        Calling File: /main.tf:19-21
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-iam-45
+
+                13 | resource "aws_iam_role" "create_base_assumed_service_role" {
+                14 |   name = "tf-base-assumed-service-role"
+                15 |   description = "This is the base role that will be assumed"
+                16 |   assume_role_policy = <<EOF
+                17 | {
+                18 |   "Version": "2012-10-17",
+                19 |   "Statement": [
+                20 |       {
+                21 |           "Effect": "Allow",
+                22 |           "Principal": {
+                23 |               "AWS": "arn:aws:iam::accountNumber:root"
+                24 |           },
+                25 |           "Action": "sts:AssumeRole"
+                26 |       }
+                27 |   ]
+                28 | }
+                29 | EOF
+                30 | }
+
+Check: CKV_AWS_111: "Ensure IAM policies does not allow write access without constraints"
+        FAILED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-codebuild-resource-policy
+        File: /modules/iam-policies/data.tf:30-40
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-do-not-allow-write-access-without-constraint
+
+                30 | data "aws_iam_policy_document" "tf-codebuild-resource-policy" {
+                31 |   statement {
+                32 |     actions   = [
+                33 |       "codebuild:CreateProject",
+                34 |       "codebuild:UpdateProject",
+                35 |       "codebuild:DeleteProject"
+                36 |     ]
+                37 |     resources = ["*"]
+                38 |     effect = "Allow"
+                39 |   }
+                40 | }
+
+Check: CKV_AWS_356: "Ensure no IAM policies documents allow "*" as a statement's resource for restrictable actions"
+        FAILED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-codebuild-resource-policy
+        File: /modules/iam-policies/data.tf:30-40
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-356
+
+                30 | data "aws_iam_policy_document" "tf-codebuild-resource-policy" {
+                31 |   statement {
+                32 |     actions   = [
+                33 |       "codebuild:CreateProject",
+                34 |       "codebuild:UpdateProject",
+                35 |       "codebuild:DeleteProject"
+                36 |     ]
+                37 |     resources = ["*"]
+                38 |     effect = "Allow"
+                39 |   }
+                40 | }
+
+Check: CKV_AWS_111: "Ensure IAM policies does not allow write access without constraints"
+        FAILED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-codepipeline-resource-policy
+        File: /modules/iam-policies/data.tf:42-54
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-do-not-allow-write-access-without-constraint
+
+                42 | data "aws_iam_policy_document" "tf-codepipeline-resource-policy" {
+                43 |   statement {
+                44 |     actions   = [
+                45 |       "codepipeline:GetPipeline",
+                46 |       "codepipeline:CreatePipeline",
+                47 |       "codepipeline:UpdatePipeline",
+                48 |       "codepipeline:DeletePipeline",
+                49 |       "codepipeline:GetPipelineState"
+                50 |     ]
+                51 |     resources = ["*"]
+                52 |     effect = "Allow"
+                53 |   }
+                54 | }
+
+Check: CKV_AWS_356: "Ensure no IAM policies documents allow "*" as a statement's resource for restrictable actions"
+        FAILED for resource: module.base-roles.module.iam_policies.aws_iam_policy_document.tf-codepipeline-resource-policy
+        File: /modules/iam-policies/data.tf:42-54
+        Calling File: /modules/iam-base-roles/main.tf:3-6
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-356
+
+                42 | data "aws_iam_policy_document" "tf-codepipeline-resource-policy" {
+                43 |   statement {
+                44 |     actions   = [
+                45 |       "codepipeline:GetPipeline",
+                46 |       "codepipeline:CreatePipeline",
+                47 |       "codepipeline:UpdatePipeline",
+                48 |       "codepipeline:DeletePipeline",
+                49 |       "codepipeline:GetPipelineState"
+                50 |     ]
+                51 |     resources = ["*"]
+                52 |     effect = "Allow"
+                53 |   }
+                54 | }
+----
+====
+
+== Reference
+
+- https://medium.com/contino-engineering/terraform-infrastructure-as-code-testing-best-practice-unit-tests-bdd-end-to-end-scenario-c30d5a6921d

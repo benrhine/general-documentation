@@ -1,0 +1,10 @@
+= Coverity
+
+Coverity is static analysis tool similar to PMD, Checkstyle, ect ...
+
+== Reference
+
+* https://github.com/mjdetullio/gradle-coverity-plugin
+* https://plugins.gradle.org/plugin/com.github.mjdetullio.gradle.coverity
+* https://scan.coverity.com/faq
+

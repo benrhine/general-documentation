@@ -1,0 +1,6 @@
+= Scrum: Misc / Uncategorized / Needs further research
+
+== Reference
+
+- https://community.atlassian.com/forums/Bitbucket-questions/Git-work-flow-for-pull-request-in-large-team/qaq-p/891553#:~:text=Once%20a%20developer%20is%20done,from%20the%20develop%20and%20delivered
+- https://softwareengineering.stackexchange.com/questions/410482/how-do-i-prevent-scrum-from-turning-great-developers-into-average-developers

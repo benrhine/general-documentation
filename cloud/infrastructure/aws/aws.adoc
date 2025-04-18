@@ -1,0 +1,41 @@
+= AWS
+:toc:
+
+Notes and setups for AWS specific items.
+
+== Setup
+
+* link:aws-setup-cli.adoc[Setup: Aws CLI]
+* link:aws-setup-code-commit.adoc[Setup: CodeCommit]
+* link:aws-setup-code-build.adoc[Setup: CodeBuild]
+* link:aws-setup-code-pipeline.adoc[Setup: CodePipeline]
+
+
+== How To
+
+* link:../../../cloud/infrastructure/aws/aws-cli.adoc[How To: Aws CLI Usage]
+* link:../../../how-to/aws-powertools.adoc[How To: Power Tools]
+* link:../../../how-to/aws-build-time-credentialing.adoc[How To: Build time credentialing]
+* link:../../../how-to/aws-get-generated-lambda-uri.adoc[How To: Get generated Aws Lambda URI]
+* link:../../../how-to/aws-snap-start-java.adoc[How To: SnapStart for Java]
+* link:../../../how-to/aws-codebuild-after-recreating-resources.adoc[How To: Aws CodeBuild after recreating resources]
+
+== Services
+
+* link:aws-setup-code-build.adoc[CodeBuild]
+** link:aws-setup-code-build-single.adoc[Single Build]
+** link:aws-setup-code-build-multiple.adoc[Multi Build]
+* link:aws-iam.adoc[IAM]
+* link:aws-lambda.adoc[Lambda]
+* link:aws-cognito.adoc[Cognito]
+* link:aws-alarms.adoc[Alarms]
+
+== Verify Dependency Caching
+
+* https://aws.amazon.com/blogs/devops/how-to-enable-caching-for-aws-codebuild/
+
+== Reference
+
+* https://aws.amazon.com/blogs/devops/setting-up-a-secure-ci-cd-pipeline-in-a-private-amazon-virtual-private-cloud-with-no-public-internet-access/
+
+

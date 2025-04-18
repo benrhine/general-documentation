@@ -1,0 +1,32 @@
+= Lambda Authorizers
+
+* https://dev.to/aws-builders/secure-your-api-gateway-apis-with-lambda-authorizer-3b7g
+* https://stackoverflow.com/questions/66522902/using-cognito-for-authentication-and-custom-authorizer-for-authorization
+* https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-integrate-with-cognito.html
+* https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html
+* https://hackernoon.com/application-authentication-aws-cognito-vs-json-web-token
+* https://hackernoon.com/application-authentication-aws-cognito-vs-json-web-token
+* https://www.serverless.com/framework/docs/providers/aws/events/http-api#jwt-authorizers
+* https://www.serverless.com/framework/docs/providers/aws/events/cognito-user-pool
+* https://stackoverflow.com/questions/55667603/creating-aws-cognito-user-pool-from-serverless-yml
+* https://sst.dev/archives/configure-cognito-user-pool-in-serverless.html
+* https://www.codegigs.app/how-to-cognito-user-pool-using-serverless/
+* how+to+test+lambda+authorizer&rlz=1C1GCEU_enUS1059US1059&oq=how+to+test+lambda+auth&gs_lcrp=EgZjaHJvbWUqCAgBEAAYFhgeMgYIABBFGDkyCAgBEAAYFhgeMggIAhAAGBYYHjIICAMQABgWGB4yCggEEAAYhgMYigUyCggFEAAYhgMYigUyCggGEAAYhgMYigUyCggHEAAYhgMYigXSAQg5MzEwajFqN6gCALACAA&sourceid=chrome&ie=UTF-8
+* https://docs.aws.amazon.com/apigateway/latest/developerguide/configure-api-gateway-lambda-authorization-with-console.html
+* can+you+redirect+directly+from+cognito&rlz=1C1GCEU_enUS1059US1059&oq=can+you+redirect+directly+from+cognito&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIHCAEQIRigATIHCAIQIRigAdIBCDcyMjBqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8
+* https://stackoverflow.com/questions/69858533/replacement-for-hibernates-deprecated-type-annotation
+* https://stackoverflow.com/questions/75354646/using-type-for-binary-data-in-hibernate-6
+* https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-lambda-authorizer.html
+* https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-use-lambda-authorizer.html
+* https://github.com/awslabs/aws-apigateway-lambda-authorizer-blueprints/blob/master/blueprints/java/src/io/TokenAuthorizerContext.java
+* https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-controlling-access-to-apis-lambda-authorizer.html
+* how+to+use+lambda+authorizer&rlz=1C1GCEU_enUS1059US1059&oq=how+to+enable+lambda+author&gs_lcrp=EgZjaHJvbWUqCAgBEAAYFhgeMgYIABBFGDkyCAgBEAAYFhgeMgoIAhAAGIYDGIoFMgoIAxAAGIYDGIoF0gEINzI0OGowajeoAgCwAgA&sourceid=chrome&ie=UTF-8
+* https://repost.aws/knowledge-center/decode-verify-cognito-json-token
+* https://stackoverflow.com/questions/37984290/how-to-get-validate-cognito-access-token-in-aws-lambda-to-allow-gateway-api-call
+* aws+java+lambda+authorizer+example&rlz=1C1GCEU_enUS1059US1059&oq=aws+java+lambda+authorizer+example&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIICAEQABgWGB4yCggCEAAYhgMYigUyCggDEAAYhgMYigXSAQg5MDY0ajBqN6gCALACAA&sourceid=chrome&ie=UTF-8
+* https://adrin-mukherjee.medium.com/get-more-out-of-lambda-authorizers-use-response-context-c4cdbe1cf8ce
+* lambda+authorizer+parse+cognito+token&rlz=1C1GCEU_enUS1059US1059&oq=lambda+authorizer+parse+cognito&gs_lcrp=EgZjaHJvbWUqBwgBECEYoAEyBggAEEUYOTIHCAEQIRigAdIBCDg3ODRqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8
+* https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html
+* can+lambda+authorizer+read+values+from+oauth+token&rlz=1C1GCEU_enUS1059US1059&oq=can+lambda+authorizer+read+values+from+oauth+token&aqs=chrome..69i57j33i160l4.8538j0j7&sourceid=chrome&ie=UTF-8
+* https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-use-lambda-authorizer.html
+* https://medium.com/chegg/creating-an-api-gateway-lambda-authorizer-985b4f011770

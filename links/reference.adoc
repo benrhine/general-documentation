@@ -1,0 +1,77 @@
+= Reference
+
+* https://intellipaat.com/community/2369/downloading-the-latest-file-in-an-s3-bucket-using-aws-cli
+* https://intellipaat.com/community/534/how-to-display-just-the-name-of-files-using-aws-s3-ls-command
+* https://stackoverflow.com/questions/31062365/get-last-modified-object-from-s3-using-aws-cli
+* https://awscli.amazonaws.com/v2/documentation/api/latest/reference/s3api/list-objects-v2.html
+* https://www.learnaws.org/2022/10/10/aws-s3-list-files-date/
+* https://repost.aws/knowledge-center/move-objects-s3-bucket
+* https://stackoverflow.com/questions/61792045/if-i-use-aws-cli-s3-mv-command-what-type-of-request-is-behind-that
+* https://stackoverflow.com/questions/41733318/how-to-delete-multiple-files-in-s3-bucket-with-aws-cli
+* https://awsfundamentals.com/blog/aws-s3-ls#heading-combing-aws-s3-ls-with-grep-to-filter-for-filess
+
+== Profiles
+
+* https://shubham-pandey.medium.com/serverless-deployment-with-different-aws-profiles-fbe6f8b4f3c
+
+== Secret Manager
+
+* https://medium.com/vectoscalar/access-secrets-manager-values-in-serverless-framework-script-4eb6361f3c50
+* https://www.serverless.com/blog/aws-secrets-management/
+* https://www.serverless.com/framework/docs
+* https://awstip.com/accessing-aws-secrets-manager-with-the-serverless-framework-c85be3c9b9c0
+* https://stackoverflow.com/questions/42273010/where-to-put-the-ssl-keystore-jks-and-how-to-access-it-from-jar
+* https://stackoverflow.com/questions/63297764/lambda-function-cant-access-secrets-manager
+
+== Snap Start / Alias
+
+* https://medium.com/swlh/serverless-alias-insight-e1db93a69562
+* https://webcache.googleusercontent.com/search?q=cache:QQw1QYlFFooJ:https://medium.com/swlh/serverless-alias-insight-e1db93a69562&hl=en&gl=us&strip=1&vwsrc=0&sei=BFS9Z_CYG--4kPIPjpbMgAs
+
+== Read pfx in java
+
+* https://stackoverflow.com/questions/15130548/how-can-i-read-the-content-of-a-pfx-file-in-java
+* https://medium.com/i-me-myself-naveen/java-ssl-within-aws-lambda-39f87c1c03f2
+
+== log level
+
+* https://forum.serverless.com/t/how-do-i-get-my-lambda-function-to-have-a-different-log-level-depending-on-stage/17769
+* https://stackoverflow.com/questions/51651507/is-it-possible-to-change-the-log-level-of-an-aws-lambda-at-runtime
+* https://docs.aws.amazon.com/lambda/latest/dg/java-logging.html#java-logging-sam
+* https://github.com/awsdocs/aws-lambda-developer-guide/blob/main/sample-apps/s3-java/src/main/java/example/Handler.java
+* https://stackoverflow.com/questions/48033792/log4j2-error-statuslogger-unrecognized-conversion-specifier
+* https://venkatarchitect.medium.com/lambda-logging-2dc9908b760b
+* https://markilott.medium.com/aws-lambda-powertools-b74baa36ac61
+* https://github.com/aws-powertools/powertools-lambda-java/issues/551
+* https://medium.com/i-love-my-local-farmer-engineering-blog/serverless-observability-made-easy-with-lambda-powertools-for-java-metrics-logging-863bed8c6310
+* https://github.com/pytorch/serve/issues/2359
+* https://docs.aws.amazon.com/lambda/latest/dg/java-logging.html
+
+== financial
+
+* https://www.youtube.com/results?search_query=earn+5000+a+month+dividends+portfolio
+* https://www.youtube.com/watch?v=b8H97bvdJvw&t=431s
+* https://www.youtube.com/watch?v=b2-wP0UEERc
+* https://www.youtube.com/watch?v=PaYFzGKbwgA
+
+== convert pfx to jks
+
+* https://medium.com/developerneeds/converting-pfx-to-java-keystore-jks-and-use-with-application-servers-699d62739f36
+
+== JS Gradle
+
+* https://medium.com/@gkkomensi/packaging-react-and-springboot-applications-with-gradle-23b76523512c
+* https://shekhargulati.com/2019/01/13/running-tests-and-building-react-applications-with-gradle-build-tool/
+* https://gradle.com/blog/how-to-improve-react-and-javascript-build-performance-with-gradle-enterprise/
+
+== sqs testing locally
+
+* https://rieckpil.de/amazon-sqs-listener-testing-with-sqstest-spring-cloud-aws/
+* https://github.com/localstack/localstack
+* https://www.linkedin.com/pulse/testing-aws-sns-sqs-locally-spring-boot-docker-uraz-pokharel/
+* https://medium.com/agorapulse-stories/how-to-unit-test-aws-services-with-localstack-and-testcontainers-1d39fe5dc6c2
+* https://medium.com/expedia-group-tech/how-to-emulate-sqs-amazon-queue-for-testing-purpose-d9db7f4143b1
+* https://www.luminis.eu/blog/java-with-lambda-does-not-have-to-be-slow/
+* https://blog.contactsunny.com/tech/overriding-spring-boot-properties-in-amazon-lambda
+* https://stackoverflow.com/questions/52926367/aws-lambda-loading-the-properties-file-according-to-aws-account
+

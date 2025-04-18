@@ -1,0 +1,144 @@
+= AWS: Base IAM Roles
+:toc:
+
+Whenever a new AWS account is being setup a set of base roles that provide permissions for various account actions must
+be created.
+
+These roles can be created in various ways such as with CloudFormation, Terraform or in some situations manually. It is
+important to attempt to build the most self-contained process as possible to keep everything simple and easy.
+
+[CAUTION]
+Having base IAM roles is a requirement for *EVERY* separate account. I.e a role defined in a tools account will not be
+available in the non-prod or prod accounts.
+
+== Compare role creation via a framework
+
+For a comparative analysis of the various ways to create roles see the following ...
+
+* link:../comparison/compare-iac-role.adoc[Compare: Creating a IAM Role]
+* link:../comparison/compare-iac-role-policies.adoc[Compare: Creating a IAM Role Policy]
+
+== Automated role creation (Preferred)
+
+If possible the base roles should be created with an IaC tool and put under version control as best practice. This allows
+for easy future updates and serves as its own level of documentation as to what has been set up in a given account.
+
+* If you are using CloudFormation and your individual user has the permissions, it should be possible to create a role by
+uploading and deploying a CloudFormation template, (see link:../aws/aws-cf-create-role-complete.adoc[here]).
+* If you are using Terraform and your individual user has the permissions, it should be possible to create a role by
+executing a Terraform script, (see link:../terraform/tf-aws-create-role-complete.adoc[here]).
+* If you are using Serverless this is not possible without also using CloudFormation or Terraform.
+
+[TIP]
+Use the policy and details in the link:aws-base-iam-roles.adoc#_manual_role_creation[manual section]
+of this page as the basis for any automatically created base roles.
+
+== Manual role creation
+
+=== Expanded permissions role
+
+==== Policy
+Start by creating a policy named `sls-assumed-role-iam-policy` with the following permission set
+
+[source, json]
+----
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iam:AttachRolePolicy",
+                "iam:CreateRole",
+                "iam:GetRole",
+                "iam:PassRole",
+                "iam:DeleteRole",
+                "iam:DeleteRolePolicy",
+                "iam:DetachRolePolicy",
+                "iam:PutRolePolicy"
+            ],
+            "Resource": "arn:aws:iam::YOUR-ACCOUNT-ID:role/*"
+        }
+    ]
+}
+----
+
+==== Role
+
+Next, create a role with expanded permissions that other roles can assume. Name this role
+`codebuild-base-sls-domain-service-assumed-role`. Make sure it has the following trust policy ...
+
+[source, json]
+----
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::YOUR-ACCOUNT-ID:root"
+            },
+            "Action": "sts:AssumeRole",
+            "Condition": {}
+        }
+    ]
+}
+----
+
+Finally, grant this role the `PowerUserPermissions` (maybe admin) followed by attaching the `sls-assumed-role-iam-policy`
+that was created.
+
+=== Standard Role
+
+It is highly suggestible when creating the first CodeBuild job to allow it to create the default role. When CodeBuild is
+suggesting that it create a role provide it with the following role name `codebuild-base-sls-domain-resources-deploy-service-role`.
+After having allowed AWS to generate this role for you go create a new policy named `sls-domain-resources-policy` and
+provide it the following permissions ...
+
+[CAUTION]
+See that the previously created assumed role is specified for which resources are allowed
+
+[source, json]
+----
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": [
+                "sts:AssumeRole"
+            ],
+            "Resource": [
+                "arn:aws:iam::YOUR-ACCOUNT-ID:role/codebuild-base-sls-domain-service-assumed-role"
+            ],
+            "Effect": "Allow"
+        }
+    ]
+}
+----
+
+Now with the policy created go attach the `sls-domain-resources-policy` to the `codebuild-base-sls-domain-resources-deploy-service-role`.
+
+The trust policy on this role should look as follows ...
+
+[source, json]
+----
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "Service": "codebuild.amazonaws.com"
+            },
+            "Action": "sts:AssumeRole"
+        }
+    ]
+}
+----
+
+
+
+
+
+
+

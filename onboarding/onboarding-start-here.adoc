@@ -1,0 +1,73 @@
+= Start Here: Onboarding
+:toc:
+
+== Application Documentation
+
+=== Documentation
+Documentation is written in Confluence or Asciidoc
+
+- link:../best-practices/best-practices.adoc[Best Practices]
+- link:../build/build.adoc[Build]
+- link:../cloud/cloud-infrastructure.adoc[Cloud Infrastructure]
+- link:../data/data.adoc[Data]
+- link:../deployment/deployment.adoc[Deployment]
+- link:../environments/environments.adoc[Environments]
+- link:../infrastructure-as-code/iac.adoc[Infrastructure as Code]
+- link:../libraries/libraries.adoc[Libraries]
+- link:../properties/properties.adoc[Properties]
+- link:../metrics/metrics-reference.adoc[Metrics]
+- link:../recovery/disaster-recovery.adoc[Disaster Recovery]
+- link:../style/style.adoc[Style]
+- link:../support/support.adoc[Support]
+- link:../technology/technology.adoc[Technology]
+- link:../testing/testing.adoc[Testing]
+- link:../third-party-services/third-party-services.adoc[Third Party Services]
+- link:../tooling/tooling.adoc[Tooling]
+- link:../training/training.adoc[Training]
+- link:../tutorials/tutorials.adoc[Tutorials]
+- link:../naming-conventions.adoc[Naming Conventions]
+- link:../troubleshooting.adoc[Troubleshooting]
+
+=== Code Repositories
+github/gitlab/codecommit
+
+=== Training
+
+=== Jira
+
+=== Versions
+==== Java
+- 21
+
+==== Maven
+- n/a
+
+==== Gradle
+- 8.7+
+
+=== Okta
+Links to your okta
+
+=== Team Mailing List
+
+=== Primary Team Contacts
+
+== Setup Process
+
+=== Step 0: Links
+Important links that you will need, most of the above will be imported when you import the bookmarks. Arm yourself with
+knowledge you will need - link:../setups/configure-bookmarks.adoc[Configure: Bookmarks]
+
+=== Step 1: Access Request
+In order to be able to perform the following setup you will need to have expanded access approved, do this first to get
+moving - see link:../setups/access-requests.adoc[Access Requests]
+
+=== Step 2: Request Slack Access
+To get access to slack, recommend doing this at the same time you are working on Access Requests - see link:../setups/request-slack-access.adoc[Request Slack Access]
+
+=== Step 3: System Setup
+How to correctly configure your system - Choose your path
+
+- link:../setups/linux.adoc[Linux]
+- link:../setups/mac-os.adoc[MacOS]
+- link:../setups/windows.adoc[Windows]

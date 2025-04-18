@@ -1,0 +1,19 @@
+= Troubleshooting
+
+A directory of all troubleshooting documentation ...
+
+* link:build/build-maven-troubleshooting.adoc[Build: Maven Troubleshooting]
+* link:build/build-gradle-troubleshooting.adoc[Build: Gradle Troubleshooting]
+* link:infrastructure-as-code/aws/aws-cf-troubleshooting.adoc[CloudFormation: Troubleshooting]
+* link:infrastructure-as-code/serverless/sls-troubleshooting.adoc[Serverless: Troubleshooting]
+* link:infrastructure-as-code/terraform/tf-troubleshooting.adoc[Terraform: Troubleshooting]
+* link:cloud/infrastructure/aws/aws-cli-troubleshooting.adoc[CLI: Troubleshooting]
+* link:cloud/infrastructure/aws/aws-cdk-troubleshooting.adoc[CDK: Troubleshooting]
+* link:cloud/infrastructure/aws/aws-sam-troubleshooting.adoc[SAM: Troubleshooting]
+* link:cloud/infrastructure/aws/aws-dynamodb-troubleshooting.adoc[DynamoDB: Troubleshooting]
+
+
+
+
+
+

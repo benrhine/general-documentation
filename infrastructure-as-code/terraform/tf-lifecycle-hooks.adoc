@@ -1,0 +1,11 @@
+= Terraform: Lifecycle Hooks
+
+
+
+
+
+
+
+
+== References
+- https://developer.hashicorp.com/terraform/tutorials/configuration-language/custom-conditions

@@ -1,0 +1,82 @@
+= Scrum: Pointing Process / Scale
+
+It is important to be using the same scale when talking about time and complexity to ensure that everyone is on the same page. To ensure that this page will cover the pointing process and the general scale.
+
+To follow the industry standard a Fibonacci pointing scale will be used (0.5, 1, 2, 3, 5, 8, 13, 21 …)
+
+
+|===
+|0.5 - 1 |2 - 3 |5 - 8
+
+|These are essentially the simplest tickets available.
+
+_An example of a 0.5 is something is misspelled in html and needs to be updated._
+
+_An example of a 1 is a line of text needs to be added or simple layout change is required._
+
+[CAUTION]
+These changes are characterized by generally not requiring any testing effort and less than 4 hours of real time work.
+
+|These tickets (in theory) should be your average size tickets.
+
+_An example of a 2 may be refactoring an already working function or adding additional error checking or prevention to working code._
+
+_An example of a 3 may be adding a new well-defined feature or function to an application (inclusive of both unit and int testing)_
+
+[CAUTION]
+These changes are characterized by being well defined and well understood by the team. Similar work has been done before with other areas in the code that can be referenced including testing examples. This work should be expected to take between 1-3 work days or real time.
+
+|Tickets with a size of 5 - 8 include complex logic, items that are not well understood, or items that are challenging to break apart.
+
+_An example of a 5 may be the business has requested a new function and it is not clear how that will integrate with
+existing logic and function and may cause issues in other areas of the application._
+
+_An example of an 8 (the max size allowable in a sprint) a new feature has been requested, a spike has been done, and
+there are still open questions on how the code will function. It should be expected that this work will cause challenges
+within a codebase that will need to be remediated and or integrated into this work._
+
+[CAUTION]
+These changes are characterized by not being fully understood or still having open questions on what will be necessary
+to complete the work. These may be the first time performing a specific action where no examples are available. It should
+be expected that a 5 will take about a weeks worth of time where an 8 should be considered a full sprint worth of work.
+
+|===
+
+[WARNING]
+It is important to note the points represent complexity, *NOT TIME!!!* While loose time estimates are provided above for
+reference, points need to be thought about and discussed as complexity as this will help determine if tickets need to be
+broken down further.
+
+== Maximum Workable Ticket Size is 8
+
+Traditionally at many companies a ticket with 13 points is considered the max ticket size allowed to be brought into a
+given sprint. This means the ticket will take an individual a full 2 weeks, starting on day 1 all the way through the
+end of the final day of the sprint. Some of the issues with this should be obvious when stopping to consider that this
+leaves no time for testing, for anything that may come up during a sprint, and is not taking into account the maximum
+amount of time an individual is normally productive. After many years and being on multiple teams that consistently have
+board problems and endless discussions on how to fix it I believe a 13 is to large. It is recommended that the absolute
+largest ticket allowed to be pulled into a sprint is 8 points, anything larger must be broken down into smaller components.
+Additionally, taking this approach is more in line with the Agile principles stated above as it is taking into account
+how the average individual works as well as allowing time internal to a team to deal with issues that arise during a sprint.
+_I.e. If 13 points is 100% of a sprint and 8 points is approximately 61.5% of a sprint, that means assuming only 80% (or
+~30 hours) is productive and only 80% of those 30 hours should be planned (~24 hours) that leaves 18% (or 7.2 hours) unplanned,
+which results in an effective workload of 31.2 hours or just slightly above where Agile states we should be._
+
+[NOTE]
+People are only productive about 30 hours a week and of that 30 hours only 80% (or 24 hours) should be planned. So on an
+average day that means in the 6 productive hours only about 5 will be planned. This allows a team to be able to respond
+to critical business issues and or production issues and bugs in an expected manner.
+
+
+
+
+
+
+
+
+
+
+
+
+
+

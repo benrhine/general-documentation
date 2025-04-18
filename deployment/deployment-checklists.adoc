@@ -1,0 +1,13 @@
+= Deployment: Checklist
+
+This lists all pre-deployment checklists for shared services projects
+
+- link:deployment-lyp-example-checklist.adoc[lyp-example-service]
+
+
+
+
+
+
+
+

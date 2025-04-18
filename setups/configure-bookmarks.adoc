@@ -1,0 +1,6 @@
+= Configure: Bookmarks
+
+A best effort has been made to collect all known resources as a bookmark export to ensure that all systems used by the
+team are easily accessible and documented. Please import these into a browser of your choice.
+
+TODO INSERT BOOKMARKS FILE HERE

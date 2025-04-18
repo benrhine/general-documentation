@@ -1,0 +1,69 @@
+= How To: Verify resource (file) location from a running lambda
+
+Attempting to verify file/resources in a running lambda can be a tricky endeavor. That while according to
+https://www.baeldung.com/run-shell-command-in-java[this article] it is possible to run ls  commands I have not found that to be purely true. While the command does run it does no seem to operate as expected.
+
+== ls command
+
+[WARNING]
+Command output is locked to the working dir
+
+When placing the following snippet in the lambda constructor
+
+[source, groovy]
+----
+final ExecutorService executorService = Executors.newSingleThreadExecutor();
+
+Process process3 = Runtime.getRuntime().exec(String.format("/bin/sh -c ls -alh %s", "/opt"));
+
+StreamGobbler streamGobbler3 = new StreamGobbler(process3.getInputStream(), System.out::println);
+Future<?> future3 = executorService.submit(streamGobbler3);
+
+int exitCode = process.waitFor();
+executorService.shutdown();
+----
+
+It does technically perform the `ls`, however it seems to disregard the parameter and only performs `ls` on the working
+dir at runtime. Hence, adding this command, you will only see the contents of the working dir which is `/var/task`
+within the lambda
+
+== pwd command
+
+The pwd command will work as expected to show your current directory in the logs with the following snippet
+
+[source, groovy]
+----
+final ExecutorService executorService = Executors.newSingleThreadExecutor();
+Process process = Runtime.getRuntime().exec("/bin/sh -c pwd");
+
+int exitCode = process.waitFor();
+executorService.shutdown();
+----
+
+== Verify a known filepath
+
+Once you are sure a file exists in this directory you can verify the full path with the following snippet
+
+[source, groovy]
+----
+final ExecutorService executorService = Executors.newSingleThreadExecutor();
+
+Process process5 = Runtime.getRuntime().exec("readlink -f basic_assurance_software_root_ca_g2.pem");
+
+StreamGobbler streamGobbler5 = new StreamGobbler(process5.getInputStream(), System.out::println);
+Future<?> future5 = executorService.submit(streamGobbler5);
+
+int exitCode = process.waitFor();
+executorService.shutdown();
+----
+
+== Reference
+
+- https://www.baeldung.com/run-shell-command-in-java
+- https://github.com/eugenp/tutorials/blob/master/core-java-modules/core-java-os/src/test/java/com/baeldung/shell/JavaProcessUnitIntegrationTest.java
+- https://github.com/eugenp/tutorials/blob/master/core-java-modules/core-java-os/pom.xml
+- https://linuxhandbook.com/get-file-path/
+
+
+
+

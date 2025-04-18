@@ -1,0 +1,76 @@
+= How To: Connect Unit Test Execution to Sonar in CI
+
+Adding unit tests and sonar directly to an application is a relatively simple process but unfortunately getting it to
+successfully execute as part of the CI process requires a bit more work.
+
+== Unit Tests
+
+As a quick refresher, execute unit tests with the following ./gradlew clean test for more details on unit testing please
+see link:../testing/testing-unit.adoc[here].
+
+=== Sonar
+
+As a quick refresher, execute sonar with the following ./gradlew clean sonar for more details on sonar please see
+link:../tooling/tooling-sonar.adoc[here].
+
+=== Executing Sonar in CI
+
+In order to be able to run sonar during CI we may need to connect the build to a VPC that has access to sonar AND a
+Service Now ticket requesting the ips from the Aws account be whitelisted with sonar may be necessary.
+
+[NOTE]
+It is assumed the CodeBuild job for sonar is already created and configured, if not please see link:../tooling/tooling-sonar.adoc[here]
+
+=== Configure CodeBuild Sonar Job
+
+- edit `APP-SHORT-NAME-unit-test-sonar-main
+
+image:images/connect-unit-1.png[]
+
+- Navigate to the bottom of the "Environment" section and expand "Additional configuration"
+
+image:images/connect-unit-2.png[]
+
+- Scroll to "VPC"
+
+image:images/connect-unit-3.png[]
+
+- Verify the build spec is `.codebuild/buildspec-unit-sonar.yml`
+
+image:images/connect-unit-4.png[]
+
+[NOTE]
+Please note settings shown are valid values to connect any sonar job in XXXX-tools to sonar
+
+- Verify the build spec is `.codebuild/buildspec-unit-sonar.yml`
+
+=== Jobs in Parallel
+
+If the job running sonar is being executed in parallel then the VPC configuration but be applied to the parallel job configuration as well.
+
+- edit `APP-SHORT-NAME-parallel-test-main
+
+image:images/connect-unit-5.png[]
+
+- Navigate to the bottom of the "Environment" section and expand "Additional configuration"
+
+image:images/connect-unit-2.png[]
+
+- Scroll to "VPC"
+
+image:images/connect-unit-3.png[]
+
+With the above configuration sonar can now be reached from the parallel job execution and during the pipeline phase.
+Info to include in Service Now Ticket
+
+
+TODO
+
+
+
+
+
+
+
+
+

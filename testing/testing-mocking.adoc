@@ -1,0 +1,98 @@
+= Testing: Mocking
+:toc:
+
+[WARNING]
+*DO NOT USE* PowerMockito or EasyMockito anymore. Neither of these libraries has been updated in several years and most of this functionality is now part of Mockito or Mockito-inline proper at this point.
+
+== JUnit 4
+
+=== Annotation Declarations
+
+The initial declaration for all unit tests should be `@RunWith(MockitoJUnitRunner.class)`
+
+When mocking dependencies for the class under test the `@Mock` and `@InjectMocks` annotation should be used instead of
+`MockitoAnnotations.initMocks . initMocks` is the legacy way of initializing test dependencies and will need to be removed
+prior to upgrading to JUnit5.
+
+=== Static Mocks
+
+Static mocks can be a bit tricky and if possible should not be used but in the event they are required here are several example
+
+=== Class Level Static Mock
+
+[source, java]
+----
+imports ...
+private static MockedStatic mockedStaticHashUtils;
+@BeforeClass
+public static void setupClass() {
+    mockedStaticHashUtils = mockStatic(HashUtils.class);
+}
+@AfterClass
+public static void cleanupClass() {
+    mockedStaticHashUtils.close();      // IMPORTANT!!! This absolutely must be included or you will get exceptions
+}
+@Before
+public void setup() {
+    ...
+    mockedStaticHashUtils.when(() -> HashUtils.calculateHash(any(MessageDigest.class), any(InputStream.class))).thenReturn(hash);
+    ...
+}
+----
+
+=== Static mock using auto close
+
+[source, java]
+----
+public void testSomething() {
+    try (MockedStatic mockStatic = mockStatic(Config.class)) {
+        // Given
+        mockStatic.when(() -> Config.getProperty("deltaset.resolver.topic")).thenReturn("topic");
+        mockStatic.when(() -> Config.getProperty("metadata.broker.list")).thenReturn("test");
+        // When
+        service.addSomething("TEST");
+        // Then
+        assertEquals("topic", Config.getProperty("deltaset.resolver.topic"));
+        assertEquals("test", Config.getProperty("metadata.broker.list"));
+        // And
+        mockStatic.verify(() -> Config.getProperty("deltaset.resolver.topic"));
+        mockStatic.verify(() -> Config.getProperty("metadata.broker.list"));
+    }
+}
+----
+
+=== Inline static mock of void method
+
+[source, java]
+----
+MockedStatic mockedStaticTransport = mockStatic(Transport.class);
+mockedStaticTransport.when(() -> Transport.send(any(MimeMessage.class))).thenAnswer((Answer<Void>) invocation -> null);
+Transport.send(any(MimeMessage.class));
+mockedStaticTransport.verify(() -> Transport.send(any(MimeMessage.class)), times(1));
+mockedStaticTransport.close();
+----
+
+== JUnit 5
+
+ToDo
+
+
+== References
+
+* https://www.baeldung.com/mockito-mock-static-methods
+* https://howtodoinjava.com/mockito/mock-static-methods/
+* https://stackoverflow.com/questions/21105403/mocking-static-methods-with-mockito
+* https://www.w3docs.com/snippets/java/mocking-static-methods-with-mockito.html
+* https://stackoverflow.com/questions/64463733/mockito-mock-a-static-void-method-with-mockito-mockstatic
+* https://stackoverflow.com/questions/63263662/mockito-3-4-0-static-mocking-exception
+* https://stackoverflow.com/questions/72337164/powermock-whennew-alternative
+
+
+
+
+
+
+
+
+
+

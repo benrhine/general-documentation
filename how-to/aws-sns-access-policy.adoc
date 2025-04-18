@@ -1,0 +1,105 @@
+= How To: SNS Access Policy
+:toc:
+
+The goal of this page is how to define a custom SNS access policy at resource deployment time
+
+By default, when creating a new SNS topic using serverless it will come with the following policy by default ...
+
+[source, json]
+----
+{
+  "Version": "2008-10-17",
+  "Id": "__default_policy_ID",
+  "Statement": [
+    {
+      "Sid": "__default_statement_ID",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "*"
+      },
+      "Action": [
+        "SNS:GetTopicAttributes",
+        "SNS:SetTopicAttributes",
+        "SNS:AddPermission",
+        "SNS:RemovePermission",
+        "SNS:DeleteTopic",
+        "SNS:Subscribe",
+        "SNS:ListSubscriptionsByTopic",
+        "SNS:Publish"
+      ],
+      "Resource": "arn:aws:sns:us-west-2:pAccountNum:lpsc-queue-topic-prod",
+      "Condition": {
+        "StringEquals": {
+          "AWS:SourceOwner": "pAccountNum"
+        }
+      }
+    }
+  ]
+}
+----
+
+The `Condition` statement will block access to the SNS topic from any external account.
+
+[CAUTION]
+Other than the all "*" wildcard, wildcards can not be used in the principal field
+
+- https://stackoverflow.com/questions/56678539/wildcard-at-end-of-principal-for-s3-bucket
+
+In order to allow other accounts to access remove the Condition  statement. This can be accomplished by applying the following policy from the serverless resources file
+
+[source, yaml]
+----
+receivingStageTopicAccessPolicy:
+  Type: AWS::SNS::TopicPolicy
+  Condition: CreateQueueNpResources
+  Properties:
+    PolicyDocument:
+      Id: ${self:custom.queueName}-topic-stage-access-policy
+      Statement:
+        - Action:
+            - "sns:Publish"
+            - "sns:GetTopicAttributes"
+            - "sns:SetTopicAttributes"
+            - "sns:AddPermission"
+            - "sns:RemovePermission"
+            - "sns:DeleteTopic"
+            - "sns:Subscribe"
+            - "sns:ListSubscriptionsByTopic"
+            - "sns:Publish"
+            - "sns:Receive"
+          Effect: Allow
+          # Note: Other than the all "*" wildcard, wildcards can not be used in the principal field
+          # https://stackoverflow.com/questions/56678539/wildcard-at-end-of-principal-for-s3-bucket
+          Principal:
+            AWS: "*"
+          Resource:
+            - !Ref receivingStageTopic
+          # To create the policy verbatim as the default policy uncomment the following 3 lines
+          # this will block all access except the creator account
+          #Condition:
+          #  StringEquals:
+          #    AWS:SourceOwner: ${AWS::AccountId}
+    Topics:
+      - !Ref receivingStageTopic
+----
+
+== Reference
+
+- https://stackoverflow.com/questions/56678539/wildcard-at-end-of-principal-for-s3-bucket
+- https://docs.aws.amazon.com/sns/latest/dg/sns-access-policy-use-cases.html
+- https://docs.aws.amazon.com/service-authorization/latest/reference/list_amazonsns.html
+- https://cloudkatha.com/how-to-create-aws-sns-topic-policy-using-cloudformation/
+- https://stackoverflow.com/questions/45019769/aws-sns-topic-policy-cloudformation
+- https://barstool.engineering/creating-an-sns-fanout-in-serverless/
+- https://stackoverflow.com/questions/61283700/error-while-doing-aws-lambda-cross-account-integration-with-aws-sns
+- https://repost.aws/knowledge-center/sns-publish-subscribe-troubleshooting
+- https://stackoverflow.com/questions/38871201/authorization-when-sending-a-text-message-using-amazonsnsclient
+- https://awstip.com/cross-account-integration-with-amazon-sns-sqs-using-terraform-332cdacaf58d
+- https://stackoverflow.com/questions/45383935/aws-cross-account-sns-publish
+- https://aws.amazon.com/blogs/compute/cross-account-integration-with-amazon-sns/
+- https://docs.aws.amazon.com/sns/latest/dg/sns-send-message-to-sqs-cross-account.html
+- https://repost.aws/knowledge-center/sns-cross-account-ec2-instance-iam-role
+
+
+
+

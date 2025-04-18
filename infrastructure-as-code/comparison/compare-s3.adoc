@@ -1,0 +1,109 @@
+= Compare: Creating a S3 Bucket
+:toc:
+
+[NOTE]
+Creating resources within both CloudFormation and Serverless Framework are exactly the same. Whenever you create a resource
+in Serverless, it is just RAW CloudFormation, Serverless is *only unique* when not creating resources.
+
+== Creating a new S3 bucket
+
+[WARNING]
+This is the first real short-coming of Terraform that has been found and that is there is no easy way to set the `DeletionPolicy`
+flag that is available to CloudFormation/Serverless.
+
+To create a new S3 bucket using either CloudFormation or Serverless Framework, you can add the following to
+either your CloudFormation template or your `serverless.yml`
+
+=== CloudFormation / Serverless declaration
+
+[source, yaml]
+----
+Resources:
+    ...
+  DeployBucket:                                                   # Create S3 bucket to contain ALL sls deployments
+    Type: AWS::S3::Bucket                                         # Resource type
+    DeletionPolicy: Retain                                        # DO NOT DELETE IF CLOUDFORMATION STACK IS REMOVED
+    Properties:
+      BucketName: !Sub ${AccountName}-${AWS::Region}-${S3DeploymentBucket}  # Set bucket name from configurable parameter
+      BucketEncryption:                                           # Configure bucket encryption
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      PublicAccessBlockConfiguration:                             # Configure public access - make sure all public access is blocked
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+----
+
+=== The equivalent Terraform code is the following ...
+
+[source, shell]
+----
+resource "aws_s3_bucket" "create_bucket" {
+  bucket = var.create_bucket_name
+
+  # HOW DO I SET THE DELETION POLICY - in research there is no equivalent to this in TF
+  # persistent resources need to be managed in a different project so TF can be ran differently
+
+  tags = {
+    Name        = var.name_tag
+    Environment = var.environment_tag
+  }
+}
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "create_bucket_encryption_configuration" {
+  bucket = aws_s3_bucket.create_bucket.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = var.create_bucket_sse_algorithm
+    }
+  }
+}
+
+resource "aws_s3_bucket_public_access_block" "create_bucket_public_access" {
+  bucket = aws_s3_bucket.create_bucket.id
+
+  block_public_acls       = var.create_bucket_block_public_acls
+  block_public_policy     = var.create_bucket_block_public_policy
+  ignore_public_acls      = var.create_bucket_ignore_public_acls
+  restrict_public_buckets = var.create_bucket_ignore_public_acls
+}
+----
+
+=== Include S3 module
+
+[source, shell]
+----
+module "s3" {
+  source                        = "./modules/s3"                                          # Where to find the module
+  ######################################################################################################################
+  aws_region                    = data.aws_region.current.name                            # Value retrieved in data.tf
+  aws_account                   = data.aws_caller_identity.current.account_id             # Value retrieved in data.tf
+  project_name                  = var.project_name                                        # Value passed in via variables.tf
+  # Custom defined value
+  create_bucket_name            = "tf-${data.aws_region.current.name}-cross-account-shared-services"
+  name_tag                      = var.name_tag                                            # Value passed in via variables.tf
+  environment_tag               = var.environment_tag                                     # Value passed in via variables.tf
+}
+----
+
+[CAUTION]
+The above module declaration *ONLY* creates the S3 bucket, it does not attach the policies!!!
+
+=== Fully create an S3 bucket in Terraform like CloudFormation/Serverless
+
+To fully create an S3 bucket like the CloudFormation/Serverless counterpart declaration, include the `s3` module as
+shown above. Include the `s3_policy` declaration as show link:compare-s3-policies.adoc#_include_s3_policy_module[here].
+This will complete attaching the bucket policy to the bucket.
+
+
+
+
+
+
+
+
+
+

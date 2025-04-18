@@ -1,0 +1,9 @@
+= Style:
+
+Code formatting and automatic styling that should be configured.
+
+== Reference
+
+- https://www.google.com/search?q=java+code+formatter+intellij&oq=java+code+form&gs_lcrp=EgZjaHJvbWUqBwgCEAAYgAQyDAgAEAAYQxiABBiKBTIGCAEQRRg5MgcIAhAAGIAEMgcIAxAAGIAEMgcIBBAAGIAEMgcIBRAAGIAEMgcIBhAAGIAEMgcIBxAAGIAEMgcICBAAGIAEMgcICRAAGIAE0gEINTI0N2owajSoAgCwAgE&sourceid=chrome&ie=UTF-8
+- https://stackoverflow.com/questions/42979700/how-to-configure-google-java-code-formatter-in-intellij-idea-17
+- https://google.github.io/styleguide/javaguide.html

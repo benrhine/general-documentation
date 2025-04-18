@@ -1,0 +1,8 @@
+= How To: Configure an Artifact Release Job
+
+The goal of this page is to describe how to release a pre-built artifact for promotion to other environments.
+
+
+
+
+

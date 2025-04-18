@@ -1,0 +1,156 @@
+= How To: Import certificate from lambda layer
+:toc:
+
+The goal of this page is to describe how to deploy a CA_CERT (ie root cert) to the application leveraging lambda layers
+
+== Build your certificate layer
+
+Building a layer to import a certificate is essentially exactly the same as
+link:aws-lambda-layers.adoc[How To: Lambda Layers], but there is some
+additional requirements to get everything working. The certificate layer can be modeled after this sub-folder in the
+lambda-layers-shared-services repository. Place your `cacert` file in the `src/main/resources` folder all other files can
+be copied and deployed just as this repo is.
+
+[WARNING]
+There is no direct way to verify the file path of something contained within a layer.
+
+[NOTE]
+Items contained within a layer are extracted to `/opt` and whatever the path is contained within your layer package.
+I.e. if you open the zipped layer and see the file at `/java/lib/my-file...` then the full path from the extracted layer
+will be `/opt/java/lib/my-file...` Pathing is visible in the `build.gradle` file
+
+[source, groovy]
+----
+tasks.register('buildLayer', Copy) {
+    into layout.buildDirectory.dir("layer/java/lib")
+    from processResources
+}
+----
+
+If following the linked
+link:aws-lambda-layers.adoc[How To: Lambda Layers] place the certificate under the `src/main/resources` folder. Then once a
+layer is deployed and a lambda ingests the layer the certificate will be available at `/opt/java/lib/my-file`.
+
+== Include the certificate in the application
+
+In order to link the application to the cert deployed in a layer you can use an environment variable. Depending on the
+language of choice, one of the following can be added to your application to specify the inbound additional cert.
+
+[source, yaml]
+----
+custom:
+    envVar:
+         CERT_LAYER_VERSION:
+            local:  ${env:CERT_LAYER_VERSION}
+            dev:    ${env:CERT_LAYER_VERSION}
+            test:   ${env:CERT_LAYER_VERSION}
+            rgrs:   ${env:CERT_LAYER_VERSION}
+            uat:    ${env:CERT_LAYER_VERSION}
+            stage:  ${env:CERT_LAYER_VERSION}
+            prod:   11
+         JAVA_TOOL_OPTIONS:                                                # Set JAVA_TOOL_OPTIONS by environment
+            local:  "-Djavax.net.ssl.trustStore=/opt/java/lib/cacerts -Djavax.net.ssl.trustStorePassword=changeit"
+            dev:    "-Djavax.net.ssl.trustStore=/opt/java/lib/cacerts -Djavax.net.ssl.trustStorePassword=changeit"
+            test:   "-Djavax.net.ssl.trustStore=/opt/java/lib/cacerts -Djavax.net.ssl.trustStorePassword=changeit"
+            rgrs:   "-Djavax.net.ssl.trustStore=/opt/java/lib/cacerts -Djavax.net.ssl.trustStorePassword=changeit"
+            uat:    "-Djavax.net.ssl.trustStore=/opt/java/lib/cacerts -Djavax.net.ssl.trustStorePassword=changeit"
+            stage:  "-Djavax.net.ssl.trustStore=/opt/java/lib/cacerts -Djavax.net.ssl.trustStorePassword=changeit"
+            prod:   "-Djavax.net.ssl.trustStore=/opt/java/lib/cacerts -Djavax.net.ssl.trustStorePassword=changeit"
+...
+provider:
+   environment:                # Set environment variables - these are available to the application at runtime
+    JAVA_TOOL_OPTIONS:              ${self:custom.envVar.JAVA_TOOL_OPTIONS.${self:custom.stage}}
+   layers:           # Layers can be set here for all functions or individually at the function level
+    # THESE VERSIONS ARE SET PROGRAMMATICALLY FROM THE buildspec.yml AND DECLARED ABOVE IN THE CUSTOM SECTION PER ENV
+    - !Sub arn:aws:lambda:${AWS::Region}:${self:custom.layerAccount}:layer:benrhine-root-cert:${self:custom.envVar.CERT_LAYER_VERSION.${self:custom.stage}}
+----
+
+== Environment Variables
+
+* JAVA_TOOL_OPTIONS - Java
+* NODE_EXTRA_CA_CERTS - Node
+* SSL_CERT_FILE - dotNet
+* REQUESTS_CA_BUNDLE - Python
+
+In our case using java add the following to your application.
+
+[source, shell]
+----
+JAVA_TOOL_OPTIONS: "-Djavax.net.ssl.trustStore=/opt/java/lib/your-cacerts -Djavax.net.ssl.trustStorePassword=changeit"
+----
+
+If you need additional low level debugging (which when working with ssl is often necessary) add the following option as well
+
+[source, shell]
+----
+JAVA_TOOL_OPTIONS: "-Djavax.net.debug=all -Djavax.net.ssl.trustStore=/opt/java/lib/your-cacerts -Djavax.net.ssl.trustStorePassword=changeit"
+----
+
+Environment variables can be manually defined once a lambda is published or they can be programmatically defined in your
+`serverless.yml` file or similar infrastructure deployment files.
+
+== Additional Java parameters
+
+Do where that all that is actually being defined within the environment variable is java parameters. In addition to the
+ones used above there is also
+
+* javax.net.ssl.keyStore
+* javax.net.ssl.keyStoreType
+* javax.net.ssl.keyStorePassword
+* javax.net.ssl.trustStore
+* javax.net.ssl.trustStoreType
+* javax.net.ssl.trustStorePassword
+
+== Verification
+
+=== Updated way
+
+If you need to be able to inspect which certs are loaded into the TrustStore during the lambda startup you can use
+TrustManagerUtils from the lambda-utils library. The lambda-utils library also contains additional utilities to help with debugging such as the KeystorUtils and the StringGobblerUtils which allow additional cert inspections and or the ability to execute bash commands from a running java application.
+
+=== Old Way
+
+In order to verify that the trustStore has in fact been replaced add the following to your lambda constructor. The default
+trustStore (as of the writing of this) contains 239 certificates. Depending on how many certs are included in the cert being loaded you should expect to see 1 (or more if your cert contains multiple).
+
+[source, java]
+----
+TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+trustManagerFactory.init((KeyStore) null);
+
+List<TrustManager> trustManagers = Arrays.asList(trustManagerFactory.getTrustManagers());
+List<X509Certificate> certificates = trustManagers.stream()
+        .filter(X509TrustManager.class::isInstance)
+        .map(X509TrustManager.class::cast)
+        .map(trustManager -> Arrays.asList(trustManager.getAcceptedIssuers()))
+        .flatMap(Collection::stream)
+        .collect(Collectors.toList());
+
+System.out.println("CERT SIZE " + certificates.size());
+
+for (X509Certificate cert : certificates) {
+    System.out.println(cert.getIssuerX500Principal());
+    //System.out.println(cert.getPublicKey());
+}
+----
+
+== Reference
+
+- https://forum.serverless.com/t/bundle-cert-with-lambda/12549
+- https://stackoverflow.com/questions/73399963/using-ssl-certificates-within-lambda
+- https://dev.to/leading-edje/aws-lambda-layer-for-private-certificates-465j
+- https://stackoverflow.com/questions/47175713/import-external-cert-in-aws
+- https://stackoverflow.com/questions/62509454/aws-java-sdk-ssl-certificates?rq=3
+- https://stackoverflow.com/questions/723368/how-to-use-pem-file-to-create-a-ssl-socket-in-java
+- https://mkyong.com/java/java-read-a-file-from-resources-folder/
+- https://docs.aws.amazon.com/lambda/latest/dg/packaging-layers.html
+- https://www.cloudtechsimplified.com/aws-lambda-layers/
+- https://github.com/aws/aws-cli/issues/6509
+- https://github.com/aws-samples/serverless-mutual-tls/blob/main/infrastructure/src/main/java/com/amazon/aws/example/InfrastructureStack.java#L238
+- https://aws.amazon.com/blogs/compute/implementing-mutual-tls-for-java-based-aws-lambda-functions/
+- https://www.ibm.com/docs/en/cognos-tm1/10.2.2?topic=ictocyoiatwas-add-certificates-jre-keystore
+
+
+
+
+

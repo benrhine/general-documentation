@@ -1,0 +1,35 @@
+= Create Approval Rules Template with CloudFormation or Serverless Framework
+
+I found references to this being possible to create under Serverless / CloudFormation with the following ...
+
+[source, yaml]
+----
+# Approval Rule Template
+twoApprovalsToMergeApprovalRuleTemplate:
+  Type: AWS::CodeCommit::ApprovalRuleTemplate
+  Properties:
+    ApprovalRuleTemplateName: TwoApprovalsToMergeApprovalRule
+    ApprovalRuleTemplateDescription: Require 2 approvals to merge the pr
+    ApprovalRuleContent:
+      RuleContent:
+        Type: Approvers
+        Approvers:
+          - ProjectAdmin
+    RepositoryNames:
+      - serverless-resource-templates
+      - lambda-utils
+      - lambda-layers-shared-services
+      - lambda-publishing-callback
+      - lambda-token-generator
+----
+
+Unfortunately, that does not seem to actual work and throws an invalid cloud formation error. I found some reference to
+this here - https://github.com/aws-cloudformation/cloudformation-coverage-roadmap/issues/329
+
+
+
+
+
+
+
+

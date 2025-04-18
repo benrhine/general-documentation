@@ -1,0 +1,24 @@
+= Project Planning
+
+* Project goal, objectives, strategy - then gather requirements
+** objective decrease rescheduling procedures by75%
+** req - simultaneously schedule staff, equipment, and facilities for a procedure
+*** gather req through interviews, brainstorming sessions, review written procedures with stakeholders, reviewing old doc or reverse engineering
+* Identify deliverables - needs a way to measure
+** help identify scope
+** start by listing the end deliverables
+** followed by intermediate deliverables
+** success criteria
+* identify assumptions and risks
+** who does what?
+** time assumptions
+** what do folks envision
+* get things in writing, have stakeholders signoff on it, if they want to make a change they are agreeing they are responsible for any delays
+* out of scope section
+* scope statement
+* project charter - name, purpose, high level description, milestone schedule, stakeholders, pm name, pm responsibility, pms authority, formal declaration of sponsors support
+
+
+
+
+

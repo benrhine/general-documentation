@@ -1,0 +1,8 @@
+= Aws: CDK
+
+== Reference
+
+- https://docs.aws.amazon.com/cdk/v2/guide/best-practices.html
+- https://docs.aws.amazon.com/cdk/v2/guide/cdk_pipeline.html
+- https://catalog.us-east-1.prod.workshops.aws/workshops/10141411-0192-4021-afa8-2436f3c66bd8/en-US/6000-go-workshop/200-create-project/210-cdk-init
+- https://www.youtube.com/watch?v=D4Asp5g4fp8

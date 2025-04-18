@@ -1,0 +1,113 @@
+= Sprint total view
+
+== Key Agile Points to Remember
+
+* https://www.scrum.org/resources/blog/agile-principles-sustainable-pace[For most people doing knowledge work, 6 hours is about the limit in a typical day]
+** This means on average only about 80% of any given work week is productive
+* https://scaledagile.com/blog/planning-to-100-capacity-dont-do-it/[Only plan about 80% of peoples time]
+** This allows for the time necessary when critical issues arise and need addressed immediately as well as when unexpected business needs occur.
+
+To turn the above statements into something more understandable it means the business should assume the max amount of time an employee is productive during the day is 6 hours and of that 6 hours only 80% of that time should be pre planned (or just slightly below 5 hours of an individuals day).
+
+== Maximum Ticket Size
+
+Traditionally, at many companies, a ticket with 13 points is considered the max ticket size allowed to be brought into a
+given sprint. This means the ticket will take an individual a full 2 weeks, starting on day 1 all the way through the
+end of the final day of the sprint. Some of the issues with this should be obvious when stopping to consider that this
+leaves no time for testing, for anything that may come up during a sprint, and is not taking into account the maximum
+amount of time an individual is normally productive. After many years and being on multiple teams that consistently have
+board problems and endless discussions on how to fix it I believe a 13 is to large. It is recommended that the absolute
+largest ticket allowed to be pulled into a sprint is 8 points. Additionally, taking this approach is more in line with
+the Agile principles stated above as it is taking into account how the average individual works as well as allowing time
+internal to a team to deal with issues that arise during a sprint. _I.e. If 13 points is 100% of a sprint and 8 points
+is approximately 61.5% of a sprint, that means assuming only 80% (or ~30 hours) is productive and only 80% of those 30
+hours should be planned (~24 hours) that leaves 18% (or 7.2 hours) unplanned, which results in an effective workload of
+31.2 hours or just slightly above where Agile states we should be._
+
+[NOTE]
+People are only productive about 30 hours a week and of that 30 hours only 80% (or 24 hours) should be planned. So on an
+average day that means in the 6 productive hours only about 5 will be planned. This allows a team to be able to respond
+to critical business issues and or production issues and bugs in an expected manner.
+
+== Meeting Days
+
+[CAUTION]
+All meetings should begin and end on time. If it does not fit in the time allotted a follow-up meeting will be scheduled.
+Starting and ending a meeting on time is a sign of respect from your leaders and your teammates. If you feel that
+something was not clarified enough during a meeting *it is on you to take ownership* and set up a separate meeting of the
+necessary stakeholders.
+
+Mondays planned meetings should be limited to standup and any additional meetings that may come from standup. This gives the opportunity for the team to come together and quickly touch base to make sure any concerns about the upcoming week can be addressed prior to everyone getting started. It also allows for welcoming “hello, how was your weekend” from team mates and management.
+
+Tuesdays are statistically the https://explodingtopics.com/blog/employee-productivity-stats[most productive] day of the week for employees and for this reason it is suggested that Tuesdays are a meeting free day where standup is conducted over Slack.
+
+The primary meeting day of any sprint should be Wednesday as it is the day of the week that it is most likely everyone will be available. This helps ensure that even if someone is taking time off (especially for long weekends, Mon, or Fri) that they will still be in the loop as they were available. A sprint will begin and end on a Wednesday meaning that you execute standup to determine what roll-over is (if any), close the sprint, do retro, then perform sprint planning while everything is fresh. The Wednesday in between should be standup and refinement.
+
+Thursdays should have a standup
+
+Fridays should have a Slack standup as this allows for the perception of an easy day heading into the weekend and allows for anyone who may not be present to still participate and provide a status update.
+
+== Standup
+
+The initial part of standup should be conducted within Slack; Every team member should post a status every day to a channel that is specific to standup so it does not pollute the primary chat space. The message will adhere to a format such as follows …
+
+* What did I do yesterday? Progress?
+** Tickets closed, PRs
+* What am I doing today?
+** Tickets worked on, meetings, OOO
+* Do I need help? Blockers?
+** Raise issues on current work
+
+By having everyone answer this everyday there will be an automatic history of standup as well as some basic notes for every standup.
+
+When it comes time for the actual standup meeting then all that needs to be stated is what you are working on today and if you have any issues. This allows for a sub 15 minute standup even with a large team.
+
+== Who creates tickets?
+
+BA, Dev, and QA may all create tickets, but the review process is slightly different depending on the creator.
+
+== Inner Team Role Interaction
+
+=== Lead
+
+* If a Dev creates a ticket, it should be reviewed with the lead for completeness
+** Dev is responsible for sending a ticket link to lead for review
+** Dev is responsible for setting up this meeting
+* If QA creates a ticket it should be reviewed with the lead and(?) BA for completeness
+** QA is responsible for sending ticket link to lead for review
+** QA is responsible for setting up this meeting
+* This review can also be conducted at the end of standup as in; ask if any new tickets have been created that need to be reviewed
+* Lead helps set priority order with PM
+
+== BA / PM
+
+* It is the job of the BA to ensure that tickets coming from the business are fleshed out and written with sufficient detail to be workable from a dev perspective.
+* It is the job of the PM to ensure that tickets coming from the business are prioritized in the correct order.
+* All acceptance criteria should be written using Given/When/Then and if a ticket has more than 5 acceptance criteria it is a good sign that a ticket is to large and should be further broken up.
+* BA is responsible for meeting with QA to review acceptance criteria and put test cases on the ticket
+* BA should have “office hours” before or after the refinement meeting on the sprint midterm Wednesday
+
+The expectation is that when the team goes into refinement and planning meetings that the tickets available for review meet the above criteria and have followed the given ticket template and that the PM has already prioritized the backlog. If a ticket does not meet the criteria it should not be discussed until the BA and PM have completed the ticket and prioritizing.
+
+== Dev
+
+* While planning and refinement are geared towards providing a sufficient understanding of a given task if a dev need more detail or explanation that the time available in these meetings they are responsible for setting up time to discuss their task with the BA.
+* Dev is responsible for complete unit and integration testing
+* Dev is responsible for API/Smoke testing
+** These should all be publicly documented and reviewed with and signed off by QA.
+* Dev is responsible for providing QA the necessary tools to test (i.e. postman, other, ect …)
+* Dev is responsible for setting up a quick demo of ticket to the BA and QA prior to merging a given PR. If the BA approves they will comment on the ticket that it has been demo’ed to them.
+** The point of this demo is to close the ticket meaning that onus at this point is on the BA to determine if all acceptance criteria have been successfully fulfilled. The point of having QA in this meeting is on the off chance they spot something that could be quickly remedied prior to merge BUT this is not the place or time for QA to fully investigate nor stop a ticket from moving forward.
+
+== Tester / QA
+
+* When testing if an issue is found QA will open a defect against the previously worked ticket.
+** If that defect involves an API QA is required to provide a postman attached to the defect that demonstrates the issue
+** QA should record a video demonstrating the defect and attaching it to the defect (this provides the dev context and a historical record)
+* If QA has free time they are expected to create tickets with complete test case for known issues to be brought in and worked through standard processes
+* If QA has free time they are expected to help create and maintain postmans and or similar tools to promote easy testing
+* If QA has free time they are expected to help design more complete and more automated test suites
+
+
+
+

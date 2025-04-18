@@ -1,0 +1,53 @@
+= How To: Log when logs are not working
+
+This page is an ancillary page that was developed when debugging logging issues on lambdas. As this requires a single
+class it was determined a library was not necessary and "if" this was ever required again that it would be much simpler
+to just add a new file to a given project and paste the below.
+
+[source, java]
+----
+package com.benrhine.lambdaXXXXX.v1.util;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+/**
+ * LambdaLogHelper: Lambda seems to have an issue capturing log statements from any class that is not the handler class.
+ * No documentation for this issue has been found other than logging from a lambda is generally troublesome. Attempts
+ * have been made to determine if this is a log4j2 issue and nothing has been found.
+ * <p>
+ * To be able to debug anything outside the handler class this utility has been developed to assist in the
+ * debugging process.
+ */
+public final class LambdaLogUtil {  //NOSONAR
+
+    private LambdaLogUtil() {
+        /* LEAVE BLANK */
+    }
+
+    private final Logger log = LogManager.getLogger(LambdaLogUtil.class);
+
+    public static void sysLog(final String message) {
+//        if (log.isDebugEnabled()) {
+            System.out.println(message);
+//        }
+    }
+
+    public static void sysLog(final String message, final Object data) {
+//        if (log.isDebugEnabled()) {
+            final StringBuilder str = new StringBuilder(message);
+            str.append(" ");
+            str.append(data.toString());
+            System.out.println(str);
+//        }
+    }
+}
+
+----
+
+Once this class has been added to an application you can then declare `sysLog("this is my message")` or `sysLoc("this is my message", data)` and used in lui of of normal logging to have a standardized way to send everything to System.out.println.
+
+
+
+
+

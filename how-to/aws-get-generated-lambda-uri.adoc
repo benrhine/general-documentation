@@ -1,0 +1,11 @@
+= How To: Get generated AWS Lambda URI
+
+In order to programmatically get the auto generated Aws Lambda URI for use in future build steps you can add the following to the `buildspec.yml`. This will get the url and define it into an environment variable.
+
+[source, shell]
+----
+- echo "------------------------------------------ Get API Gateway URL ------------------------------------------"
+- API_GATEWAY_URL=`aws cloudformation describe-stacks --stack-name ltr-service-dev --query "Stacks[0].Outputs[3].{OutputValueValue:OutputValue}" --output text`
+- echo "API Gateway URL:" ${API_GATEWAY_URL}
+- echo "----------------------------------------------- Complete ------------------------------------------------"
+----

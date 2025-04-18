@@ -1,0 +1,72 @@
+= How To: Ip Whitelist (AWS REST API)
+:toc:
+
+[WARNING]
+This will ONLY work for lambdas using the REST API, NOT the HTTP API!!!
+
+== buildspec.yml
+
+In the `buildspec.yml` add `npm install serverless-whitelisting`  (for correct ordering not the snippet below)
+
+[source, yaml]
+----
+- npm install -g serverless
+- echo "Installing Serverless plugins"
+- npm install serverless-whitelisting
+----
+
+== serverless.yml
+
+In the plugin sections add
+
+[source, yaml]
+----
+plugins: # Specify any additional plugins for serverless - be aware that these can increase cold start time
+    - serverless-whitelisting
+----
+
+== Configure the plugin
+
+
+[source, yaml]
+----
+custom:
+  serverless-whitelisting:
+    stage: ${self:provider.stage}
+    privateStages:
+      - dev
+      - test
+      - rgrs
+      - uat
+      - stage
+    publicStages:
+      - prod
+    netblocks:
+      - 127.0.0.1
+    publicPaths:
+      - /my-path
+----
+
+== Reference
+
+- https://www.serverless.com/plugins/serverless-whitelisting
+- https://www.npmjs.com/package/serverless-whitelisting
+- https://medium.com/better-programming/whitelist-ip-address-in-serverless-framework-7f5ede2dfc07
+- https://www.serverless.com/plugins/serverless-resource-policy
+- https://stackoverflow.com/questions/61800542/serverless-whitelist-ip-in-aws-gateway-using-existing-policy
+- https://www.serverless.com/framework/docs/providers/aws/events/apigateway#resource-policy
+- https://medium.com/srcecde/whitelist-ip-addresses-for-lambda-function-urls-8f69c8285e0a
+- https://medium.com/srcecde/how-to-whitelist-ip-addresses-in-amazon-http-api-be88402dbaa3
+- https://repost.aws/knowledge-center/api-gateway-resource-policy-access
+- https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-vs-rest.html
+- https://github.com/srcecde/aws-tutorial-code/blob/master/lambda/lambda_http_api_ip_validation.py
+- https://stackoverflow.com/questions/54162354/get-file-from-s3-bucket-using-serverless-and-node-js
+- https://github.com/tho-asterist/serverless-whitelisting/blob/master/index.js
+
+
+
+
+
+
+
+

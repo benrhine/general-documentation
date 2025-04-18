@@ -1,0 +1,107 @@
+= (Standard) Single Build
+:toc:
+
+This page is intended to describe how to fully configure single code tasks using AWS CodeBuild
+
+== buildspec.yml
+
+To have CI/CD fully configured on a project it is expected that there will be multiple `buildspec.yml` files. For this
+reason is is highly suggested to add a `.codebuild`  folder to the project to contain all `buildspec.yml` files (don't
+worry they are still easy to reference. To start configure single build `buildspec.yml` for both unit and integration
+testing create the following.
+
+=== Unit
+
+.Click here to expand ... | buildspec-unit.yml
+[%collapsible]
+====
+[source, yaml]
+----
+version: 0.2                                                # Specify aws build system version
+run-as: root                                                # Specify what user to run the build as
+
+env:                                                        # Environment specific settings
+  shell: /bin/bash                                          # Specify what shell to use when executing
+  git-credential-helper: yes                                # Specify to remember git credentials (this may not be necessary)
+
+phases:
+  #  install:
+  # Currently both java 17 and  node come installed in the image
+  #    runtime-versions:
+  #      java: corretto17
+  pre_build:
+    commands:
+      - echo this is pre-build
+      - java --version
+  build:
+    commands:
+      - ./gradlew test
+  post_build:
+    commands:
+      - echo this is post-build
+----
+====
+
+=== Integration
+
+.Click here to expand ... | buildspec-integration.yml
+[%collapsible]
+====
+[source, yaml]
+----
+version: 0.2                                                # Specify aws build system version
+run-as: root                                                # Specify what user to run the build as
+
+env:                                                        # Environment specific settings
+  shell: /bin/bash                                          # Specify what shell to use when executing
+  git-credential-helper: yes                                # Specify to remember git credentials (this may not be necessary)
+
+phases:
+  #  install:
+  # Currently both java 17 and  node come installed in the image
+  #    runtime-versions:
+  #      java: corretto17
+  pre_build:
+    commands:
+      - echo this is pre-build
+      - java --version
+  build:
+    commands:
+      - echo this is where integration tests should run
+  post_build:
+    commands:
+      - echo this is post-build
+----
+====
+
+== CodeBuild Configuration
+
+Now, to make everything function as intended. Configure a (Standard) single build do the following.
+
+* Navigate to AWS CodeBuild - Build Projects
+* click "Create Build Project"
+image:../images/aws-codebuild-setup-single-1.png[]
+* Fill in the project name
+* Select "Build Badge" if you want
+* Fill in "Repository" with the desired repo
+* Leave "Reference Type" as "Branch"
+image:../images/aws-codebuild-setup-single-2.png[]
+* Select the desired branch (ie "main")
+* Select OS
+* Select Runtime
+* Select most recent image
+image:../images/aws-codebuild-setup-single-3.png[]
+* Allow to create new service role
+* Use buildspec
+* If `buildspec.yml` is any where other than the root directory of the repository or is named anything other than buildspec.yml specify the "Buildspec name"
+image:../images/aws-codebuild-setup-single-4.png[]
+* Give CloudWatch a group name so logs for the given build are easy to find.
+* Click "Create build project"
+image:../images/aws-codebuild-setup-single-5.png[]
+* Start / Run Build after configuring
+image:../images/aws-codebuild-setup-single-6.png[]
+* How the named log group will show up in CloudWatch after the project has been created and ran
+image:../images/aws-codebuild-setup-single-7.png[]
+
+
+

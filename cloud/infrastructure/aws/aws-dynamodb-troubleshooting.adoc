@@ -1,0 +1,22 @@
+= DynamoDB Troubleshooting
+
+*Attempt to execute an operation that requires a primary index without defining any primary key attributes in the table metadata*
+
+This happens when your entity class with `@DynamoDbBean` is missing the following
+
+[source, java]
+----
+@DynamoDbPartitionKey
+    @DynamoDbAttribute("PK")
+    public String getPartitionKey() {
+        return "CUSTOMER#" + this.id;
+    }
+    public void setPartitionKey(String partitionKey) {
+        // Do nothing, this is a derived attribute
+    }
+----
+
+For further reference see https://davidagood.com/dynamodb-enhanced-client-java-missing-setters/[here].
+
+
+

@@ -1,0 +1,76 @@
+= How To: Remove a Git tag
+:toc:
+
+The goal of this page is to describe how to remove a tag from a given git commit.
+
+So long as you are using one of the new style lambdas (or want to build your own referencing the new style lambdas) removing a git tag is extremely easy. The time has been taking to vastly simplify this process to allow automation during the build process but you can manually execute the following Gradle Task ...
+
+== Execute
+
+Navigate to the project top level directory then the following Gradle task should be available to you.
+
+[source, shell]
+----
+./gradlew removeBranchTag -Pargs="YOUR-TAG-TO-REMOVE"
+----
+
+or
+
+[source, shell]
+----
+./gradlew removeBranchTag -Pargs="2025.11.46.44-prod-release"
+----
+
+If you need to fully manually execute the tag removal with git commands directly feel free to use the task code as an example of the necessary steps to remove the tag.
+
+== Gradle Task
+
+The following code can be found in step-015-additional-tasks.gradle
+
+[source, groovy]
+----
+tasks.register('removeBranchTag') {
+    description = 'Removes a tag (Will remove the tag that is passed into the task)'
+    group = 'Release'
+    doLast {// If not wrapped in a doLast gradle will fail to build
+        // Tell the task to write out to terminal
+        final stdout = new ByteArrayOutputStream()
+        // Get passed in argument(s) - SHOULD BE A SINGLE ARGUMENT
+        def args = null
+        if (project.hasProperty("args")) {
+            args = project.getProperty("args")
+        }
+        // If an arg is present check that the correct number of args were passed in and check out the given tag
+        if (args) {
+            final splitSpace = args.split()
+            final splitComma = args.split(",")
+            if (splitSpace.size() == 1 && splitComma.size() == 1) {
+                // Make sure we have all the tags available
+                exec {
+                    commandLine 'git', 'fetch', '--tags'
+                    standardOutput = stdout
+                }
+                // Remove the given tag from a remote branch
+                exec {
+                    commandLine 'git', 'push', '--delete', 'origin', args
+                    standardOutput = stdout
+                }
+                // Remove the given tag from your local git
+                exec {
+                    commandLine 'git', 'tag', '--delete', args
+                    standardOutput = stdout
+                }
+            } else {
+                throw new RuntimeException("Wrong number of arguments passed in - REQUIRES A SINGLE ARUGMENT")
+            }
+        } else {
+            throw new RuntimeException("Wrong number of arguments passed in - REQUIRES A SINGLE ARUGMENT")
+        }
+    }
+}
+----
+
+
+
+
+

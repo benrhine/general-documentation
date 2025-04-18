@@ -1,0 +1,42 @@
+= How To: Aws CodeBuild after recreating resources
+:toc:
+
+The intent of this page is fully describe how to repair CodeBuild jobs after resources have been destroyed and recreated.
+
+== Role name change
+
+If a role name changed between resource deployments it should be obvious that some updates will be necessary.
+
+* navigate to the CodeBuild job that needs update
+
+image:images/codebuild-recreate-1.png[]
+
+* select "Build details"
+
+image:images/codebuild-recreate-2.png[]
+
+* scroll down to "Environment"
+* "Edit"
+
+image:images/codebuild-recreate-3.png[]
+
+* clear the service role and search for the refreshed role with the updated name
+* (Important!!) uncheck the allow aws ... checkbox
+* "Update environment"
+
+image:images/codebuild-recreate-4.png[]
+
+The CodeBuild action should now once again function as intended
+
+
+
+
+
+
+
+
+
+
+
+
+

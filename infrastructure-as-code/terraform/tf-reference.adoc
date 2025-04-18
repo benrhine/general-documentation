@@ -1,0 +1,100 @@
+= Terraform: References
+
+* https://medium.com/engineered-publicis-sapient/building-aws-and-gcp-cloud-infrastructure-with-terraform-a-comparative-analysis-16380cfd9dfd[]
+
+* https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/create-a-ci-cd-pipeline-to-validate-terraform-configurations-by-using-aws-codepipeline.html[]
+* https://stackoverflow.com/questions/77315762/terraform-stuck-at-still-creating-step-and-timeouts-while-creating-azure-service[]
+* https://developer.hashicorp.com/terraform/tutorials/aws/aws-default-tags[]
+
+== Best Practices
+* https://www.terraform-best-practices.com/key-concepts[]
+
+== IAM
+- https://developer.hashicorp.com/terraform/tutorials/aws/aws-iam-policy
+- https://spacelift.io/blog/terraform-iam-role[]
+- https://spacelift.io/blog/terraform-iam-policy
+- https://registry.terraform.io/providers/hashicorp/aws/3.7.0/docs/data-sources/iam_policy_document
+
+== Testing
+- https://medium.com/contino-engineering/terraform-infrastructure-as-code-testing-best-practice-unit-tests-bdd-end-to-end-scenario-c30d5a6921d
+
+== Troubleshooting
+
+- https://github.com/hashicorp/terraform/issues/34223
+- https://stackoverflow.com/questions/71077427/terraform-init-error-failed-to-get-existing-workspaces-s3-bucket-does-not-exis
+- https://stackoverflow.com/questions/77315762/terraform-stuck-at-still-creating-step-and-timeouts-while-creating-azure-service
+
+== State
+
+- https://medium.com/all-things-devops/how-to-store-terraform-state-on-s3-be9cd0070590
+- https://developer.hashicorp.com/terraform/language/state/locking
+- https://developer.hashicorp.com/terraform/language/backend
+- https://developer.hashicorp.com/terraform/language/state/remote
+
+
+== TF with CI
+
+- https://medium.com/@adrianarba/ci-cd-defined-through-terraform-using-aws-codepipeline-aws-codecommit-and-aws-codebuild-12ade4d9cfa3
+- https://www.google.com/search?q=terraform+remote+state+with+aws+system+parameters&oq=terraform+remote+state+with+aws+system+parameters&gs_lcrp=EgZjaHJvbWUyCQgAEEUYORigATIHCAEQIRigATIHCAIQIRigATIHCAMQIRirAjIHCAQQIRirAjIHCAUQIRiPAtIBCDc0NDNqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8
+- https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/create-a-ci-cd-pipeline-to-validate-terraform-configurations-by-using-aws-codepipeline.html
+- https://www.chrisfarris.com/post/tf-codepipeline/
+
+== Variables
+
+- https://spacelift.io/blog/terraform-tfvars
+- https://spacelift.io/blog/terraform-environment-variables
+- https://spacelift.io/blog/how-to-use-terraform-variables
+- https://discuss.hashicorp.com/t/regex-for-variable-validation/45154/4
+- https://discuss.hashicorp.com/t/validate-list-object-variables/18291/9
+- https://dev.to/drewmullen/terraform-variable-validation-with-samples-1ank
+- https://github.com/hashicorp/terraform/issues/26205
+- https://stackoverflow.com/questions/57190035/terraform-how-to-restrict-an-input-variable-to-a-list-of-possible-choices
+- https://dev.to/pwd9000/terraform-variable-validation-47ka
+- https://registry.terraform.io/providers/hashicorp/assert/latest/docs/functions/regex
+- https://stackoverflow.com/questions/68397972/how-to-use-aws-account-id-variable-in-terraform
+- https://developer.hashicorp.com/terraform/tutorials/aws-get-started/aws-variables
+
+== Outputs
+
+- https://developer.hashicorp.com/terraform/language/values/outputs
+
+
+== Uncatagorized
+
+https://developer.hashicorp.com/terraform/tutorials/configuration-language/locals
+https://spacelift.io/blog/terraform-for-each#example-1-using-foreach-with-set-of-strings
+https://dev.to/pwd9000/terraform-understanding-count-and-foreach-loops-c6i
+https://stackoverflow.com/questions/75801833/terraform-iteration-count
+https://discuss.hashicorp.com/t/how-to-deal-with-nested-for-each-loops-in-dependent-ressources/50551
+https://discuss.hashicorp.com/t/foreach-loop-with-nested-list/54610
+https://developer.hashicorp.com/terraform/language/meta-arguments/for_each
+https://stackoverflow.com/questions/58343258/iterate-over-nested-data-with-for-for-each-at-resource-level
+https://www.reddit.com/r/Terraform/comments/x93pib/can_i_have_a_for_each_within_a_for_each_and_how/
+https://www.reddit.com/r/Terraform/comments/tppng0/referencing_all_map_keys_from_child_modules/
+https://medium.com/@The_Anshuman/what-are-toset-and-tomap-function-in-terraform-and-argument-count-950c2a1a34f6
+https://www.env0.com/blog/terraform-map-variable-a-complete-guide-with-practical-examples
+https://stackoverflow.com/questions/75287473/this-map-does-not-have-an-element-with-the-key-in-terraform
+https://discuss.hashicorp.com/t/iteration-over-non-iterable-value-a-value-of-type-string-cannot-be-used-as-the-collection-in-a-for-expression/62727
+https://discuss.hashicorp.com/t/pass-for-each-output-to-another-module/23404/2
+https://discuss.hashicorp.com/t/cannot-convert-object-to-map-of-any-single-type/34575
+https://developer.hashicorp.com/terraform/language/meta-arguments/for_each
+https://discuss.hashicorp.com/t/the-given-value-is-not-suitable-for-module/42144/5
+https://discuss.hashicorp.com/t/invalid-value-for-v-parameter-cannot-convert-object-to-set-of-any-single-type/59143/2
+https://spacelift.io/blog/terraform-for-loop
+https://stackoverflow.com/questions/64989080/modules-output-from-for-each
+https://spacelift.io/blog/terraform-output
+https://spacelift.io/blog/terraform-jsonencode#example-5-using-jsonencode-with-the-for-loop
+https://stackoverflow.com/questions/64989080/modules-output-from-for-each
+https://medium.com/@nitishkumaram/4terraform-functions-902918d3322e
+https://spacelift.io/blog/terraform-string
+https://spacelift.io/blog/terraform-join
+https://spacelift.io/blog/terraform-coalesce
+https://spacelift.io/blog/terraform-locals
+https://developer.hashicorp.com/terraform/language/values/locals
+
+
+
+
+
+
+

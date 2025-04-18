@@ -1,0 +1,6 @@
+= Logging: Masking Sensitive Data
+
+== Reference
+
+- https://www.baeldung.com/logback-mask-sensitive-data
+- https://alesaudate.medium.com/masking-sensitive-data-in-log4j-2-the-simplest-way-possible-2c2e74c17f2d

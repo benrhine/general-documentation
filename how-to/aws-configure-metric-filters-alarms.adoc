@@ -1,0 +1,70 @@
+= How To: Configure Metrics Filter Alarm
+:toc:
+
+This page is to instruct on how to enable an alarm once other metrics are in place.
+
+[NOTE]
+Please be aware that this page contains similar content to link:aws-configure-dlq-alarm.adoc[How To: Configure DLQ Alarm]
+but has some variations.
+
+== Using Serverless
+
+Adding an alarm into a previous Metric Filter configuration is pretty straight forward. Using the
+link:aws-configure-metric-filters.adoc[How To: Configure Metric Filters] as our starting point
+
+In your `serverless-resource.yml` file add the following.
+
+- an alert topic
+- a subscription to the alert topic
+- an alarm
+
+----
+resources:
+    ...
+    Resources:
+        # An SNS topic to receive alerts
+      receivingDevAlertTopic:
+        Type: AWS::SNS::Topic
+        Condition: CreateQueueNpResources
+        Properties:
+            TopicName: ${self:custom.appShortName}-topic-dev-alert
+
+        ...
+
+        # A subscription from the previously declared topic to another resource to receive alerts
+      receivingDevAlertSubscription:
+        Type: AWS::SNS::Subscription
+        Condition: CreateQueueNpResources                           # Conditionally create
+        Properties:
+            Endpoint: https://global.sns-api.chatbot.amazonaws.com  # Aws Slack Chatbot url
+            Protocol: https
+            TopicArn: !Ref receivingDevAlertTopic                   # Topic declared above
+
+        ...
+
+        # Alarm configured for a specific metric sending to a specific topic
+      devWarningsAlarm:
+            Type: AWS::CloudWatch::Alarm
+      Condition: CreateQueueNpResources                           # Conditionally create
+        Properties:
+            AlarmName: ldr-service-dev-warnings-alarm             # Name of the alarm
+            Namespace: ldr-service-dev-metrics          `         # previously declared metric space
+            MetricName: ldr-service-dev-warn                      # Name of previously declared metric filter
+            Statistic: Sum
+            Period: 10
+            EvaluationPeriods: 1
+            Threshold: 1
+            ComparisonOperator: GreaterThanOrEqualToThreshold
+            TreatMissingData: missing
+            AlarmActions:
+              - !Ref receivingDevAlertTopic                       # What topic to alert to
+----
+
+
+== Reference
+
+
+
+
+
+

@@ -1,0 +1,550 @@
+= Data: Makers
+:toc:
+
+Makers are the required tooling for adding data generation into your application. As discussed in link:data-generation.adoc[Data: Generation]
+makers are a tool to enable generating test data in a variety of ways with the goals of speeding up development and
+improving testing of an application.
+
+== What is a maker?
+
+What a maker is has already been discussed in link:data-generation.adoc[Data: Generation] but a quick recap ...
+
+A maker is an additional coding structure (i.e. internal tool) that is used to generate dynamic test data at test time to
+improve test coverage and diminish the amount of time required to write tests.
+
+== When to write a maker?
+
+Makers should be written at the same time a domain object is written. For example ...
+
+* A new Automobile object class is added to the code
+** Then an AutomobileMaker class should be added
+
+== What does a maker look like?
+
+=== Application Data
+
+Start with the application data layout ...
+
+.Base Model / Company Meta-data
+[source, java]
+----
+package com.benrhine.SpringBoot2022Example.v1.models.base;
+
+import com.benrhine.SpringBoot2022Example.v1.models.enums.DataType;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import java.time.OffsetDateTime;
+import java.util.List;
+import java.util.UUID;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+import jakarta.annotation.Nullable;
+
+/** --------------------------------------------------------------------------------------------------------------------
+ * BaseData: Base class to represent properties that are common across all data classes. Defines keys
+ * and methods for converting these properties to and from the map required by the user interface and the list of
+ * VariableExternalResources that is required when storing a resource in a Flowable task.
+ *
+ * Confluence Documentation:
+ * - The Below link is specific to Resource Management at this time (20220922)
+ *
+ * ------------------------------------------------------------------------------------------------------------------ */
+@Data
+@NoArgsConstructor
+@SuperBuilder(toBuilder = true)
+public class BaseData {
+    // -----------------------------------------------------------------------------------------------------------------
+    // Data Archiving / Soft Delete Support
+    // -----------------------------------------------------------------------------------------------------------------
+    // When setting a default value this annotation must be included or the default value will not be present.
+    @Builder.Default                                // true = archived; false = not archived
+    private boolean archived = false;               // Field: Allow / demarcate soft delete items
+    // -----------------------------------------------------------------------------------------------------------------
+    // Data Auditing
+    // -----------------------------------------------------------------------------------------------------------------
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.[SSS]Z")
+    private OffsetDateTime createDate;              // Audit field: When was an object created
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.[SSS]Z")
+    private OffsetDateTime updateDate;              // Audit field: Indicate when an object was edited
+    private UUID createUser;                        // Audit field: Who created the initial data
+    private UUID updateUser;                        // Audit field: Who updated the data
+    // -----------------------------------------------------------------------------------------------------------------
+    // Data Versioning
+    // -----------------------------------------------------------------------------------------------------------------
+    private long version;                           // Field: Indicate how many times an object has been touched
+    // -----------------------------------------------------------------------------------------------------------------
+    // Data Tracking
+    // -----------------------------------------------------------------------------------------------------------------
+    private UUID transactionGroupId;                // Tracking field: Intended to be used for bulk load or transaction grouping to help find records that were created in a specific group or time
+    private UUID tenantId;                          // Tracking field: What tenant was this data created for
+    private UUID id;                                // Tracking field: Unique id on every object
+    private UUID altId;
+    // -----------------------------------------------------------------------------------------------------------------
+    // Data Cleanup
+    // -----------------------------------------------------------------------------------------------------------------
+    @Nullable
+    private DataType type;                          // Cleanup field: Used to indicate what type of data a record is to support data clean up
+    @Nullable
+    @Builder.Default
+    private boolean purgeable = false;              // Cleanup field: Used to indicate if a record can be removed
+
+    // -----------------------------------------------------------------------------------------------------------------
+    // Assists with validation
+    // -----------------------------------------------------------------------------------------------------------------
+    public static final String BASE_FIELD_NAME_ID                   = "id";
+    public static final String BASE_FIELD_NAME_TENANT_ID            = "tenantId";
+    public static final String BASE_FIELD_NAME_TRANSACTION_GROUP_ID = "transactionGroupId";
+    public static final String BASE_FIELD_NAME_CREATE_DATE          = "createDate";
+    public static final String BASE_FIELD_NAME_CREATE_USER          = "createUser";
+    public static final String BASE_FIELD_NAME_UPDATE_DATE          = "updateDate";
+    public static final String BASE_FIELD_NAME_UPDATE_USER          = "updateUser";
+    public static final String BASE_FIELD_NAME_VERSION              = "version";
+    public static final String BASE_FIELD_NAME_ARCHIVED             = "archived";
+    public static final String BASE_FIELD_NAME_TYPE                 = "type";
+    public static final String BASE_FIELD_NAME_PURGEABLE            = "purgeable";
+
+//    public static final Map<String, SortSearchField> BASE_FIELDS = Map.of(
+//            // Base Fields
+//            BASE_FIELD_NAME_ID,             new SortSearchField(BASE_FIELD_NAME_ID, null, STRING_TYPE, null),
+//            BASE_FIELD_NAME_TENANT_ID,      new SortSearchField(BASE_FIELD_NAME_TENANT_ID, null, STRING_TYPE, null),
+//            BASE_FIELD_NAME_CREATE_DATE,    new SortSearchField(BASE_FIELD_NAME_CREATE_DATE, null, STRING_TYPE, null),
+//            BASE_FIELD_NAME_CREATE_USER,    new SortSearchField(BASE_FIELD_NAME_CREATE_USER, null, STRING_TYPE, null),
+//            BASE_FIELD_NAME_UPDATE_DATE,    new SortSearchField(BASE_FIELD_NAME_UPDATE_DATE, null, STRING_TYPE, null),
+//            BASE_FIELD_NAME_UPDATE_USER,    new SortSearchField(BASE_FIELD_NAME_UPDATE_USER, null, STRING_TYPE, null),
+//            BASE_FIELD_NAME_VERSION,        new SortSearchField(BASE_FIELD_NAME_VERSION, null, LONG_TYPE, null),
+//            BASE_FIELD_NAME_ARCHIVED,       new SortSearchField(BASE_FIELD_NAME_ARCHIVED, null, BOOLEAN_TYPE, null)
+//    );
+
+    // There are 11 fields in this class
+    public static final List<String> ALL_BASE_FIELD_NAMES = List.of(
+            BASE_FIELD_NAME_ID, BASE_FIELD_NAME_TENANT_ID, BASE_FIELD_NAME_TRANSACTION_GROUP_ID,
+            BASE_FIELD_NAME_CREATE_DATE, BASE_FIELD_NAME_CREATE_USER, BASE_FIELD_NAME_UPDATE_DATE,
+            BASE_FIELD_NAME_UPDATE_USER, BASE_FIELD_NAME_VERSION, BASE_FIELD_NAME_ARCHIVED,
+            BASE_FIELD_NAME_TYPE, BASE_FIELD_NAME_PURGEABLE
+    );
+}
+----
+
+The interim model will contain fields that may apply to _some_ objects and not others.
+
+.Interim Model
+[source, java]
+----
+package com.benrhine.SpringBoot2022Example.v1.models.entity;
+
+import com.benrhine.SpringBoot2022Example.v1.models.base.BaseEntity;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+
+import java.util.List;
+import jakarta.persistence.MappedSuperclass;
+
+/** --------------------------------------------------------------------------------------------------------------------
+ * Base class to represent flowable forms.
+ *
+ * Confluence Documentation:
+ * ------------------------------------------------------------------------------------------------------------------ */
+@Data
+@MappedSuperclass
+@NoArgsConstructor
+@SuperBuilder(toBuilder = true)
+@EqualsAndHashCode(callSuper = true)
+public class InterimEntity extends BaseEntity {
+
+    private String interimField;
+
+    // -----------------------------------------------------------------------------------------------------------------
+    // Assists with validation
+    // -----------------------------------------------------------------------------------------------------------------
+    public static final String INTERIM_FIELD_FIELD                   = "field";
+
+    // There are 11 fields in this class
+    public static final List<String> ALL_INTERIM_FIELD_NAMES = List.of(
+            INTERIM_FIELD_FIELD
+    );
+}
+----
+
+The actual object
+
+.Example Model
+[source, java]
+----
+package com.benrhine.SpringBoot2022Example.v1.models.entity;
+
+import static com.benrhine.SpringBoot2022Example.v1.util.ExampleConstants.DEFAULT_DATE_TIME_FORMAT;
+
+import com.benrhine.SpringBoot2022Example.v1.models.resource.ExampleResource;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.Size;
+
+/** --------------------------------------------------------------------------------------------------------------------
+ * ExampleEntity: Mapping to flowable form - forms are built in flowable design.
+ *
+ * Confluence Documentation:
+ *
+ * ------------------------------------------------------------------------------------------------------------------ */
+@Data
+@Entity(name="EXAMPLE")
+@AllArgsConstructor
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@NoArgsConstructor
+@SuperBuilder(toBuilder = true)
+@EqualsAndHashCode(callSuper = true)
+public class ExampleEntity extends InterimEntity {
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DEFAULT_DATE_TIME_FORMAT)
+    private OffsetDateTime startDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DEFAULT_DATE_TIME_FORMAT)
+    private OffsetDateTime endDate;
+    private String exampleOrder;
+    private String exampleName;
+    @Size(max = 1024)
+    private String description;
+
+    // -----------------------------------------------------------------------------------------------------------------
+    // Assists with validation
+    // -----------------------------------------------------------------------------------------------------------------
+     public static final String EXAMPLE_FIELD_START_DATE       = "startDate";
+     public static final String EXAMPLE_FIELD_END_DATE         = "endDate";
+     public static final String EXAMPLE_FIELD_ORDER            = "exampleOrder";
+     public static final String EXAMPLE_FIELD_NAME             = "exampleName";
+     public static final String EXAMPLE_FIELD_DESCRIPTION      = "description";
+
+    // public static final Map<String, SortSearchField> EXAMPLE_FIELDS = Map.of(
+    //         EXAMPLE_FIELD_START_DATE,         new SortSearchField(EXAMPLE_FIELD_START_DATE,   null, STRING_TYPE, null),
+    //         EXAMPLE_FIELD_END_DATE,           new SortSearchField(EXAMPLE_FIELD_END_DATE,   null, STRING_TYPE, null),
+    //         EXAMPLE_FIELD_BLANKET_ORDER,      new SortSearchField(EXAMPLE_FIELD_BLANKET_ORDER,   null, STRING_TYPE, null),
+    //         EXAMPLE_FIELD_MAX_AMOUNT,         new SortSearchField(EXAMPLE_FIELD_MAX_AMOUNT,   null, STRING_TYPE, null),
+    //         EXAMPLE_FIELD_AMOUNT_USED,        new SortSearchField(EXAMPLE_FIELD_AMOUNT_USED,   null, STRING_TYPE, null),
+    //         EXAMPLE_FIELD_DESCRIPTION,        new SortSearchField(EXAMPLE_FIELD_DESCRIPTION,   null, STRING_TYPE, null),
+    //         EXAMPLE_FIELD_ANIMAL_SOURCE_ID,   new SortSearchField(EXAMPLE_FIELD_ANIMAL_SOURCE_ID,   null, STRING_TYPE, null)
+    // );
+
+    // // There are 5 fields in this class
+     public static final List<String> ALL_EXAMPLE_ITEM_FIELD_NAMES = List.of(
+            EXAMPLE_FIELD_START_DATE, EXAMPLE_FIELD_END_DATE, EXAMPLE_FIELD_ORDER,
+            EXAMPLE_FIELD_NAME, EXAMPLE_FIELD_DESCRIPTION
+     );
+
+     public static List<String> allKnownFieldNames() {
+         final List<String> allKnownFieldNames = new ArrayList<>(ALL_BASE_FIELD_NAMES);
+         allKnownFieldNames.addAll(ALL_INTERIM_FIELD_NAMES);
+         allKnownFieldNames.addAll(ALL_EXAMPLE_ITEM_FIELD_NAMES);
+
+         return allKnownFieldNames;
+     }
+
+    // public static Map<String, SortSearchField> validationFields() {
+    //     final Map<String, SortSearchField> allFields = new HashMap<>(BASE_FIELDS);  // Add BaseResource fields - Should be present on all flowable forms
+    //     allFields.putAll(INTERIM_FIELDS);                                           // Add FormResource fields - Only includes taskId at this time
+    //     allFields.putAll(EXAMPLE_FIELDS);                                           // Add the specific object fields
+
+    //     return allFields;
+    // }
+
+    public ExampleResource toResource() {
+        return ExampleResource.builder()
+                // Base Fields
+                .id(this.getId())
+                .transactionGroupId(this.getTransactionGroupId())
+                .tenantId(this.getTenantId())
+                .archived(this.isArchived())
+                .createDate(this.getCreateDate())
+                .updateDate(this.getUpdateDate())
+                .createUser(this.getCreateUser())
+                .updateUser(this.getUpdateUser())
+                .version(this.getVersion())
+                .purgeable(this.isPurgeable())
+                // Interim Fields
+                .interimField(this.getInterimField())
+                // Object Fields
+                .startDate(this.startDate)
+                .endDate(this.endDate)
+                .exampleOrder(this.exampleOrder)
+                .exampleName(this.exampleName)
+                .description(this.description)
+                .build();
+    }
+}
+----
+
+The above is just the data structure that we need to write a maker for ...
+
+=== Example Maker
+
+Start by creating a maker that models just the "Base Model" ...
+
+.Base Maker
+[source, java]
+----
+package com.benrhine.SpringBoot2022Example.v1.maker;
+
+import com.benrhine.SpringBoot2022Example.v1.models.base.BaseData;
+import com.benrhine.SpringBoot2022Example.v1.models.enums.DataType;
+
+import java.time.OffsetDateTime;
+import java.util.UUID;
+
+public class BaseDataMaker {
+
+    public static BaseData makeBaseData() {
+        return  makeBaseData(false, OffsetDateTime.now(), null, UUID.randomUUID(), UUID.randomUUID(),
+                5L, UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), DataType.TEST_PURGEABLE, true);
+    }
+
+    public static BaseData makeBaseData(final boolean archived, final OffsetDateTime createDate,
+                                        final OffsetDateTime updateDate, final UUID createUser, final UUID updateUser,
+                                        final long version, final UUID transactionGroupId, final UUID tenantId,
+                                        final UUID id, final DataType type, final boolean purgeable) {
+        return BaseData.builder()
+                .archived(archived)
+                .createDate(createDate)
+                .updateDate(updateDate)
+                .createUser(createUser)
+                .updateUser(updateUser)
+                .version(version)
+                .transactionGroupId(transactionGroupId)
+                .tenantId(tenantId)
+                .id(id)
+                .type(type)
+                .purgeable(purgeable)
+                .build();
+    }
+
+    public static BaseData makeBaseDataPrePopulated() {
+        return BaseData.builder()
+                .archived(false)
+                .createDate(OffsetDateTime.now())
+                .updateDate(null)
+                .createUser(UUID.randomUUID())
+                .updateUser(UUID.randomUUID())
+                .version(3L)
+                .transactionGroupId(UUID.randomUUID())
+                .tenantId(UUID.randomUUID())
+                .id(UUID.randomUUID())
+                .type(DataType.TEST_PURGEABLE)
+                .purgeable(true)
+                .build();
+    }
+}
+----
+
+Next, we will use the base maker to populate the interim maker and add any interim fields that are required ...
+
+.Interim Maker
+[source, java]
+----
+package com.benrhine.SpringBoot2022Example.v1.maker;
+
+import static com.benrhine.SpringBoot2022Example.v1.maker.BaseDataMaker.makeBaseData;
+import static org.apache.commons.lang3.RandomStringUtils.random;
+
+import com.benrhine.SpringBoot2022Example.v1.models.base.BaseData;
+import com.benrhine.SpringBoot2022Example.v1.models.resource.InterimResource;
+
+public class InterimResourceMaker {
+
+    public static InterimResource makeResource() {
+        // Note we are using the base maker here to populate the interim maker
+        final InterimResource.InterimResourceBuilder<?, ?> populatedBaseData = populateBaseData(makeBaseData());
+
+        return populatedBaseData.interimField(random(10, true, false)).build();
+    }
+
+    private static InterimResource.InterimResourceBuilder<?, ?> populateBaseData(final BaseData baseData) {
+        return InterimResource.builder()
+                .archived(baseData.isArchived())
+                .createDate(baseData.getCreateDate())
+                .updateDate(baseData.getUpdateDate())
+                .createUser(baseData.getCreateUser())
+                .updateUser(baseData.getUpdateUser())
+                .version(baseData.getVersion())
+                .transactionGroupId(baseData.getTransactionGroupId())
+                .tenantId(baseData.getTenantId())
+                .id(baseData.getId())
+                .type(baseData.getType())
+                .purgeable(baseData.isPurgeable());
+    }
+}
+----
+
+Lastly we will use the interim maker to populate the actual model maker (in this case the Example object).
+
+.Example Maker
+[source, java]
+----
+package com.benrhine.SpringBoot2022Example.v1.maker;
+
+import static com.benrhine.utils.v1.jackson.JsonUtils.convertToString;
+import static org.apache.commons.lang3.RandomStringUtils.random;
+
+import com.benrhine.SpringBoot2022Example.v1.models.resource.ExampleResource;
+import com.benrhine.SpringBoot2022Example.v1.models.resource.InterimResource;
+
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+public class ExampleResourceMaker {
+
+    public static ExampleResource makeResource() {
+        final ExampleResource.ExampleResourceBuilder<?, ?> populatedParentClassData = populateParentClassData(InterimResourceMaker.makeResource());
+        return populatedParentClassData
+                .startDate(OffsetDateTime.now())
+                .endDate(OffsetDateTime.now())
+                .exampleOrder(random(10, true, false))
+                .exampleName(random(10, true, false))
+                .description(random(10, true, false))
+                .build();
+    }
+
+    private static ExampleResource.ExampleResourceBuilder<?, ?> populateParentClassData(final InterimResource interimResource) {
+        return ExampleResource.builder()
+                // Base Data
+                .archived(interimResource.isArchived())
+                .createDate(interimResource.getCreateDate())
+                .updateDate(interimResource.getUpdateDate())
+                .createUser(interimResource.getCreateUser())
+                .updateUser(interimResource.getUpdateUser())
+                .version(interimResource.getVersion())
+                .transactionGroupId(interimResource.getTransactionGroupId())
+                .tenantId(interimResource.getTenantId())
+                .id(interimResource.getId())
+                .type(interimResource.getType())
+                .purgeable(interimResource.isPurgeable())
+                // Interim Data
+                .interimField(interimResource.getInterimField());
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    // List Makers
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * makeListOfResources: Creating a list of resource.
+     *
+     * @return List
+     */
+    public static List<ExampleResource> makeListOfResources() {
+        return List.of(makeResource());
+    }
+
+
+    /**
+     * makeListOfResources: Create a list of desired number of resources.
+     *
+     * @param howManyResources int
+     *
+     * @return List
+     */
+    public static List<ExampleResource> makeListOfResources(final int howManyResources) {
+        final List<ExampleResource> list = new ArrayList<>();
+
+        for (int i = 0; i < howManyResources; i++) {
+            list.add(makeResource());
+        }
+        return list;
+    }
+
+
+    // -----------------------------------------------------------------------------------------------------------------
+    // Json Makers
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * makeResourceAsJson: Create a default resource as json.
+     *
+     * @return String
+     */
+    public static String makeResourceAsJson() {
+        return convertToString(makeResource());
+    }
+
+    /**
+     * makeResourceAsJson: Create a custom resource as json.
+     *
+     * @return String
+     */
+    public static String makeResourceAsJson(final ExampleResource resource) {
+        return convertToString(resource);
+    }
+
+    /**
+     * makeEntityAsJson: Create a custom resource as json.
+     *
+     * @param id String
+     * @param createDate Date
+     * @param createUser UUID
+     * @param updateDate Date
+     * @param updateUser UUID
+     * @param version Long
+     * @param accountId UUID
+     * @param tenantId UUID
+     * @param accountNumber String
+     * @param statusName String
+     * @param statusKey String
+     * @param fundCode String
+     *
+     * @return String
+     */
+//    public static String makeEntityAsJson(final String id, final Date createDate, final UUID createUser, final Date updateDate,
+//                                          final UUID updateUser, final Long version, final UUID accountId, final UUID tenantId,
+//                                          final String accountNumber, final String statusName, final String statusKey,
+//                                          final String fundCode) {
+//        return convertToString(makeResource(id, createDate, createUser, updateDate, updateUser, version,
+//                accountId, tenantId, accountNumber, statusName, statusKey, fundCode));
+//    }
+
+    /**
+     * makeListOfResourcesAsJson: Create a list of resources as json.
+     *
+     * @return String
+     */
+    public static String makeListOfResourcesAsJson() {
+        return convertToString(makeListOfResources());
+    }
+
+    /**
+     * makeListOfResourcesAsJson: Create a list of desired number of resources as a Json.
+     *
+     * @param howManyResources int
+     *
+     * @return String
+     */
+    public static String makeListOfResourcesAsJson(final int howManyResources) {
+        return convertToString(makeListOfResources(howManyResources));
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    // Form Data Makers
+    // -----------------------------------------------------------------------------------------------------------------
+
+}
+----
+
+Within the `ExampleMaker` there are many variations of data creation that can be selected depending on the tests required.
+First note that all the fields use random to generate strings and other data that will always be unique per run to guarantee
+that each unique data set is being saved. Additionally, note that we can also use the maker to generate lists of this object
+or use the maker to create JSON versions of the object.
+
+Having the ability to quickly create unique data for tests saves a huge amount of time and effort for developers as when
+they add to a given test set they no longer have to image the test data, they can just generate it.
+

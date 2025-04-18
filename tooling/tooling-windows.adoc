@@ -1,0 +1,14 @@
+= Windows
+
+Notes for using windows
+
+== How to Flush DNS
+
+[source, shell]
+----
+ipconfig /flushdns
+----
+
+
+
+

@@ -1,0 +1,68 @@
+= Scrum: Process Flow Variations
+:toc:
+
+This page is intended to cover options for the various Scrum flows and to help come up with the single best flow that keeps
+the team moving and the most people happy.
+
+== Current Process
+
+This diagram should be the most self-explanatory as it is essentially how the flow operates today. Single board, trying
+to build and test in a single sprint, individual branches, lots of test environments, merging after QA completes.
+
+image
+
+== Option 1
+
+The simplest update that could be made would be to split dev and QA into individual boards with individual metrics.
+In theory this should mean that at least one of the boards is always in good shape at the end of the sprint. This is
+probably not the most optimum approach and there is still a high chance that QA's board could be a mess.
+
+image
+
+== Option 2
+
+This is not very different from option 1 other than it enables defect tracking against devs and helps show who may need
+an extra hand or who should spend more time up front on design. The negative aspect here is someone could feel called out
+if they continually have defects logged against their tickets.
+
+image
+
+== Option 3
+
+Similar to option 2, option 3 includes defect tracking but brings in QA working on alternate sprints or something like a
+half sprint behind. This again means that both board metrics are independent and each tea is able to succinctly show
+progress and struggle. It also means that if it is a rough dev sprint and many tickets are not complete until the final
+day that QA does not get hosed on their board/metrics.
+
+This can operate as a full sprint behind, so i.e. dev is working sprint 2 while QA is working sprint 1 items.
+
+or
+
+this can operate as a half sprint behind. So QA would only be trailing dev by 1 week.
+
+[NOTE]
+Any issues found come back to the dev board as the 15% unaccounted for work)
+
+image
+
+== Option 4
+
+Option 4 is probably the most modern approach and while more complex has some advantages. This would involve having a base
+dev branch that everyone operates from. While individual branches could and should still be deployed and loosely tested
+for the PR / review / Peer Test step, once that step is complete all changes should be merged into a unified dev branch
+and deployed for QA. At this point items would be considered dev complete and moved off the dev board and onto the QA board.
+
+Similar to options 2 and 3 if QA then finds an issue the ticket stays on their board but they open a defect against the ticket
+which goes back on the dev board to be worked under the 15% unaccounted for time.
+
+As in option 3 QA works alternate sprints to avid an unmanageable pileup on their board.
+
+image
+
+
+
+
+
+
+
+

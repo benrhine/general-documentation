@@ -1,0 +1,271 @@
+= Compare: Cross-Account / Multi-Account
+:toc:
+
+This is specifically geared toward multiple accounts or cross-account work, _NOT_ multiple environments. To see about
+multi-environment see link:compare-multiple-environments.adoc[here]. While cross/multi-account and multi-environment are
+closely related they are not the same thing. It is quite common to have multiple environments within the same account; it
+is also quite common to have multiple accounts for various aspects of your infrastructure.
+
+All the following directions assume that cross-account IAM roles have already been configured. Without having the appropriate
+IAM roles in place the following will not work.
+
+== Quick and Dirty Cross-Account role configuration
+
+=== Base Assumed Role
+The assumed role is expected to have an admin access or power user access policy attached to it as well as custom policies.
+
+.Base Assumed Role Trust Policy
+[source, json]
+----
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::ACCOUNT-NUMBER:root"
+            },
+            "Action": "sts:AssumeRole"
+        }
+    ]
+}
+----
+
+=== External Role
+The external role is expected to have an admin access or power user access policy attached to it as well as custom external policy.
+
+.External Role Trust Policy
+[source, json]
+----
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": [
+                    "arn:aws:iam::ACCOUNT-NUMBER:role/YOUR_base_assumed_service_role"
+                ]
+            },
+            "Action": "sts:AssumeRole"
+        }
+    ]
+}
+----
+
+For further details on role creation see link:compare-iac-role.adoc[Compare: Creating a IAM role] or the complete example
+here [TODO - fill in with repo]
+
+== CloudFormation
+
+To this point, I have not had to run cross-account CloudFormation.
+
+=== Executing
+
+== Serverless Framework
+
+To configure cross-account / multi-account, in Serverless Framework it is reasonably straight forward but _NOT_ intuitive.
+To run against multiple accounts, the commands must be run multiple times _AFTER_ assuming a different role at deployment
+time. I have not found a way around this.
+
+[NOTE]
+The ability to perform cross-account work is much more specific to if the IAM
+roles are setup correctly than any artifact or ability of the framework.
+
+=== Executing
+
+==== Local
+I have not experimented with this at length or no longer remember, you must be logged in to your cloud provider
+to execute the following. It is possible to use profiles to deploy to various accounts *BUT* the command must be run multiple
+times with each profile to execute against each environment. There is no way to my knowledge to run the command once against
+multiple environments.
+
+- `serverless deploy --config YOUR-SLS-CONFIG.yml --verbose`
+
+Also be aware that while you can use a serverless profile (which I think is `--profile`) this will run a separate serverless
+profile and has nothing to do with the account being deployed to. I.e. you are logged into the non-prod aws account and
+run the above command with the `--profile` argument for both dev and test. This will deploy _BOTH_ dev and test to the
+*SAME* aws account.
+
+[NOTE]
+There is also the `--stage X` option for dev, test, stage... ect. This option is for multi-environment NOT account (see
+link:compare-multiple-environments.adoc#_serverless_framework[here]).
+
+==== CI
+
+It is possible to configure a single CI job to run multiple account deploys. For each account pass in the role to be assumed
+then retrieve the credentials as shown below ...
+
+.codebuild.yml
+[source, yaml]
+----
+- EXTERNAL_ROLE_ARN="arn:aws:iam::$AWS_ACCOUNT_ID:role/$LOCAL_EXTERNAL_ROLE_NAME"
+- echo "-------------- Generate Credentials for $EXTERNAL_ROLE_ARN -----------------"
+- LOCAL_CREDENTIALS=$(aws sts assume-role --role-arn $EXTERNAL_ROLE_ARN --role-session-name codebuild-deploy-tools --duration-seconds 3600)
+- export AWS_ACCESS_KEY_ID="$(echo ${LOCAL_CREDENTIALS} | jq -r '.Credentials.AccessKeyId')"
+- export AWS_SECRET_ACCESS_KEY="$(echo ${LOCAL_CREDENTIALS} | jq -r '.Credentials.SecretAccessKey')"
+- export AWS_SESSION_TOKEN="$(echo ${LOCAL_CREDENTIALS} | jq -r '.Credentials.SessionToken')"
+- export AWS_EXPIRATION=$(echo ${LOCAL_CREDENTIALS} | jq -r '.Credentials.Expiration')
+- echo "--------------- Complete ------------------"
+----
+
+Once the credentials are set then invoke the serverless command `serverless deploy --config YOUR-SLS-CONFIG.yml --verbose`
+and it will deploy to the authenticated environment. To do this in multiple environments do the same thing, add an additional
+block retrieving the credentials for a role that will allow access to the other account and then execute the serverless
+command again.
+
+[TIP]
+For more information on multiple environments see link:compare-multiple-environments.adoc#_serverless_framework[here].
+
+== Terraform
+
+To configure cross-account / multi-account, in Terraform multiple providers need to be defined
+
+[NOTE]
+The following example uses a profile configuration for local execution and _DOES NOT_ use a profile for CI execution.
+
+.provider.tf
+[source, shell]
+----
+provider "aws" {
+  alias   = "accountA"
+  region  = "us-east-1"  # Replace with your region
+  profile = "aws-profile-a"
+}
+
+provider "aws" {
+  alias   = "accountB"
+  region  = "us-west-2"  # Replace with your region
+  profile = "aws-profile-b"
+}
+----
+
+To then leverage the multiple accounts that have been defined they will need to be applied to individual `module` or
+`resource` blocks. I personally like to use different files for each account so that it is _extremely_ clear where the
+code is executed.
+
+Account A may be your ops/tools accounts ...
+
+.accountA.tf
+[source, shell]
+----
+module "some_resource_in_aws_account_A" {
+  providers = {
+    aws = aws.accountA
+  }
+  source = "./path-to-module-A"
+}
+
+# Note: Provider is configured slightly different from a module
+resource "aws_instance" "dev_instance_aws_account_A" {
+  provider = aws.accountA
+  # ... other instance configuration
+}
+----
+
+Account B may be your non-prod or prod account ...
+
+.accountB.tf
+[source, shell]
+----
+module "some_resource_in_aws_account_B" {
+  providers = {
+    aws = aws.accountB
+  }
+  source = "./path-to-module-B"
+}
+----
+
+
+In order for this to work the modules being used must have their own `terraform.tf` file _AND_ it must have an the
+`configuration_aliases` line configured in order to be able to switch between accounts.
+
+----
+terraform {
+  required_providers {
+    aws = {
+      source                = "hashicorp/aws"
+      version               = ">= 4.0"
+      configuration_aliases = [aws]
+    }
+  }
+}
+----
+
+=== Executing
+
+To successfully run terraform configured in the manner you must be authenticated to all providers declared within the flow.
+In the above example, see the following
+
+==== Local
+Execute the following steps ...
+
+- `aws sso login --profile aws-profile-a` or just `aws sso login` if profile a is configured as default
+- `aws sso login --profile aws-profile-b`
+
+Now the local environment is ready for terraform execution
+
+- `terraform init`
+- `terraform validate`
+- `terraform plan`
+- `terraform apply`
+
+==== CI
+
+*I have not yet fully configured a cross-account deployment using Terraform in a CI flow _BUT_, I believe the correct way
+is the following ...*
+
+[CAUTION]
+THIS IS ASSUMING TERRAFORM EXECUTED IN CI IS CONFIGURED WITH A SINGLE PROVIDER. THIS ALLOWS FOR THE APPROPRIATE ROLE TO
+BE ASSUMED DURING THE CI RUN AND THE TERRAFORM EXECUTED USING THAT ROLE.
+
+[NOTE]
+Assuming the above in the CAUTION that means this could then be executed similarly to Serverless where you assume a given
+role, execute the deployment, assume a different role, and execute the deployment again against the newly assumed env.
+
+In the `buildspec.yml` retrieve credentials for the role that will allow for cross-account deployment
+
+.codebuild.yml
+[source, yaml]
+----
+- EXTERNAL_ROLE_ARN="arn:aws:iam::$AWS_ACCOUNT_ID:role/$LOCAL_EXTERNAL_ROLE_NAME"
+- echo "-------------- Generate Credentials for $EXTERNAL_ROLE_ARN -----------------"
+- LOCAL_CREDENTIALS=$(aws sts assume-role --role-arn $EXTERNAL_ROLE_ARN --role-session-name codebuild-deploy-tools --duration-seconds 3600)
+- export TF_VAR_AWS_ACCESS_KEY_ID="$(echo ${LOCAL_CREDENTIALS} | jq -r '.Credentials.AccessKeyId')"
+- export TF_VAR_AWS_SECRET_ACCESS_KEY="$(echo ${LOCAL_CREDENTIALS} | jq -r '.Credentials.SecretAccessKey')"
+- export TF_VAR_AWS_SESSION_TOKEN="$(echo ${LOCAL_CREDENTIALS} | jq -r '.Credentials.SessionToken')"
+- export TF_VAR_AWS_EXPIRATION=$(echo ${LOCAL_CREDENTIALS} | jq -r '.Credentials.Expiration')
+- echo "--------------- Complete ------------------"
+----
+
+.provider.tf
+[source, shell]
+----
+provider "aws" {
+  region = "us-east-1"
+  access_key = var.aws_acess_key_id
+  secret_key = var.aws_secret_access_key
+  token = var.aws_session_token
+}
+----
+
+[NOTE]
+The `variables.tf` file must have the variables declared in it
+
+I believe that the correct option here will be to have a buildspec per account. I.e. the `buildspec.yml` will authenticate
+to tools, np, or p and execute the terraform for the given account, so you will have 3 different CI jobs (one per env) to
+perform the correct authorization and then execute the deployment.
+
+[TIP]
+For more information on multiple environments see link:compare-multiple-environments.adoc#_terraform[here].
+
+== Resources
+
+- https://blog.container-solutions.com/how-to-create-cross-account-user-roles-for-aws-with-terraform
+- https://www.reddit.com/r/Terraform/comments/11ry6wi/authenticating_to_multiple_aws_accounts_for/
+- https://blog.container-solutions.com/how-to-create-cross-account-user-roles-for-aws-with-terraform
+- https://www.google.com/search?q=terraform+login+to+different+aws+account+while+running&oq=terraform+login+to+different+aws+account+while+running&gs_lcrp=EgZjaHJvbWUyCQgAEEUYORigATIHCAEQIRigATIHCAIQIRigATIHCAMQIRigATIHCAQQIRigATIHCAUQIRifBdIBCTE4NjIzajBqN6gCALACAA&sourceid=chrome&ie=UTF-8
+- https://kangzheng.medium.com/aws-cross-account-deployment-with-terraform-4d4e97f6e421
+- https://dev.to/sepiyush/using-terraform-to-manage-resources-in-multiple-aws-accounts-1b61
+- https://www.google.com/search?q=terraform+switch+aws+profiles+while+running&oq=terraform+switch+aws+profiles+while+running&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIHCAEQIRigATIHCAIQIRigATIHCAMQIRigATIHCAQQIRigATIHCAUQIRigAdIBCDkzMThqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8
+- https://stackoverflow.com/questions/64019034/how-to-generate-an-aws-profile-in-aws-config-for-use-in-a-codebuild-project

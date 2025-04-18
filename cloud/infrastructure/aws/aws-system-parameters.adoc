@@ -1,0 +1,42 @@
+= Aws: System Parameters
+:toc:
+
+[CAUTION]
+System Manager properties/parameter can be either GLOBAL _or_ REGIONAL. By Default properties _are_ regional. Additionally,
+Aws has recently introduced "Cross-account" parameter sharing ...
+see https://aws.amazon.com/blogs/mt/introducing-parameter-store-cross-account-sharing/[here].
+
+
+== Manually created parameters TODO
+
+== Working with system parameters and IaC
+
+=== Create system parameters with IaC
+
+* link:../../../infrastructure-as-code/aws/aws-cf-create-system-property.adoc[CloudFormation: Create System Property/Parameter]
+* link:../../../infrastructure-as-code/serverless/sls-aws-create-system-property.adoc[Serverless: Create System Property/Parameter]
+* link:../../../infrastructure-as-code/terraform/tf-aws-create-system-property.adoc[Terraform: Create System Property/Parameter]
+* link:../../../infrastructure-as-code/comparison/compare-ssm.adoc[Compare: SSM across frameworks]
+
+=== Retrieve system parameters with IaC
+
+* link:../../../infrastructure-as-code/aws/aws-cf-get-system-property.adoc[CloudFormation: Get System Property]
+* link:../../../infrastructure-as-code/serverless/sls-aws-get-system-property.adoc[Serverless: Get System Property]
+* link:../../../infrastructure-as-code/terraform/tf-aws-get-system-property.adoc[Terraform: Get System Property]
+* link:../../../infrastructure-as-code/comparison/compare-ssm.adoc[Compare: SSM across frameworks]
+
+== Working with system parameters within CI
+
+* link:../../../build/build-ci-codebuild-properties.adoc[CI: CodeBuild property access]
+
+== Shared System parameters
+
+Share parameters/properties from one account to another.
+
+== Cross-account parameters TODO
+
+* https://aws.amazon.com/blogs/mt/introducing-parameter-store-cross-account-sharing/[Cross-account parameter sharing]
+
+== Reference
+- https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-shared-parameters.html
+

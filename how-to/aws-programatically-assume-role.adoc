@@ -1,0 +1,235 @@
+= How To: Programmatically Assume a Role
+:toc:
+
+The goal of this page is to fully describe how to programmatically assume a role from executing code.
+
+[NOTE]
+The following example is using components of the V2 version of the AWS SDK
+
+This is an example of how to programmatically assume a role using java
+
+[source, java]
+----
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.Locale;
+import lombok.extern.slf4j.Slf4j;
+import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider;
+import software.amazon.awssdk.auth.credentials.AwsCredentialsProviderChain;
+import software.amazon.awssdk.auth.credentials.AwsSessionCredentials;
+import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
+import software.amazon.awssdk.services.sts.StsClient;
+import software.amazon.awssdk.services.sts.model.AssumeRoleRequest;
+import software.amazon.awssdk.services.sts.model.AssumeRoleResponse;
+import software.amazon.awssdk.services.sts.model.Credentials;
+import software.amazon.awssdk.services.sts.model.StsException;
+
+@Slf4j
+public class StsService {
+    // Hold the passed in StsClient instance
+    private final StsClient client;
+
+    public StsService(final StsClient client) {
+        this.client = client;
+    }
+
+    /**
+     * assumeGivenRole: Assumes a given role by using the role ARN and the session name.
+     *
+     * @param roleArn String
+     * @param roleSessionName String
+     *
+     * @return AwsCredentialsProvider
+     */
+    public AwsCredentialsProvider assumeGivenRole(final String roleArn, final String roleSessionName) {
+        log.info("assumeGivenRole: Attempting to assume given role ...");
+        try {
+            // Build the AssumeRoleRequest
+            final AssumeRoleRequest roleRequest = AssumeRoleRequest.builder()
+                    .roleArn(roleArn)
+                    .roleSessionName(roleSessionName)
+                    .build();
+            // Assume the provided role
+            final AssumeRoleResponse response = client.assumeRole(roleRequest);
+            // Retrieve credentials from the assumed role
+            final Credentials creds = response.credentials();
+            // Build a AwsSessionCredentials object from the credentials returned from the assumed role.
+            final AwsSessionCredentials sessionCredentials = AwsSessionCredentials.create(
+                    creds.accessKeyId(), creds.secretAccessKey(), creds.sessionToken()
+            );
+            // Get the time credentials expire for debugging purposes
+            final Instant exTime = creds.expiration();
+            // Convert the Instant to readable date.
+            final DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime( FormatStyle.SHORT )
+                    .withLocale(Locale.US)
+                    .withZone(ZoneId.systemDefault());
+            log.debug("assumeGivenRole: Access Key - {}", creds.accessKeyId());
+            // Check if the secret is available but do not display it in the logs
+            if (creds.secretAccessKey() != null && !creds.secretAccessKey().isEmpty()) {
+                log.debug("assumeGivenRole: Secret is present");
+            }
+            log.debug("assumeGivenRole: Token - {}", creds.sessionToken());
+            log.debug("assumeGivenRole: Expires time - {}", formatter.format(exTime));
+            // Build the AwsCredentialsProvider object to return to originating caller
+            return AwsCredentialsProviderChain.builder()
+                    .credentialsProviders(StaticCredentialsProvider.create(sessionCredentials))
+                    .build();
+        } catch (final StsException e) {
+            throw new RuntimeException("Failed to assume role - " + e.getMessage());
+        }
+    }
+}
+----
+
+To invoke the the above and apply the returned role to whatever aws service that requires it
+
+[source, java]
+----
+// Assume the provided role using the stsClient
+final AwsCredentialsProvider acp    = stsService.assumeGivenRole(this.verifyProperty(s3Properties, "brr.role.to.assume"),
+                this.verifyProperty(s3Properties, "brr.role.to.assume.session"));
+// Configure a remote s3 client to enable fetch of objects from the assumed account
+s3RemoteClient = S3Client.builder().credentialsProvider(acp).build();
+----
+
+== Troubleshooting
+
+If you are receiving the following error
+
+[source, shell]
+----
+Cannot find the software.amazon.awssdk.authcrt.signer.AwsCrtS3V4aSigner class” | “Failed to create software.amazon.awssdk.authcrt.signer.AwsCrtS3V4aSigner … Caused by: java.lang.ClassNotFoundException: software.amazon.awssdk.crt.http.HttpRequestBodyStream
+----
+
+This means you need to include the following dependency
+
+[source, xml]
+----
+<!-- This is required otherwise you receive an error | This package is unfortunately large ~15mb -->
+<!-- IllegalStateException: Failed to create software.amazon.awssdk.authcrt.signer.AwsCrtS3V4aSigne-->
+<dependency>
+    <groupId>software.amazon.awssdk</groupId>
+    <artifactId>auth-crt</artifactId>
+    <version>2.20.145</version>
+    <exclusions>
+    <!-- Unfortunately, there are no exclusions to apply to this package -->
+    </exclusions>
+</dependency>
+----
+
+[TIP]
+You just need to include it, there is no other configuration necessary.
+
+== In Python
+
+The following example is essentially the same as the above but in Python
+
+[source, python]
+----
+import boto3
+from botocore.client import Config
+import os
+from boto3.session import Session
+
+def lambda_handler(event, context):
+    brr_role_arn="arn:aws:iam::accountNum:role/brr-dropoff-access"
+    pvc_share="jtf-share-pvc-pvc-a428b5dc-a3d5-4294-ac98-5ff173c56ac7/data"
+    mrap_arn="arn:aws:s3::accountNum:accesspoint/marxk716crycr.mrap"
+
+    client = boto3.client('sts')
+
+    response = client.assume_role(RoleArn=brr_role_arn, RoleSessionName="test-session")
+
+    session = Session(aws_access_key_id=response['Credentials']['AccessKeyId'],
+                        aws_secret_access_key=response['Credentials']['SecretAccessKey'],
+                        aws_session_token=response['Credentials']['SessionToken'])
+
+    # Get trigger files
+    id=response['Credentials']['AccessKeyId']
+    key=response['Credentials']['SecretAccessKey']
+    token=response['Credentials']['SessionToken']
+
+    s3_client = boto3.client('s3', config=Config(signature_version="s3v4"), aws_access_key_id=id, aws_secret_access_key=key, aws_session_token=token)
+
+    efs_mount_path = "/mnt/efs/" + pvc_share
+
+    # Specify the tag key and value to check
+    tag_key_to_check = 'SCAN_STATUS'
+    expected_tag_value = 'CLEAN'
+    edd_prefix = 'brr/tar/'
+
+    # Pagination for S3 bucket list objects (due to 1000 limit)
+    # Identify trigger files and open to get the root folder name
+    # Verify all files in folder refereneces in the trigger file are scanned
+    # Copy folder & sub folders to efs mount /data
+    # Copy trigger file to efs
+    # Move the trigger file in S3 to the folder referenced in trigger file.
+    # Clean up (could be full delete, could be just moving the trigger file to the respective folder and letting a lifecycle policy do its work)
+
+    try:
+        paginator = s3_client.get_paginator('list_objects_v2')
+        pages = paginator.paginate(Bucket=mrap_arn, Prefix= edd_prefix)
+
+        for page in pages:
+        # Iterate through the objects in the bucket
+            for obj in page['Contents']:
+                # Check if the object is a text file (you can use more specific criteria)
+                if obj['Key'][-1:] == "/":
+                    continue
+                if obj['Key'].endswith('.txt'):
+                    # Read the content of the text file
+                    file_contents = s3_client.get_object(Bucket=mrap_arn, Key=obj['Key'])['Body'].read().decode('utf-8')
+                    first_line = s3_client.get_object(Bucket=mrap_arn, Key=obj['Key'])['Body'].readline().decode('utf-8').strip()
+                    edd_data_folder = first_line.lstrip(".\\")
+                    edd_data_prefix = os.path.join('brr','tar', edd_data_folder)
+                    # Process the file_contents as needed
+                    print(f"File: {obj['Key']}")
+                    print(f'First line of the file: {edd_data_prefix}')
+
+                    edd_data_objects = s3_client.list_objects_v2(Bucket=mrap_arn, Prefix=edd_data_prefix)
+
+                    for obj in edd_data_objects.get('Contents', []):
+
+                        edd_object_key = obj['Key']
+
+                        # Get the object's tags
+                        edd_object_tags = s3_client.get_object_tagging(Bucket=mrap_arn, Key=edd_object_key)
+
+                        # Iterate through the object's tags and check for the specific tag
+                        for tag in edd_object_tags['TagSet']:
+                            if tag['Key'] == tag_key_to_check:
+                                if tag['Value'] == expected_tag_value:
+                                    break
+                                else:
+                                    # Perform a different action or log a message
+                                    raise exception("Object '{edd_object_key}' does not have the expected tag value.")
+
+                        destination_path = os.path.join(efs_mount_path, edd_object_key.replace(edd_data_prefix, ''))
+
+                        print(f'Destination Path : {destination_path}')
+
+                        # Create parent directories if they don't exist
+                        os.makedirs(os.path.dirname(destination_path), exist_ok=True)
+
+                        print('Testing')
+
+                        # Copy object from S3 to EFS
+                        s3_client.download_file(mrap_arn, edd_object_key, destination_path)
+
+                    return {
+                        'statusCode': 200,
+                        'body': 'Files copied successfully.'
+                    }
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+
+----
+
+== Reference
+
+- https://atulquest93.medium.com/aws-lambda-with-cross-account-access-using-assume-role-in-java-d6ad2b32b40b
+- https://joelforjava.com/blog/2019/11/27/using-assume-role-with-aws-sdk.html
+

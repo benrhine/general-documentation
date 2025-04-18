@@ -1,0 +1,158 @@
+= Terraform: (AWS) Create a IAM role
+
+The following is an example of how to create a user(s) using Terraform and HCL syntax.
+
+[CAUTION]
+Roles are GLOBAL within an AWS account meaning that role names must be unique to an entire AWS account, _NOT_ just a given
+region.
+
+[NOTE]
+The following two example roles are the base roles that are expected to be available in every AWS account.
+
+[NOTE]
+To view details on IAM, see link:../../cloud/infrastructure/aws/aws-iam.adoc[Aws: IAM]
+
+[TIP]
+There is no cost associated with creating Aws IAM roles and policies only the resources the roles may allow access to.
+
+== IAM Role
+
+Role creation is essentially the same for each role but pay attention to the differences for the `Principal`. The
+assumed role is using a principal of AWS, and the base role has a principal of Service.
+
+[source, shell]
+----
+resource "aws_iam_role" "base_assumed_service_role" {
+  name = "tf-base-${var.aws_region}-assumed-service-role"
+  description = "This is the base role that will be assumed"
+  assume_role_policy = <<EOF
+    {
+      "Version": "2012-10-17",
+      "Statement": [
+          {
+              "Effect": "Allow",
+              "Principal": {
+                  "AWS": "arn:aws:iam::accountNumber:root"
+              },
+              "Action": "sts:AssumeRole"
+          }
+      ]
+    }
+EOF
+}
+
+resource "aws_iam_role" "base_service_role" {
+  name = "tf-base-${var.aws_region}-service-role"
+  description = "This is the base role that will be used to deploy resources"
+  assume_role_policy = <<EOF
+    {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Effect": "Allow",
+                "Principal": {
+                    "Service": [
+                        "codepipeline.amazonaws.com",
+                        "codebuild.amazonaws.com",
+                        "cloudformation.amazonaws.com"
+                    ]
+                },
+                "Action": "sts:AssumeRole"
+            }
+        ]
+    }
+    EOF
+  depends_on = [
+    aws_iam_role.base_assumed_service_role
+  ]
+}
+----
+
+[NOTE]
+Preferably, the Trust Policies shown above can be defined as data objects, similar to the `aws_iam_policy_document` shown
+below.
+
+[TIP]
+Use the above as an example and copy/paste into a Terraform script and edit the values to suit your purpose.
+
+== IAM Role Policies
+
+When creating a role, it must have attached policies to actually grant access to any resources. Policies can be attached
+either through using a "Managed Policy" that is already created in AWS or defining custom policies.
+
+[NOTE]
+Managed Policies are policies that are already pre-defined within AWS; These can be found in AWS Console > IAM > Policies.
+
+Below is an example of a managed policy that may be attached to one of the above roles.
+
+[source, shell]
+----
+resource "aws_iam_role_policy_attachment" "base_assumed_service_role_attachment" {
+  role       = module.base_assumed_service_role.created_role_name
+  policy_arn = "arn:aws:iam::aws:policy/PowerUserAccess"
+
+  depends_on = [
+    module.base_assumed_service_role
+  ]
+}
+----
+
+Below is an example of a custom policy that may be attached to one of the above roles.
+
+.Define the policy as a data object
+[source, shell]
+----
+data "aws_iam_policy_document" "tf_resource_iam_policy_all" {
+  statement {
+    actions   = [
+      "iam:AttachRolePolicy",
+      "iam:CreateRole",
+      "iam:GetRole",
+      "iam:PassRole",
+      "iam:DeleteRole",
+      "iam:DeleteRolePolicy",
+      "iam:DetachRolePolicy",
+      "iam:PutRolePolicy",
+    ]
+    resources = ["arn:aws:iam::accountNumber:role/*"]
+    effect = "Allow"
+  }
+}
+----
+
+.Translate data object to resource
+[source, shell]
+----
+resource "aws_iam_policy" "policy" {
+  name = "policy_name"
+  description = "policy description"
+  policy = data.aws_iam_policy_document.tf_resource_iam_policy_all.json
+  tags {
+    environment = "non-prod"
+  }
+}
+----
+
+.Attach policy resource to role
+[source, shell]
+----
+resource "aws_iam_role_policy_attachment" "attach_policy" {
+  role       = module.base_assumed_service_role.created_role_name
+  policy_arn = aws_iam_policy_document.arn
+}
+----
+
+
+== Testing a Role
+
+To manually test if a role works as expected see the directions link:../../cloud/infrastructure/aws/aws-iam.adoc#_testing_iam_roles[here].
+
+
+
+
+
+
+
+
+
+

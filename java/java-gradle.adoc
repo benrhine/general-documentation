@@ -1,0 +1,54 @@
+= Java: Gradle
+
+Gradle is a less common but more modern and flexible build system for JVM based languages.
+
+== Why use Gradle over Maven?
+
+The biggest reason to use Gradle over Maven is how much greater the flexibility is. To start you have the option of
+writing the build scripts in either groovy or kotlin instead of XML. Since Gradle uses actual scripting there is an
+additional myriad of plugins that can be used to easily extend its functionality as well as writing custom tasks to
+vastly simplify your build process.
+
+== Gradle Wrapper
+
+To help standardize build processes across team members and CI platforms it is highly suggested that any build using
+Gradle use the Gradle Wrapper instead of the local systems installed version of Gradle.
+
+This guarantees that the same version of gradle is used by all team members and in all steps of the build. This also allows
+for gradle to be portable and to be packaged directly as part of the application repo. Meaning that a system that is pulling
+down the code does not even need to have maven directly installed on it. The application can still be built using just
+the gradle wrapper file that is packaged with it.
+
+To create or update the gradle wrapper see https://www.baeldung.com/gradle-wrapper[here].
+
+== How to update Gradle wrapper
+
+Assuming the gradle wrapper is already part of a given project ...
+
+To upgrade the Gradle wrapper, execute the following to (replace the x.x.x with the desired version) ...
+
+[source, shell]
+----
+./gradlew wrapper --gradle-version x.x.x
+----
+
+To verify the upgrade was successful execute the following ...
+
+[source, shell]
+----
+./gradlew -v
+----
+
+== Not what you were looking for?
+
+* link:../java/java-maven.adoc[Java: Maven]
+* link:../build/build-maven-artifact.adoc[Maven: Build Artifact]
+* link:../build/build-maven-troubleshooting.adoc[Maven: Troubleshooting]
+* link:../build/build-gradle-artifact.adoc[Gradle: Build Artifact]
+* link:../build/build-gradle-troubleshooting.adoc[Gradle: Troubleshooting]
+* link:../build/build-ci-codebuild.adoc[CI: CodeBuild]
+
+== Reference
+
+* https://www.baeldung.com/gradle-wrapper
+

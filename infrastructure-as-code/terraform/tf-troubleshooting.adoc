@@ -1,0 +1,13 @@
+= Terraform: Troubleshooting
+
+== Reference
+
+- https://github.com/hashicorp/terraform/issues/34223
+- https://stackoverflow.com/questions/71077427/terraform-init-error-failed-to-get-existing-workspaces-s3-bucket-does-not-exis
+- https://stackoverflow.com/questions/77315762/terraform-stuck-at-still-creating-step-and-timeouts-while-creating-azure-service
+
+
+
+
+
+

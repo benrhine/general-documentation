@@ -1,0 +1,44 @@
+= CI: CodeBuild property access
+
+[CAUTION]
+For parameter access to be successful the CodeBuild job must be running with a role that has a minimum `ssm` access policy
+as defined under link:build-ci-codebuild-properties.adoc#_permissions_required[Permissions Required]
+
+It is quite simple to access properties that are defined within the Aws System Manager Parameter Store.
+Within the `buildspec.yml` add the `parameter-store` block and then values stored within the parameter store can be
+assigned to environment variables by simply including the full property/parameter name.
+
+== Configure CodeBuild to use System Manager properties/parameters
+
+.buildspec.yml
+[source, yaml]
+----
+version: 0.2
+run-as: root
+env:
+  shell: /bin/bash
+  parameter-store:
+    ENV_VAR_ONE: brr.tools.build.short.name
+    ENV_VAR_TWO: brr.tools.build.long.nam
+----
+
+== Permissions Required
+
+Minimum required permissions set to be attached to the role that is being used to execute the CodeBuild job in order for
+it to be able to access Aws System Manager properties/parameters.
+
+[source, yaml]
+----
+Policies:
+  - PolicyName: cf-ssm-policy
+    PolicyDocument:
+    Version: '2012-10-17'
+    Statement:
+      - Effect: Allow # note that these rights are given in the default policy and are required if you want logs out of your lambda(s)
+        Action:
+          - ssm:GetParameter
+          - ssm:GetParameters
+        Resource:
+          - '*'
+          - "DEFINE-YOUR-CUSTOM-RESOURCE-NAME-HERE-INSTEAD-OF-*"
+----

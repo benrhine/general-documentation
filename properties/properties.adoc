@@ -1,0 +1,35 @@
+= Properties
+
+This page and any sub-pages are dedicated to tracking properties that are used within all* environments. While some
+properties may be under version control and included in the deployment pocess others are not or can not be put in the
+repositories for security reasons.
+
+[NOTE]
+System Manager Properties (Including SecureStrings) are free (or at least quite a few are)
+
+[CAUTION]
+SecureString properties will not work with CloudFormation
+
+== Manually configured properties
+
+=== Environmental Properties
+
+=== App Specific Properties
+
+ToDo
+
+== Reference
+
+* https://start.jcolemorrison.com/using-ssm-parameters-with-cloudformation-templates-and-terraform-projects/
+* https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-access.html
+* https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-parameter.html
+* https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/parameters-section-structure.html#parameters-section-structure-properties-type
+* https://devops.stackexchange.com/questions/10266/parameter-store-values-show-instead-of-actual-value
+* do+system+manager+secure+string+cost&rlz=1C1GCEU_enUS1059US1059&oq=do+system+manager+secure+string+cost&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRhA0gEJMTE2MTdqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8
+
+
+
+
+
+
+

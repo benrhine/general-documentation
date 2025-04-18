@@ -1,0 +1,43 @@
+= CloudFormation: (AWS) Create System Property/Parameter
+
+[CAUTION]
+System Manager properties/parameter can be either GLOBAL _or_ REGIONAL. By Default properties _are_ regional. Additionally,
+Aws has recently introduced "Cross-account" parameter sharing ... see https://aws.amazon.com/blogs/mt/introducing-parameter-store-cross-account-sharing/[here].
+
+[NOTE]
+Be aware this process is exactly the same as link:../serverless/sls-aws-create-system-property.adoc[Serverless: (AWS) Create System Property/Parameter]
+*_EXCEPT_* CloudFormation only has a single `Resources` block. It does not require the additional `resources` block that
+Serverless uses.
+
+[NOTE]
+To view details on System Manager Parameters/Properties, see link:../../cloud/infrastructure/aws/aws-system-parameters.adoc[System Parameters]
+
+
+[TIP]
+System Manager properties/parameter are Aws Free Tier eligible for _Standard parameters_. If you need to secure parameters
+within System manager, there will be a fee (see https://aws.amazon.com/systems-manager/pricing/[here]).
+
+== System Manager Property/Parameter
+
+[source, yaml]
+----
+Resources:
+    ServiceAssumedRoleNameProperty:
+        Type: AWS::SSM::Parameter
+        Properties:
+          Name: !Sub brr.tools.${ShortName}.assumed.external.role.name
+          Description: !Sub Role assumed to publish ${ProjectName}
+          DataType: text
+          Tier: Standard
+          Type: String
+          Value: !Sub ${ProjectName}-${AWS::Region}-assumed-service-role
+          Tags:
+            Environment: build
+----
+
+[TIP]
+Use the above as an example and copy/paste into a CloudFormation template and edit the values to suit your purpose.
+
+
+
+

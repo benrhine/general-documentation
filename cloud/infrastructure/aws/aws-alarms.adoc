@@ -1,0 +1,16 @@
+= Alarms
+
+* https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html
+* https://aws.amazon.com/blogs/mt/how-to-enable-amazon-cloudwatch-alarms-to-send-repeated-notifications/
+* https://stackoverflow.com/questions/69659225/how-to-setup-aws-alarms-to-send-notification-in-both-going-on-and-off - this one is helpful
+* https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Notify_Users_Alarm_Changes.html
+* aws+send+alert+when+alarm+clears&rlz=1C1GCEU_enUS1059US1059&oq=aws+send+alert+when+alarm+clears&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIHCAEQIRifBdIBCDkwNzZqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8
+* https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-alarm.html
+* https://www.reddit.com/r/aws/comments/7xhrv0/cloudwatch_alarm_when_everything_is_back_to_normal/
+* https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/ConsoleAlarms.html
+* https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-compositealarm.html#aws-resource-cloudwatch-compositealarm--examples
+* https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-alarm.html#aws-resource-cloudwatch-alarm--examples
+* https://medium.com/@raaj.akshar/a-guide-to-cloudwatch-monitoring-and-alerting-9d44b812a73
+* aws+alarm+on+return+to+ok+medium&rlz=1C1GCEU_enUS1059US1059&oq=aws+alarm+on+return+to+ok+medium&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIJCAEQIRgKGKABMgkIAhAhGAoYoAHSAQkxMjA3NmowajeoAgCwAgA&sourceid=chrome&ie=UTF-8
+* https://sodkiewiczm.medium.com/how-to-not-miss-cloudwatch-alarms-d3e4ffebfbf3 - this one looks really promising
+* https://stackoverflow.com/questions/52959116/aws-cloudwatch-alarm-not-returning-to-ok-state-even-though-data-looks-fine

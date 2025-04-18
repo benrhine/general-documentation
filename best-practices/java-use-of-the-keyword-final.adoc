@@ -1,0 +1,41 @@
+= Java: Use of keyword final
+:toc:
+
+== Why you should use final everywhere
+
+When using the `final` keyword just for variables we can improve the application in the following measurable ways ...
+
+* 2.5x execution performance improvement
+* improved static compilation of application
+** Example using non-final class variables – 76 lines of bytecode
+** Example using final class variables (constants) – 39 lines of bytecode
+* Clearer intent of code
+
+== Ok, but personally ... why should I use this practice?
+
+If the above measurable reasons are not enough for you to just go "yeah that sounds good enough" then consider the
+following. *It makes your code so much easier and faster to read.* On the surface it may feel _cluttery_ to use final
+everywhere but stop and really think about the process
+of reading code. If a primitive variable is declared final you already know its value is not going to change. Same
+when considering parameters; if you have the parameters defined as final you already know there value will not be reset
+within the method they are being passed into and what value you should expect when debugging or testing.
+
+Similar consideration for non-primitive types; while declaring them final will not guarantee the value contained within
+it does let you know that you should not expect that variable to be re-initialized anywhere in your code flow.
+
+== A word on final for classes and methods
+
+The _final_ keyword has a different purpose when applied to classes and methods. When we apply the final keyword to a class,
+then that class cannot be subclassed. When we apply it to a method, then that method cannot be overridden.
+
+There are no reported performance benefits of applying final to classes and methods. Moreover, final classes and methods
+can be a cause of great inconvenience for developers, as they limit our options for reusing existing code. Thus, reckless
+use of final can compromise good object-oriented design principles.
+
+I do suggest that all test classes be made final by default. There is no real reason that any test class should ever be
+extended (or in almost 20 years I have not found one yet). If you see a test class being extended there is a good chance
+something is designed incorrectly and should be re-evaluated.
+
+== Reference
+
+* https://www.baeldung.com/java-final-performance

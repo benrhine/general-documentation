@@ -1,0 +1,11 @@
+= Cognito
+
+== Reference
+
+* https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-enable-cognito-user-pool.html
+* https://www.appsdeveloperblog.com/api-gateway-lambda-authorizer-example-in-java/#google_vignette
+* https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-lambda-authorizer.html
+* https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-use-lambda-authorizer.html
+* https://georgemao.medium.com/demystifying-java-aws-lambda-handlers-for-api-gateway-c1e77b7e6a8d
+* https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html
+*

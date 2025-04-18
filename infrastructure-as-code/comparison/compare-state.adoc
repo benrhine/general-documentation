@@ -1,0 +1,168 @@
+= Compare: State
+:toc:
+
+How _state_ is maintained is quite different between the given frameworks
+
+== CloudFormation
+
+In short, I would describe CloudFormation state as being maintained by Aws as an artifact of the upload. When creating
+infrastructure with CloudFormation it either requires the template to be uploaded through the Aws Console or using the
+Aws CLI or CDK. This results in "Stacks" being created which is how you can visualize the state of CloudFormation.
+
+[NOTE]
+In my opinion, this process is extremely slow and somewhat error-prone as I have had issues where it will get stuck and
+the only way to correct the issue is to fully delete the template and to start over. This is not good for building resilient
+infrastructure and being able to ensure error free deployments.
+
+For further details ... According to https://www.google.com/search?client=safari&rls=en&q=how+does+cloudformation+maintain+state&ie=UTF-8&oe=UTF-8[Google AI Summaries] ...
+
+CloudFormation maintains the state of your infrastructure by comparing the current state of your resources with the desired state defined in your template, and then making necessary changes to ensure they match. It does this as a managed AWS service, so you don't need to worry about managing the state files yourself.
+
+Here's a more detailed explanation:
+
+=== Declarative Approach:
+CloudFormation uses a declarative approach, meaning you define the desired state of your infrastructure in a template (JSON or YAML).
+
+=== Template as Truth:
+The template acts as the "source of truth" for your infrastructure configuration.
+
+=== Stack Management:
+CloudFormation manages stacks, which are groups of resources defined in your template.
+
+=== State Tracking:
+CloudFormation tracks the current state of resources within a stack and compares it to the desired state in the template.
+
+=== Automated Reconciliation:
+If there are discrepancies between the current and desired states, CloudFormation automatically takes action to bring the resources to the desired state.
+
+=== Rollback:
+CloudFormation can also roll back changes if an error occurs during the update process, returning the infrastructure to its previous state.
+
+=== Drift Detection:
+CloudFormation can detect if resources have drifted from the managed state, meaning they have been modified outside of CloudFormation's control.
+
+=== Change Sets:
+You can preview the changes that CloudFormation will make to your infrastructure before deploying them using Change Sets.
+
+=== Managed Service:
+As a managed service, CloudFormation handles the complexities of state management, making it easier to provision and update your AWS infrastructure.
+
+
+== Serverless Framework
+
+The state of Serverless Framework deploys is similar in many ways to CloudFormation as behind the scenes all Serverless
+is doing is translating the Serverless code to CloudFormation code. This can be seen by looking at the files that are
+maintained in the `.serverless` folder that is created in a project when running serverless commands.
+
+However, when writing serverless code you must declare a deployment bucket in the yaml files which will contain the state
+files at deployment time.
+
+[source, yaml]
+----
+provider:
+    ...
+    deploymentBucket:
+        name: YOUR-BUCKET-NAME
+        serverSideEncryption: AES256
+        maxPreviousDeploymentArtifacts: 10
+    ...
+----
+
+These files will then be translated into Aws Stacks
+
+[NOTE]
+This maintaining of state essentially happens automatically as an artifact of using Serverless; no additional setup is
+required other than the default of what is required to even use serverless as a tool. i.e. you have to declare a deployment
+bucket as part of Serverless configuration, it is required.
+
+== Terraform
+
+Terraform is a bit of an odd body in comparison to CloudFormation or Serverless Framework, by default it fully maintains
+its state in a file local to where it is being executed. Stated a different way, the way Terraform maintains state is much
+less automatic than either CloudFormation or Serverless Framework.
+
+To maintain state of your Terraform deploys it must be wired up between the `terraform` block and the `provider` block.
+Additionally, a S3 bucket (or other backend) must already be available for use.
+
+The following Terraform snippets assume an S3 bucket has already been created
+
+[NOTE]
+Additionally, it is possible to configure a lock on the given terraform state if a dynamo table is configured. For the
+given example this is not shown but in a production environment it is highly suggested to setup this additional step.
+
+.terraform.tf
+[source, shell]
+----
+terraform {
+  backend "s3" {
+    bucket  = "PRE-EXISTING-BUCKET-NAME"
+    key     = "PROJECT-NAME/terraform.tfstate"
+    region  = "us-east-1"
+    encrypt = true
+  }
+}
+----
+
+[WARNING]
+All values in `terraform.tf` must be hard coded! Variables and locals are not supported for the `backend` block.
+
+.provider.tf
+[source, shell]
+----
+provider "aws" {
+  region = "us-east-1"
+  shared_credentials_files = ["~/.aws/credentials"]
+}
+----
+
+With the above configured assuming the execution role has the correct permissions the `.tfstate` file will be saved into
+the specified S3 bucket.
+
+This allows the state to be shared between developers or to support maintaining terraform state during CI builds. So long
+as state is configured to go to the backend this will also prevent the state files from being created on a developers local
+machine.
+
+[NOTE]
+Terraform is smart enough to be able to get the aws credentials using the credentials file as shown above.
+
+=== Alternative Terraform
+
+It is also possible to set the credentials by exporting them to environment variables. This way is slower and requires
+more configuration.
+
+.codebuild.yml
+[source, yaml]
+----
+- EXTERNAL_ROLE_ARN="arn:aws:iam::$AWS_ACCOUNT_ID:role/$LOCAL_EXTERNAL_ROLE_NAME"
+- echo "-------------- Generate Credentials for $EXTERNAL_ROLE_ARN -----------------"
+- LOCAL_CREDENTIALS=$(aws sts assume-role --role-arn $EXTERNAL_ROLE_ARN --role-session-name codebuild-deploy-tools --duration-seconds 3600)
+- export TF_VAR_AWS_ACCESS_KEY_ID="$(echo ${LOCAL_CREDENTIALS} | jq -r '.Credentials.AccessKeyId')"
+- export TF_VAR_AWS_SECRET_ACCESS_KEY="$(echo ${LOCAL_CREDENTIALS} | jq -r '.Credentials.SecretAccessKey')"
+- export TF_VAR_AWS_SESSION_TOKEN="$(echo ${LOCAL_CREDENTIALS} | jq -r '.Credentials.SessionToken')"
+- export TF_VAR_AWS_EXPIRATION=$(echo ${LOCAL_CREDENTIALS} | jq -r '.Credentials.Expiration')
+- echo "--------------- Complete ------------------"
+----
+
+.provider.tf
+[source, shell]
+----
+provider "aws" {
+  region = "us-east-1"
+  access_key = var.aws_acess_key_id
+  secret_key = var.aws_secret_access_key
+  token = var.aws_session_token
+}
+----
+
+[NOTE]
+The `variables.tf` file must have the variables declared in it
+
+
+== Reference
+
+- https://stackoverflow.com/questions/69064416/terraform-aws-and-sts-the-security-token-included-in-the-request-is-invalid
+- https://support.circleci.com/hc/en-us/articles/360034981414--Server-How-to-Add-Temporary-AWS-Session-Tokens-in-Terraform
+- https://www.reddit.com/r/aws/comments/rac2yp/access_denied_when_trying_to_assume_a_iam_role/
+- https://blog.slauth.io/troubleshooting-aws-iam-errors-resolving-5-common-errors
+
+

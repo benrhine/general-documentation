@@ -1,0 +1,84 @@
+= How To: Automatically get custom dependency version
+:toc:
+
+This page is describing how to get the current version of dependencies you or your organization control programmatically at build time.
+
+Get the aws credentials during the build
+
+[source, shell]
+----
+- EXTERNAL_ROLE_ARN="arn:aws:iam::$AWS_ACCOUNT_ID:role/$EXTERNAL_ROLE_NAME"
+- echo "--------------------------- Generate Credentials for $EXTERNAL_ROLE_ARN ---------------------------------"
+- CREDENTIALS=$(aws sts assume-role --role-arn $EXTERNAL_ROLE_ARN --role-session-name codebuild-deploy-use1 --duration-seconds 3600)
+- export AWS_ACCESS_KEY_ID="$(echo ${CREDENTIALS} | jq -r '.Credentials.AccessKeyId')"
+- export AWS_SECRET_ACCESS_KEY="$(echo ${CREDENTIALS} | jq -r '.Credentials.SecretAccessKey')"
+- export AWS_SESSION_TOKEN="$(echo ${CREDENTIALS} | jq -r '.Credentials.SessionToken')"
+- export AWS_EXPIRATION=$(echo ${CREDENTIALS} | jq -r '.Credentials.Expiration')
+- echo "----------------------------------------------- Complete ------------------------------------------------"
+----
+
+Get an access token to your artifactory
+
+[source, shell]
+----
+- echo "------------------------------ Generate Code Artifact Authentication ------------------------------------"
+- export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain artifacts-br-np-benrhine --domain-owner $AWS_ACCOUNT_ID --region $AWS_REGION --query authorizationToken --output text`
+- echo "----------------------------------------------- Complete ------------------------------------------------"
+----
+
+Get the `defaultDisplayVersion` and export it into an environment variable
+
+[source, shell]
+----
+- echo "---------------------------- Retrieve most current version of dependency --------------------------------"
+- export LAMBDA_UTILS_VERSION=`aws codeartifact list-package-versions --package lambda-utils --domain artifacts-br-np-benrhine --domain-owner $AWS_ACCOUNT_ID --repository br-np-libraries --format maven --namespace com.benrhine --output text --query 'defaultDisplayVersion'`
+- echo "Library lambda-utils will be set to version $LAMBDA_UTILS_VERSION"
+- echo "----------------------------------------------- Complete ------------------------------------------------"
+----
+
+[NOTE]
+If you want to list all available versions instead of get the current
+
+[source, shell]
+----
+aws codeartifact list-package-versions --package lambda-utils --domain artifacts-br-np-benrhine --domain-owner ACCOUNT-NUM --repository br-n
+p-libraries --format maven --namespace com.benrhine --output text --query 'versions[*].[version]'
+----
+
+Now that the current published artifact version has been retrieved, you can retrieve the environment variable in the `build.gradle`
+
+[source, shell]
+----
+ext.currentLambdaUtils = System.env.LAMBDA_UTILS_VERSION // Get the most currently released version
+----
+
+Make sure that the project is configured to access the artifact repository where the library is published
+
+[source, shell]
+----
+repositories {
+  mavenCentral()
+  // If you need to define custom maven repo
+  maven {
+    url = uri("https://artifacts-br-np-benrhine-XXXXXXXXXX.d.codeartifact.us-west-2.amazonaws.com/maven/br-np-libraries/")
+    credentials {
+      username "$vcsUser"
+      password "$vcsPass"
+    }
+  }
+}
+----
+
+Use the retrieved version in the library import
+
+[source, shell]
+----
+implementation "com.benrhine:lambda-utils:$currentLambdaUtils"
+----
+
+== Reference
+
+- https://stackoverflow.com/questions/47657423/get-github-git-branch-for-aws-codebuild
+- https://stackoverflow.com/questions/3545292/how-to-get-maven-project-version-to-the-bash-command-line
+- https://medium.com/@iamfaisalkhatri/how-to-check-and-update-newer-versions-for-dependencies-in-the-maven-project-3fd20e0dc783
+

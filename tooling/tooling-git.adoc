@@ -1,0 +1,8 @@
+= Git
+
+Git is the preferred source control tool …
+
+* link:tooling-git-hooks.adoc[Git Hooks]
+* link:tooling-git-main-vs-master.adoc[Main vs Master]
+* link:tooling-git-trunk-based-development.adoc[Trunk Based Development]
+

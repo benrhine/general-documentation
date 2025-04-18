@@ -1,0 +1,37 @@
+= Environments
+
+While each and every work place has its own set of rules and requirements. There are a few base assumptions that will be
+made about how environments are setup and configured regardless of who you are working for.
+
+== Minimum Expectations
+
+It is expected that any workplace will have at least 3 environments ...
+
+* dev
+* test
+* prod
+
+[CAUTION]
+This is essentially the minimum scenario. If you observe anything less be very cautious and suggest that the environments
+be setup in this fashion.
+
+The above environments may be in the same account or may be spread across multiple accounts. It is highly recommended for
+security that prod reside in a separate account.
+
+== Preferred environment setup
+
+* dev
+* test
+* regression
+* pre-prod / uat
+** exact duplicate of prod env
+* prod
+
+The above environment structure is what is preferred to have solid testing and automated deployment in place.
+
+* dev can be deployed to at anytime or once everyday for the team
+* test is deployed to on a weekly basis for testers
+* regression is deployed to on a sprint basis
+* pre-prod / uat is deployed to when prepping a release and maintained post-release so that in the event any issues or
+failures occur that traffic could be transferred to the environment OR so that testing could be done in a prod equivalent
+without actually testing on prod

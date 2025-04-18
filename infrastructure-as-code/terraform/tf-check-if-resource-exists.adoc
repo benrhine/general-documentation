@@ -1,0 +1,53 @@
+= Terraform: Check if resource exists?
+
+This usage of Terraform seems to have broad opinions on if using it in this way is correct or the intended way to be used.
+Some of that may be how you intend to leverage it? Or what context this question is being asked. I personally believe
+that all of these frameworks should check their work and validate that they completed the actions they stated they would
+complete.
+
+So lets start with what are the intentions of the above statement? I think that it can be read two ways ...
+
+1. I want to run a basic query and see what Terraform created or owns
+2. I want to see if a resource exists before doing something with Terraform
+
+If you want number 1. that is straightforward to achieve. You can execute either of the following ...
+
+----
+terraform output
+----
+
+This will show you configured resource ARN's or
+
+----
+terraform show
+----
+will allow you to inspect attributes contained within the state file.
+
+However, if you are looking to check existance prior to running a TF script things get much more complicated. This is not
+really functionality that Terraform supports at this time. Terraform
+does have the concept of an https://registry.terraform.io/providers/hashicorp/external/latest/docs/data-sources/external[external data source]
+where it is possible to use some other program such as bash to check things and then read that data into Terraform, but
+HashiCorp states this ability is an escape hatch and should only be used in a case of last resort.
+While it looks like this could get the job done it is not preferred to do things that are highly suggested to not be done.
+
+I can see a use case for this within a CI file where you leverage bash and Aws CLI (or Googles equivalent) to create
+environment variables for usage with Terraform or using the external data source mentioned above. It would probably be
+simplest to create Terraform Environment variables this way before executing the TF script so that they would be picked
+up at runtime time by Terraform.
+
+== For your consideration
+
+I have an idea that some of this could be solved using Aws System Property Manager. If everything is setup nicely there
+should be a base Terraform project that creates many of the basic resources before you are doing application deployment.
+As part of this project all initial outputs should be stored within "Property Manager" (or something similar) then all
+the values in property manager can be referenced using Terraform data resources in projects that build on it. This should
+ guarantee the existence of required values.
+
+Another option may be to use Terraform link:tf-lifecycle-hooks.adoc[Lifecycle Hooks]
+
+
+
+== Resources
+
+- https://registry.terraform.io/providers/hashicorp/external/latest/docs/data-sources/external
+- https://stackoverflow.com/questions/70689512/terraform-check-if-resource-exists-before-creating-it

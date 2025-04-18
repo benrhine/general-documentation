@@ -1,0 +1,213 @@
+= Setup: CodeCommit
+
+This page is intended to describe how to successfully get AWS CodeCommit connected and working on your local machine.
+
+== Using SSO
+
+This is the preferred way of interacting with AWS CodeCommit. Note: Interacting with AWS hosted git repos that have
+SSO or Federated access requires non-standard git setup.
+
+This is the *ONLY* way to successfully configure CodeCommit when using SSO. Additionally, this does not play nice with git
+credentials manager. This should work around that successfully but be aware you may run across documentation that discusses this issue.
+
+To successfully configure CodeCommit please make sure you have fully completed the AWS SSO configuration and tested that it
+works before beginning here. The instructions below are assuming you have completed the onboarding instructions here, a working AWS Cli,
+can successfully login using the `aws sso login` command, and have python installed.
+
+=== MacOS
+.Click here to expand ...
+[%collapsible]
+====
+[source, bash]
+----
+
+----
+====
+
+=== Linux
+ToDo
+
+=== Windows
+.Click here to expand ...
+[%collapsible]
+====
+*Configuration*
+
+* Open GitBash
+* Execute `pip --version`
+** You should have a version higher than 9.0.3
+** If for some reason you have not already installed python (which pip is part of) install python. Go https://www.python.org/downloads/[here] and select the version for your machine.
+* Verify that - `aws codecommit help`  returns a list of commands
+** This shows that AWS Cli is setup correctly
+* Execute `pip install git-remote-codecommit`
+** This installs AWS special git tool (see https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-git-remote-codecommit.html#setting-up-git-remote-codecommit-install[here])
+* (Option 1) Setup AWS Credentials Helper (terminal - still requires manual edits)
+** Configure from terminal
+
+[source, bash]
+----
+git config --global credential.helper '!aws codecommit credential-helper $@'
+git config --global credential.UseHttpPath true
+----
+
+[TIP]
+Be aware that *you will need to* edit your local `.gitconfig` after this as by default this will only try to use the aws `default` credentials profile
+
+* (Option 2) Setup AWS Credentials Helper (manual - suggested options)
+** Open and modify the .gitconfig  file located in your user home directory
+** `[user]` - Global Details about you - this should be valid for both AWS CodeCommit and BitBucket
+** `[difftool], [mergetool],[filter]` - were auto added so no further details are available
+** `[core]` - Globally tells git how to deal with line endings on windows
+** `[credential *]` - These blocks instruct git where to send different code sets by specifying what domain goes where. In example if I am pushing a repo that is in AWS region `us-east-2` it will detect that and look for repos in that region
+*** Note: It seems you need a credential line for each CodeCommit repo as the `*` operator does not stop additional credential lines for AWS CodeCommit from being added
+
+[source, bash]
+----
+[user]
+    name = Ben Rhine
+    email = benjamin.rhine@test.com
+[difftool "sourcetree"]
+    cmd = "'' "
+[mergetool "sourcetree"]
+    cmd = "'' "
+    trustExitCode = true
+[filter "lfs"]
+    required = true
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+[core]
+    autocrlf = false
+[credential "https://test.com"]
+    provider = generic
+    helper = wincred
+[credential "https://git-codecommit.*.amazonaws.com"]
+    provider = generic
+    helper = !aws --profile=profile-name codecommit credential-helper $@
+    UseHttpPath = true
+[credential "https://git-codecommit.us-east-2.amazonaws.com/v1/repos/repo-template"]
+    provider = generic
+[credential "https://git-codecommit.us-west-2.amazonaws.com/v1/repos/repo-template"]
+    provider = generic
+----
+
+* It is possible to specify AWS Profiles to the CodeCommit credential helper - see above
+** `helper = !aws --profile=profile-name codecommit credential-helper $@`
+** Warning: I had trouble getting this to honor the profile, it continuously wanted to use the default profile which was not configured
+** Find additional references that can be in this file https://gist.github.com/pksunkara/988716[here]
+
+*First Clone*
+
+In order to get CodeCommit to correctly honor AWS Profiles the only way I have found that this works is to ensure when you clone the repository you do it will all the necessary details. So to clone your repo the correct way to get it to use a profile do the following ...
+
+[source, bash]
+----
+aws sso login --profile brr-np-pa
+# Complete browser prompts ...
+git clone codecommit::us-west-2://username@repo-template repo-template
+----
+
+or
+
+[source, bash]
+----
+aws sso login --profile <aws-profile>
+# Complete browser prompts ...
+git clone codecommit::<aws-region>://<aws-profile>@<repo-name> <clone-to-this-folder>
+----
+
+At this point you should have successfully retrieved a repository from AWS CodeCommit. Be aware that you may see two lines that say fatal, everything is working correctly these seems to be artifacts of having the standard git credentials helper installed and if everything is configured as above should not be an issue other than a visual annoyance.
+
+*First Push*
+
+At this point go ahead and make a test modification to a file and then you should be able to follow standard git actions
+
+* git add .
+* git commit -m "this is a test"
+* git push -u origin main
+
+Similarly to when the project was cloned you will most likely again see fatal in the terminal but again everything should be working correctly and your changes should have been committed up to the repository.
+
+====
+
+== Legacy IAM
+
+[WARNING]
+Legacy IAM (ie. Non-SSO login) is deprecated
+
+While this setup is still valid and available it is now deprecated in favor of AWS SSO. To setup CodeCommit this way follow
+the directions https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-gc.html[here] as they are significantly more straight forward and do not require additional tooling.
+
+== Troubleshooting
+
+If you have issues cloning and have an error like follows
+
+[source, shell]
+----
+git clone codecommit::us-west-2://user@lambda-test lambda-test
+Cloning into 'lambda-test'...
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Scripts\git-remote-codecommit.exe\__main__.py", line 7, in <module>
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\git_remote_codecommit\__init__.py", line 177, in main
+    authenticated_url = git_url(context.repository, context.version, context.region, context.credentials)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\git_remote_codecommit\__init__.py", line 207, in git_url
+    token = '%' + credentials.token if credentials.token else ''
+                                       ^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\botocore\credentials.py", line 431, in token
+    self._refresh()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\botocore\credentials.py", line 498, in _refresh
+    self._protected_refresh(is_mandatory=is_mandatory_refresh)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\botocore\credentials.py", line 514, in _protected_refresh
+    metadata = self._refresh_using()
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\botocore\credentials.py", line 661, in fetch_credentials
+    return self._get_cached_credentials()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\botocore\credentials.py", line 671, in _get_cached_credentials
+    response = self._get_credentials()
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\botocore\credentials.py", line 2124, in _get_credentials
+    response = client.get_role_credentials(**kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\botocore\client.py", line 530, in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\botocore\client.py", line 964, in _make_api_call
+    raise error_class(parsed_response, operation_name)
+botocore.exceptions.ClientError: An error occurred (ForbiddenException) when calling the GetRoleCredentials operation: No access
+----
+
+== Reference
+
+* https://docs.aws.amazon.com/codecommit/latest/userguide/getting-started.html
+* https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-git-remote-codecommit.html
+* https://docs.aws.amazon.com/codecommit/latest/userguide/troubleshooting-ch.html
+* https://docs.aws.amazon.com/codecommit/latest/userguide/troubleshooting-grc.html
+* https://jameswing.net/aws/using-codecommit-and-git-credentials.html
+** This one was quite helpful in configuring .gitconfig  to support both BitBucket and AWS CodeCommit
+* https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-https-unixes.html#setting-up-https-unixes-credential-helper
+* https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_ssh-keys.html
+* https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-https-windows.html#setting-up-https-windows-credential-helper
+* https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html
+* https://aws.amazon.com/blogs/devops/federated-multi-account-access-for-aws-codecommit/
+* https://docs.aws.amazon.com/codecommit/latest/userguide/temporary-access.html
+* https://notes.paulswail.com/public/Connecting+to+a+CodeCommit+repository+with+AWS+SSO
+* https://spacelift.io/blog/aws-iam-roles
+* https://medium.com/@iamarkadyt/improving-the-security-of-build-pipelines-on-aws-by-using-temporary-access-credentials-106650f9d92f
+* https://www.google.com/search?q=how+to+setup+codecommit+rules&rlz=1C1GCEU_enUS1059US1059&oq=how+to+setup+codecommit+rules&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIHCAEQIRigAdIBCDU4NTBqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8
+* https://codestax.medium.com/aws-codecommit-pull-request-creation-and-approval-b7b6766d8da0
+* https://fig.io/manual/aws/codecommit/create-approval-rule-template
+* https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-create-pull-request-approval-rule.html
+* https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-create-template.html
+* https://dev.to/aws-builders/explore-the-approval-rule-and-notification-rule-in-codecommit-repo-3n9
+* https://docs.aws.amazon.com/codecommit/latest/userguide/customer-managed-policies.html#access-permissions-lambda-int
+* https://docs.aws.amazon.com/codecommit/latest/userguide/troubleshooting-ti.html
+* https://www.google.com/search?q=how+to+setup+codecommit+rules&rlz=1C1GCEU_enUS1059US1059&oq=how+to+setup+codecommit+rules&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIHCAEQIRigAdIBCDU4NTBqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8
+* https://codestax.medium.com/aws-codecommit-pull-request-creation-and-approval-b7b6766d8da0
+* https://fig.io/manual/aws/codecommit/create-approval-rule-template
+* https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-create-pull-request-approval-rule.html
+* https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-create-template.html
+* https://dev.to/aws-builders/explore-the-approval-rule-and-notification-rule-in-codecommit-repo-3n9

@@ -1,0 +1,123 @@
+= Profiles / Properties / Environment Variables
+:toc:
+
+A chronic debate in the development community is what is the best way to handle environment specific values. Many times
+in more traditional java development we would use spring profiles and property files that were defined by environment.
+With this being a lambda and the goal is to be light and fast we do our best to avoid frameworks and bloat which adds
+some small complications of how to best handle environment specific values. It would be possible to use a standard
+property file and to write a custom loader with our own environment logic but is again additional overhead to the project.
+We could simply store any required values in Aws Secrets Manager but there is a per access cost to retrieving those values.
+Enter Serverless Framework ...
+
+== Serverless per environment variables
+
+Serverless makes managing per environment variables super easy; just declare the variable name then the environment
+followed by the value desired for that environment
+
+----
+custom:
+  stage: ${opt:stage, self:provider.stage}  provider.stage
+  envVar:
+    WHICH_ENV:
+      local:  "This is the local environment"
+      dev:    "This is the development environment"
+      test:   "This is the test environment"
+      rgrs:   "This is the regression environment"
+      stage:  "This is the staging environment"
+      prod:   "This is the production environment"
+    AUTH_URL:
+      local:  ...
+      dev:    ...
+      test:   ...
+      rgrs:   ...
+      stage:  ...
+      prod:   ...
+    AUTH_REDIRECT_URL:
+     ...
+     SLS_CERT_PASSWORD:
+      local: ${ssm:/aws/reference/secretsmanager/jks-password}  # Accessing value from aws secrets manager
+----
+
+Then to make sure the correct value is injected into the application explicitly define the environment variable with the
+incoming stage.
+
+----
+provider:
+  name: aws                                             # Selected cloud provider
+  runtime: java17                                       # Selected runtime
+  stage: ${opt:stage, 'dev'}                            # Uses user specified stage (--stage VALUE) or defaults to dev
+  region: ${opt:region, 'us-west-2'}                    # Uses user specified region (--region VALUE) or defaults to `us-west-2`
+  #profile: ${self:custom.profiles.${self:custom.stage}} # Uses profile based on selected stage. Meaning including "--aws-profile VALUE" is not required.
+  ...
+  environment:                                          # Set environment variables - these are available to the application at runtime
+    WHICH_ENV:          ${self:custom.envVar.WHICH_ENV.${self:custom.stage}}
+    AUTH_URL:           ${self:custom.envVar.AUTH_URL.${self:custom.stage}}
+    AUTH_REDIRECT_URL:  ${self:custom.envVar.AUTH_REDIRECT_URL.${self:custom.stage}}
+----
+
+The values defined under environment  are then accessible to the lambda application as a standard environment variable
+and you can access them as follows and they will receive the per environment value.
+
+----
+public static String REDIRECT_URI_VAL   = System.getenv("AUTH_REDIRECT_URL")
+----
+
+== Profiles
+
+Serverless also has the concept of profiles which works great when operating from your local terminal. Similar to above
+multiple profiles can be configured to point to different aws (or other cloud) accounts
+
+=== Profile Config
+
+----
+# Reference: https://sst.dev/chapters/configure-multiple-aws-profiles.html
+profiles:                                             # These values MUST match an AWS Profile in the `./aws/credentials` file. example [default]
+  local: default
+  dev:   default
+  test:  default
+  rgrs:  default
+  stage: default
+  prod:  default
+----
+
+Then referenced as
+
+=== Profile Reference
+
+----
+provider:
+  name: aws                                             # Selected cloud provider
+  runtime: java17                                       # Selected runtime
+  stage: ${opt:stage, 'dev'}                            # Uses user specified stage (--stage VALUE) or defaults to dev
+  region: ${opt:region, 'us-west-2'}                    # Uses user specified region (--region VALUE) or defaults to `us-west-2`
+  profile: ${self:custom.profiles.${self:custom.stage}} # Uses profile based on selected stage. Meaning including "--aws-profile VALUE" is not required.
+----
+
+and invoked as
+
+----
+serverless deploy --profile dev
+----
+
+=== Issues with serverless profiles
+
+While serverless profiles work great for local development they do not work well for CI / CD work. At the point at which
+serverless is invoked during the CI / CD the necessary credentials come into the pipeline from aws as environment
+variables and do not include a profile and thus will not function properly (see codebuild buildspec
+https://github.com/benrhine/GradleLambdaTemplate/tree/main/codebuild[files] for how aws
+creds are accessed during CI / CD).
+
+== Reference
+
+* https://www.jeremydaly.com/how-to-manage-serverless-environment-variables-per-stage/
+* https://guide.sst.dev/archives/serverless-environment-variables.html
+* https://guide.sst.dev/archives/configure-multiple-aws-profiles.html
+* https://stackoverflow.com/questions/43425065/serverless-deploy-particular-profile
+
+
+
+
+
+
+
+

@@ -1,0 +1,67 @@
+= Lambda Layers
+:toc:
+
+Lambda layers is an additional construct that can significantly increase how quickly a lambda can be deployed as well as
+increase control over how dependencies are versioned.
+
+== How does a layer work?
+
+Essentially using a layer allows you to fully download and store a lambdas dependencies in a versioned zip on S3. This
+means that the lambda will not need to fetch dependencies on every deploy as it can retrieve the pre-built zip from a
+local S3 bucket. Additionally, this means that dependency versions for a lambda are pinned to the version that is declared
+within the layer. Finally, this abstraction of resources to S3 significantly reduces the size of the lambda deploy
+increasing how quickly the application can be deployed.
+
+[WARNING]
+Be aware that using layers does add additional complexity to your lambda project as keeping dependencies up to date is
+now a fully separate process that is external to the primary lambda application. This can also lead to low-grade dependency
+duplication unless you very carefully review all the sub dependencies that come in with a given import.
+
+== How to build and deploy a layer?
+
+To see how to build and deploy a layer using serverless see link:../../../how-to/aws-lambda-layers.adoc[here].
+
+== How to view all versions of a layer?
+
+[source, shell]
+----
+aws lambda list-layer-versions --layer-name THE-LAYER-NAME --region us-west-2
+----
+
+== How to view details about a specific layer?
+
+[source, shell]
+----
+aws lambda get-layer-version --layer-name THE-LAYER-NAME --version-number 10 --region us-west-2
+----
+
+== Access old layer version
+
+When a new version of a layer is deployed it removes the access permission from the previous version. This means that
+any applications still using the older version will not fail as they will not have access. This can be remediated by
+running the following command from the https://awscli.amazonaws.com/v2/documentation/api/latest/reference/lambda/add-layer-version-permission.html[CLI] ...
+
+[source, shell]
+----
+aws lambda add-layer-version-permission --layer-name LAYER-NAME --version-number VERSION-NUM --statement-id POLICY-NAME --action lambda:GetLayerVersion --principal YOUR-ACCOUNT
+----
+
+The fact that access policies move with the version are pretty subtle and are confusing to understand until you have
+went through this process. To make this simpler we can automatically apply the necessary policy when the layer is re-published
+using a few simple commands in the buildspec . Once the re-publishing is completed, in the post_build block fetch the version that was just published followed by adding permission to the current layer minus one. This will ensure all older layer versions have an access policy applied so they can be reachable by any other applications that are using them.
+
+[source, yaml]
+----
+  post_build: # Inform that the build is complete
+    commands:
+      - export LAYER_VERSION=`aws lambda list-layer-versions --layer-name LAYER-NAME --region $AWS_REGION --query "LayerVersions[0].Version"`
+      - aws lambda add-layer-version-permission --layer-name LAYER-NAME --version-number $((LAYER_VERSION-1)) --statement-id POLICY-NAME --action lambda:GetLayerVersion --principal YOUR-ACCOUNT
+----
+
+== Reference
+
+* https://docs.aws.amazon.com/lambda/latest/dg/chapter-layers.html
+* https://docs.aws.amazon.com/lambda/latest/dg/java-package.html
+* https://aws.amazon.com/blogs/compute/using-lambda-layers-to-simplify-your-development-process/
+
+

@@ -1,0 +1,121 @@
+= Compare: Multiple Environments
+:toc:
+
+This is specifically geared toward multiple environments, _NOT_ cross-account deployments. To see about
+multi-account / cross-account see link:compare-cross-account.adoc[here].
+
+== CloudFormation
+
+To this point, I have not had to run multi-environment CloudFormation.
+
+== Serverless Framework
+
+Serverless Framework makes managing multiple environments quite easy with the `--stage` deployment argument. By specifying
+the stage you are telling Serverless to create a new environment. See examples below ...
+
+- `serverless deploy --stage dev --region X --verbose`
+- `serverless deploy --stage test --region X --verbose`
+- `serverless deploy --stage Y --region X --verbose`
+
+`--stage` adds unique values to resources that are created during the deployment to create a fully separated deployment
+from others that are created within that account.
+
+[CAUTION]
+Please be aware the `--stage` argument is creating an environment within the currently logged in cloud provider account.
+This will not do cross-account or multi-account deployments. If you need to perform a cross-account deployment see
+link:compare-cross-account.adoc#_serverless_framework[here].
+
+== Terraform
+
+As in other areas, Terraform is a bit more complicated. I've included some great write-ups I've found as PDFs to ensure
+they don't get lost and to help clarify my own notes.
+
+- link:../documents/Terraform-manage-multiple-environments.pdf[Terraform Manage Multiple Environments]
+- link:../documents/How-to-Manage-Multiple-Terraform-Environments-Efficiently.pdf[How to Manage Multiple Terraform Environments Efficiently]
+
+Terraform has several different ways in which you can configure multiple environments the first of which is workspaces.
+
+=== Workspaces
+
+Workspaces are built in as part of Terraform, and I have not yet attempted to use them outside the default scope. By default
+running any Terraform happens within the `default` workspace unless you have decided to change it.
+
+I am hesitant to use this feature as this puts all the config in a single Terraform project; meaning that you have to write
+your Terraform code in such a way to as allow for all configurations rather than having generic code that can be parameterized.
+I.e production needs a load balancer but non-prod environments do not and that somewhat clutters both deployment scopes.
+In addition, there are also workspace specific variable notations that will add to the complexity of the code and I am not
+a fan of any added complexity if it can be avoided.
+
+=== Environment Specific Directories
+
+This will more than likely be the preferred approach for most institutions. Setting up terraform environments using environment
+directories are as simple as the following example. Create an `environments` folder and folders for every deployment environment
+that is required underneath.
+
+----
+/
+├── environments/
+│   ├── staging/
+│   │   ├── provider.tf
+│   │   ├── variables.tf
+│   │   └── main.tf
+│   └── prod/
+│       ├── providers.tf
+│       ├── variables.tf
+│    /   └── app.tf
+└── modules/
+    ├── ec2/
+    ├── vpc/
+    │   ├── main.tf
+    │   └── variables.tf
+    └── application
+----
+
+Reasons for this approach ...
+
+- Super simple - just provide an additional directory structure
+- No additional cost
+- No additional tooling to learn
+- Flexibility to have custom resources per env if required
+- Very clear what environment is being used.
+
+Downsides
+
+- some code duplication
+- some additional state management concerns
+
+==== Execution
+
+To execute a specific environment just `cd` into the given environment directory and execute terraform as normal.
+
+[CAUTION]
+This will not do cross-account or multi-account deployments. If you need to perform a cross-account deployment see
+link:compare-cross-account.adoc#_serverless_framework[here].
+
+
+
+=== Third-party tools
+
+I have not experimented with any of these but for completeness I mention them here.
+
+- https://terragrunt.gruntwork.io[Terragrunt]
+- https://www.runatlantis.io[Atlantis]
+
+In attempting to adhering to the principal of keeping this simple I think
+the best approach is the environment-specific directories even with its shortcomings due to its low-cost, no additional
+tooling, and ability to allow for specific resources when required.
+
+
+
+
+
+== References
+
+- https://medium.com/@b0ld8/terraform-manage-multiple-environments-63939f41c454
+- https://spacelift.io/blog/terraform-environments
+
+
+
+
+
+

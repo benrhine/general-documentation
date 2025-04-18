@@ -1,0 +1,100 @@
+= Disaster Recovery
+
+This page is intended to cover the top level design of how disaster recovery will occur for the lambdas that are hosted
+as part of ACCOUNT X and will describe several specific scenarios that are designed to be handled.
+
+[CAUTION]
+Under no circumstances except in an absolute emergency commit to the backup region (synced) repository. The sync is one
+way from us-west-2 to whichever region is defined (in the default case us-east-1). If you make commits to the alternative
+repo those changes *WILL NOT* flow back to the primary region repository.
+
+== Possible Issues
+
+=== Aws Region becomes unavailable
+
+To mitigate the possibility of an entire region of Aws becoming unavailable all repositories are mirrored to a separate
+region on every push via CodeBuild and CodePipeline. This mirroring is down to the commit, meaning that even the commit
+hashes will be the same in both repos. This configuration is part of each projects CloudFormation template and the default
+backup region is us-east-1. In theory this should guarantee access to the source code across regions and allow for the
+CloudFormation template to be quickly re-imported and applications re-deployed in a different region.
+
+=== Lost Account Access
+
+While this is not specifically a disaster, in a pinch if personal access is lost start by reaching out to your team lead
+and manager followed by someone such as APPLICATION ARCHITECT for help.
+
+=== Lost Account
+
+Currently, there is no in team plan for a lost account as account control access is beyond the team. If you believe an
+account has been lost please reach out to TODO
+
+== Repositories Covered by these plans
+
+=== Aws Account Setup
+
+* serverless-resource-templates (partial)
+** Template upload test successfully in us-west-2 and us-east-1
+
+=== Applications
+
+* []
+
+== How it works
+
+All repos covered by the disaster recovery plans are setup using a CloudFormation Template. This template can be found
+in the repository in the .cf-template directory. This template is responsible for creating all the initial roles required
+for execution, the CodeBuild jobs, and the CodePipelines. Included in the CodePipelines is a replication pipeline that on
+every commit will sync the primary repo that is in *us-west-2* to the *us-east-1* region. This ensures that if a entire
+regional outage occurs that it is still possible to reach the code for redeploy.
+
+The cf-template itself and all CodeBuild jobs have been structured to use the region in which the template is being
+deployed to ensure it's region is automatic and agnostic. A partial deployment bucket is passed in as a parameter. (The
+bucket is built as accountName-awsRegion-deploymentParameter.)
+
+[CAUTION]
+Bucket names are *GLOBAL!!!* For this reason the bucket name is dynamically created when the serverless-resource-template
+CloudFormation is deployed and applications that use the bucket dynamically build the bucket name with the following
+format - accountName-awsRegion-deploymentParameter
+[CAUTION]
+Role names are *GLOBAL!!!* In this case roles have been set to include the region to ensure uniqueness in the event the project is deployed in a different region
+
+[WARNING]
+At this time it unknown exactly what would happen if one of the applications is using custom domain names. Custom domain
+names do not contain anything currently that is unique so if a region were to go down it is believed that the existing domain
+name configuration would NOT be reusable as Route53 would still know that these domain names are configured elsewhere.
+*THIS HAS NOT BEEN TESTED AND IS AN UNKNOWN!!*
+[WARNING]
+Similarly, it is unknown exactly how sns and sqs will behave if the names are the same in different regions, these
+services are not known to be global and you do need to specify a region when calling so it is expected they will be ok
+if the correct queue is called but also *HAS NOT BEEN TESTED!!!*
+
+== Recovery Actions
+
+=== Issues with NP or P region (us-west-2)
+
+In the event X-Tools (us-west-2) is fine but the deploy accounts (NP and P) us-west-2 are having issues it may be
+desirable to deploy from the main repo in us-west-2 to a different region.
+TODO
+
+=== Deploy from X-Tools (backup region)
+
+In the event an entire region of Aws is down or unavailable due to the repository mirroring it should be possible to upload the project CloudFormation template and execute the deploy jobs just as if you were in the primary us-west-2 region. There are a few considerations when deploying from the backup region ...
+
+* IAM roles are global, what that means in theory is that the roles created for and used by the primary deployment should be available and running the deployment should just update them BUT this could be an issue for roles that were created by CloudFormation and Serverless (which uses CF under the hood) as it may have issues with the role being created/updated from two different stacks.
+* S3 bucket names are globally unique, which means that the bucket names of any two AWS accounts in the same region can't be the same. This means the deployment bucket name may need to be changed as while the primary region may be down this in theory could still cause deployment issues.
+* Apps by default are configured to use us-west-2 by default - meaning that some buildspecs and such may need to be updated as they use a default value that is currently not configured to be overridden on every build.
+* If a region went down while certain applications were deployed and those applications make use of a custom domain name there could be issues due to the domain already being used in Aws but you are trying to recreate it during this alternate deploy. For this reason it may be suggestible to research into this sort of configuration https://docs.aws.amazon.com/whitepapers/latest/real-time-communication-on-aws/cross-region-dns-based-load-balancing-and-failover.html
+
+== Open Questions
+
+* Is the same type of replication necessary for libraries and layers?
+** Yes
+* Should a pipeline be configured in the backup account to deploy the resources on every push so that in the event of a failure the app deployment jobs just have to be run as everything is ready to go? or would this be to much of an additional cost?
+* What happens if an app with a custom domain name goes down due to a region being down and we want to redeploy but we can no longer use that same domain as it is now held/reserved elsewhere in aws?
+
+== Reference
+
+* https://dev.to/apatil88/replicate-aws-codecommit-repositories-between-regions-using-codebuild-and-codepipeline-5fh1
+
+
+

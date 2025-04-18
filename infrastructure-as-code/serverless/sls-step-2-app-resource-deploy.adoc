@@ -1,0 +1,343 @@
+== (Step 2) - App Resource Deploy
+
+Having an independent resource deploy is a critical component of having a highly functioning automated deployment system.
+This is done for a number of reasons ...
+
+* Improved application deployment times as all resources are already in place
+* Ensures resources can be created with unique names that match the deployed application
+* Ensures application deployment does NOT impact resources
+** ie application deploys can not change IAM roles or delete a database table provisioned through serverless
+* Separation of concerns
+* If resource changes are needed these may be able to be run outside of the normal deployment window
+* Sets max number of old deployments to keep to 10
+
+== Corresponding build steps
+
+Example build steps
+
+* Place build steps here
+
+== Create a Resource Deploy
+
+The following example demonstrates how to create the roles necessary for CodeBuild, batch CodeBuild and Lambda execution
+roles, and a dynamo db table.
+
+[IMPORTANT]
+The service name must be unique. If it is named the same as the application deploy all resources will be removed when
+the app is removed/undeployed and data loss may occur.
+
+.Click here to expand ...
+[%collapsible]
+====
+[source, yaml]
+----
+########################################################################################################################
+# Update Section: ONLY UPDATE HERE!!!
+########################################################################################################################
+custom: # Set custom options / variables for serverless
+serverlessPrefix: 'sls' # Short name for serverless
+appShortName: ltr # Short app name to prefix all policies with the application specific name
+rolePrefix: ltr # Prefix role(s) with application specific name
+repoName: lambda-token-requestor # The repository name that this acts upon
+deployBucketName: sls-regional-domain-deploy
+adminRoleName: sls-domain-admin-role
+# roleToAssume: codebuild-admin-role # The role that needs to be assumed
+# roleToAssume: codebuild-${self:custom.serverlessPrefix}-${self:custom.appShortName}-admin-role
+# Reference: https://sst.dev/chapters/stages-in-serverless-framework.html
+stage: ${opt:stage, self:provider.stage} # use the --stage CLI option if it exists. If it does not, then use the default stage specified by provider.stage
+envVar:
+MESSAGE:
+dev: "This is the development environment"
+test: "This is the test environment"
+rgrs: "This is the regression environment"
+stage: "This is the staging environment"
+prod: "This is the production environment"
+# Reference: https://sst.dev/chapters/configure-multiple-aws-profiles.html
+profiles: # These values MUST match an AWS Profile in the `./aws/credentials` file. example [default]
+dev: default
+test: testAccount
+rgrs: rgrsAccount
+stage: stageAccount
+prod: prodAccount
+########################################################################################################################
+# End Update Section
+########################################################################################################################
+frameworkVersion: '3' # Set what version of serverless is being used
+service: ${self:custom.appShortName}-service-resources # This should match the application name specified in the settings.gradle
+# Additionally, to the matching name add "-resources". If the service
+# name is not distinct, the resources will be removed when the application
+# is un-deployed.
+provider:
+name: aws # Selected cloud provider
+stage: ${opt:stage, 'dev'} # Uses user specified stage (--stage VALUE) or defaults to dev
+region: ${opt:region, 'us-west-2'} # Uses user specified region (--region VALUE) or defaults to `us-west-2`
+logRetentionInDays: 30 # Set log retention
+deploymentBucket: # Collect all serverless deployment files in a single bucket
+name: ${self:custom.deployBucketName} # Specify bucket name
+serverSideEncryption: AES256 # Specify bucket encryption
+maxPreviousDeploymentArtifacts: 10 # Max number of old builds to keep
+resources: # Specify all resources below
+Resources: # Resource list
+codebuildApplicationServiceRole: # Resource name
+Type: AWS::IAM::Role # Resource type
+Properties: # Resource properties
+Path: /service-role/ # If you want a custom resource path
+# required if you want to use 'serverless deploy --function' later on
+RoleName: ${self:custom.serverlessPrefix}-${self:custom.appShortName}-codebuild-build-deploy-service-role
+AssumeRolePolicyDocument: # Role Configuration
+Version: '2012-10-17'
+Statement:
+- Effect: Allow
+Principal:
+Service:
+- codebuild.amazonaws.com
+Action: sts:AssumeRole
+Policies:
+- PolicyName: ${self:custom.appShortName}-log-policy
+PolicyDocument:
+Version: '2012-10-17'
+Statement:
+- Effect: Allow # note that these rights are given in the default policy and are required if you want logs out of your lambda(s)
+Action:
+- logs:CreateLogGroup
+- logs:CreateLogStream
+- logs:PutLogEvents
+- logs:TagResource
+Resource:
+- 'arn:aws:logs:*:*:*'
+- PolicyName: ${self:custom.appShortName}-log-build-policy
+PolicyDocument:
+Version: '2012-10-17'
+Statement:
+- Effect: Allow
+Action:
+- logs:CreateLogGroup
+- logs:CreateLogStream
+- logs:PutLogEvents
+- logs:TagResource
+Resource:
+- Fn::Join:
+- ':'
+- - 'arn:aws:logs'
+- Ref: 'AWS::Region'
+- Ref: 'AWS::AccountId'
+- log-group:/aws/codebuild/${self:service}
+- Fn::Join:
+- ':'
+- - 'arn:aws:logs'
+- Ref: 'AWS::Region'
+- Ref: 'AWS::AccountId'
+- log-group:/aws/codebuild/${self:service}:*
+- PolicyName: ${self:custom.appShortName}-s3-policy
+PolicyDocument:
+Version: '2012-10-17'
+Statement:
+- Effect: Allow
+Action:
+- s3:PutObject
+- s3:GetObject
+- s3:GetObjectVersion
+- s3:GetBucketAcl
+- s3:GetBucketLocation
+- s3:PutAccelerateConfiguration
+Resource:
+- arn:aws:s3:::${self:custom.deployBucketName}
+- arn:aws:s3:::${self:custom.deployBucketName}/*
+- PolicyName: ${self:custom.appShortName}-codecommit-repo-policy
+PolicyDocument:
+Version: '2012-10-17'
+Statement:
+- Effect: Allow
+Action:
+- codecommit:GitPull
+Resource:
+- Fn::Join:
+- ':'
+- - 'arn:aws:codecommit'
+- Ref: 'AWS::Region'
+- Ref: 'AWS::AccountId'
+- ${self:custom.repoName}
+- PolicyName: ${self:custom.appShortName}-codebuild-policy
+PolicyDocument:
+Version: '2012-10-17'
+Statement:
+- Effect: Allow
+Action:
+- codebuild:CreateReportGroup
+- codebuild:CreateReport
+- codebuild:UpdateReport
+- codebuild:BatchPutTestCases
+- codebuild:BatchPutCodeCoverages
+Resource:
+- Fn::Join:
+- ':'
+- - 'arn:aws:codebuild'
+- Ref: 'AWS::Region'
+- Ref: 'AWS::AccountId'
+- report-group/${self:service}-*
+- PolicyName: ${self:custom.appShortName}-codepipeline-policy
+PolicyDocument:
+Version: '2012-10-17'
+Statement:
+- Effect: Allow
+Action:
+- codepipeline:GetPipelineExecution
+- codepipeline:StopPipelineExecution
+- codepipeline:ListPipelineExecutions
+Resource:
+- '*'
+- PolicyName: ${self:custom.appShortName}-iam-policy
+PolicyDocument:
+Version: '2012-10-17'
+Statement:
+- Effect: Allow
+Action:
+- iam:PassRole
+Resource:
+- arn:aws:iam::npAccountNum:role/service-role/${self:custom.serverlessPrefix}-${self:custom.appShortName}-codebuild-build-deploy-service-role
+# - '*'
+- PolicyName: ${self:custom.appShortName}-assume-role-policy
+PolicyDocument:
+Version: '2012-10-17'
+Statement:
+- Effect: Allow
+Action:
+- sts:AssumeRole
+Resource:
+- Fn::Join:
+- ':'
+- - 'arn:aws:iam'
+- ''
+- Ref: 'AWS::AccountId'
+- role/${self:custom.adminRoleName}
+lambdaApplicationServiceRole: # Resource name
+Type: AWS::IAM::Role # Resource type
+Properties: # Resource properties
+Path: /service-role/ # If you want a custom resource path
+# required if you want to use 'serverless deploy --function' later on
+RoleName: ${self:custom.serverlessPrefix}-${self:custom.appShortName}-lambda-execution-service-role
+AssumeRolePolicyDocument: # Role Configuration
+Version: '2012-10-17'
+Statement:
+- Effect: Allow
+Principal:
+Service:
+- lambda.amazonaws.com
+Action: sts:AssumeRole
+Policies:
+- PolicyName: ${self:custom.appShortName}-log-policy
+PolicyDocument:
+Version: '2012-10-17'
+Statement:
+- Effect: Allow # note that these rights are given in the default policy and are required if you want logs out of your lambda(s)
+Action:
+- logs:CreateLogGroup
+- logs:CreateLogStream
+- logs:PutLogEvents
+- logs:TagResource
+Resource:
+- 'arn:aws:logs:*:*:*'
+- PolicyName: ${self:custom.appShortName}-log-build-policy
+PolicyDocument:
+Version: '2012-10-17'
+Statement:
+- Effect: Allow
+Action:
+- logs:CreateLogGroup
+- logs:CreateLogStream
+- logs:PutLogEvents
+- logs:TagResource
+Resource:
+- 'Fn::Join':
+- ':'
+- - 'arn:aws:logs'
+- Ref: 'AWS::Region'
+- Ref: 'AWS::AccountId'
+- log-group:/aws/codebuild/${self:service}
+- 'Fn::Join':
+- ':'
+- - 'arn:aws:logs'
+- Ref: 'AWS::Region'
+- Ref: 'AWS::AccountId'
+- log-group:/aws/codebuild/${self:service}:*
+- PolicyName: ${self:custom.appShortName}-s3-policy
+PolicyDocument:
+Version: '2012-10-17'
+Statement:
+- Effect: Allow
+Action:
+- s3:GetObject
+- s3:GetObjectVersion
+- s3:GetBucketAcl
+- s3:GetBucketLocation
+- s3:PutAccelerateConfiguration
+Resource:
+- arn:aws:s3:::${self:custom.deployBucketName}
+- arn:aws:s3:::${self:custom.deployBucketName}/*
+# https://asecure.cloud/a/iam_ssm_3/
+- PolicyName: ${self:custom.appShortName}-ssm-policy
+PolicyDocument:
+Version: '2012-10-17'
+Statement:
+- Effect: Allow
+Action:
+- ssm:GetDocument
+Resource:
+- '*'
+# This is required to be able to assume a role
+- PolicyName: ${self:custom.appShortName}-iam-policy
+PolicyDocument:
+Version: '2012-10-17'
+Statement:
+- Effect: Allow
+Action:
+- iam:PassRole
+Resource:
+- arn:aws:iam::npAccountNum:role/service-role/${self:custom.serverlessPrefix}-${self:custom.appShortName}-lambda-execution-service-role
+# - '*'
+- PolicyName: ${self:custom.appShortName}-assume-role-policy
+PolicyDocument:
+Version: '2012-10-17'
+Statement:
+- Effect: Allow
+Action:
+- sts:AssumeRole
+Resource:
+- Fn::Join:
+- ':'
+- - 'arn:aws:iam'
+- ''
+- Ref: 'AWS::AccountId'
+- role/${self:custom.adminRoleName}
+----
+====
+
+== Execute a Resource Deployment
+
+While the expectation is this will occur as part of a CI / CD pipeline if manual invocation is required execute the following ...
+
+----
+serverless deploy --config serverless-resources.yml --verbose
+----
+
+[NOTE]
+It is recommended to include `--verbose` as it will give you better insight into where in the process the deployment execution is.
+
+== Remove a Resource Deployment
+
+Similar to the deploy process it is super easy to revert any given deployment
+
+[WARNING]
+If the resource deployment creates database tables *THIS WILL REMOVE THEM AND ALL THEIR DATA*. That data will no longer be recoverable.
+
+----
+serverless remove --config serverless-resources.yml --verbose
+----
+
+== Reference
+
+* https://www.serverless.com/framework/docs/providers/aws/guide/resources
+
+
+
+

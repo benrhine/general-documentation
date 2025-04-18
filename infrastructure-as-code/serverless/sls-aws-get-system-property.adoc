@@ -1,0 +1,39 @@
+= Serverless: (AWS) Get system property
+
+[CAUTION]
+System Manager properties/parameter can be either GLOBAL _or_ REGIONAL. By Default properties _are_ regional. Additionally,
+Aws has recently introduced "Cross-account" parameter sharing ... see https://aws.amazon.com/blogs/mt/introducing-parameter-store-cross-account-sharing/[here].
+
+
+[NOTE]
+Be aware this process is _VERY_ similar to link:../aws/aws-cf-get-system-property.adoc[CloudFormation: (AWS) Get System Property/Parameter]
+
+[NOTE]
+To view details on System Manager Parameters/Properties, see link:../../cloud/infrastructure/aws/aws-system-parameters.adoc[System Parameters]
+
+[TIP]
+System Manager properties/parameter are Aws Free Tier eligible for _Standard parameters_. If you need to secure parameters
+within System manager, there will be a fee (see https://aws.amazon.com/systems-manager/pricing/[here]).
+
+
+== Retrieve system property
+
+.To retrieve SSM within serverless.yml
+[source, yaml]
+----
+service: ${ssm:/path/to/service/id}-service
+provider:
+  name: aws
+functions:
+  hello:
+    name: ${ssm:/path/to/service/myParam}-hello # Serverless get property
+    handler: handler.hello
+----
+
+* https://www.serverless.com/framework/docs/guides/variables/aws/ssm[Serverless: SSM]
+
+
+
+
+
+

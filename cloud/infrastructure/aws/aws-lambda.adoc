@@ -1,0 +1,53 @@
+= Lambda
+
+== Configuring Environment Variables
+
+* https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html
+* https://cloudash.dev/blog/aws-lambda-default-environment-variables
+
+== Limitations
+
+Please be aware that Lambdas have size limitations in theory of 250mb for jar and 50mb for zip. In reality the 50mb limit
+seems to apply to both. This limitation can be worked around by uploading your file to s3 prior to "installing/uploading"
+the lambda. Additionally, if you want to run a docker container as a lambda then the limits are much greater. Additionally,
+the init phase is limited to 10 seconds unless SnapStart is enabled which then allows for up to 15 minutes
+(see https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtime-environment.html[here]).
+
+== Location
+
+Lambdas are extracted to `/opt`  in the lambda filesystem at runtime. What does this statement really mean? This means
+that it is not possible to check during the build process and is only available at runtime. Additionally, items extracted
+from a layer are available at the packaged path. What this means that if you package/build your layer zip and you inspect
+it and your expanded layer contains the path `/java/lib/my-item...`. then when accessing data in the lambda from the layer
+it needs to be accessed at `/opt/java/lib/my-item....`
+
+[CAUTION]
+The above is extremely hard to verify as there is no way to directly see this other than many trial and error attempts.
+
+== Resources
+
+* link:../../../how-to/aws-lambda-layers.adoc[How To: Lambda Layers]
+* link:../../../how-to/aws-lambda-layer-import-certificate.adoc[How To: Import certificate from lambda layer]
+* link:aws-lambda-layers.adoc[Layers]
+* link:aws-lambda-complete-json.adoc[What does a complete Lambda JSON look like?]
+
+
+== Reference
+
+* https://docs.aws.amazon.com/lambda/latest/dg/lambda-intro-execution-role.html
+* https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html
+* https://aws.amazon.com/blogs/devops/setting-up-a-secure-ci-cd-pipeline-in-a-private-amazon-virtual-private-cloud-with-no-public-internet-access/
+
+
+
+
+
+
+
+
+
+
+
+
+
+

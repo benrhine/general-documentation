@@ -1,0 +1,65 @@
+= Building a library with support for multiple versions of Java
+:toc:
+
+This how to is to describe how to build a library against different language levels of java so that it can be imported
+into applications using various different versions of java. In addition, this will also describe how to setup your
+applications to be able to run against various versions of java.
+
+== Build a library against multiple versions of Java
+
+=== Using Gradle
+
+Update the build.gradle  to include the following. What this is instructing the library to do is it is allowed to use
+either Java 17 or 21 to execute the build BUT the language version during compile time is set to Java 8 to support
+backwards compatibility
+
+[source, groovy]
+----
+// Multi-version Java build - https://discuss.gradle.org/t/compile-with-java-11-to-java-8-language-level/39123/5
+// Build using Java 21 LTS (but support Java 17 as well)
+java {
+    // Allows you to use Java 17 to perform build and runtime actions
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
+    // Allows you to use Java 21 to perform build and runtime actions
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(21))
+    }
+}
+// Set language version to Java 8 in support of older versions of Java
+tasks.compileJava {
+    javaCompiler.set(javaToolchains.compilerFor {
+        languageVersion.set(JavaLanguageVersion.of(8))
+    })
+}
+----
+
+[CAUTION]
+All versions of Java declared here must be installed on the system. For the above to work Java 8, 17, and 21, must all
+be installed otherwise it will fail to build.  This is of particular importance when performing this actions from CI.
+
+[WARNING]
+While it seems possible to build an artifact against java 8,11,17, and 21 from your local machine issues start to occur
+when attempting to do the same thing in CI. I believe this is due to some of the dependencies used in Java 8 and 11 are
+no longer compatible with 17 and 21 (also conversely newer versions used in 17 and 21 are no longer backwards compatible)
+
+=== Using Maven
+
+TODO
+
+== References
+
+- https://inside.java/2022/12/12/sip073/
+- https://discuss.gradle.org/t/build-same-sourcesets-with-different-java-target-compatibility/39367
+- https://docs.gradle.org/current/userguide/building_java_projects.html#sec:building_java_libraries
+- https://stackoverflow.com/questions/30527193/how-build-multiple-projects-with-gradle-with-multiple-jdk-versions
+- https://docs.gradle.org/current/userguide/toolchains.html
+- https://www.jvt.me/posts/2021/06/09/gradle-toolchain/
+- https://dzone.com/articles/guide-for-supporting-multiple-versions-of-java-8-1
+- https://boyl.es/post/two-versions-same-library/
+- https://www.google.com/search?q=how+to+build+java+library+for+multiple+versions+of+java&rlz=1C1GCEU_enUS1059US1059&oq=how+to+build+java+library+for+multiple+versions+of+java&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIHCAEQIRigATIHCAIQIRigATIHCAMQIRigATIHCAQQIRigATIHCAUQIRigAdIBCDgxMTNqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8
+
+
+
+

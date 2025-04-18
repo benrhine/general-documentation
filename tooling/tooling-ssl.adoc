@@ -1,0 +1,10 @@
+= SSL
+
+This page is currently dedicated to notes and learnings around ssl, java, and aws lambda
+
+== Reference
+
+* https://medium.com/i-me-myself-naveen/java-ssl-within-aws-lambda-39f87c1c03f2
+* https://stackoverflow.com/questions/47175713/import-external-cert-in-aws
+* https://stackoverflow.com/questions/24555890/using-a-custom-truststore-in-java-as-well-as-the-default-one
+* https://aws.amazon.com/blogs/compute/implementing-mutual-tls-for-java-based-aws-lambda-functions/

@@ -1,0 +1,256 @@
+= CloudWatch Insights for JSON logs
+:TOC:
+
+This page is a collection of pre-built CloudWatch Insight filters designed to quickly enable searching of logs. To lower
+the bar, it is desirable to have a number of pre-defined queries in place to help with quick searching and debugging.
+The easiest way to guarantee that the pre-defined queries are available to everyone is to put them under code control
+like everything else. On this page we present how to run these queries manually and how to put them under IaC control.
+
+[NOTE]
+To change the number of returned results increase the `limit` number.
+
+== Manual Query Execution
+=== Complete Log Example
+
+Each of the following fields can be filtered on
+
+
+|===
+|Field |Value
+
+|@ingestionTime
+|1689863195461
+
+|@log
+|xxxxxxxxxx:/aws/lambda/test-service-dev-TokenRequest
+
+|@logStream
+|2023/07/20/[261]0b8a8fc4665b48a7a8acd60c2f08fcf9
+
+|@message
+|{"timestamp":"2023-07-20T14:26:30.498+0000UTC","instant":{"epochSecond":1689863190,"nanoOfSecond":498937731},"thread":"main","level":"DEBUG","loggerName":"com.test.tokenrequestor.v1.lambda.aws.handler.TokenHandler","message":"authCode: xxxxxxxx","endOfBatch":false,"loggerFqcn":"org.apache.logging.log4j.spi.AbstractLogger","threadId":1,"threadPriority":5,"coldStart":"true","functionArn":"arn:aws:lambda:us-west-2:xxxxxxxx:function:test-service-dev-fTokenRequest:snapstart","functionMemorySize":"1024","functionName":"test-service-dev-TokenRequest","functionVersion":"261","function_request_id":"d61a89e7-3eba-4a37-892a-c944de787789","samplingRate":"0.0","service":"test-service-dev"}
+
+|@timestamp
+|1689863190499
+
+|coldStart
+|true
+
+|endOfBatch
+|0
+
+|functionArn
+|arn:aws:lambda:us-west-2:XXXXXXXXXX:function:test-service-dev-TokenRequest:snapstart
+
+|functionMemorySize
+|1024
+
+|functionName
+|test-service-dev-TokenRequest
+
+|functionVersion
+|261
+
+|function_request_id
+|1689863195461
+
+|instant.epochSecond
+|1689863190
+
+|instant.nanoOfSecond
+|498937731
+
+|level
+|DEBUG
+
+|loggerFqcn
+|org.apache.logging.log4j.spi.AbstractLogger
+
+|loggerName
+|com.test.tokenrequestor.v1.lambda.aws.handler.TokenHandler
+
+|message
+|authCode: XXXXXXXXXXXXXXXXXXXX
+
+|samplingRate
+|0.0
+
+|service
+|test-service-dev
+
+|thread
+|main
+
+|threadId
+|1
+
+|threadPriority
+|5
+
+|timestamp
+|2023-07-20T14:26:30.498+0000UTC
+|===
+
+=== Filter by log level
+
+.DEBUG
+[%collapsible]
+====
+[source, bash]
+----
+fields @timestamp, @message, @logStream, @log
+| filter level = 'DEBUG'
+| sort @timestamp desc
+| limit 20
+----
+====
+
+.INFO
+[%collapsible]
+====
+[source, bash]
+----
+fields @timestamp, @message, @logStream, @log
+| filter level = 'INFO'
+| sort @timestamp desc
+| limit 20
+----
+====
+
+.WARN
+[%collapsible]
+====
+[source, bash]
+----
+fields @timestamp, @message, @logStream, @log
+| filter level = 'WARN'
+| sort @timestamp desc
+| limit 20
+----
+====
+
+.ERROR
+[%collapsible]
+====
+[source, bash]
+----
+fields @timestamp, @message, @logStream, @log
+| filter functionVersion = '259'
+| sort @timestamp desc
+| limit 20
+----
+====
+
+=== Filter by function version
+
+[%collapsible%open]
+====
+[source, bash]
+----
+fields @timestamp, @message, @logStream, @log
+| filter functionVersion = '259'
+| sort @timestamp desc
+| limit 20
+----
+====
+
+=== Filter by request id
+
+[%collapsible%open]
+====
+[source, bash]
+----
+fields @timestamp, @message, @logStream, @log
+| filter function_request_id = 'd61a89e7-3eba-4a37-892a-c944de787789'
+| sort @timestamp desc
+| limit 20
+----
+====
+
+=== Filter by cold start
+
+[%collapsible%open]
+====
+[source, bash]
+----
+fields @timestamp, @message, @logStream, @log
+| filter coldStart = 'true'
+| sort @timestamp desc
+| limit 20
+----
+====
+
+=== Filter by service
+
+[%collapsible%open]
+====
+[source, bash]
+----
+fields @timestamp, @message, @logStream, @log
+| filter service = 'ltr-service-dev'
+| sort @timestamp desc
+| limit 20
+----
+====
+
+=== Filter by message like
+
+[%collapsible%open]
+====
+[source, bash]
+----
+fields @timestamp, @message, @logStream, @log
+| filter @message like /clientId/
+| sort @timestamp desc
+| limit 20
+----
+====
+
+=== Filter by message contains
+
+[%collapsible%open]
+====
+[source, bash]
+----
+fields @timestamp, @message, @logStream, @log
+| filter strcontains(@message, "clientId")
+| sort @timestamp desc
+| limit 20
+----
+====
+
+== Queries under IaC control
+It is also possible to pre-define queries using IaC to make execution a breeze. Please see the following for how to use
+your flavor of IaC to pre-define the CloudWatch Insight queries.
+
+[CAUTION]
+Please be aware that to be able to save a Log Insight Query using IaC the executing role
+will require the `logs:PutQueryDefinition` IAM permission.
+
+To create a query in CloudFormation/Serverless it will look as follows ...
+
+* link:../../../infrastructure-as-code/aws/aws-cf-create-cloudwatch-insight-query.adoc[CloudFormation: (AWS) Create CloudWatch Insight Query]
+* link:../../../infrastructure-as-code/serverless/sls-aws-create-cloudwatch-insight-query.adoc[Serverless: (AWS) Create CloudWatch Insight Query]
+* link:../../../infrastructure-as-code/terraform/tf-aws-create-cloudwatch-insight-query.adoc[Terraform: (AWS) Create CloudWatch Insight Query]
+
+== Reference
+
+* https://stackoverflow.com/questions/61995669/aws-log-insights-query-with-string-contains
+* https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/permissions-reference-cwl.html
+* https://cloudash.dev/blog/cloudwatch-logs-insights-examples
+* https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-querydefinition.html#aws-resource-logs-querydefinition--examples
+* https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/permissions-reference-cwl.html
+* https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sns-subscription.html#aws-resource-sns-subscription--examples
+* https://stackoverflow.com/questions/49341187/confirming-aws-sns-topic-subscription-for-slack-webhook
+
+
+
+
+
+
+
+
+
+
+
+

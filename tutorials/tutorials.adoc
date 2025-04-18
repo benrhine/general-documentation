@@ -1,0 +1,5 @@
+= Tutorials
+
+This is the top level page to collect all tutorials. A tutorial is more than a How To, How To's are simply how a single
+item/setup should occur whereas a tutorial may tie multiple how to's into a single process.
+

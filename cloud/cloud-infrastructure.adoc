@@ -1,0 +1,12 @@
+= Cloud Infrastructure
+
+This folder contains notes and setups for various cloud providers and are documented from
+the perspective of being setup/configured using the web interface or the cloud providers specific command line tools.
+
+If you are looking for information about how to leverage these tools using IaC (Infrastructure as code) then please view
+the following ...
+
+* link:../infrastructure-as-code/aws/aws.adoc[Aws specific IaC]
+* link:../infrastructure-as-code/serverless/sls.adoc[Serverless Framework]
+* link:../infrastructure-as-code/terraform/tf.adoc[Terraform]
+* link:../infrastructure-as-code/comparison/compare-iac.adoc[Comparison of IaC]

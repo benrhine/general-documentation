@@ -1,0 +1,9 @@
+= Comparison: Modules
+
+There isn't much to say in this section as Terraform Modules are a concept that fairly unique to Terraform. To quickly
+summarize a Terraform Module is essentially a code library for infrastructure that can be reused.
+
+Neither CloudFormation nor Serverless Framework support this concept. Not that you can't write scripts that can be parameterized
+and copy pasted to different projects for re-use but to my knowledge you can't create and publish a CloudFormation library
+that can be picked up through a build tool and I know for certain this can't currently be done in Serverless Framework.
+

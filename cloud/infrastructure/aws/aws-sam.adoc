@@ -1,0 +1,13 @@
+= Aws: SAM
+
+
+== Reference
+
+* https://aws.amazon.com/serverless/sam/
+* https://www.google.com/search?q=aws+sam+example+template&rlz=1C1GCEU_enUS1059US1059&oq=aws+sam+example&aqs=chrome.2.0i512j69i57j0i20i263i512j0i22i30l2j69i60l3.6497j0j7&sourceid=chrome&ie=UTF-8
+* https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-specification-template-anatomy.html
+* https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-reference.html
+* https://github.com/serverless-projects/aws-sam-examples/blob/master/samples_3/stream_processor/template.yaml
+
+
+

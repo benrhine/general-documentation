@@ -1,0 +1,6 @@
+= Linux
+
+Currently none of these setups have been tested on linux.
+
+
+

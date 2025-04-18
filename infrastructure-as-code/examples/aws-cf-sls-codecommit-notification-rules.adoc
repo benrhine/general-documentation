@@ -1,0 +1,41 @@
+= Create Notification Rules with CloudFormation or Serverless Framework
+
+When something is a common part of setup is best to code that action into an easy repeatable step. We want to have
+notifications for any PRs that happen against the repositories and since Aws requires that this be coded for each individual repository this has been configured as part of the account setup infrastructure.
+
+[source, yaml]
+----
+repoNotification:
+  Type: AWS::CodeStarNotifications::NotificationRule
+  Properties:
+    Name: ${self:custom.repoAcct}-lambda-repo-notification-rule
+    DetailType: FULL
+    Resource: !Sub arn:aws:codecommit:${AWS::Region}:${AWS::AccountId}:lambda-name
+    EventTypeIds: # https://docs.aws.amazon.com/dtconsole/latest/userguide/concepts.html#concepts-api
+      - codecommit-repository-comments-on-pull-requests
+      - codecommit-repository-approvals-status-changed
+      - codecommit-repository-pull-request-created
+      - codecommit-repository-pull-request-merged
+    Targets: # IMPORTANT!!! Please be aware that Slack channel must already exist or THIS WILL FAIL!!!
+      - TargetType: AWSChatbotSlack
+        TargetAddress: !Sub arn:aws:chatbot::${AWS::AccountId}:chat-configuration/slack-channel/${self:custom.repoAcct}
+----
+
+Additional EventTypeIds (i.e. things you may want to event on) can be found https://docs.aws.amazon.com/dtconsole/latest/userguide/concepts.html#concepts-api[here].
+
+[WARNING]
+In order to execute these Serverless/CloudFormation scripts a Aws Chatbot MUST previously have been configured.
+
+
+
+
+
+
+
+
+
+
+
+
+
+

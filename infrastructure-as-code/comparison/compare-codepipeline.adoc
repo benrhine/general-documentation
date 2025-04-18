@@ -1,0 +1,182 @@
+= Compare: Creating a CodePipeline
+:toc:
+
+[NOTE]
+Creating resources within both CloudFormation and Serverless Framework are exactly the same. Whenever you create a resource
+in Serverless, it is just RAW CloudFormation, Serverless is *only unique* when not creating resources.
+
+== Creating a new CodePipeline
+
+To create a new CodePipeline using either CloudFormation or Serverless Framework, you can add the following to
+either your CloudFormation template or your `serverless.yml`
+
+=== CloudFormation / Serverless declaration
+
+[source, yaml]
+----
+Resources:
+    ...
+  CodeReplicationPipeline: # Configure REPLICATION pipeline for library
+    Type: AWS::CodePipeline::Pipeline                                   # CF type
+    DependsOn: # This CF REQUIRES that the role and jobs have been created previously
+      - ServiceCodePipelineRole
+      - CbDisasterRecoverySyncRepository
+    Properties:
+      Name: !Sub ${ProjectName}-replication-pipeline                    # Pipeline name that will be visible in Aws CloudPipeline
+      RoleArn: !Sub ${ServiceCodePipelineRole.Arn}                      # Assign role with required permissions
+      Stages:
+        - Name: code-commit-checkout                                    # Stage name
+          Actions: # Be aware if multiple actions are declared they DO NOT RUN in parallel, to execute in parallel the jobs must be configured that way.
+            - Name: Source                                              # Action name
+              Namespace: SourceVariables
+              ActionTypeId:
+                Category: Source
+                Owner: AWS
+                Version: "1"
+                Provider: CodeCommit
+              Configuration:
+                RepositoryName: !Sub ${GitRepoName}                     # Repository that will be checked out
+                OutputArtifactFormat: CODE_ZIP
+                PollForSourceChanges: false
+                BranchName: main
+              OutputArtifacts:
+                - Name: SourceArtifact
+        - Name: replicate-to-alternate-region                           # Stage name
+          Actions:
+            - Name: replicate                                           # Action name
+              ActionTypeId:
+                Category: Build
+                Owner: AWS
+                Version: "1"
+                Provider: CodeBuild
+              Configuration:
+                ProjectName: !Ref CbDisasterRecoverySyncRepository      # CodeBuild job name
+              RunOrder: 1
+              InputArtifacts: # Where will this action get its input
+                - Name: SourceArtifact                                  # The name of the OutputArtifact from the first action
+      ArtifactStore:
+        Type: S3
+        Location: !Ref DeployBucket
+----
+
+
+
+=== The equivalent Terraform code is the following ...
+
+.module main.tf
+[source, shell]
+----
+resource "aws_codepipeline" "codepipeline" {
+  name     = var.pipeline_name
+  role_arn = var.service_role_arn
+
+  artifact_store {
+    location = var.deployment_bucket
+    type     = var.artifact_store_type
+  }
+
+  stage {
+    name = var.stage_1_name
+
+    action {
+      name             = var.stage_1_action_name
+      category         = var.stage_1_action_category
+      owner            = var.stage_1_action_owner
+      provider         = var.stage_1_action_provider
+      version          = var.stage_1_action_version
+      output_artifacts = var.stage_1_action_output_artifacts
+      namespace        = var.stage_1_action_namespace
+
+      configuration = {
+        OutputArtifactFormat = var.stage_1_action_configuration_output_artifact_format
+        PollForSourceChanges = var.stage_1_action_configuration_poll_for_source_changes
+        RepositoryName = var.git_repo_name
+        BranchName       = var.stage_1_action_configuration_branch_name
+      }
+    }
+  }
+
+  stage {
+    name = "replicate-to-alternate-region"
+
+    action {
+      name             = "replicate"
+      category         = "Build"
+      owner            = "AWS"
+      provider         = "CodeBuild"
+      input_artifacts  = ["SourceArtifact"]
+      version          = "1"
+
+      configuration = {
+        ProjectName = var.codebuild_project
+      }
+    }
+  }
+
+#   stage {
+#     name = "Deploy"
+#
+#     action {
+#       name            = "Deploy"
+#       category        = "Deploy"
+#       owner           = "AWS"
+#       provider        = "CloudFormation"
+#       input_artifacts = ["build_output"]
+#       version         = "1"
+#
+#       configuration = {
+#         ActionMode     = "REPLACE_ON_FAILURE"
+#         Capabilities   = "CAPABILITY_AUTO_EXPAND,CAPABILITY_IAM"
+#         OutputFileName = "CreateStackOutput.json"
+#         StackName      = "MyStack"
+#         TemplatePath   = "build_output::sam-templated.yaml"
+#       }
+#     }
+#   }
+}
+----
+
+=== Include CodePipeline module
+
+.main.tf
+[source, shell]
+----
+module "codepipeline" {
+  source                        = "./modules/codepipeline"                                # Where to find the module
+  ######################################################################################################################
+  pipeline_name                 = "${var.project_name}-replication-pipeline"              # Custom defined value
+  service_role_arn              = module.iam_roles.create_codepipeline_service_role_arn   # Value retrieved from module outputs.tf
+  deployment_bucket             = module.s3.aws_s3_bucket.bucket                          # Value retrieved from module outputs.tf
+  codebuild_project             = module.codebuild.aws_codebuild_project_name             # Value retrieved from module outputs.tf
+  git_repo_name                 = var.git_repo_name                                       # Value passed in via variables.tf
+
+# ALL COMMENTED VALUES HAVE REASONABLE DEFAULT VALUES ASSIGNED IN variables.tf
+#   artifact_store_type           = "S3"                                # Value is defaulted in module variables.tf only set here if overriding
+#   stage_1_name                  = "code-commit-checkout"              # Value is defaulted in module variables.tf only set here if overriding
+#   stage_1_action_name           = "Source"                            # Value is defaulted in module variables.tf only set here if overriding
+#   stage_1_action_category       = "Source"                            # Value is defaulted in module variables.tf only set here if overriding
+#   stage_1_action_owner          = "AWS"                               # Value is defaulted in module variables.tf only set here if overriding
+#   stage_1_action_provider       = "CodeCommit"                        # Value is defaulted in module variables.tf only set here if overriding
+#   stage_1_action_version        = "1"                                 # Value is defaulted in module variables.tf only set here if overriding
+#   stage_1_action_output_artifacts = ["SourceArtifact"]                # Value is defaulted in module variables.tf only set here if overriding
+#   stage_1_action_namespace      = "SourceVariables"                   # Value is defaulted in module variables.tf only set here if overriding
+#   stage_1_action_configuration_output_artifact_format = "CODE_ZIP"    # Value is defaulted in module variables.tf only set here if overriding
+#   stage_1_action_configuration_poll_for_source_changes = false        # Value is defaulted in module variables.tf only set here if overriding
+#   stage_1_action_configuration_branch_name = "main"                   # Value is defaulted in module variables.tf only set here if overriding
+
+  # codepipeline module instantiation depends on the following modules; resources in modules declared within "depends_on"
+  # must complete instantiation prior to codepipeline instantiation.
+  depends_on = [
+    module.iam_roles,
+    module.s3,
+    module.codebuild
+  ]
+}
+----
+
+
+
+[source, shell]
+----
+
+----

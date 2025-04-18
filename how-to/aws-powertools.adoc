@@ -1,0 +1,99 @@
+= How To: Powertools
+:toc:
+
+Aws Power Tools is a logging, metrics, and observability tool suite developed by Aws to improve all aforementioned aspects in lambda based applications.
+
+== Including Power Tools
+
+In order to include power tools as part of your project add the following to your Gradle dependencies section
+
+[source, java]
+----
+implementation "org.aspectj:aspectjrt:$aspectJrt" // enables the following dependencies to be declared as aspect
+aspect "software.amazon.lambda:powertools-logging:$awsPowerTools"
+aspect "software.amazon.lambda:powertools-metrics:$awsPowerTools"
+aspect "software.amazon.lambda:powertools-tracing:$awsPowerTools"
+----
+
+== Configuring Logging
+
+[CAUTION]
+Ensure you review the "Issues" section. While this config works out of the box there is a separate bug that prevents
+this from working correctly without additional configuration.
+
+Add a `log4j2.xml` file to the project in src/resources. It is highly recommended to configure JSON logging instead of
+string (standard style) logging as this significantly improves the ability to use [Aws CodeWatch insights].
+
+=== log4j2.xml
+
+[source, xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+        <Console name="JsonAppender" target="SYSTEM_OUT">
+            <JsonTemplateLayout eventTemplateUri="classpath:LambdaJsonLayout.json" />
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="JsonAppender" />
+        </Root>
+    </Loggers>
+</Configuration>
+----
+
+== Issues
+
+=== Log4j2 with Lambda, and shadowJar
+
+There is an issue with the combination of using log4j2 and lambdas requirement to use shadowJar. It complains that the
+JsonTemplateLayout key can not be found in the `log4j2.xml` but does not really give a reason why as this should be
+available having included the dependencies (ie no real error is presented to clue you in how to fix this).
+https://stackoverflow.com/questions/75838785/console-contains-an-invalid-element-or-attribute-jsontemplatelayout-even-after[This]
+post describes the issue and why it is happening.
+https://stackoverflow.com/questions/71458136/log4j-jsontemplatelayout-doesnt-work-when-jar-file-built-by-shadowjar[This]
+post explains what is actually necessary to fix this to allow the above config to operate as expected.
+
+=== TLDR
+
+So long as you already have the com.github.johnrengelman.shadow plugin included add the following ...
+
+[WARNING]
+This must be applied in the primary `build.gradle` file otherwise it will not import correctly!!!
+
+[source, groovy]
+----
+shadowJar {
+    transform(Log4j2PluginsCacheFileTransformer)
+}
+----
+
+== Reference
+
+- https://serverlessland.com/snippets/tools-powertools-logger
+- https://markilott.medium.com/aws-lambda-powertools-b74baa36ac61
+- https://stackoverflow.com/questions/74739764/how-correctly-log-aws-lambda-event-with-lambda-powertools
+- https://docs.powertools.aws.dev/lambda/java/core/logging/#standard-structured-keys
+- https://venkatarchitect.medium.com/lambda-logging-2dc9908b760b
+- https://markilott.medium.com/aws-lambda-powertools-b74baa36ac61
+- https://github.com/aws-powertools/powertools-lambda-java/issues/551
+- https://medium.com/i-love-my-local-farmer-engineering-blog/serverless-observability-made-easy-with-lambda-powertools-for-java-metrics-logging-863bed8c6310
+- https://docs.aws.amazon.com/lambda/latest/dg/java-logging.html
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

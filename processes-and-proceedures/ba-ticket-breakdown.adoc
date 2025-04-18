@@ -1,0 +1,61 @@
+= BA: Ticket Breakdown
+
+Analysts are expected to work with the technical lead and team to use an agreed upon ticket format for the various styles
+of work that need completed (see link:ticket-template-story.adoc[Template Ticket]).
+
+It is expected that a BA will meet with the team lead or technical lead at least once a week to help refine tickets to a
+level that can be ingested by the team
+
+== Rule of thumb guidelines
+
+BA's are expected to provide the following in an initial ticket breakdown ...
+
+=== The business language of the story - ie business requirement
+"I would like the application to do X for Y reason" - This is the highest level of a requirement and may be considered an
+_EPIC_ at this point as the story may not have been broken down and is probably not yet fit for developer consumption.
+
+As a first pass a BA should look at the requirement and try to identify if any areas of the requirement are obvious separate
+steps. These should then be discussed in the pre-refinement meeting with the team/tech lead and decided if it should be
+written as a single or multiple tickets.
+
+=== Acceptance criteria
+
+The acceptance criteria should be derived from the business requirement but should be more programmatic/logical in nature.
+So if the business requirement is "I would like the application to do X for Y reason" then the acceptance criteria should
+be similar to the following ...
+
+* Given: This is the current situation and I have X
+* When: Y occurs
+* Then: I would like for Z to happen
+* And: maybe something else happens
+
+A story can have multiple acceptance criteria _but_ a single `given/when/then` could also be considered a singular story.
+
+[TIP]
+If you have more than 3-5 acceptance criteria, then you need another story. 3-5 is quite a few and it is prefered to see
+stories with 2-3 acceptance criteria.
+
+While the lead will help you with this phrasing, it is highly suggested for meeting flow and efficiency that the BA attempt
+to complete this step on their own.
+
+[NOTE]
+Acceptance criteria are essentially pre-written tests for a piece of code. These should be thorough and should be on every
+ ticket to help ensure expediency. This lowers the bar for how much mental effort a dev must put in to ensure a ticket works
+as expected. Additionally, it improves testing of any requirements as multiple individuals have given thought to the required
+testing process.
+
+=== Items every ticket should have on it
+
+* link to code repo where this code will be written
+* business contact
+** This could just be the PM but may be an actual stakeholder
+* architectural contact
+** This could just be the lead but may be a floating senior leader with technical expertise
+* Example/Sample Data
+** There *MUST* be a sample of every expected input and every expected output. If there are no direct inpputs/outputs
+this should be noted as N/A
+*
+
+
+
+

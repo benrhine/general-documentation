@@ -1,0 +1,174 @@
+= DynamoDB
+:toc:
+
+== Table IDS
+
+Dynamo Tables support both numeric and string ids. For the most flexibility is recommended to use UUIDs (see
+https://how.wtf/dynamodb-auto-incrementing-keys-why-uuids-are-the-recommended-choice.html[here] for further details)
+
+== PartiQL editor
+
+While DynamoDB is a NoSQL database / JSON store Aws has helpfully created an easy way to query the tables using standard
+(mostly) sql. This can be found by navigating to DynamoDB then selecting
+https://us-west-2.console.aws.amazon.com/dynamodbv2/home?region=us-west-2#partiql-editor[PartiQL editor] from the left hand panel.
+
+== Loading Credentials with Java and SDK v2
+
+To better understand how this works it is recommended to review Aws documentation https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html[here]. Depending on the credentials
+needed they are probably already available in the context given that it is running on Aws services the question is just
+how to access them. https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials-chain.html[This page] describes the order in which Aws looks for credentials.
+
+Add the following dependencies ...
+
+[source, java]
+----
+implementation "software.amazon.awssdk:dynamodb:_"
+implementation 'software.amazon.awssdk:dynamodb-enhanced:_'
+----
+
+instantiate the client(s) as follows
+
+[source, java]
+----
+private static final DynamoDbClient ddb = DynamoDbClient.builder()
+            .region(Region.US_WEST_2)
+            .credentialsProvider(DefaultCredentialsProvider.create())
+            .build();
+private static final DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
+            .dynamoDbClient(ddb)
+            .build();
+----
+
+access via
+
+[source, java]
+----
+try {
+        final DynamoDbTable<DeviceRegistration> mappedTable = enhancedClient.table("sls-ldr-dev", TableSchema.fromBean(DeviceRegistration.class));
+        final DeviceRegistration dr = new DeviceRegistration();
+        dr.setId(UUID.randomUUID().toString());
+        dr.setSerialNum("1234");
+        dr.setCmdId("5678");
+        dr.setStatus("ACTIVE");
+        dr.setCreateDate("");
+        dr.setUpdateDate("");
+        dr.setClientInfo1("x");
+        dr.setClientInfo2("");
+        dr.setClientInfo3("");
+        dr.setClientInfo4("");
+        dr.setClientInfo5("");
+        final PutItemEnhancedRequest<DeviceRegistration> enReq = PutItemEnhancedRequest.builder(DeviceRegistration.class)
+            .item(dr)
+            .build();
+        mappedTable.putItem(enReq);
+} catch (final DynamoDbException e) {
+    System.err.println(e.getMessage());
+    System.exit(1);
+}
+----
+
+== Misc
+
+Below are some enhanced client examples
+
+[source, java]
+----
+public boolean checkIfRecordExists(final DrsServiceBody dr) {
+        boolean exists = false;
+        // 1. Define a QueryConditional instance to return items matching a partition value.
+        final QueryConditional keyEqual = QueryConditional.keyEqualTo(b ->
+                b.partitionValue(dr.getSerialNum() + "#" + dr.getIssuer())
+        );
+        // 1a. Define a QueryConditional that adds a sort key criteria to the partition value criteria.
+//                QueryConditional sortGreaterThanOrEqualTo = QueryConditional.sortGreaterThanOrEqualTo(b -> b.partitionValue("movie01").sortValue("actor2"));
+//                // 2. Define a filter expression that filters out items whose attribute value is null.
+//                final Expression filterOutNoActingschoolname = Expression.builder().expression("attribute_exists(actingschoolname)").build();
+        // 3. Build the query request.
+        QueryEnhancedRequest tableQuery = QueryEnhancedRequest.builder()
+                .queryConditional(keyEqual)
+                //.scanIndexForward(false) // Default is true i.e. ascending order, false is descending order
+//                                        .filterExpression(filterOutNoActingschoolname)
+                .build();
+        // 4. Perform the query.
+        PageIterable<DrsServiceBody> pagedResults = drsTable.query(tableQuery);
+//        log.info("page count: {}", pagedResults.stream().count()); // Log  number of pages.
+        System.out.println("page count: " + pagedResults.stream().count());
+        DrsServiceBody record = null;
+        final List<DrsServiceBody>drsServiceBodyList = pagedResults.items().stream().sorted().toList();
+        System.out.println(drsServiceBodyList);
+        if (pagedResults.stream().count() == 1 && !drsServiceBodyList.isEmpty()) {
+            body = drsServiceBodyList.getFirst(); // Note: This is a Java 21 function so lower tests will not compile
+            System.out.println(body);
+            System.out.println(body.getUpdateDate());
+            return true;
+        }
+        return exists;
+    }
+----
+
+== Manually create DynamoDB Table TODO
+
+== Working with DynamoDB and IaC
+
+=== Create DynamoDB Table with IaC
+
+* link:../../../infrastructure-as-code/aws/aws-cf-create-dynamo-table.adoc[CloudFormation: Create DynamoDB table]
+* link:../../../infrastructure-as-code/serverless/sls-aws-create-dynamo-table.adoc[Serverless: Create DynamoDB table]
+* link:../../../infrastructure-as-code/terraform/tf-aws-create-dynamo-table.adoc[Terraform: Create DynamoDB table]
+
+
+== Reference
+* https://davidagood.com/dynamodb-enhanced-client-java-missing-setters/
+* https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dynamodb-table.html
+* https://dynobase.dev/dynamodb-cloudformation/
+* https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SecondaryIndexes.html
+* https://stackoverflow.com/questions/57322645/how-to-define-dynamodb-table-with-global-secondary-index-in-serverless-framework
+* https://sst.dev/archives/configure-dynamodb-in-serverless.html
+* https://dynobase.dev/dynamodb-serverless-framework/
+* https://www.serverless.com/guides/dynamodb
+* https://medium.com/@mahimamanik.22/primary-key-and-secondary-indexes-in-dynamodb-6c658bd3ae15
+* https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SecondaryIndexes.html
+* https://stackoverflow.com/questions/69126688/with-dynamodb-enhanced-client-from-java-aws-sdk-how-do-you-query-using-a-compou
+* https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/ddb-en-client-use-multirecord.html
+* https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithItems.html#WorkingWithItems.ReturnValues how dynamo returns items
+
+* https://docs.aws.amazon.com/sdkref/latest/guide/standardized-credentials.html
+* https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_first_project/src/main/java/com/example/handlingformsubmission
+* https://www.keithrozario.com/2020/06/access-keys-in-aws-lambda.html
+* https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/Credentials.html
+* https://medium.com/@akhouri/aws-credentials-with-java-sdk-61fe454c3fbd
+* https://docs.aws.amazon.com/lambda/latest/dg/lambda-intro-execution-role.html
+* https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html#configuration-envvars-runtime
+* https://stackoverflow.com/questions/66111832/how-does-aws-sdk-in-lambda-get-the-credentials-automagically
+* https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html
+* https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/dynamodb-enhanced-client.html
+* https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.API.html
+* https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ql-reference.html
+* https://www.youtube.com/watch?v=eg-Z8RA99yY&t=518s
+
+=== Additional from saved tabs
+
+* https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/quickref-dynamodb.html
+* https://medium.com/aws-lambda-serverless-developer-guide-with-hands/dynamodb-streams-using-aws-lambda-to-process-dynamodb-streams-for-change-data-capture-2e3ab8df27ca
+* https://medium.com/@praveenvallepu/automating-python-layer-creation-in-aws-lambda-using-cloudformation-part-1-c6b7d132b93f
+* https://medium.com/@merrinkurian/dynamodb-stream-processing-88fdb6a57f8e
+* https://docs.aws.amazon.com/lambda/latest/dg/with-ddb-example.html
+* java+lambda+process+dynamodb+stream+medium+to+how+process&rlz=1C1GCEU_enUS1059US1059&oq=java+lambda+process+DynamoDB+Stream+medium&gs_lcrp=EgZjaHJvbWUqBwgBECEYoAEyBggAEEUYOTIHCAEQIRigATIHCAIQIRigAdIBCDczNzdqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8
+* https://medium.com/qantas-engineering-blog/dynamodb-streams-5881a085b824#:~:text=We%20can%20read%20and%20process,to%20process%20DynamoDB%20stream%20changes.
+* should+dynamo+keys+be+uppercase&rlz=1C1GCEU_enUS1059US1059&oq=should+dynamo+keys+be+uppercase&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIJCAEQIRgKGKAB0gEJMTU3MDNqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8
+* how+to+process+DynamoDB+Stream+medium&sca_esv=592593278&rlz=1C1GCEU_enUS1059US1059&sxsrf=AM9HkKnyWQKZkYhVv-TosYIMg8NJcwKcAQ%3A1703101179255&ei=-0KDZdWXD_Hk5NoPpOW0oAQ&ved=0ahUKEwiVgbmm4p6DAxVxMlkFHaQyDUQQ4dUDCBA&uact=5&oq=how+to+process+DynamoDB+Stream+medium&gs_lp=Egxnd3Mtd2l6LXNlcnAiJWhvdyB0byBwcm9jZXNzIER5bmFtb0RCIFN0cmVhbSBtZWRpdW0yBRAhGKABSPoOUNQCWMINcAF4AZABAJgBiwGgAcsFqgEDNC4zuAEDyAEA-AEBwgIKEAAYRxjWBBiwA8ICBRAhGKsC4gMEGAAgQYgGAZAGCA&sclient=gws-wiz-serp
+* https://medium.com/swlh/aws-dynamodb-triggers-event-driven-architecture-61dea6336efb
+* https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html
+* dynamodb+audit+table+example&rlz=1C1GCEU_enUS1059US1059&oq=dynamodb+audit+table+example&gs_lcrp=EgZjaHJvbWUyCQgAEEUYORigATIHCAEQIRifBTIHCAIQIRifBTIHCAMQIRifBTIHCAQQIRifBdIBCDkzNzBqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8
+* https://medium.com/@leeroy.hannigan/tracking-dynamodb-storage-history-with-cloudwatch-5daa41365513#:~:text=Amazon%20DynamoDB%20uses%20Amazon%20CloudWatch,application%20or%20service%20is%20performing.
+* is+there+a+way+to+capture+history+on+dynamodb+table&rlz=1C1GCEU_enUS1059US1059&oq=is+there+a+way+to+capture+history+on+dynamodb+table&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIHCAEQIRigATIHCAIQIRirAtIBCDkwNzhqMGo0qAIAsAIA&sourceid=chrome&ie=UTF-8
+* https://stackoverflow.com/questions/61102760/how-do-i-query-keys-starting-with-underscores-with-the-aws-dynamo-cli
+
+=== Deleting
+
+* https://medium.com/@aydinya/dynamodb-deleting-records-without-partition-and-sort-keys-8ecdd19b8f8f
+* https://medium.com/@aydinya/dynamodb-deleting-records-with-unknown-sort-keys-4b533c9ea2f5
+* https://serhatcan.medium.com/how-to-migrate-from-dynamodb-java-sdk-v1-to-v2-2e3660729e05
+* https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStarted.DeleteItem.html
+* https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-rolepolicy.html#aws-resource-iam-rolepolicy--examples
+* https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-policy.html#aws-resource-iam-policy--examples

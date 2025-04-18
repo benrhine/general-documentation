@@ -1,0 +1,104 @@
+= (Step 3) - Application Deploy
+:toc:
+
+The 3rd and final stage of the deploy process is to deploy the application itself. By this point the sls domain should
+be setup in region and any application resources should also be setup.
+
+This deploy is for the application artifact *ONLY*!
+
+== Corresponding CI Build steps
+
+Example build steps
+
+* Place build steps here
+
+== Verify all roles exist
+
+Pending you have completed
+
+* (Step 1) - Domain Deployment and
+* (Step 2) - App Resource Deploy
+* verify that all roles have been created successfully by navigating to IAM roles and search for sls
+
+This assumes that you have not changed any of the role creation naming convention
+
+* You should see the following (add screenshot)
+* two sls-domain  roles which were created in step 1
+* and two roles that are sls-<YOUR-APP-SHORT-NAME>-*
+* additionally this should bring up any other roles that have been created by serverless pending they have been created using the templates and patterns set forth throughout this documentation.
+
+== Verify S3 bucket exists
+
+* Navigate to S3
+* search for sls
+* see the bucket that was created (add screenshot)
+
+== Execute application build and Deployment
+
+=== Without Layers
+
+While the expectation is this will occur as part of a CI / CD pipeline if manual invocation is required execute the following from your terminal
+
+----
+./gradlew clean shadowJar
+----
+
+This will build the artifact required for lambda. If you have forgotten to do this step serverless will complain that it can't find the artifact.
+
+[NOTE]
+The artifact can be found in the build/libs  folder. Make sure the artifact ends in *-all.jar  otherwise it might not be the correct artifact.
+
+Now deploy with serverless
+
+----
+serverless deploy --verbose
+----
+
+[NOTE]
+It is recommended to include --verbose  as it will give you better insight into where in the process the deployment execution is.
+
+[CAUTION]
+No config is passed in here as it is using the default serverless.yml  within the project so no additional specification is required.
+
+=== With Layers
+
+While the expectation is this will occur as part of a CI / CD pipeline if manual invocation is required execute the
+following from your terminal. Do note that when updating a given lambda to use layers how the build occurs changes. To
+better understand how this works please review here and How To: Lambda Layers. To build a lambda app that uses layers
+instead do the following after having updated the `serverless.yml` file as described in the previous How To.
+
+[CAUTION]
+The use of shadowJar is no longer required as dependencies are being provided from the layer. This massively reduces the deployment size and increases performance.
+
+----
+./gradlew clean build
+----
+
+This will build the artifact (zip) required for lambda. If you have forgotten to do this step serverless will complain that it can't find the artifact.
+
+[NOTE]
+The artifact can be found in the build/distributions folder.
+
+Now deploy with serverless
+
+----
+serverless deploy --verbose
+----
+
+[NOTE]
+It is recommended to include --verbose  as it will give you better insight into where in the process the deployment execution is.
+
+[CAUTION]
+No config is passed in here as it is using the default serverless.yml  within the project so no additional specification is required.
+
+== Remove application Deployment
+
+Similar to the deploy process it is super easy to revert any given deployment
+
+[WARNING]
+This will remove your artifact and bring the given service down. This will remove items from the deployment bucket and will remove logs
+
+----
+serverless remove --verbose
+----
+

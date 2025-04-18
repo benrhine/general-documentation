@@ -1,0 +1,26 @@
+= Terraform: Conditionals
+
+Terraform uses a ternary for conditionals
+
+----
+condition ? true_part : false_part
+----
+
+----
+account_tier = var.environment == "dev" ? "Standard" : "Premium"
+----
+
+----
+resource "azurerm_storage_account" "my_storage" {
+  name                            = "stmystorage"
+  resource_group_name             = "rg-conditional-demo"
+  location                        = "eastus"
+  access_tier                     = var.environment == "dev" ? "Cool" : "Hot"
+}
+----
+
+See references for further detail
+
+== References
+
+- https://spacelift.io/blog/terraform-conditionals

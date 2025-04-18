@@ -1,0 +1,42 @@
+= your-service: Deployment Guide Example
+
+All deployments for the your-service will originate from the br-tools account.
+
+[WARNING]
+It is assumed that the base job `sls-cross-account-domain-resources-deploy` has been executed in the environment.
+*Note: This job should really only be ran once per region/account!*
+
+[CAUTION]
+This project (repository and build jobs) are configured to support Trunk based development.
+
+[NOTE]
+If you need more info on the service please review the User Guide or the Technical Guide
+
+== Checklist / Prerequisites
+
+[WARNING]
+*All environments above dev deploy by artifact. I.e. they do not rebuild the artifact for each deployment.* So what does
+this mean? It means the following ...
+It will deploy/release whatever the last promoted artifact from the lower environment is. It will get the latest release
+number from the artifacts/env  bucket
+
+=== Items that were created manually
+
+[WARNING]
+If this does not exist this should probably incur a quick discussion about the state of what is being deployed. This role
+should be created as per the documentation here. *THIS ROLE WILL EXIST IN NP AND P ACCOUNT INSTANCES, NOT TOOLS.*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

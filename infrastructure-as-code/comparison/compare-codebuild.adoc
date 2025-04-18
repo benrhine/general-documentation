@@ -1,0 +1,148 @@
+= Compare: Creating a CodeBuild Job
+:toc:
+
+[NOTE]
+Creating resources within both CloudFormation and Serverless Framework are exactly the same. Whenever you create a resource
+in Serverless, it is just RAW CloudFormation, Serverless is *only unique* when not creating resources.
+
+== Creating a new CodeBuild Job
+
+To create a new CodeBuild job using either CloudFormation or Serverless Framework, you can add the following to
+either your CloudFormation template or your `serverless.yml`
+
+=== CloudFormation / Serverless declaration
+
+[source, yaml]
+----
+Resources:
+    ...
+  CbDisasterRecoverySyncRepository:
+    Type: AWS::CodeBuild::Project
+    DependsOn: ServiceCodeBuildServiceRole
+    Properties:
+      Name: !Sub ${ProjectName}-disaster-recovery-sync
+      Description: Syncs CodeCommit repository to alternate region
+      BadgeEnabled: !Ref BuildBadge
+      Source:
+        Type: !Sub ${GitSourceType}
+        Location: !Sub https://git-codecommit.${AWS::Region}.amazonaws.com/v1/repos/${GitRepoName}
+        BuildSpec: .codebuild/buildspec-replicate.yml
+      SourceVersion: !Ref GitSourceVersion
+      Environment:
+        Type: !Sub ${EnvType}
+        ComputeType: !Sub ${EnvComputeType}
+        Image: !Sub ${EnvImage}
+      ServiceRole: !Sub ${ServiceCodeBuildServiceRole.Arn}
+      Artifacts:
+        Type: NO_ARTIFACTS
+      LogsConfig:
+        CloudWatchLogs:
+          Status: !Ref CloudWatchLogs
+          GroupName: !Sub ${ProjectName}-disaster-recovery-sync
+        S3Logs:
+          Status: !Ref S3Logs
+----
+
+=== The equivalent Terraform code is the following ...
+
+.module main.tf
+[source, shell]
+----
+resource "aws_codebuild_project" "codebuild_job" {
+  name          = var.build_name
+  description   = var.build_description
+  build_timeout = var.build_timeout
+  service_role  = var.service_role_arn    # Should be passed in via module declaration
+  badge_enabled = var.build_badge_enabled       # Defaulted to true in variables.tf
+
+# Depends on should be specified in root module main.tf module declaration
+#   depends_on = [
+#     var.service_role_arn
+#   ]
+
+  artifacts {
+    type = var.artifacts  # Defaulted to true in variables.tf
+  }
+
+  environment {
+    compute_type                = var.env_compute_type  # Defaulted to true in variables.tf
+    image                       = var.env_image # Defaulted to true in variables.tf
+    type                        = var.env_type  # Defaulted to true in variables.tf
+    image_pull_credentials_type = var.env_image_pull_credentials_type # Defaulted to true in variables.tf
+  }
+
+  logs_config {
+    cloudwatch_logs {
+      status      = var.cloudwatch_logs #enabled # Defaulted to true in variables.tf
+      group_name  = var.build_name
+    }
+
+    s3_logs {
+      status   = var.s3_logs # disabled
+    }
+  }
+
+  source {
+    type            = var.git_source_type
+    location        = var.git_repo_location
+    buildspec       = var.git_repo_buildspec
+    git_clone_depth = var.git_clone_depth # 0 Represents a full checkout which is necessary for git commands
+
+    git_submodules_config {
+      fetch_submodules = var.git_fetch_submodules
+    }
+  }
+
+  source_version = var.git_source_version
+
+  tags = {
+    Environment = var.environment_tag
+  }
+}
+----
+
+
+=== Include CodeBuild module
+
+.main.tf
+[source, shell]
+----
+module "codebuild" {
+  source                        = "./modules/codebuild"                                   # Where to find the module
+  ######################################################################################################################
+  build_name                    = "${var.project_name}-disaster-recovery-sync"            # Custom defined value
+  build_description             = "Syncs CodeCommit repository to alternate region"       # Custom defined value
+  service_role_arn              = module.iam_roles.create_codebuild_service_role_arn      # Value retrieved from module outputs.tf
+  git_repo_name                 = var.git_repo_name                                       # Value passed in via variables.tf
+  git_repo_location             = "https://git-codecommit.${data.aws_region.current.name}.amazonaws.com/v1/repos/${var.git_repo_name}" # Custom defined value
+  environment_tag               = var.environment_tag                                     # Value passed in via variables.tf
+
+# ALL COMMENTED VALUES HAVE REASONABLE DEFAULT VALUES ASSIGNED IN variables.tf
+#   build_timeout               = 5                                     # Value is defaulted in module variables.tf only set here if overriding
+#   build_badge_enabled         = true                                  # Value is defaulted in module variables.tf only set here if overriding
+#   git_source_type             = "CODECOMMIT"                          # Value is defaulted in module variables.tf only set here if overriding
+#   git_source_version          = "refs/heads/main"                     # Value is defaulted in module variables.tf only set here if overriding
+#   git_repo_buildspec          = ".codebuild/buildspec-replicate.yml"  # Value is defaulted in module variables.tf only set here if overriding
+#   git_clone_depth             = 0                                     # Value is defaulted in module variables.tf only set here if overriding
+#   git_fetch_submodules        = false                                 # Value is defaulted in module variables.tf only set here if overriding
+#   artifacts                   = "NO_ARTIFACTS"                        # Value is defaulted in module variables.tf only set here if overriding
+#   env_type                    = "LINUX_CONTAINER"                     # Value is defaulted in module variables.tf only set here if overriding
+#   env_compute_type            = "BUILD_GENERAL1_SMALL"                # Value is defaulted in module variables.tf only set here if overriding
+#   env_image                   = "aws/codebuild/standard:7.0"          # Value is defaulted in module variables.tf only set here if overriding
+#   env_image_pull_credentials_type = "CODEBUILD"                       # Value is defaulted in module variables.tf only set here if overriding
+#   cloudwatch_logs             = "ENABLED"                             # Value is defaulted in module variables.tf only set here if overriding
+#   s3_logs                     = "DISABLED"                            # Value is defaulted in module variables.tf only set here if overriding
+
+  # codebuild module instantiation depends on the following modules; resources in modules declared within "depends_on"
+  # must complete instantiation prior to codebuild instantiation.
+  depends_on = [
+    module.iam_roles
+  ]
+}
+----
+
+
+[source, shell]
+----
+
+----

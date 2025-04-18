@@ -1,0 +1,6 @@
+= Data: File Types
+
+== Reference
+
+* https://www.google.com/search?client=safari&rls=en&q=parquet+files&ie=UTF-8&oe=UTF-8#vhid=fWlLMQ7CaL5RJM&vssid=l
+

@@ -1,0 +1,26 @@
+= Git: Remove all history
+
+While chances are, you will never do this in a corporate environment,
+there are times you may want to remove all historical commits from a project.
+
+== Why would I do this?
+
+If credentials have been consistently commited to the code base and you need to ensure they do not leak
+into the wild.
+
+== How to do this?
+
+From the checked out project directory ...
+
+* git checkout --orphan latest_branch
+* git add -A
+* git commit -am "your new commit message"
+* git branch -D main
+* git branch -m main
+* git push -f origin main
+
+Now all your commit history has been wiped
+
+== Reference
+
+* https://clearinsights.io/blog/how-to-remove-all-git-commit-history/

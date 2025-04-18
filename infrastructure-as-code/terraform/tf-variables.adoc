@@ -1,0 +1,38 @@
+= Terraform: Variables
+
+Rather than re-write this whole thing please see the linked pdf or the reference article that does a wonderful job of
+explaining how terraform variables and tfvars work.
+
+== Documents
+
+* link:../documents/Terraform-tfvars-files-Variables-Management-with-Examples.pdf[TFVars]
+
+== Reference
+
+- https://spacelift.io/blog/terraform-tfvars
+- https://spacelift.io/blog/terraform-environment-variables
+- https://spacelift.io/blog/how-to-use-terraform-variables
+- https://discuss.hashicorp.com/t/regex-for-variable-validation/45154/4
+- https://discuss.hashicorp.com/t/validate-list-object-variables/18291/9
+- https://dev.to/drewmullen/terraform-variable-validation-with-samples-1ank
+- https://github.com/hashicorp/terraform/issues/26205
+- https://stackoverflow.com/questions/57190035/terraform-how-to-restrict-an-input-variable-to-a-list-of-possible-choices
+- https://dev.to/pwd9000/terraform-variable-validation-47ka
+- https://registry.terraform.io/providers/hashicorp/assert/latest/docs/functions/regex
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,292 @@
+= Troubleshooting: Serverless
+:toc:
+
+This is an attempt to document all the errors that were overcome during the initial development period and their
+solutions for future reference to ensure quick resolution of any future issues. Additionally, it is intended to educate
+about issues that may be seen during deployments and how to remediate them.
+
+== Gotchas
+
+When running updates with serverless each node in the `serverless.yml` file must be unique
+
+----
+resources:                              # Specify all resources below
+  Resources:                            # Resource list
+    receivingDevTopic:					# NODE 1
+      Type: AWS::SNS::Topic
+      Properties:
+        TopicName: ${self:custom.queueName}-topic-dev
+    receivingTestTopic:					# NODE 2
+      Type: AWS::SNS::Topic
+      Condition: CreateQueueNpResources
+      Properties:
+        TopicName: ${self:custom.queueName}-topic-test
+----
+
+each of the above will create its own topic. If you change the node name and the topic name, *IT WILL NOT CREATE A NEW ITEM*
+as the node has already been registered and will be treated as an update. What this means is if you change the above as follows ...
+
+----
+resources:                              # Specify all resources below
+  Resources:                            # Resource list
+    receivingDevTopicNew:				# NODE 1
+      Type: AWS::SNS::Topic
+      Properties:
+        TopicName: ${self:custom.queueName}-topic-dev-new
+    receivingTestTopic:					# NODE 2
+      Type: AWS::SNS::Topic
+      Condition: CreateQueueNpResources
+      Properties:
+        TopicName: ${self:custom.queueName}-topic-test
+----
+
+instead of having 3 topics now receivingDevTopic will be replaced by receivingDevTopicNew  (i.e. it is overwritten).
+
+[CAUTION]
+While the above is unclear until you have seen it, this may be an issue when generating roles. If you want to create a
+new role that is unique this may require some extra thought.
+
+== SERVICE-NAME is in DELETE_FAILED state
+
+If you see the above in your error it means that something failed to delete OR that if you manually deleted something
+trying to correct a previous failure that it may now be unsure what to do. This may be seen when attempting to re-deploy.
+
+=== Actual Error
+
+----
+Uploading CloudFormation file to S3
+Uploading State file to S3
+Creating new change set
+× Stack ltr-service-resources-dev failed to deploy (0s)
+Environment: linux, node 18.16.0, framework 3.32.2, plugin 6.2.3, SDK 4.3.2
+Credentials: Local, environment variables
+Docs:        docs.serverless.com
+Support:     forum.serverless.com
+Bugs:        github.com/serverless/serverless/issues
+Error:
+Stack:arn:aws:cloudformation:us-west-2:npAccountNum:stack/ltr-service-resources-dev/c61509f0-111f-11ee-a208-069e955d4a33 is in DELETE_FAILED state and can not be updated.
+[Container] 2023/06/22 17:55:22 Command did not exit successfully serverless deploy --config serverless-resources.yml --verbose exit status 1
+[Container] 2023/06/22 17:55:22 Phase complete: BUILD State: FAILED
+[Container] 2023/06/22 17:55:22 Phase context status code: COMMAND_EXECUTION_ERROR Message: Error while executing command: serverless deploy --config serverless-resources.yml --verbose. Reason: exit status 1
+[Container] 2023/06/22 17:55:22 Entering phase POST_BUILD
+[Container] 2023/06/22 17:55:22 Running command echo Build is complete
+Build is complete
+----
+
+=== Solution
+
+Run the remove of the deploy that you are attempting to execute then re-run the actual deploy.
+
+== SERVICE-NAME is in ROLLBACK_COMPLETE state
+
+This may be seen when attempting to re-deploy.
+
+=== Actual Error
+
+----
+Deploying ltr-service to stage dev (us-west-2)
+Uploading CloudFormation file to S3
+Uploading State file to S3
+Uploading service ltr-service-0.0.1-SNAPSHOT-all.jar file to S3 (16.83 MB)
+Creating new change set
+× Stack ltr-service-dev failed to deploy (1s)
+Environment: linux, node 18.16.0, framework 3.32.2, plugin 6.2.3, SDK 4.3.2
+Credentials: Local, environment variables
+Docs:        docs.serverless.com
+Support:     forum.serverless.com
+Bugs:        github.com/serverless/serverless/issues
+Error:
+Stack:arn:aws:cloudformation:us-west-2:npAccountNum:stack/ltr-service-dev/96bce9a0-1121-11ee-9dd0-0abacf5583fb is in ROLLBACK_COMPLETE state and can not be updated.
+2 deprecations found: run 'serverless doctor' for more details
+[Container] 2023/06/22 18:05:35 Command did not exit successfully serverless deploy --stage ${STAGE_NAME} --verbose exit status 1
+[Container] 2023/06/22 18:05:35 Phase complete: POST_BUILD State: FAILED
+[Container] 2023/06/22 18:05:35 Phase context status code: COMMAND_EXECUTION_ERROR Message: Error while executing command: serverless deploy --stage ${STAGE_NAME} --verbose. Reason: exit status 1
+----
+
+=== Solution
+
+Run the remove of the deploy that you are attempting to execute then re-run the actual deploy.
+
+== Role DELETE_FAILED
+
+This is commonly seen when running the remove jobs. This happens as policies fail to detach from the roles.
+
+=== Actual Error
+
+----
+  DELETE_COMPLETE - AWS::IAM::Role - lambdaServiceRole
+  DELETE_FAILED - AWS::CloudFormation::Stack - ltr-service-resources-dev
+Environment: linux, node 18.16.0, framework 3.32.2, plugin 6.2.3, SDK 4.3.2
+Credentials: Local, environment variables
+Docs:        docs.serverless.com
+Support:     forum.serverless.com
+Bugs:        github.com/serverless/serverless/issues
+Error:
+DELETE_FAILED: codebuildServiceRole (AWS::IAM::Role)
+Cannot delete entity, must detach all policies first. (Service: AmazonIdentityManagement; Status Code: 409; Error Code: DeleteConflict; Request ID: fb400bdc-d49b-4426-bb28-6fc8a26f6d49; Proxy: null)
+View the full error: https://us-west-2.console.aws.amazon.com/cloudformation/home?region=us-west-2#/stack/detail?stackId=ltr-service-resources-dev
+[Container] 2023/06/20 16:03:58 Command did not exit successfully serverless remove --config serverless-resources.yml --verbose exit status 1
+[Container] 2023/06/20 16:03:58 Phase complete: BUILD State: FAILED
+----
+
+=== Solution
+
+* Navigate to IAM
+* Select Roles from the left hand panel
+** Search for sls  (all generated roles will contain this)
+* Select the role that didn't delete correctly
+* View Permissions
+* Select all policies
+* Remove
+* Navigate back to CodeBuild
+* Select and Re-run *YOUR-SHORT-APP-NAME*-remove-resources job (Click Start Build)
+
+The `* -remove- *`  job should now complete successfully. Once the job has completed everything is cleaned up and you can
+now re-deploy the resources from scratch.
+
+== https://stackoverflow.com/questions/63660385/unable-to-update-service-role-in-codebuild-with-error-the-policy-was-not-attach[Unable to update Service Role in CodeBuild with error "The policy was not attached to role"]
+
+This error may occur after executing any `*-resources-remove` job. This happens as the roles that are configured for
+CodeBuild by the resource deploy have been removed and when they are regenerated they do not correctly re-attach to
+previous policies unfortunately. What this means is any job configured with these roles will need to be updated (probably
+deleted and recreated) in CodeBuild, same goes for any configured pipelines. To remove the policies to allow for recreation
+follow the steps below...
+
+[CAUTION]
+Be very careful when doing this. *DO NOT DELETE ANY POLICIES THAT ARE "YOUR-APP- * -RESOURCES**
+
+=== Solution
+
+* Navigate to IAM
+* Select policies
+* Search for the app short name (in this case ?)
+* Select each NON-RESOURCE policy and delete it.
+
+With the policies removed it should now be possible to re-create the items in CodeBuild and to re-assemble the pipeline.
+
+== signature we calculated does not match
+
+I don't recall the exact circumstances for the following error.
+
+=== Actual Error
+
+----
+The request signature we calculated does not match the signature you provided. Check your key and signing method. If you start to see this issue after you upgrade the SDK to 1.12.460 or later, it could be because the bucket provided contains '/'. See https://github.com/aws/aws-sdk-java/discussions/2976 for more details (Service: Amazon S3; Status Code: 403; Error Code: SignatureDoesNotMatch; Request ID: 5Z60KQP91V1Y600X; S3 Extended Request ID: AZoGrJMdPByKDeUkSFOco5iKvzuk1L2yNKUoJgaBnprUh3vvMcE0mJZmD9g9H3dAZuCS1E2O0cw=; Proxy: null): java.lang.RuntimeException
+java.lang.RuntimeException: The request signature we calculated does not match the signature you provided. Check your key and signing method. If you start to see this issue after you upgrade the SDK to 1.12.460 or later, it could be because the bucket provided contains '/'. See https://github.com/aws/aws-sdk-java/discussions/2976 for more details (Service: Amazon S3; Status Code: 403; Error Code: SignatureDoesNotMatch; Request ID: 5Z60KQP91V1Y600X; S3 Extended Request ID: AZoGrJMdPByKDeUkSFOco5iKvzuk1L2yNKUoJgaBnprUh3vvMcE0mJZmD9g9H3dAZuCS1E2O0cw=; Proxy: null)
+    at com.benrhine.LambdaTokenRequestor.v1.util.KeystoreUtil.configureKeyStoreAwsSdk(KeystoreUtil.java:99)
+    at com.benrhine.LambdaTokenRequestor.v1.lambda.aws.handler.FedProxyTokenHandler.<init>(FedProxyTokenHandler.java:48)
+    at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
+    at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
+    at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Unknown Source)
+    at java.base/java.lang.reflect.Constructor.newInstance(Unknown Source)
+The request signature we calculated does not match the signature you provided. Check your key and signing method. If you start to see this issue after you upgrade the SDK to 1.12.460 or later, it could be because the bucket provided contains '/'. See https://github.com/aws/aws-sdk-java/discussions/2976 for more details (Service: Amazon S3; Status Code: 403; Error Code: SignatureDoesNotMatch; Request ID: 5Z60KQP91V1Y600X; S3 Extended Request ID: AZoGrJMdPByKDeUkSFOco5iKvzuk1L2yNKUoJgaBnprUh3vvMcE0mJZmD9g9H3dAZuCS1E2O0cw=; Proxy: null): java.lang.RuntimeException java.lang.RuntimeException: The request signature we calculated does not match the signature you provided. Check your key and signing method. If you start to see this issue after you upgrade the SDK to 1.12.460 or later, it could be because the bucket provided contains '/'. See https://github.com/aws/aws-sdk-java/discussions/2976 for more details (Service: Amazon S3; Status Code: 403; Error Code: SignatureDoesNotMatch; Request ID: 5Z60KQP91V1Y600X; S3 Extended Request ID: AZoGrJMdPByKDeUkSFOco5iKvzuk1L2yNKUoJgaBnprUh3vvMcE0mJZmD9g9H3dAZuCS1E2O0cw=; Proxy: null) at com.benrhine.LambdaTokenRequestor.v1.util.KeystoreUtil.configureKeyStoreAwsSdk(KeystoreUtil.java:99) at com.benrhine.LambdaTokenRequestor.v1.lambda.aws.handler.FedProxyTokenHandler.<init>(FedProxyTokenHandler.java:48) at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source) at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source) at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Unknown Source) at java.base/java.lang.reflect.Constructor.newInstance(Unknown Source)
+----
+
+=== Solution?
+
+I believe this is an issue with how aws sdk is attempting to get the bucket. Very specifically you need to provide the
+bucket name ONLY and then the path/filename. I believe this error is the result of calling with bucket/path and filename which will not work.
+
+== Version creation failed with StateReasonCode
+
+----
+× Stack ltr-service-dev failed to deploy (68s)
+Environment: linux, node 18.16.0, framework 3.33.0, plugin 6.2.3, SDK 4.3.2
+Credentials: Local, environment variables
+Docs:        docs.serverless.com
+Support:     forum.serverless.com
+Bugs:        github.com/serverless/serverless/issues
+Error:
+CREATE_FAILED: FedProxyTokenRequestLambdaVersionawi72P87DT6HypFzXd4JFRlVvmAu7ndgemk6GSOThc (AWS::Lambda::Version)
+Version creation failed with StateReasonCode: FunctionError and StateReason: An error occurred during function initialization.
+----
+
+=== Solution?
+
+* check if any bad stacks relating to your build are stuck on aws https://us-west-2.console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks[here]
+* if so remove them
+* check role permissions. I saw this when I had removed the s3 permissions from my lambda role. You may need to add the following
+
+----
+- PolicyName: ${self:custom.appShortName}-s3-policy
+  PolicyDocument:
+    Version: '2012-10-17'
+    Statement:
+      - Effect: Allow
+        Action:
+          - s3:GetObject
+          - s3:GetObjectVersion
+        Resource:
+          - arn:aws:s3:::${self:custom.deployBucketName}
+          - arn:aws:s3:::${self:custom.deployBucketName}/*
+----
+
+== Role already exists in stack
+
+* https://forum.serverless.com/t/already-exists-in-stack-error-when-attempting-to-re-deploy-a-service/700
+* https://stackoverflow.com/questions/58268397/how-to-re-deploy-stack-when-getting-resource-already-exists-in-stack-error-wi
+
+This happens when something is stuck in your cloudformation deploy.
+
+=== Solution?
+
+* Check if any of your stacks are RED and if so delete them
+* Delete any resources created by the previous run and try again
+
+== couldn't find certificate
+
+* https://stackoverflow.com/questions/60768383/serverless-aws-certificate-manager-couldnt-find-certificate
+* https://tiagoboeing.medium.com/serverless-framework-aws-automatically-creating-certificate-and-domain-for-your-app-98cd5e31b66c
+* https://dev.to/aws-builders/serverless-framework-aws-automatically-creating-certificate-and-domain-for-your-app-5832
+
+This most likely is happening due to user misconfiguration
+
+=== Solution?
+
+This is most likely happening due to `customDomain.domainName` not being set correctly.
+
+----
+custom:
+    ...
+  domains: # For each deployment stage
+    dev: # dev stage
+      domainName: ${self:custom.appShortName}-${self:provider.stage}.brr-np.company.com
+      certificateName: ${self:custom.appShortName}-${self:provider.stage}.brr-np.company.com
+    ...
+    prod: # token-req.brr.company.com
+      domainName: ${self:custom.appShortName}.brr.company.com
+      certificateName: ${self:custom.appShortName}.brr.company.com
+  customDomain: # Get value from "domains" section using stage that is being deployed to create url in Rout 53
+    domainName: ${self:custom.domains.${self:provider.stage}.domainName}
+    endpointType: REGIONAL                              # Must be set or will fail to find cert
+    apiType: http                                       # Must be set otherwise defaults to REST
+    certificateName: ${self:custom.domains.${self:provider.stage}.certificateName}
+    # Enable plugin to create an A Alias and AAAA Alias records in Route53
+    # mapping the domainName to the generated distribution domain name.
+    createRoute53Record: true
+    # Enable plugin to autorun create_domain/delete_domain as part of sls deploy/remove
+    autoDomain: true
+
+plugins:                                                # Specify any additional plugins for serverless - be aware that these can increase cold start time
+  - serverless-domain-manager
+----
+
+== An error occurred during function initialization
+
+----
+CREATE_FAILED: PublishingStatusCallbackLambdaVersionx72aMEwMRCxaOawUcbbAw7rrmrF5dNv99yInHhoVtI (AWS::Lambda::Version)
+Version creation failed with StateReasonCode: FunctionError and StateReason: An error occurred during function initialization.
+----
+
+=== Solution?
+
+Check that all your dependencies are in the layers you are using. If you see the above error it likely means a dependency is missing from a layer and it can not be found. This error is quite confusing as it is not really telling you want is wrong.
+
+== Reference
+
+* https://stackoverflow.com/questions/63660385/unable-to-update-service-role-in-codebuild-with-error-the-policy-was-not-attach/73721956#73721956
+* https://stackoverflow.com/questions/64700445/unable-to-create-pipeline-because-of-service-role
+* https://cody.run/docs/misc/policies-attached-error/
+
+

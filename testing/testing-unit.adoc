@@ -1,0 +1,125 @@
+= Testing: Unit
+
+Unit testing is testing that occurs prior to the artifact build during the development process. Unit testing is the
+process of testing that it works the way *YOU* think it works.
+
+== Execution
+
+To execute configured unit tests run the following
+
+[source, shell]
+----
+./gradlew clean test
+----
+
+== Configuration
+
+[source, groovy]
+----
+testing {                                                                                           // Configure gradle testing
+    suites {                                                                                        // Specify test sets / suites
+        configureEach {                                                                             // Explicitly tell it to configure each test set / suite
+            useJUnitJupiter()                                                                       // Global declaration that all test sets / suites use JUnit
+            dependencies {                                                                          // Global declaration of dependencies for all test sets / suites
+                implementation project()
+                implementation "com.amazonaws:aws-lambda-java-core:$awsLambdaJavaCore"
+                implementation "com.amazonaws:aws-lambda-java-events:$awsLambdaJavaEvents"
+                implementation "com.amazonaws:aws-java-sdk-s3:$awsJavaSdkS3"  // this is responsible for 2+ MB of deployed jar size
+                implementation 'org.aspectj:aspectjrt:1.9.19'
+
+                implementation "com.google.code.gson:gson:$googleGson"
+                implementation ("com.googlecode.json-simple:json-simple:$googleJsonSimple") {
+                    exclude group: 'junit', module: 'junit'
+                }
+
+                implementation platform("org.junit:junit-bom:$junitBom")
+                implementation "org.junit.jupiter:junit-jupiter"
+                implementation "org.mockito:mockito-junit-jupiter:$junitMockito"
+                implementation "org.junit-pioneer:junit-pioneer:$junitPioneer"
+
+
+                implementation ("org.mockito:mockito-inline:+") {  // required for static mocks
+                    exclude group: 'org.mockito', module: 'mockito-core'
+                }
+                implementation "org.apache.httpcomponents:httpclient:$apacheHttpClient4"
+                implementation "com.squareup.okhttp3:okhttp:$okHttp3"
+                implementation "io.findify:s3mock_2.13:$s3Mock"
+            }
+        }
+        /** ------------------------------------------------------------------------------------------------------------
+         * Task: Unit Tests - Execute application unit tests (This test set should be validating semi-atomic increments
+         * of code)
+         *  --------------------------------------------------------------------------------------------------------- */
+        test {                                                                                       // Unit test configuration
+            testType = TestSuiteType.UNIT_TEST                                                       // Specify test type
+            targets {                                                                                // Configure test target
+                all {
+                    testTask.configure {
+                        maxParallelForks ((env == "LOCAL") ? 5 : parseInt("$intParallelism"))        // Set max threads to speed up tests
+                        reports.html.required = htmlReportsEnabled                                   // Configured in gradle.properties
+                        //    ignoreFailures = true
+
+                        retry {                                                                      // Configure number of retries for flakey tests
+                            maxRetries = 2
+                            maxFailures = 20
+                            failOnPassedAfterRetry = true
+                        }
+
+                        jacoco {
+                            enabled = jacocoEnabled                                                 // Configured in gradle.properties
+                        }
+                        finalizedBy unitTestReports                                                 // instructs the tests to finish by generating a coverage report
+
+                        afterSuite { desc, result ->                                             // Build output message for slack based on test results
+                            project.buildColor = result.failedTestCount == 0 ? "good" : "danger"
+
+                            if (desc.parent) {
+                                return
+                            } // Only summarize results for whole modules
+
+                            final String summary = "${result.resultType} " +
+                                    "(" +
+                                    "${result.testCount} tests, " +
+                                    "${result.successfulTestCount} successes, " +
+                                    "${result.failedTestCount} failures, " +
+                                    "${result.skippedTestCount} skipped" +
+                                    ") " +
+                                    "in ${TimeCategory.minus(new Date(result.endTime), new Date(result.startTime))}" +
+                                    "\n"
+
+                            project.testResults = []
+                            // Add reports in `testsUnitResults`, keep failed suites at the end
+                            if (result.resultType == TestResult.ResultType.SUCCESS) {
+                                project.testResults.add(0, summary)
+                            } else {
+                                project.testResults += summary
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+----
+
+== Not what you were looking for?
+
+=== Testing
+* link:testing-integration.adoc[Integration]
+* link:testing-thintegration.adoc[Thintegration]
+* link:testing-load.adoc[Load]
+* link:testing-api-smoke.adoc[API / Smoke]
+
+=== Data Generation
+
+* link:../data/data.adoc[Data]
+* link:../data/data-makers.adoc[Data: Makers]
+
+=== Logging
+
+* link:testing-logging-codebuild.adoc[Logging: CodeBuild]
+
+
+
+

@@ -1,0 +1,37 @@
+= Data: Type
+
+This is written from the perspective of the data type that will be assigned to the
+link:data-company-wide-meta-data.adoc[meta-data] `type` field.
+
+
+== Prod
+
+If data is of prod type the `type` field will contain either `prod`, `Prod` or `PROD` as a value.
+
+Denotes if the data was created in a production environment.
+
+== Test
+
+If data is of test type the `type` field will contain either `test`, `Test` or `TEST` as a value.
+
+Denotes if the data was created in a test environment.
+
+== Test Purgeable
+
+If data is of test purgeable type the `type` field will contain either `test_purgeable`, `Test_Purgeable` or `TEST_PURGEABLE` as a value.
+
+Denotes if the created test data can be removed from an enironment.
+
+== Test Persistent
+
+If data is of test persistent type the `type` field will contain either `test_persistent`, `Test_Persistent` or `TEST_PERSISTENT` as a value.
+
+Denotes if the created test data should be left (ie. skipped on cleanups) in a given environment.
+
+
+
+
+
+
+
+

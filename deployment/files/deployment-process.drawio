@@ -1,0 +1,442 @@
+<mxfile host="app.diagrams.net" modified="2023-12-22T18:35:12.134Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="HhTJsZ1eBUY6iLJ4vgiD" version="22.1.11" type="device">
+  <diagram name="Page-1" id="RNMueI0vZrJuEOnCQy_e">
+    <mxGraphModel dx="2229" dy="1719" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="oWYSpkivO3OfPZszFI1K-178" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=-0.01;entryY=-0.152;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="oWYSpkivO3OfPZszFI1K-23" target="oWYSpkivO3OfPZszFI1K-167">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-1" value="Aws NP Account" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="-100" width="520" height="1380" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-94" value="Resources Generated" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-1">
+          <mxGeometry x="40" y="270" width="330" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-95" value="Properties" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-94">
+          <mxGeometry y="30" width="330" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-180" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="oWYSpkivO3OfPZszFI1K-94" target="oWYSpkivO3OfPZszFI1K-96">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-50" y="180" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-96" value="DynamoDB" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-94">
+          <mxGeometry y="60" width="330" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-97" value="Custom Domains" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-94">
+          <mxGeometry y="90" width="330" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-98" value="Ect ..." style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-94">
+          <mxGeometry y="120" width="330" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-101" value="Dev Deployment" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-1">
+          <mxGeometry x="115" y="780" width="290" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-102" value="APP-SHORT-NAME-service-dev-FUNCTION-NAME" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-101">
+          <mxGeometry y="30" width="290" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-84" value="Application Roles (Generated)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-1">
+          <mxGeometry x="40" y="480" width="330" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-85" value="sls-APP-SHORT-NAME-lambda-execution-service-role" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-84">
+          <mxGeometry y="30" width="330" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-118" value="Test Deployment" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-1">
+          <mxGeometry x="110" y="950" width="300" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-119" value="APP-SHORT-NAME-service-test-FUNCTION-NAME" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-118">
+          <mxGeometry y="30" width="300" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-122" value="Stage Deployment" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-1">
+          <mxGeometry x="110" y="1020" width="300" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-123" value="APP-SHORT-NAME-service-stage-FUNCTION-NAME" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-122">
+          <mxGeometry y="30" width="300" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-172" value="Manually Created Roles&amp;nbsp;&amp;nbsp;(Required)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-1">
+          <mxGeometry x="20" y="40" width="300" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-173" value="sls-external-service-role" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-172">
+          <mxGeometry y="30" width="300" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-189" value="&lt;h1&gt;Artifact Deploy&lt;/h1&gt;&lt;p&gt;All environments &lt;b&gt;EXCEPT&lt;/b&gt;&amp;nbsp;dev use artifact deployment. Meaning that the artifact built in the dev environment is then promoted to test, stage, and prod (or any other future envs) to guarantee that it is exactly the same.&lt;/p&gt;" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-1">
+          <mxGeometry x="10" y="1220" width="290" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-2" value="Aws P account" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="640" y="-100" width="400" height="1380" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-161" value="Resources Generated" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-2">
+          <mxGeometry x="40" y="260" width="320" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-162" value="Properties" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-161">
+          <mxGeometry y="30" width="320" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-179" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="oWYSpkivO3OfPZszFI1K-161" target="oWYSpkivO3OfPZszFI1K-163">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-60" y="240" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-163" value="DynamoDB" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-161">
+          <mxGeometry y="60" width="320" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-164" value="Custom Domains" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-161">
+          <mxGeometry y="90" width="320" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-165" value="Ect ..." style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-161">
+          <mxGeometry y="120" width="320" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-166" value="Application Roles (Generated)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-2">
+          <mxGeometry x="40" y="480" width="330" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-167" value="sls-APP-SHORT-NAME-lambda-execution-service-role" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-166">
+          <mxGeometry y="30" width="330" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-176" value="Manually Created Roles&amp;nbsp;(Required)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-2">
+          <mxGeometry x="20" y="40" width="300" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-177" value="sls-external-service-role" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-176">
+          <mxGeometry y="30" width="300" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-181" value="Prod Deployment" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-2">
+          <mxGeometry x="50" y="1070" width="300" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-182" value="APP-SHORT-NAME-service-prod-FUNCTION-NAME" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-181">
+          <mxGeometry y="30" width="300" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-3" value="Aws Tools Account" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-790" y="-100" width="850" height="1380" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-7" value="Manually Created Roles (Required)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-3">
+          <mxGeometry x="15" y="40" width="445" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-8" value="&lt;br&gt;&lt;a style=&quot;background-color: rgb(255, 255, 255); text-decoration-thickness: 1px; text-decoration-color: currentcolor; -webkit-font-smoothing: auto; border-collapse: separate; border-spacing: 0px; box-sizing: border-box; caption-side: top; cursor: auto; direction: ltr; display: inline; empty-cells: show; font-family: &amp;quot;Amazon Ember&amp;quot;, &amp;quot;Helvetica Neue&amp;quot;, Roboto, Arial, sans-serif; font-size: 14px; font-stretch: normal; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-variant-position: normal; hyphens: none; line-height: var(--line-height-body-m-2zx78l, 22px); list-style: outside none disc; tab-size: 8; text-align-last: auto; text-shadow: none; text-underline-offset: 0.25em; transition-duration: var(--motion-duration-refresh-only-medium-0rwzu1, 165ms); transition-property: color, text-decoration, -webkit-text-decoration; visibility: visible;&quot; href=&quot;https://us-east-1.console.aws.amazon.com/iamv2/home?region=us-west-2#/roles/details/codebuild-base-sls-domain-service-assumed-role&quot; rel=&quot;noopener noreferrer&quot; target=&quot;_self&quot; data-analytics-funnel-value=&quot;link225-1703260776784-4806&quot; aria-labelledby=&quot;&quot; class=&quot;awsui_link_4c84z_ujc3v_93 awsui_variant-primary_4c84z_ujc3v_175 awsui_font-size-body-m_4c84z_ujc3v_401&quot; data-testid=&quot;&quot; id=&quot;link-self226-1703260776784-1740&quot;&gt;codebuild-base-sls-domain-service-assumed-role&lt;/a&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-7">
+          <mxGeometry y="30" width="445" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-9" value="&lt;a style=&quot;background-color: rgb(255, 255, 255); text-decoration-thickness: 1px; text-decoration-color: currentcolor; -webkit-font-smoothing: auto; border-collapse: separate; border-spacing: 0px; box-sizing: border-box; caption-side: top; cursor: auto; direction: ltr; display: inline; empty-cells: show; font-family: &amp;quot;Amazon Ember&amp;quot;, &amp;quot;Helvetica Neue&amp;quot;, Roboto, Arial, sans-serif; font-size: 14px; font-stretch: normal; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-variant-position: normal; hyphens: none; line-height: var(--line-height-body-m-2zx78l, 22px); list-style: outside none disc; tab-size: 8; text-align-last: auto; text-shadow: none; text-underline-offset: 0.25em; transition-duration: var(--motion-duration-refresh-only-medium-0rwzu1, 165ms); transition-property: color, text-decoration, -webkit-text-decoration; visibility: visible;&quot; href=&quot;https://us-east-1.console.aws.amazon.com/iamv2/home?region=us-west-2#/roles/details/codebuild-base-sls-domain-resources-deploy-service-role&quot; rel=&quot;noopener noreferrer&quot; target=&quot;_self&quot; data-analytics-funnel-value=&quot;link220-1703260776783-8763&quot; aria-labelledby=&quot;&quot; class=&quot;awsui_link_4c84z_ujc3v_93 awsui_variant-primary_4c84z_ujc3v_175 awsui_font-size-body-m_4c84z_ujc3v_401&quot; data-testid=&quot;&quot; id=&quot;link-self221-1703260776783-8939&quot;&gt;codebuild-base-sls-domain-resources-deploy-service-role&lt;/a&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-7">
+          <mxGeometry y="70" width="445" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-10" value="&lt;a style=&quot;background-color: rgb(255, 255, 255); text-decoration-thickness: 1px; text-decoration-color: currentcolor; -webkit-font-smoothing: auto; border-collapse: separate; border-spacing: 0px; box-sizing: border-box; caption-side: top; cursor: auto; direction: ltr; display: inline; empty-cells: show; font-family: &amp;quot;Amazon Ember&amp;quot;, &amp;quot;Helvetica Neue&amp;quot;, Roboto, Arial, sans-serif; font-size: 14px; font-stretch: normal; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-variant-position: normal; hyphens: none; line-height: var(--line-height-body-m-2zx78l, 22px); list-style: outside none disc; tab-size: 8; text-align-last: auto; text-shadow: none; text-underline-offset: 0.25em; transition-duration: var(--motion-duration-refresh-only-medium-0rwzu1, 165ms); transition-property: color, text-decoration, -webkit-text-decoration; visibility: visible;&quot; href=&quot;https://us-east-1.console.aws.amazon.com/iamv2/home?region=us-west-2#/roles/details/cb-base-sls-cross-account-domain-resources-deploy-service-role&quot; rel=&quot;noopener noreferrer&quot; target=&quot;_self&quot; data-analytics-funnel-value=&quot;link215-1703260776783-5251&quot; aria-labelledby=&quot;&quot; class=&quot;awsui_link_4c84z_ujc3v_93 awsui_variant-primary_4c84z_ujc3v_175 awsui_font-size-body-m_4c84z_ujc3v_401&quot; data-testid=&quot;&quot; id=&quot;link-self216-1703260776783-1803&quot;&gt;cb-base-sls-cross-account-domain-resources-deploy-service-role&lt;/a&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-7">
+          <mxGeometry y="100" width="445" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-11" value="Domain Roles (Generated)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-3">
+          <mxGeometry x="460" y="270" width="380" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-12" value="&lt;a style=&quot;background-color: rgb(255, 255, 255); text-decoration-thickness: 1px; text-decoration-color: currentcolor; -webkit-font-smoothing: auto; border-collapse: separate; border-spacing: 0px; box-sizing: border-box; caption-side: top; cursor: auto; direction: ltr; display: inline; empty-cells: show; font-family: &amp;quot;Amazon Ember&amp;quot;, &amp;quot;Helvetica Neue&amp;quot;, Roboto, Arial, sans-serif; font-size: 14px; font-stretch: normal; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-variant-position: normal; hyphens: none; line-height: var(--line-height-body-m-2zx78l, 22px); list-style: outside none disc; tab-size: 8; text-align-last: auto; text-shadow: none; text-underline-offset: 0.25em; transition-duration: var(--motion-duration-refresh-only-medium-0rwzu1, 165ms); transition-property: color, text-decoration, -webkit-text-decoration; visibility: visible;&quot; href=&quot;https://us-east-1.console.aws.amazon.com/iamv2/home?region=us-west-2#/roles/details/sls-domain-admin-role&quot; rel=&quot;noopener noreferrer&quot; target=&quot;_self&quot; data-analytics-funnel-value=&quot;link235-1703260776785-9138&quot; aria-labelledby=&quot;&quot; class=&quot;awsui_link_4c84z_ujc3v_93 awsui_variant-primary_4c84z_ujc3v_175 awsui_font-size-body-m_4c84z_ujc3v_401&quot; data-testid=&quot;&quot; id=&quot;link-self236-1703260776785-4842&quot;&gt;sls-domain-admin-role&lt;/a&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-11">
+          <mxGeometry y="30" width="380" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-13" value="&lt;a style=&quot;background-color: rgb(255, 255, 255); text-decoration-thickness: 1px; text-decoration-color: currentcolor; -webkit-font-smoothing: auto; border-collapse: separate; border-spacing: 0px; box-sizing: border-box; caption-side: top; cursor: auto; direction: ltr; display: inline; empty-cells: show; font-family: &amp;quot;Amazon Ember&amp;quot;, &amp;quot;Helvetica Neue&amp;quot;, Roboto, Arial, sans-serif; font-size: 14px; font-stretch: normal; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-variant-position: normal; hyphens: none; line-height: var(--line-height-body-m-2zx78l, 22px); list-style: outside none disc; tab-size: 8; text-align-last: auto; text-shadow: none; text-underline-offset: 0.25em; transition-duration: var(--motion-duration-refresh-only-medium-0rwzu1, 165ms); transition-property: color, text-decoration, -webkit-text-decoration; visibility: visible;&quot; href=&quot;https://us-east-1.console.aws.amazon.com/iamv2/home?region=us-west-2#/roles/details/sls-domain-codebuild-build-deploy-resources-service-role&quot; rel=&quot;noopener noreferrer&quot; target=&quot;_self&quot; data-analytics-funnel-value=&quot;link240-1703260776786-3728&quot; aria-labelledby=&quot;&quot; class=&quot;awsui_link_4c84z_ujc3v_93 awsui_variant-primary_4c84z_ujc3v_175 awsui_font-size-body-m_4c84z_ujc3v_401&quot; data-testid=&quot;&quot; id=&quot;link-self241-1703260776786-3084&quot;&gt;sls-domain-codebuild-build-deploy-resources-service-role&lt;/a&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-11">
+          <mxGeometry y="60" width="380" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-15" value="Domain Resource Jobs (Prerequisite for everything else)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-3">
+          <mxGeometry x="15" y="270" width="335" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-16" value="&lt;a style=&quot;background-color: rgb(255, 255, 255); text-decoration-line: none; font-family: &amp;quot;Amazon Ember&amp;quot;, &amp;quot;Helvetica Neue&amp;quot;, Roboto, Arial, sans-serif; font-size: 14px;&quot; href=&quot;https://us-west-2.console.aws.amazon.com/codesuite/codebuild/accountNumber/projects/sls-cross-account-domain-resources-deploy/history?region=us-west-2&quot;&gt;sls-cross-account-domain-resources-deploy&lt;/a&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-15">
+          <mxGeometry y="30" width="335" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-17" value="&lt;a style=&quot;background-color: rgb(255, 255, 255); font-family: &amp;quot;Amazon Ember&amp;quot;, &amp;quot;Helvetica Neue&amp;quot;, Roboto, Arial, sans-serif; font-size: 14px;&quot; href=&quot;https://us-west-2.console.aws.amazon.com/codesuite/codebuild/accountNumber/projects/sls-cross-account-domain-resources-remove/history?region=us-west-2&quot;&gt;sls-cross-account-domain-resources-remove&lt;/a&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-15">
+          <mxGeometry y="60" width="335" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="oWYSpkivO3OfPZszFI1K-3" source="oWYSpkivO3OfPZszFI1K-16" target="oWYSpkivO3OfPZszFI1K-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-36" value="Domain Jobs&lt;br&gt;setup other&lt;br&gt;additional account&lt;br&gt;level resources ...&lt;br&gt;(IAM, ect ...)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="oWYSpkivO3OfPZszFI1K-19">
+          <mxGeometry x="-0.2667" relative="1" as="geometry">
+            <mxPoint x="10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-20" value="Application Resource Jobs" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-3">
+          <mxGeometry x="15" y="390" width="335" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-21" value="&lt;a style=&quot;background-color: rgb(255, 255, 255); text-decoration-line: none; font-family: &amp;quot;Amazon Ember&amp;quot;, &amp;quot;Helvetica Neue&amp;quot;, Roboto, Arial, sans-serif; font-size: 14px;&quot; href=&quot;https://us-west-2.console.aws.amazon.com/codesuite/codebuild/accountNumber/projects/ltr-cross-account-resource-deploy-main-NP/history?region=us-west-2&quot;&gt;ltr-cross-account-resource-deploy-main-NP&lt;/a&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-20">
+          <mxGeometry y="30" width="335" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-22" value="&lt;a style=&quot;background-color: rgb(255, 255, 255); font-family: &amp;quot;Amazon Ember&amp;quot;, &amp;quot;Helvetica Neue&amp;quot;, Roboto, Arial, sans-serif; font-size: 14px;&quot; href=&quot;https://us-west-2.console.aws.amazon.com/codesuite/codebuild/accountNumber/projects/ltr-cross-account-resource-remove-main-NP/history?region=us-west-2&quot;&gt;ltr-cross-account-resource-remove-main-NP&lt;/a&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-20">
+          <mxGeometry y="60" width="335" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-23" value="&lt;a style=&quot;background-color: rgb(255, 255, 255); text-decoration-line: none; font-family: &amp;quot;Amazon Ember&amp;quot;, &amp;quot;Helvetica Neue&amp;quot;, Roboto, Arial, sans-serif; font-size: 14px;&quot; href=&quot;https://us-west-2.console.aws.amazon.com/codesuite/codebuild/accountNumber/projects/ltr-cross-account-resource-deploy-main-PROD/history?region=us-west-2&quot;&gt;ltr-cross-account-resource-deploy-main-PROD&lt;/a&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-20">
+          <mxGeometry y="90" width="335" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-32" value="&lt;a style=&quot;background-color: rgb(255, 255, 255); text-decoration-line: none; font-family: &amp;quot;Amazon Ember&amp;quot;, &amp;quot;Helvetica Neue&amp;quot;, Roboto, Arial, sans-serif; font-size: 14px;&quot; href=&quot;https://us-west-2.console.aws.amazon.com/codesuite/codebuild/accountNumber/projects/ltr-cross-account-resouce-remove-main-PROD/history?region=us-west-2&quot;&gt;ltr-cross-account-resouce-remove-main-PROD&lt;/a&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-20">
+          <mxGeometry y="120" width="335" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-24" value="Application Roles (Generated)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-3">
+          <mxGeometry x="510" y="480" width="330" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-25" value="sls-APP-SHORT-NAME-codebuild-build-deploy-service-role" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-24">
+          <mxGeometry y="30" width="330" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-28" value="Application Jobs" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-3">
+          <mxGeometry x="400" y="860" width="440" height="270" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-106" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="oWYSpkivO3OfPZszFI1K-28" source="oWYSpkivO3OfPZszFI1K-29">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="490" y="-30" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-29" value="APP-SHORT-NAME-cross-account-build-deploy-main-DEV (No artifact created)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-28">
+          <mxGeometry y="30" width="440" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-107" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="oWYSpkivO3OfPZszFI1K-28" source="oWYSpkivO3OfPZszFI1K-30">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="490" y="50" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-30" value="APP-SHORT-NAME-cross-account-remove-deploy-main-DEV" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-28">
+          <mxGeometry y="60" width="440" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-31" value="APP-SHORT-NAME-cross-account-build-deploy-main-TEST" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-28">
+          <mxGeometry y="90" width="440" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-71" value="APP-SHORT-NAME-cross-account-remove-deploy-main-TEST" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-28">
+          <mxGeometry y="120" width="440" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-72" value="APP-SHORT-NAME-cross-account-build-deploy-main-STAGE" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-28">
+          <mxGeometry y="150" width="440" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-73" value="APP-SHORT-NAME-cross-account-remove-deploy-main-STAGE" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-28">
+          <mxGeometry y="180" width="440" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-74" value="APP-SHORT-NAME-cross-account-build-deploy-main-PROD" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-28">
+          <mxGeometry y="210" width="440" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-75" value="APP-SHORT-NAME-cross-account-remove-deploy-main-PROD" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-28">
+          <mxGeometry y="240" width="440" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.554;exitY=0.981;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitPerimeter=0;" edge="1" parent="oWYSpkivO3OfPZszFI1K-3">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="670.52" y="340.00000000000006" as="sourcePoint" />
+            <mxPoint x="350" y="415.57" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="670" y="390.57" />
+              <mxPoint x="370" y="390.57" />
+              <mxPoint x="370" y="415.57" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-37" value="Resource Jobs leverage IAM roles created&lt;br&gt;by the Domain Resource Jobs" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="oWYSpkivO3OfPZszFI1K-33">
+          <mxGeometry x="0.4327" relative="1" as="geometry">
+            <mxPoint x="58" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.188;exitY=0.981;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;exitPerimeter=0;" edge="1" parent="oWYSpkivO3OfPZszFI1K-3" source="oWYSpkivO3OfPZszFI1K-10" target="oWYSpkivO3OfPZszFI1K-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-35" value="Domain setup jobs leverage the manually created IAM roles in order to execute" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="oWYSpkivO3OfPZszFI1K-34">
+          <mxGeometry x="-0.329" y="-3" relative="1" as="geometry">
+            <mxPoint x="114" y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-38" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="oWYSpkivO3OfPZszFI1K-3" source="oWYSpkivO3OfPZszFI1K-22" target="oWYSpkivO3OfPZszFI1K-24">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="350" y="460" />
+              <mxPoint x="675" y="460" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-40" value="Generates application specific role, and any additional&lt;br&gt;required resources.&amp;nbsp;This allows each app to have unique&lt;br&gt;but codified IAM roles and resources." style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="oWYSpkivO3OfPZszFI1K-38">
+          <mxGeometry x="-0.1241" y="-2" relative="1" as="geometry">
+            <mxPoint y="-12" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-188" value="Text" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="oWYSpkivO3OfPZszFI1K-38">
+          <mxGeometry x="-0.0275" y="11" relative="1" as="geometry">
+            <mxPoint x="-1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-82" value="&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;NP jobs conditionally create resources for ALL non prod environments in one (ie single) deployment job. This allows some generic resources like IAM roles to be shared. However, this does have the downside of IF you want to remove a resource and it is used by a different NP environment the remove will fail as the resource is in use. These jobs are idempotent (meaning they can be run repeatedly) and they will only update the necessary resources. This should prevent the need to ever remove a resource.&lt;br&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;P jobs are separated to ensure they are not accidentally modifying prod resources.&lt;br&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;Note: All NP jobs will attempt to clean up and &lt;b&gt;WILL REMOVE RESOURCES&lt;/b&gt; in the event the deploy fails" style="rounded=1;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-3">
+          <mxGeometry x="40" y="530" width="370" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-77" value="Release Jobs" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-3">
+          <mxGeometry x="25" y="780" width="340" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-78" value="APP-SHORT-NAME-dev-release-main" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-77">
+          <mxGeometry y="30" width="340" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-79" value="APP-SHORT-NAME-test-release-main" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-77">
+          <mxGeometry y="60" width="340" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-80" value="APP-SHORT-NAME-stage-release-main" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-77">
+          <mxGeometry y="90" width="340" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-88" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.666;exitY=1.004;exitDx=0;exitDy=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;exitPerimeter=0;" edge="1" parent="oWYSpkivO3OfPZszFI1K-3" source="oWYSpkivO3OfPZszFI1K-25" target="oWYSpkivO3OfPZszFI1K-28">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-92" value="Use generated role to execute" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="oWYSpkivO3OfPZszFI1K-88">
+          <mxGeometry x="-0.356" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-89" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="oWYSpkivO3OfPZszFI1K-3" source="oWYSpkivO3OfPZszFI1K-25" target="oWYSpkivO3OfPZszFI1K-77">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="470" y="525" />
+              <mxPoint x="470" y="740" />
+              <mxPoint x="195" y="740" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-93" value="Use generated role to execute" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="oWYSpkivO3OfPZszFI1K-89">
+          <mxGeometry x="0.3079" y="1" relative="1" as="geometry">
+            <mxPoint x="27" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-109" value="Generates RC for test and taggs&lt;br&gt;(artifact hosted in S3)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-3">
+          <mxGeometry x="230" y="937.5" width="120" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-115" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="oWYSpkivO3OfPZszFI1K-3" source="oWYSpkivO3OfPZszFI1K-112" target="oWYSpkivO3OfPZszFI1K-72">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-112" value="Copies RC artifact to stage / udpates tag" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-3">
+          <mxGeometry x="230" y="1002.5" width="120" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-116" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="oWYSpkivO3OfPZszFI1K-3" source="oWYSpkivO3OfPZszFI1K-113" target="oWYSpkivO3OfPZszFI1K-74">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-113" value="Copies RC artifact to stage / udpates tag" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-3">
+          <mxGeometry x="230" y="1065" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-137" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="oWYSpkivO3OfPZszFI1K-3" source="oWYSpkivO3OfPZszFI1K-133" target="oWYSpkivO3OfPZszFI1K-109">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-138" value="Success" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="oWYSpkivO3OfPZszFI1K-137">
+          <mxGeometry x="-0.2368" y="2" relative="1" as="geometry">
+            <mxPoint x="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-133" value="" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-3">
+          <mxGeometry x="25" y="936.25" width="60" height="57.5" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-139" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="oWYSpkivO3OfPZszFI1K-3" source="oWYSpkivO3OfPZszFI1K-134" target="oWYSpkivO3OfPZszFI1K-112">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-140" value="Success" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="oWYSpkivO3OfPZszFI1K-139">
+          <mxGeometry x="-0.1" y="-3" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-134" value="" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-3">
+          <mxGeometry x="70" y="996.25" width="60" height="57.5" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-141" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="oWYSpkivO3OfPZszFI1K-3" source="oWYSpkivO3OfPZszFI1K-135" target="oWYSpkivO3OfPZszFI1K-113">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-142" value="Success" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="oWYSpkivO3OfPZszFI1K-141">
+          <mxGeometry x="0.0267" y="-2" relative="1" as="geometry">
+            <mxPoint x="-10" y="-2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-155" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="oWYSpkivO3OfPZszFI1K-3" source="oWYSpkivO3OfPZszFI1K-135" target="oWYSpkivO3OfPZszFI1K-154">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-157" value="Fail" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="oWYSpkivO3OfPZszFI1K-155">
+          <mxGeometry x="-0.1931" y="-2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-135" value="" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-3">
+          <mxGeometry x="120" y="1056.25" width="60" height="57.5" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-136" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="oWYSpkivO3OfPZszFI1K-3" source="oWYSpkivO3OfPZszFI1K-78" target="oWYSpkivO3OfPZszFI1K-133">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-145" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="oWYSpkivO3OfPZszFI1K-3" source="oWYSpkivO3OfPZszFI1K-79" target="oWYSpkivO3OfPZszFI1K-134">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="10" y="855" />
+              <mxPoint x="10" y="1025" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-146" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="oWYSpkivO3OfPZszFI1K-3" source="oWYSpkivO3OfPZszFI1K-80" target="oWYSpkivO3OfPZszFI1K-135">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="20" y="885" />
+              <mxPoint x="20" y="1085" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-150" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="oWYSpkivO3OfPZszFI1K-3" source="oWYSpkivO3OfPZszFI1K-133" target="oWYSpkivO3OfPZszFI1K-30">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-152" value="Failure" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="oWYSpkivO3OfPZszFI1K-150">
+          <mxGeometry x="-0.4651" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-154" value="Do not create / update tag" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-3">
+          <mxGeometry x="60" y="1170" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-156" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.336;entryY=0.033;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="oWYSpkivO3OfPZszFI1K-3" source="oWYSpkivO3OfPZszFI1K-134" target="oWYSpkivO3OfPZszFI1K-154">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-158" value="Fail" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="oWYSpkivO3OfPZszFI1K-156">
+          <mxGeometry x="0.2709" y="-3" relative="1" as="geometry">
+            <mxPoint y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-160" value="Jobs have the following naming convention ...&lt;br&gt;&lt;br&gt;APP-SHORT-NAME | DEPLOY TYPE | ACTION | BRANCH | ENVIRONMENT&lt;br&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-3">
+          <mxGeometry x="365" y="1120" width="425" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-185" value="IF ANY NP deploy job fails it will execute a remove in &quot;post_build&quot; block to ensure the environment is ready for a future deploy. The should prevent seeing the error &quot; ... is in ROLLBACK state&quot; when attempting to deploy to a non-clean instance. &lt;b&gt;TO BE CLEAR, IN THE EVENT OF A FAILURE THIS WILL UNDEPLOY A GIVEN ENVIRONMENT.&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-3">
+          <mxGeometry x="365" y="1200" width="425" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-186" value="If the PROD deploy fails &lt;b&gt;IT WILL NOT ATTEMPT&lt;/b&gt; to clean up the environment as if a previous deploy is still working we do not want to remove it. In the event PROD deploy fails the job will abort and &quot;...prod-release&quot; tag &lt;b&gt;WILL NOT&lt;/b&gt;&amp;nbsp;be applied to the branch" style="rounded=1;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-3">
+          <mxGeometry x="390" y="1280" width="425" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-187" value="These roles are necessary for build jobs and deployments to execute" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="oWYSpkivO3OfPZszFI1K-3">
+          <mxGeometry x="420" y="30" width="370" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-100" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" target="oWYSpkivO3OfPZszFI1K-84">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-110" y="360" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="203" y="360" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-126" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="oWYSpkivO3OfPZszFI1K-31" target="oWYSpkivO3OfPZszFI1K-118">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-127" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="oWYSpkivO3OfPZszFI1K-71" target="oWYSpkivO3OfPZszFI1K-119">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-128" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="oWYSpkivO3OfPZszFI1K-72" target="oWYSpkivO3OfPZszFI1K-122">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="230" y="930" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="50" y="935" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-129" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=-0.01;entryY=0.189;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="oWYSpkivO3OfPZszFI1K-73" target="oWYSpkivO3OfPZszFI1K-123">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-147" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="oWYSpkivO3OfPZszFI1K-109" target="oWYSpkivO3OfPZszFI1K-102">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-410" y="820" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="-420" y="865" />
+              <mxPoint x="-420" y="725" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-148" value="Generates tagged release candidate for test ENV and deploys&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;to guarantee dev and test are the same" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="oWYSpkivO3OfPZszFI1K-147">
+          <mxGeometry x="-0.2886" y="1" relative="1" as="geometry">
+            <mxPoint x="111" y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-159" value="The deployed lambda naming convention is as follows ...&lt;br&gt;&lt;br&gt;APP-SHORT-NAME-service-ENV-FUNCTION-NAME&lt;br&gt;ex. ltr-service-dev-fedProxyTokenRequest&lt;br&gt;&lt;br&gt;Function name can be found in the serverless.yml file and is whatever name was provided for the function" style="rounded=1;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="140" y="530" width="400" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-183" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="oWYSpkivO3OfPZszFI1K-74" target="oWYSpkivO3OfPZszFI1K-181">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="oWYSpkivO3OfPZszFI1K-184" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="oWYSpkivO3OfPZszFI1K-75" target="oWYSpkivO3OfPZszFI1K-182">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

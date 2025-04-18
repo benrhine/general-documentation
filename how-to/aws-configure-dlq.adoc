@@ -1,0 +1,165 @@
+= How To: Configure DLQ
+:TOC:
+
+This page describes how to setup a DLQ (Dead Letter Queue)
+
+[CAUTION]
+If you are looking for general info on SNS and SQS see
+link:aws-configure-sns-or-sqs.adoc[How To: Configure SNS or SQS]
+
+== Using Serverless
+
+Setting up a DLQ is very simple as it is just a regular queue with a special purpose and designation.
+
+=== Simple Resource Deploy
+
+[source, yaml]
+----
+Resources:
+     receivingDevQueueDLQ:                                         # Resource name
+      Type: AWS::SQS::Queue                                       # Resource type
+      Condition: CreateQueueNpResources                           # Conditionally create
+      Properties:                                                 # Resource properties
+        QueueName: ${self:custom.queueName}-dev-DLQ               # Name of queue to consume
+    receivingDevQueue:                                            # Resource name
+      Type: AWS::SQS::Queue                                       # Resource type
+      Condition: CreateQueueNpResources                           # Conditionally create
+      Properties:                                                 # Resource properties
+        QueueName: ${self:custom.queueName}-dev                   # Name of queue to consume
+        RedrivePolicy:
+          deadLetterTargetArn:
+            Fn::GetAtt:
+              - receivingDevQueueDLQ
+              - Arn
+          maxReceiveCount: 3
+----
+
+[WARNING]
+Unfortunately, to make use of DLQ while leveraging the servlerless framework has a shortcoming of currently it is only
+possible to hook it up if you are also using SNS. For more details see https://www.serverless.com/framework/docs/providers/aws/guide/functions#dead-letter-queue-dlq[here]
+
+[CAUTION]
+Serverless is aware of this issue and has notation in their documentation that they hope to remediate this in a future release.
+
+== Full Setup
+
+In your serverless-resource.yml file add the following.
+
+* a queue
+* a dlq
+* and a topic
+
+[source, yaml]
+----
+Resources:                                                      # Resource list
+  # Dev SNS/SQS ------------------------------------------------------------------------------------------------------
+  receivingDevTopic:
+    Type: AWS::SNS::Topic
+    Condition: CreateQueueNpResources
+    Properties:
+      TopicName: ${self:custom.queueName}-topic-dev
+  receivingDevQueueDLQ:                                         # Resource name
+    Type: AWS::SQS::Queue                                       # Resource type
+    Condition: CreateQueueNpResources                           # Conditionally create
+    Properties:                                                 # Resource properties
+      QueueName: ${self:custom.queueName}-dev-DLQ               # Name of queue to consume
+  receivingDevQueue:                                            # Resource name
+    Type: AWS::SQS::Queue                                       # Resource type
+    Condition: CreateQueueNpResources                           # Conditionally create
+    Properties:                                                 # Resource properties
+      QueueName: ${self:custom.queueName}-dev                   # Name of queue to consume
+      RedrivePolicy:
+        deadLetterTargetArn:
+          Fn::GetAtt:
+            - receivingDevQueueDLQ
+            - Arn
+        maxReceiveCount: 3
+----
+
+Make sure you set a messaging policy
+
+[source, yaml]
+----
+# Messaging Policy -------------------------------------------------------------------------------------------------
+snsToReceivingQueueSQSDevPolicy:
+  Type: AWS::SQS::QueuePolicy
+  Condition: CreateQueueNpResources                           # Conditionally create
+  Properties:
+    PolicyDocument:
+      Version: "2012-10-17"
+      Statement:
+        - Sid: "allow-sns-messages"
+          Effect: "Allow"
+          Principal:
+            Service:
+              - "sns.amazonaws.com"
+          Resource:
+            Fn::GetAtt:
+              - receivingDevQueue
+              - Arn
+          Action: "SQS:SendMessage"
+          Condition:
+            ArnEquals:
+              "aws:SourceArn":
+                Ref: receivingDevTopic
+    Queues:
+      - Ref: receivingDevQueue
+----
+
+Then configure your subscription
+
+[source, yaml]
+----
+# Subscription -----------------------------------------------------------------------------------------------------
+receivingDevQueueSubscription:
+  Type: 'AWS::SNS::Subscription'
+  Condition: CreateQueueNpResources                           # Conditionally create
+  Properties:
+    TopicArn:
+      Fn::Join:
+        - ':'
+        - - 'arn:aws:sns'
+          - Ref: 'AWS::Region'
+          - Ref: 'AWS::AccountId'
+          - ${self:custom.queueName}-topic-dev
+    Endpoint:
+      Fn::GetAtt:
+        - receivingDevQueue
+        - Arn
+    Protocol: sqs
+    RawMessageDelivery: 'true'
+----
+
+Lastly in your primary `serverless.yml` add onError  to the function
+
+[source, yaml]
+----
+functions:
+  publishingStatusCallback:
+    handler: com.benrhine.lambdapublishingstatuscallback.v1.lambda.aws.handler.PublishingStatusCallbackHandler::handleRequest
+    snapStart: true                                     # Improves start time by pre-building and caching an image (CAN NOT be enabled if you want to use provisionedConcurrency)
+    events:
+      - sqs:                                            # Not preferred way to to do this but the other ways result in
+          arn:                                          # 'EventSourceArn.split is not a function' error
+            Fn::Join:
+              - ':'
+              - - arn
+                - aws
+                - sqs
+                - Ref: AWS::Region
+                - Ref: AWS::AccountId
+                - ${self:custom.queueName}-${self:custom.stage}
+    onError: arn:aws:sns:us-west-2:npAccountNum:${self:custom.queueName}-topic-${self:custom.stage} # Ref, Fn::GetAtt and Fn::ImportValue are supported as well
+----
+
+== Reference
+
+- https://chrisshennan.com/blog/aws-sqs-queue-how-many-messages-have-been-received
+- https://www.serverless.com/framework/docs/providers/aws/guide/functions#dead-letter-queue-dlq
+- https://forum.serverless.com/t/dead-letter-queue-and-lambda-how-to-test/4199
+- https://medium.com/digio-australia/using-the-serverless-framework-and-aws-services-to-build-robust-and-scalable-event-based-systems-7acf967d4596
+- https://www.serverlessguru.com/blog/safeguarding-your-messages-hello-aws-sqs-dead-letter-queues
+- https://medium.com/veltra-engineering/using-dead-letter-queue-in-aws-sqs-1dabcc29c7c3
+- https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-dead-letter-queue.html
+
+

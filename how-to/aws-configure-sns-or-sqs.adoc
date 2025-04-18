@@ -1,0 +1,178 @@
+= How To: Configure SNS or SQS
+:toc:
+
+This page describes how to configure SNS or SQS. Generic queues (SQS) are great when there is only a single consumer of
+messages but there are times where it may be desirable to have multiple consumers or to just provide greater flexibility
+to your interfaces. Enter SNS (aka pub/sub). While SNS can go to multiple subscribers it can also be used with a single
+queue/app almost exactly the same as plain SQS but allows additional flexibility
+
+== Using Serverless
+
+First note that all SNS or SQS related setup should occur in the servereless-resource.yml  so that it can be updated independently of any application logic.
+
+This example supports conditional resource creation as we currently support multiple deployment environments from a single aws account.
+
+This snippet will create the following
+
+* sqs queue
+* sqs dlq
+* sns topic for sqs queue
+* sns topic for alerts
+
+For specific details on the DLQ see link:aws-configure-dlq.adoc[How To: Configure DLQ].
+
+For specific details on the DLQ Alert see link:aws-configure-dlq-alarm.adoc[How To: Configure DLQ Alarm]
+
+[source, yaml]
+----
+resources:                                                        # Specify all resources below
+  Conditions:                                                     # https://forum.serverless.com/t/conditional-serverless-yml-based-on-stage/1763/13,
+    CreateQueueNpResources:                                       # ONLY create NP resources
+      Fn::Equals:
+        - ${self:provider.stage}
+        - dev
+    CreateQueueProdResources:                                     # ONLY create PROD resources
+      Fn::Equals:
+        - ${self:provider.stage}
+        - prod
+  Resources:                                                      # Resource list
+    # For reference on SQS
+    # - https://www.serverless.com/framework/docs/providers/aws/events/sqs
+    # - https://medium.com/digio-australia/using-the-serverless-framework-and-aws-services-to-build-robust-and-scalable-event-based-systems-7acf967d4596
+    # Dev SNS/SQS ------------------------------------------------------------------------------------------------------
+    receivingDevTopic:
+      Type: AWS::SNS::Topic
+      Condition: CreateQueueNpResources
+      Properties:
+        TopicName: ${self:custom.queueName}-topic-dev
+    receivingDevAlertTopic:
+      Type: AWS::SNS::Topic
+      Condition: CreateQueueNpResources
+      Properties:
+        TopicName: ${self:custom.queueName}-topic-dev-alert
+    receivingDevQueueDLQ:                                         # Resource name
+      Type: AWS::SQS::Queue                                       # Resource type
+      Condition: CreateQueueNpResources                           # Conditionally create
+      Properties:                                                 # Resource properties
+        QueueName: ${self:custom.queueName}-dev-DLQ               # Name of queue to consume
+    receivingDevQueue:                                            # Resource name
+      Type: AWS::SQS::Queue                                       # Resource type
+      Condition: CreateQueueNpResources                           # Conditionally create
+      Properties:                                                 # Resource properties
+        QueueName: ${self:custom.queueName}-dev                   # Name of queue to consume
+        RedrivePolicy:
+          deadLetterTargetArn:
+            Fn::GetAtt:
+              - receivingDevQueueDLQ
+              - Arn
+          maxReceiveCount: 3
+----
+
+Configures a messaging policy to ensure that the topic (SNS) and queue (SQS) and talk to one another
+
+[source, yaml]
+----
+# Messaging Policy -------------------------------------------------------------------------------------------------
+snsToReceivingQueueSQSDevPolicy:
+  Type: AWS::SQS::QueuePolicy
+  Condition: CreateQueueNpResources                           # Conditionally create
+  Properties:
+    PolicyDocument:
+      Version: "2012-10-17"
+      Statement:
+        - Sid: "allow-sns-messages"
+          Effect: "Allow"
+          Principal:
+            Service:
+              - "sns.amazonaws.com"
+          Resource:
+            Fn::GetAtt:
+              - receivingDevQueue
+              - Arn
+          Action: "SQS:SendMessage"
+          Condition:
+            ArnEquals:
+              "aws:SourceArn":
+                Ref: receivingDevTopic
+    Queues:
+      - Ref: receivingDevQueue
+----
+
+Subscript your queue to the topic and subscribe your alert to the alert topic
+
+[source, yaml]
+----
+# Subscription -----------------------------------------------------------------------------------------------------
+receivingDevQueueSubscription:
+  Type: 'AWS::SNS::Subscription'
+  Condition: CreateQueueNpResources                           # Conditionally create
+  Properties:
+    TopicArn:
+      Fn::Join:
+        - ':'
+        - - 'arn:aws:sns'
+          - Ref: 'AWS::Region'
+          - Ref: 'AWS::AccountId'
+          - ${self:custom.queueName}-topic-dev
+    Endpoint:
+      Fn::GetAtt:
+        - receivingDevQueue
+        - Arn
+    Protocol: sqs
+    RawMessageDelivery: 'true'
+receivingDevAlertSubscription:
+  Type: AWS::SNS::Subscription
+  Condition: CreateQueueNpResources                           # Conditionally create
+  Properties:
+    Endpoint: benjamin.rhine@benrhine.com
+    Protocol: email
+    TopicArn: !Ref receivingDevAlertTopic
+----
+
+[WARNING]
+There are additional steps to complete configuring the alert, if that is what you are attempting to do see
+link:aws-configure-dlq-alarm.adoc[How To: Configure DLQ Alarm]
+
+== Using AWS Cli to send to SQS Queue
+
+* aws - invoke the cli
+* sqs - specify the service being invoked
+* send-message - the action to take
+* --queue-url - where is the action going
+* --message-body - the contents you want to send, must be a string
+
+[source, shell]
+----
+aws sqs send-message --queue-url https://sqs.us-west-2.amazonaws.com/ACCOUNT-NUM:YOUR-QUEUE-NAME--message-body "YOUR-MESSAGE"----
+
+[source, shell]
+----
+aws sqs send-message --queue-url https://sqs.us-west-2.amazonaws.com/xxxxx/queue-dev --message-body ""----
+
+== Using AWS Cli to send to SNS Queue
+
+* aws - invoke the cli
+* sns - specify the service being invoked
+* publish - the action to take
+* --topic-arn - where is the action going
+* --message - the contents you want to send, must be a string
+
+[source, shell]
+----
+aws sns publish --topic-arn arn:aws:sns:us-west-2:ACCOUNT-NUM:YOUR-TOPIC --message "YOUR-MESSAGE"
+----
+
+[source, shell]
+----
+aws sns publish --topic-arn arn:aws:sns:us-west-2:xxxxxxxx:queue-topic-dev --message ""
+----
+
+== Reference
+
+- https://medium.com/consulner/aws-lambda-sqs-events-with-serverless-framework-7429471ac664
+
+
+
+
+
+
