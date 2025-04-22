@@ -5,6 +5,17 @@
 This page is intended to collect common commands that are executed from the CLI as a easy reference for how to run them
 and what they do.
 
+== List accounts configured for Sign in
+.Click here to expand ...
+[%collapsible%open]
+====
+*List profiles configured in .aws/config*
+[source, bash]
+----
+aws configure list-profiles
+----
+====
+
 == Sign in or Sign in with a specific profile
 .Click here to expand ...
 [%collapsible%open]
