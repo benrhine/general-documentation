@@ -26,6 +26,8 @@ aws configure list-profiles
 aws sso login
 ----
 
+test
+
 *Sign in with profile*
 [source, bash]
 ----
