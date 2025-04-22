@@ -3,6 +3,10 @@
 
 This page is to capture all details related to CodeCommit.
 
+[WARNING]
+As of July 2024 CodeCommit has been end of life'ed. While it will still work for existing accounts it is no longer possible
+to setup new CodeCommit repositories. In short, do not use CodeCommit moving forward.
+
 == Approval rules template
 
 Using an approval rule template allows you to better control what flows in and out of your version control. While
