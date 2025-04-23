@@ -8,6 +8,9 @@ CloudFormation is a proprietary IaC language that only works with AWS. It can be
 * Might be able to be leveraged through link:../../cloud/infrastructure/aws/aws-sam.adoc[SAM] or
 link:../../cloud/infrastructure/aws/aws-cdk.adoc[CDK] - Unknown; I have not explored either of these options
 
+[NOTE]
+A auto-generated S3 bucket will be created when uploading a CF template.
+
 == Creating a base CloudFormation Template
 
 * link:../../how-to/create-base-cloudformation-template.adoc[How To: Create a base CloudFomration template]
