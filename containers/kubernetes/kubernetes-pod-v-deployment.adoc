@@ -1,0 +1,27 @@
+= Kubernetes: Pod v Deployment
+
+Google AI summary
+
+* https://www.google.com/search?client=safari&rls=en&q=kebernetes+pod+vs+deployment&ie=UTF-8&oe=UTF-8
+
+n Kubernetes, a Pod is the smallest, most basic unit of deployment, containing one or more containerized applications. A Deployment, on the other hand, is a higher-level resource that manages a set of Pods, ensuring a specified number of replicas are running and providing features like rolling updates and rollbacks. Essentially, Deployments manage the creation and lifecycle of Pods, making them the primary workload interface for many users.
+Key Differences:
+Pod:
+The fundamental unit of execution in Kubernetes.
+Contains one or more containers.
+Ephemeral, meaning if a Pod fails, it can be automatically recreated.
+Good for one-off development purposes or testing, but rarely used directly in production.
+Deployment:
+Manages a group of Pods.
+Ensures a desired number of replicas are running.
+Provides features like rolling updates and rollbacks, allowing for controlled application upgrades without downtime.
+The primary workload interface for most users.
+In simpler terms:
+Imagine a Pod as a single computer, and a Deployment as a team of computers all running the same software. The Deployment ensures the team is always working (the desired number of replicas are running) and can be updated or scaled up/down as needed.
+When to use which:
+Use a Pod when:
+you have a simple, one-off task to run, and don't need the advanced features of a Deployment.
+Use a Deployment when:
+you need to manage a group of Pods, ensure they are running, and perform rolling updates or rollbacks.
+Example:
+If you were deploying a web application, you would typically create a Deployment to manage the Pods that host your application instances. The Deployment would ensure that a specific number of web server Pods are always running, and it would handle updates to the application code in a controlled manner.

@@ -1,0 +1,20 @@
+= Kubernetes: Pod
+
+A pod is an atomic element of kubernetes and is essentially the smallest item one might work with.
+
+[source, yaml]
+----
+apiVersion: v1
+kind: Pod
+metadata:
+  name: third-try-test
+  labels:
+    app: third-try
+spec:
+  containers:
+    - name: third-try
+      imagePullPolicy: Never
+      image: docker-java-jar:1.0
+      ports:
+        - containerPort: 8080
+----

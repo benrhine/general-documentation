@@ -1,0 +1,94 @@
+= Kubernetes:
+:toc:
+
+== Quick Start
+
+=== Install Kubectl
+
+[source, shell]
+----
+brew install kubectl
+----
+
+* https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/#install-with-homebrew-on-macos
+
+=== Install Minikube
+
+[source, shell]
+----
+brew install minikube
+----
+
+* https://minikube.sigs.k8s.io/docs/start/?arch=%2Fmacos%2Farm64%2Fstable%2Fhomebrew
+
+=== Start Minikube
+
+[source, shell]
+----
+minikube start
+----
+
+=== Prove it works
+
+[source, shell]
+----
+kubectl get po -A
+----
+
+=== Setup Minikube Ingress
+
+[source, shell]
+----
+minikube addons enable ingress
+----
+
+[CAUTION]
+This is a special additional step required with Minikube (that I have not found in most training), and I don't understand why this is not done by default.
+I was lucky in finding that this had to be run in order for external ingress (ie. access) to actually function.
+
+=== Open Observability Dashboard
+
+[source, shell]
+----
+minikube dashboard
+----
+
+This should automatically open a web dashboard that allows you to view items deployed to kubernetes.
+
+=== Tell Minikube to watch docker
+
+[source, shell]
+----
+eval $(minikube docker-env)
+----
+
+Without this step Minikube will most likely not be able to see your docker builds. As much of this work was never ment to
+be run on a single system this is one of the caveats related to getting this to work for testing purposes.
+
+=== Build the Docker container
+
+[NOTE]
+To deploy a java application using Kubernetes, it _MUST_ be packaged using docker.
+
+[CAUTION]
+THIS IS ASSUMING THE SAMPLE APP IS ALREADY SUCCESSFULLY DOCKERIZED!
+
+[source, shell]
+----
+docker image build -t docker-java-jar:1.0 .
+----
+
+
+== Reference
+
+* https://spacelift.io/blog/terraform-kubernetes-deployment
+* https://spacelift.io/blog/docker-vs-kubernetes
+* https://praveendandu24.medium.com/kubernetes-tutorial-for-beginners-mastering-the-basics-in-1-hour-332db7b5916b
+** The above is the one I used to get started
+* https://www.google.com/search?client=safari&rls=en&q=kebernetes+pod+vs+deployment&ie=UTF-8&oe=UTF-8
+* https://www.reddit.com/r/kubernetes/comments/wmzv3h/how_to_call_ingress_from_localhost/
+* https://stackoverflow.com/questions/73567106/localhost-kubernetes-ingress-not-exposing-services-to-local-machine
+* https://www.google.com/search?client=safari&rls=en&q=kebernetes+pod+vs+deployment&ie=UTF-8&oe=UTF-8
+* https://stackoverflow.com/questions/60206129/how-to-enable-port-forward-in-a-k8s-service-yaml
+* https://kubernetes.github.io/ingress-nginx/deploy/#minikube
+*
