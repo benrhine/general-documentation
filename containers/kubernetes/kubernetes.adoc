@@ -1,6 +1,9 @@
 = Kubernetes:
 :toc:
 
+[NOTE]
+Creating a cluster using the official distribution is relatively involved so most people use a packaged solution like Minikube, MicroK8s, K3s, or Kind.
+
 == Quick Start
 
 === Install Kubectl
@@ -91,4 +94,10 @@ docker image build -t docker-java-jar:1.0 .
 * https://www.google.com/search?client=safari&rls=en&q=kebernetes+pod+vs+deployment&ie=UTF-8&oe=UTF-8
 * https://stackoverflow.com/questions/60206129/how-to-enable-port-forward-in-a-k8s-service-yaml
 * https://kubernetes.github.io/ingress-nginx/deploy/#minikube
+* https://kubernetes.io/docs/tasks/access-application-cluster/ingress-minikube/
+** This has been really useful
+* https://dev.to/kitarp29/deploy-your-first-java-application-on-k8s-14ke
+* https://spacelift.io/blog/kubernetes-tutorial
+** This one has links in that talk about how to pause rollouts or do rollbacks
+* https://www.kubernetes.dev/docs/onboarding/06-testing/#/12
 *
