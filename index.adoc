@@ -2,7 +2,4 @@
 
 testing
 
-* link:architecture.adoc[Architecture]
-* link:business.adoc[Business]
-* link:engineering.adoc[Engineering]
-* link:archive.adoc[Archive]
+include::_includes/repo-level-links.adoc[]
