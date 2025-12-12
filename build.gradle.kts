@@ -160,6 +160,7 @@ val asciiDocAttributes = mapOf(
     // This value will ONLY set correctly for AsciiDoc runs, it WILL NOT set correctly when publishing to Confluence
     // so files MUST have :toc: in them
     // "toc" to "",
+    "deploy" to "",
     "sourcedir"                 to srcDirAbs,
     "includedir"                to includeDirAbs,
     "author"                    to gitUserName,             // This value will only be visible in generated doc, Confluence derives author from PAT

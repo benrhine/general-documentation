@@ -1,7 +1,20 @@
 
 :includedir: ../_include
 
+ifdef::intellij[]
+
 * link:architecture.adoc[Architecture]
 * link:business.adoc[Business]
 * link:engineering.adoc[Engineering]
 * link:archive.adoc[Archive]
+
+endif::[]
+
+ifdef::deploy[]
+
+* https://doc.benrhine.com/architecture[Architecture]
+* link:business.adoc[Business]
+* link:engineering.adoc[Engineering]
+* link:archive.adoc[Archive]
+
+endif::[]
