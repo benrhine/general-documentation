@@ -272,7 +272,7 @@ tasks {
         // Define custom attributes using a map
         attributes(asciiDocAttributes )
         // Fill in will all sub-page jobs
-//        dependsOn("docConfluenceBusiness", "docConfluenceEngineering")
+        dependsOn("docBusiness", "docArchitecture", "docArchive", "docLinks")
     }
     // # end::docConfluence[]
     // # tag::docConfluenceBusiness[]
@@ -282,6 +282,39 @@ tasks {
             include("*.adoc")
         })
         setOutputDir(file("build/docs/business"))
+        // Define custom attributes using a map
+        attributes(asciiDocAttributes )
+        // Fill in will all sub-page jobs
+        dependsOn()
+    }
+    register<AsciidoctorTask>("docArchitecture")  {
+        setSourceDir(file("architecture"))
+        sources(delegateClosureOf<PatternSet> {
+            include("*.adoc")
+        })
+        setOutputDir(file("build/docs/architecture"))
+        // Define custom attributes using a map
+        attributes(asciiDocAttributes )
+        // Fill in will all sub-page jobs
+        dependsOn()
+    }
+    register<AsciidoctorTask>("docArchive")  {
+        setSourceDir(file("archive"))
+        sources(delegateClosureOf<PatternSet> {
+            include("*.adoc")
+        })
+        setOutputDir(file("build/docs/archive"))
+        // Define custom attributes using a map
+        attributes(asciiDocAttributes )
+        // Fill in will all sub-page jobs
+        dependsOn()
+    }
+    register<AsciidoctorTask>("docLinks")  {
+        setSourceDir(file("links"))
+        sources(delegateClosureOf<PatternSet> {
+            include("*.adoc")
+        })
+        setOutputDir(file("build/docs/links"))
         // Define custom attributes using a map
         attributes(asciiDocAttributes )
         // Fill in will all sub-page jobs
