@@ -1,0 +1,19 @@
+
+
+:includedir: ../_include
+
+ifdef::intellij[]
+
+// These will only work from the file they are included in - NOT this file
+
+* link:links/reference.adoc[Reference]
+* link:links/research.adoc[Research]
+
+endif::[]
+
+ifdef::deploy[]
+
+* https://doc.benrhine.com/reference[Reference]
+* https://doc.benrhine.com/research[Research]
+
+endif::[]
