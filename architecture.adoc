@@ -1,0 +1,9 @@
+= Architecture
+
+:toc:
+
+:keywords: architecture, design
+
+// add include here
+
+This is the top level location for all architecture documentation. It has been placed at this level to support visibility but could easily be placed under [Engineering] if the documentation design demands it.

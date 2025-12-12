@@ -1,0 +1,7 @@
+= Business
+
+:toc:
+
+:keywords: business, easy, read, simple, clean, clear, requirements
+
+All documentation under this folder is intended to be in easy to read business level language and is available to be shared with non-technical resources. If you need to review the technical documentation please see the documentation under [Engineering].

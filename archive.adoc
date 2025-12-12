@@ -1,0 +1,7 @@
+= Archive
+
+:toc:
+
+:keywords: old, should, be, deleted, not, relevant
+
+Information under this page is old and irrelevant and should probably be deleted. If a page ends up under this location there is probably a permissions issue with removal.
