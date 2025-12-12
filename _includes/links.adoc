@@ -13,7 +13,7 @@ endif::[]
 
 ifdef::deploy[]
 
-* https://doc.benrhine.com/reference[Reference]
-* https://doc.benrhine.com/research[Research]
+* https://doc.benrhine.com/links/reference[Reference]
+* https://doc.benrhine.com/links/research[Research]
 
 endif::[]
