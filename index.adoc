@@ -1,6 +1,6 @@
 == Read Me
 
-:intellij: intellij
+// :intellij: intellij
 
 include::_includes/repo-level-links.adoc[]
 
