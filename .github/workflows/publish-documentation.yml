@@ -39,9 +39,9 @@ jobs:
 #        uses: gradle/actions/setup-gradle@v4
       - name: Build with AsciiDoc
         run: ./gradlew docGeneral
-        with:
-          source: ./
-          destination: ./_site
+#        with:
+#          source: ./
+#          destination: ./_site
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
 
