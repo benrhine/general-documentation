@@ -1,0 +1,106 @@
+= CloudFormation: (AWS) Create an IAM role
+
+The following is an example of how to create a user(s) using CloudFormation and YAML syntax.
+
+[CAUTION]
+Roles are GLOBAL within an AWS account, meaning that role names must be unique to an entire AWS account, _NOT_ just a given
+region.
+
+[NOTE]
+Be aware this process is exactly the same as link:../serverless/sls-aws-create-role-complete.adoc[Serverless: (AWS) Create an IAM role]
+*_EXCEPT_* CloudFormation only has a single `Resources` block. It does not require the additional `resources` block that
+Serverless uses.
+
+[NOTE]
+The following two example roles are the base roles that are expected to be available in every AWS account.
+
+[NOTE]
+To view details on IAM, see link:../../../../engineering/cloud/infrastructure/aws/aws-iam.adoc[Aws: IAM]
+
+[TIP]
+There is no cost associated with creating Aws IAM roles and policies only the resources the roles may allow access to.
+
+== IAM Role
+
+Role creation is essentially the same for each role but pay attention to the differences for the `Principal`. The
+assumed role is using a principal of AWS, and the base role has a principal of Service.
+
+[source, yaml]
+----
+Resources:
+      BaseAssumedRole:
+        Type: AWS::IAM::Role                                          # Resource type
+        Properties:                                                   # Resource properties
+          RoleName: !Sub cf-base-${AWS::Region}-assumed-service-role
+          AssumeRolePolicyDocument:                                   # Role Configuration
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Principal:
+                  AWS:
+                    - arn:aws:iam::accountNumber:root
+                Action: sts:AssumeRole
+          ManagedPolicyArns:                                          # Managed policies to attach to new role
+            - arn:aws:iam::aws:policy/PowerUserAccess                 # If needed update to AdministratorAccess, but should not be needed
+            - arn:aws:iam::aws:policy/AdministratorAccess             # Admin is required to delete
+          Policies:
+           ...
+      BaseRole:
+        Type: AWS::IAM::Role                                          # Resource type
+        DependsOn: CloudformationBaseAssumedRole                      # REQUIRES!!! Previous role has already been created
+        Properties:                                                   # Resource properties
+          RoleName: !Sub cf-base-${AWS::Region}-service-role
+          AssumeRolePolicyDocument:                                   # Role Configuration
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Principal:
+                  Service:
+                    - codebuild.amazonaws.com
+                    - cloudformation.amazonaws.com
+                    - codepipeline.amazonaws.com
+                Action: sts:AssumeRole
+          Policies:
+           ... SEE BELOW
+----
+
+[TIP]
+Use the above as an example and copy/paste into a CloudFormation template and edit the values to suit your purpose.
+
+== IAM Role Policies
+
+When creating a role, it must have attached policies to actually grant access to any resources. Policies can be attached
+either through the `ManagedPolicyArns` block or custom policies can be defined under the `Policy` block.
+
+[NOTE]
+Managed Policies are policies that are already pre-defined within AWS; These can be found in AWS Console > IAM > Policies.
+
+Below is an example of a policy that may be attached to one of the above roles under the `Polices` block.
+
+[source, yaml]
+----
+Policies:
+    - PolicyName: cf-resource-iam-policy
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+              - iam:AttachRolePolicy
+              - iam:CreateRole
+              - iam:GetRole
+              - iam:PassRole
+              - iam:DeleteRole
+              - iam:DeleteRolePolicy
+              - iam:DetachRolePolicy
+              - iam:PutRolePolicy
+            Resource:
+              - "arn:aws:iam::accountNumber:role/*"
+----
+
+== Testing a Role
+
+To manually test if a role works as expected see the directions link:../../../../engineering/cloud/infrastructure/aws/aws-iam.adoc#_testing_iam_roles[here].
+
+
+

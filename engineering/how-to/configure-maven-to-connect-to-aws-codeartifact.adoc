@@ -1,0 +1,136 @@
+= How To: Configure Maven to Connect to Aws CodeArtifact
+
+Configuring Maven to work with Aws CodeArtifact is not particularly challenging but it does require some steps that exist
+outside of the developer workflow that will need to be either manually executed by the developer or added as a pre-step to any CI configurations.
+
+== Step 1
+
+The first step of this is you must have the Aws CLI installed otherwise there is no way to be able to retrieve the
+repository token. For instructions on installing the CLI see link:../engineering/onboarding/configure-aws-cli-quick-start.adoc[here].
+
+== Step 2
+
+Next, understand the command that is required to retrieve the token ...
+
+[source, shell]
+----
+aws codeartifact get-authorization-token --domain $CODE_ARTIFACT_DOMAIN --domain-owner $AWS_ACCOUNT_ID --region $AWS_REGION --query authorizationToken --output text
+----
+
+executing the above will return the required token given you have already executed aws sso login and are signed into the
+correct account and region.
+
+https://docs.aws.amazon.com/codeartifact/latest/ug/tokens-authentication.html#env-var[Aws Documentation]
+
+== Step 3
+
+This step is a bit interesting and it depends on what system you are executing it from. A script named
+set_aws_code_artifact_token.sh has been added the the XXXX repo buildutils here and is designed to execute the command
+from Step 2 and export the value to an environment variable. This should work on any MacOS or linux based systems but
+does not function on Windows even when ran using Cygwin or GitBash.
+It is expected this script will need to be integrated into the Jenkins build to correctly set the environment variables
+to facilitate retrieval of libraries hosted in Aws CodeArtifact.
+Assuming that the script executes successfully a token should not be stored in a local environment variable for use and
+should be valid for the next 12 hours (configurable).
+
+== Step 4
+
+Now modify the local ~/.m2/settings.xml with the following ...
+
+[source, xml]
+----
+<settings>
+...
+    <servers>
+        <server>
+            <id>codeartifact</id>
+            <username>aws</username>
+            <password>${env.CODEARTIFACT_AUTH_TOKEN}</password>
+        </server>
+    </servers>
+...
+</settings>
+----
+
+This tells maven how to talk to Aws CodeArtifact and (in theory) is using the environment variable that was set by the script for authentication.
+
+https://docs.aws.amazon.com/codeartifact/latest/ug/maven-mvn.html[Aws Documentation]
+
+=== Windows User Note
+
+I did not have any luck getting this to work with any kind of automation on Windows. I ended up manually running the command in Step 2 and then copying that value to my settings.xml whenever I wanted to pull the artifacts from aws using maven.
+
+=== Step 5
+
+Now configure the maven project to for the new repository ...
+
+[source, xml]
+----
+<repositories>
+    <repository>
+        <id>codeartifact</id>
+        <name>codeartifact</name>
+        <url>https://artifacts-np-company-accountNum.d.codeartifact.us-west-2.amazonaws.com/maven/np-libraries/</url>
+    </repository>
+</repositories>
+----
+
+[NOTE]
+Suggest doing a test `.mvnw clean install` at this point to validate that the project can connect to the new repository
+
+== Step 6
+
+If everything builds you can now add the dependency that is hosted in Aws CodeArtifact to the project.
+
+[source, xml]
+----
+<dependency>
+    <groupId>com.benrhine</groupId>
+    <artifactId>your-dependency</artifactId>
+    <version>2025.05.21.15-java-8</version>
+</dependency>
+----
+
+== Automation
+
+Unfortunately, the above is the best process that has been developed to date and it has not been possible to add
+additional automations due to how maven works. For now when working with maven the script will need to be executed BEFORE
+and outside of the project to setup the system in preparation of maven execution. An attempt to get around this was made
+with the exec-maven-plugin  as this allows for maven to execute a script and tie it to a specific maven phase and to be
+clear THIS DOES WORK in regards to can you execute the script as part of maven and can you tie it to a phase BUT the
+way maven fetches dependencies it does not allow for execution before the dependencies are fetched.
+
+== Maven v Gradle
+
+As explained in the previous section, Maven will not allow for items executed by Maven to occur prior to Maven fetching
+dependencies. This level of control is seriously detrimental to certain aspects of automation. An alternative to Maven
+is Gradle which does allow for execution prior to dependencies being fetched. A variation of this token retrieval for
+Aws CodeArtifact(s) can be seen in the lyp-service[TODO link to example code] (in step-001....gradle).
+
+* link:../engineering/development/java/java-maven.adoc[Java: Maven]
+* link:../engineering/development/java/java-gradle.adoc[Java: Gradle]
+
+== Reference
+
+- https://docs.aws.amazon.com/codeartifact/latest/ug/maven-mvn.html
+- https://docs.aws.amazon.com/codeartifact/latest/ug/tokens-authentication.html#env-var
+- https://isuruuy.medium.com/running-a-shell-script-through-the-pom-file-a5bd64025845
+- https://stackoverflow.com/questions/53820230/run-bash-script-before-build-started
+- https://stackoverflow.com/questions/3448648/how-do-i-run-a-specific-goal-with-a-particular-configuration-in-a-maven-plugin-w
+- https://stackoverflow.com/questions/34051477/use-maven-exec-plugin-to-run-command-line
+- https://www.mojohaus.org/exec-maven-plugin/usage.html
+- https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html
+- https://www.google.com/search?q=maven+phase+before+downloading+packages&rlz=1C1GCEU_enUS1059US1059&oq=maven+phase+before+downloading+packages&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIHCAEQIRigATIHCAIQIRigATIHCAMQIRigATIHCAQQIRigATIHCAUQIRifBTIHCAYQIRifBTIHCAcQIRifBTIHCAgQIRifBTIHCAkQIRifBdIBCDkwMzNqMGo0qAIAsAIB&sourceid=chrome&ie=UTF-8
+
+
+
+
+
+
+
+
+
+
+
+
+

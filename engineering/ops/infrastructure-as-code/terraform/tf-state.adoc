@@ -1,0 +1,5 @@
+= Terraform: Managing State
+
+== Reference
+
+* https://www.reddit.com/r/Terraform/comments/1b6e2pk/terraform_with_multiaccount_aws/

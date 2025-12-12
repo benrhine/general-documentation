@@ -1,0 +1,18 @@
+= Git: Actions
+
+== Reference
+
+* https://www.google.com/search?q=cool+things+you+can+do+with+github+actions&ie=UTF-8&oe=UTF-8&hl=en-us&client=safari&zx=1756138406802&no_sw_cr=1&sei=rl_GaMGUJ8PewN4Pvu3AwAY&sec_act=d
+* https://medium.com/@lucasrosvall/7-github-action-ideas-to-enhance-your-project-ca46a23195c9
+* https://github.com/sdras/awesome-actions
+* https://github.blog/enterprise-software/devops/4-things-you-didnt-know-you-could-do-with-github-actions/
+* https://dev.to/bascodes/that-conference-github-actions-for-fun-profit-f3
+* https://www.reddit.com/r/devops/comments/1jayyg0/favorite_github_actions/
+* https://github.com/GuillaumeFalourd/useful-actions
+* https://www.google.com/search?q=github+action+send+slack+message&ie=UTF-8&oe=UTF-8&hl=en-us&client=safari&sec_act=d
+*
+
+
+
+
+

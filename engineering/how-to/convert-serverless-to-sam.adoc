@@ -1,0 +1,17 @@
+= How To: Convert Serverless to SAM
+
+[WARNING]
+This page as of 20230706 is experimental and currently untested. Use it for reference then update the page
+
+The intent of this page is to describe how to convert Serverless / `servlerless.yml` to https://aws.amazon.com/serverless/sam/[Aws SAM]
+in the event there is
+ever a desire to to move away from the https://www.serverless.com[Serverless framework]. For internal documentation on
+Aws Sam see link:../../engineering/cloud/infrastructure/aws/aws-sam.adoc[here].
+
+== How to convert Serverless to Aws SAM
+
+== Reference
+
+- https://www.serverless.com/blog/serverless-framework-now-supports-aws-sam-cloudformation
+- https://alexharv074.github.io/2020/01/13/a-method-for-migrating-serverless-framework-to-sam.html
+

@@ -1,0 +1,34 @@
+= IAM
+:toc:
+
+== Manually create IAM Role TODO
+
+== Working with IAM and IaC
+
+=== Create IAM Role (and policies) with IaC
+
+* link:../../../engineering/ops/infrastructure-as-code/aws/aws-cf-create-role-complete.adoc[CloudFormation: Create an IAM role]
+* link:../../../engineering/ops/infrastructure-as-code/serverless/sls-aws-create-role-complete.adoc[Serverless: Create an IAM role]
+* link:../../../engineering/ops/infrastructure-as-code/terraform/tf-aws-create-role-complete.adoc[Terraform: Create an IAM role]
+* link:../../../engineering/ops/infrastructure-as-code/comparison/compare-iac-role.adoc[Compare: IAM role creation across frameworks]
+* link:../../../engineering/ops/infrastructure-as-code/comparison/compare-iac-role-policies.adoc[Compare: IAM role policy creation across frameworks]
+
+
+== Testing IAM roles
+
+* https://developer.hashicorp.com/terraform/tutorials/aws/aws-iam-policy
+* https://policysim.aws.amazon.com/home/index.jsp
+
+== Reference
+
+* https://dav009.medium.com/serverless-framework-minimal-iam-role-permissions-ba34bec0154e
+* https://serverlessfirst.com/create-iam-deployer-roles-serverless-app/
+* https://www.serverless.com/framework/docs/providers/aws/guide/iam
+* https://developer.hashicorp.com/terraform/tutorials/aws/aws-iam-policy
+* https://policysim.aws.amazon.com/home/index.jsp
+
+
+
+
+
+

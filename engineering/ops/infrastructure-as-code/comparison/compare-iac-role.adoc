@@ -1,0 +1,335 @@
+= Compare: Creating a IAM Role
+:toc:
+
+[NOTE]
+Creating resources within both CloudFormation and Serverless Framework are exactly the same. Whenever you create a resource
+in Serverless, it is just RAW CloudFormation, Serverless is *only unique* when not creating resources.
+
+== Creating a new Role
+
+To create a new IAM role using either CloudFormation or Serverless Framework, you can add the following to
+either your CloudFormation template or your `serverless.yml`
+
+=== CloudFormation / Serverless declaration
+
+[%collapsible]
+====
+[source, yaml]
+----
+Resources:
+    ...
+      CloudformationBaseAssumedRole:
+        Type: AWS::IAM::Role                                          # Resource type
+        Properties:                                                   # Resource properties
+          RoleName: !Sub cf-base-${AWS::Region}-assumed-service-role
+          AssumeRolePolicyDocument:                                   # Role Configuration
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Principal:
+                  AWS:
+                    - arn:aws:iam::accountNumber:root
+                Action: sts:AssumeRole
+          ManagedPolicyArns:                                          # Managed policies to attach to new role
+            - arn:aws:iam::aws:policy/PowerUserAccess                 # If needed update to AdministratorAccess, but should not be needed
+            - arn:aws:iam::aws:policy/AdministratorAccess             # Admin is required to delete
+          Policies:
+           ...
+      CloudformationBaseServiceRole:
+        Type: AWS::IAM::Role                                          # Resource type
+        DependsOn: CloudformationBaseAssumedRole                      # REQUIRES!!! Previous role has already been created
+        Properties:                                                   # Resource properties
+          RoleName: !Sub cf-base-${AWS::Region}-service-role
+          AssumeRolePolicyDocument:                                   # Role Configuration
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Principal:
+                  Service:
+                    - codebuild.amazonaws.com
+                    - cloudformation.amazonaws.com
+                    - codepipeline.amazonaws.com
+                Action: sts:AssumeRole
+          Policies:
+           ...
+      ServiceCodeBuildServiceRole:                                    # Role that is applied to ALL CodeBuild jobs
+        Type: AWS::IAM::Role                                          # Resource type
+        DependsOn: CloudformationBaseAssumedRole                      # REQUIRES!!! Previous role has already been created
+        Properties:                                                   # Resource properties
+          Path: /service-role/                                        # If you want a custom resource path
+          RoleName: !Sub cb-domain-${AWS::Region}-resource-deploy-service-role
+          AssumeRolePolicyDocument:                                   # Role Configuration
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Principal:
+                  Service:
+                    - codebuild.amazonaws.com
+                Action: sts:AssumeRole
+          Policies:
+           ...
+      ServiceCodePipelineRole: # The following role is used in support of the pipeline
+        Type: AWS::IAM::Role
+        DependsOn: CloudformationBaseAssumedRole
+        Properties:
+          Path: /service-role/                                        # If you want a custom resource path
+          RoleName: !Sub ${ProjectName}-${AWS::Region}-codepipeline-role
+          AssumeRolePolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Principal:
+                  Service:
+                    - codepipeline.amazonaws.com
+                Action:
+                  - sts:AssumeRole
+          Policies:
+           ...
+      CodePipelineEventRuleRole: # This role is REQUIRED for the event rule to execute
+        Type: AWS::IAM::Role
+        Properties:
+          AssumeRolePolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Principal:
+                  Service:
+                    - events.amazonaws.com
+                Action: sts:AssumeRole
+          Path: /
+          Policies:
+           ...
+----
+====
+
+=== The equivalent Terraform code is the following ...
+
+.module main.tf
+[%collapsible]
+====
+[source, shell]
+----
+resource "aws_iam_role" "base_assumed_service_role" {
+  name = "tf-base-${var.aws_region}-assumed-service-role"
+  description = "This is the base role that will be assumed"
+  assume_role_policy = <<EOF
+    {
+      "Version": "2012-10-17",
+      "Statement": [
+          {
+              "Effect": "Allow",
+              "Principal": {
+                  "AWS": "arn:aws:iam::accountNumber:root"
+              },
+              "Action": "sts:AssumeRole"
+          }
+      ]
+    }
+EOF
+}
+
+resource "aws_iam_role" "base_service_role" {
+  name = "tf-base-${var.aws_region}-service-role"
+  description = "This is the base role that will be used to deploy resources"
+  assume_role_policy = <<EOF
+    {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Effect": "Allow",
+                "Principal": {
+                    "Service": [
+                        "codepipeline.amazonaws.com",
+                        "codebuild.amazonaws.com",
+                        "cloudformation.amazonaws.com"
+                    ]
+                },
+                "Action": "sts:AssumeRole"
+            }
+        ]
+    }
+    EOF
+  depends_on = [
+    aws_iam_role.base_assumed_service_role
+  ]
+}
+
+resource "aws_iam_role" "codebuild_service_role" {
+  name = "tf-${var.project_name}-${var.aws_region}-resource-deploy-service-role"
+  description = "This is the base role that will be assumed"
+  path = "/service-role/"
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+      {
+          "Effect": "Allow",
+          "Principal": {
+              "Service": [
+                  "codebuild.amazonaws.com"
+              ]
+          },
+          "Action": "sts:AssumeRole"
+      }
+  ]
+}
+EOF
+  depends_on = [
+    aws_iam_role.base_assumed_service_role
+  ]
+}
+
+resource "aws_iam_role" "codepipeline_service_role" {
+  name = "${var.project_name}-${var.aws_region}-codepipeline-role"
+  description = "This is the base role that will be assumed"
+  path = "/service-role/"
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+      {
+          "Effect": "Allow",
+          "Principal": {
+              "Service": [
+                  "codepipeline.amazonaws.com"
+              ]
+          },
+          "Action": "sts:AssumeRole"
+      }
+  ]
+}
+EOF
+  depends_on = [
+    aws_iam_role.base_assumed_service_role
+  ]
+}
+
+resource "aws_iam_role" "codepipeline_event_rule_role" {
+  name                = "tf-codepipeline-${var.aws_region}-event-rule-role"
+  description         = "This role allows for the CodePipeline to execute"
+  path                = "/"
+  assume_role_policy  = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "Service": [
+                    "events.amazonaws.com"
+                ]
+            },
+            "Action": "sts:AssumeRole"
+        }
+    ]
+}
+EOF
+}
+----
+====
+
+It is important to note that while the above Terraform is the RAW code to create a new role that it is actually leveraged
+though a module. To create the above roles using Terraform the following module should be declared within the `main.tf`.
+
+[NOTE]
+The following declaration will create all five of the previously shown roles
+
+=== Include IAM roles module
+
+.main.tf
+[souce, shell]
+----
+module "iam_roles" {
+  source                        = "./modules/iam-roles"                                   # Where to find the module
+  ######################################################################################################################
+  aws_region                    = data.aws_region.current.name                            # Value retrieved in data.tf
+  aws_account                   = data.aws_caller_identity.current.account_id             # Value retrieved in data.tf
+  project_name                  = var.project_name                                        # Value passed in via variables.tf
+}
+----
+
+[CAUTION]
+The above module declaration *ONLY* creates the IAM roles, it does not attach the policies!!!
+
+=== Fully create an IAM role in Terraform like CloudFormation/Serverless
+
+To fully create an IAM role like the CloudFormation/Serverless counterpart declaration, include the `iam_roles` module as
+shown above. Include the `iam_roles_policy` declaration as show link:compare-iac-role-policies.adoc#_include_iam_roles_policy_module[here].
+Next we need to attach the policies to the roles. This is an area where Terraform significantly diverges from how
+CloudFormation/Serverless works as it requires the manual attachment of each policy that is implicitly implied with the
+layout of the declaration in the yaml. To attach declared policies in Terraform instantiate the following module ...
+
+.main.tf
+[souce, shell]
+----
+module "iam_policy_attachments" {
+  source                        = "./modules/iam-policy-attachments"                      # Where to find the module
+  ######################################################################################################################
+  iam_policies_module           = module.iam_policies                                     # Value retrieved from module outputs.tf
+  base_assumed_service_role     = module.iam_roles.create_base_assumed_service_role       # Value retrieved from module outputs.tf
+  base_service_role             = module.iam_roles.create_base_service_role               # Value retrieved from module outputs.tf
+  codebuild_service_role        = module.iam_roles.create_codebuild_service_role          # Value retrieved from module outputs.tf
+  codepipeline_service_role     = module.iam_roles.create_codepipeline_service_role       # Value retrieved from module outputs.tf
+  codepipeline_event_rule_role  = module.iam_roles.create_codepipeline_event_rule_role    # Value retrieved from module outputs.tf
+
+# Is this equivalent to the following? I think this declaration would be sufficient for the dependency but I have opted
+# to be very specific on all these items must exist in order for this module to be successful.
+#   depends_on = [
+#     module.iam_policies,
+#     module.iam_roles
+#   ]
+
+  # iam_policy_attachments module instantiation depends on the following modules; resources in modules declared within "depends_on"
+  # must complete instantiation prior to iam_policy_attachments instantiation.
+  depends_on = [
+    module.iam_roles.create_base_assumed_service_role,
+    module.iam_roles.create_base_service_role,
+    module.iam_roles.create_codebuild_service_role,
+    module.iam_roles.create_codepipeline_service_role,
+    module.iam_roles.create_codepipeline_event_rule_role,
+    module.iam_policies.tf_resource_iam_policy_arn,
+    module.iam_policies.tf_resource_iam_policy_all_arn,
+    module.iam_policies.tf_codebuild_resource_simple_policy_arn,
+    module.iam_policies.tf_codepipeline_resource_policy_arn,
+    module.iam_policies.tf_ssm_policy_arn,
+    module.iam_policies.tf_log_policy_arn,
+    module.iam_policies.tf_log_group_build_policy_arn,
+    module.iam_policies.tf_s3_resource_policy_arn,
+    module.iam_policies.tf_codecommit_resource_repo_policy_arn,
+    module.iam_policies.tf_codebuild_resource_policy_arn,
+    module.iam_policies.tf_domain_resources_codepipeline_policy_arn,
+    module.iam_policies.tf_resource_iam_pass_through_policy_arn,
+    module.iam_policies.tf_ssm_get_policy_arn,
+    module.iam_policies.tf_assume_role_policy_arn,
+    module.iam_policies.tf_domain_resources_everything_policy_arn,
+    module.iam_policies.tf_domain_resources_s3_resource_policy_arn,
+    module.iam_policies.tf_assume_role_policy_arn,
+    module.iam_policies.tf_domain_resources_pipeline_execution_policy_arn,
+    module.iam_policies.tf_assume_role_policy_arn
+  ]
+}
+----
+
+Inside the attachment module, the role and the policy are associated as follows ...
+
+.module main.tf
+[souce, shell]
+----
+resource "aws_iam_role_policy_attachment" "base_service_role_1" {
+  role       = var.base_service_role.name
+  policy_arn = var.iam_policies_module.tf_resource_iam_policy_all_arn
+}
+----
+
+This attachment completes the full process of role creation with policies to be equivalent to role creation within
+CloudFormation/Serverless.
+
+== Testing a Role
+
+To manually test if a role works as expected see the directions link:../../../../engineering/cloud/infrastructure/aws/aws-iam.adoc#_testing_iam_roles[here].
+
+
+
+
+
+

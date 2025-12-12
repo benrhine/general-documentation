@@ -1,0 +1,30 @@
+= Java: Maven
+
+Maven is a very common, but legacy build tool for the Java ecosystem.
+
+== Maven Wrapper
+
+To help standardize build processes across team members and CI platforms it is highly suggested that any build using
+Maven use the Maven Wrapper instead of the local systems installed version of Maven.
+
+This guarantees that the same version of maven is used by all team members and in all steps of the build. This also allows
+for maven to be portable and to be packaged directly as part of the application repo. Meaning that a system that is pulling
+down the code does not even need to have maven directly installed on it. The application can still be built using just
+the maven wrapper file that is packaged with it.
+
+To create or update the maven wrapper see https://www.baeldung.com/maven-wrapper[here].
+
+== Not what you were looking for?
+
+* link:../build/build-maven-artifact.adoc[Maven: Build Artifact]
+* link:../build/build-maven-troubleshooting.adoc[Maven: Troubleshooting]
+* link:../engineering/development/java/java-gradle.adoc[Java: Gradle]
+* link:../build/build-gradle-artifact.adoc[Gradle: Build Artifact]
+* link:../build/build-gradle-troubleshooting.adoc[Gradle: Troubleshooting]
+* link:../build/build-ci-codebuild.adoc[CI: CodeBuild]
+
+== References
+
+* https://www.baeldung.com/maven-wrapper
+
+

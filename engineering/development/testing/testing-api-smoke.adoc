@@ -1,0 +1,147 @@
+= Testing: API / Smoke
+
+Api / Smoke testing is testing that occurs after deployment to ensure the deployed artifact is working as expected. While
+Unit testing is testing does it work the way YOU think it works and Integration testing is testing does it ACTUALLY work;
+Api / Smoke testing is testing does it work for real in a real world context (Functional).
+
+[NOTE]
+These can also be considered to be a type of Functional tests as well as White Box tests (white box tests are defined
+essentially the same as black box but the type of box is defined by the who is performing the testing. Since a developer
+has insight into the inner workers of the application and these are written by a developer they would be considered white box tests).
+
+
+== Execution
+
+To execute configured Api / Smoke tests run the following
+
+[source, shell]
+----
+./gradlew apiSmokeTest
+----
+
+== Configuration
+
+[source, groovy]
+----
+testing {                                                                                           // Configure gradle testing
+    suites {                                                                                        // Specify test sets / suites
+        configureEach {                                                                             // Explicitly tell it to configure each test set / suite
+            useJUnitJupiter()                                                                       // Global declaration that all test sets / suites use JUnit
+            dependencies {                                                                          // Global declaration of dependencies for all test sets / suites
+                implementation project()
+                implementation "com.amazonaws:aws-lambda-java-core:$awsLambdaJavaCore"
+                implementation "com.amazonaws:aws-lambda-java-events:$awsLambdaJavaEvents"
+                implementation "com.amazonaws:aws-java-sdk-s3:$awsJavaSdkS3"  // this is responsible for 2+ MB of deployed jar size
+                implementation 'org.aspectj:aspectjrt:1.9.19'
+
+                implementation "com.google.code.gson:gson:$googleGson"
+                implementation ("com.googlecode.json-simple:json-simple:$googleJsonSimple") {
+                    exclude group: 'junit', module: 'junit'
+                }
+
+                implementation platform("org.junit:junit-bom:$junitBom")
+                implementation "org.junit.jupiter:junit-jupiter"
+                implementation "org.mockito:mockito-junit-jupiter:$junitMockito"
+                implementation "org.junit-pioneer:junit-pioneer:$junitPioneer"
+
+
+                implementation ("org.mockito:mockito-inline:+") {  // required for static mocks
+                    exclude group: 'org.mockito', module: 'mockito-core'
+                }
+                implementation "org.apache.httpcomponents:httpclient:$apacheHttpClient4"
+                implementation "com.squareup.okhttp3:okhttp:$okHttp3"
+                implementation "io.findify:s3mock_2.13:$s3Mock"
+            }
+        }
+        apiSmokeTest(JvmTestSuite) {                                                                // Api test configuration
+            testType = TestSuiteType.FUNCTIONAL_TEST                                                // Specify test type
+            sources {                                                                               // Specify additional source set
+                java {
+                    srcDirs = ['src/api/java']
+                }
+                resources {
+                    srcDirs = ['src/api/resources']
+                }
+            }
+
+            targets {                                                                               // Configure test target
+                all {
+                    testTask.configure {
+                        maxParallelForks ((env == "LOCAL") ? 5 : parseInt("$intParallelism"))       // Set max threads to speed up tests
+                        reports.html.required = htmlReportsEnabled                                  // Configured in gradle.properties
+                        description = 'Runs api/smoke tests'
+                        group = 'verification'
+                        shouldRunAfter(test)
+
+                        retry {
+                            maxRetries = 2
+                            maxFailures = 20
+                            failOnPassedAfterRetry = true
+                        }
+
+                        jacoco {
+                            enabled = jacocoEnabled                                                 // Configured in gradle.properties
+                        }
+                        finalizedBy integrationTestReports                                          // instructs the tests to finish by generating a coverage report
+
+                        afterSuite { desc, result ->                                             // Build output message for slack based on test results
+                            buildColor = result.failedTestCount == 0 ? "good" : "danger"
+
+                            if (desc.parent) {
+                                return
+                            } // Only summarize results for whole modules
+
+                            final String summary = "${result.resultType} " +
+                                    "(" +
+                                    "${result.testCount} tests, " +
+                                    "${result.successfulTestCount} successes, " +
+                                    "${result.failedTestCount} failures, " +
+                                    "${result.skippedTestCount} skipped" +
+                                    ") " +
+                                    "in ${TimeCategory.minus(new Date(result.endTime), new Date(result.startTime))}" +
+                                    "\n"
+
+                            project.testResults = []
+                            // Add reports in `testsIntResults`, keep failed suites at the end
+                            if (result.resultType == TestResult.ResultType.SUCCESS) {
+                                rootProject.testResults.add(0, summary)
+                            } else {
+                                rootProject.testResults += summary
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+----
+
+== Not what you were looking for?
+
+=== Testing
+* link:testing-unit.adoc[Unit]
+* link:testing-integration.adoc[Integration]
+* link:testing-thintegration.adoc[Thintegration]
+* link:testing-load.adoc[Load]
+
+=== Data Generation
+
+* link:../engineering/development/data/data.adoc[Data]
+* link:../engineering/development/data/data-makers.adoc[Data: Makers]
+
+=== Logging
+
+* link:testing-logging-codebuild.adoc[Logging: CodeBuild]
+
+== References
+
+* https://aws.amazon.com/blogs/devops/automating-your-api-testing-with-aws-codebuild-aws-codepipeline-and-postman/
+* https://stackoverflow.com/questions/55542422/how-to-get-url-endpoint-detail-as-variable-in-serverless-frameworks-serverless
+* https://docs.aws.amazon.com/lambda/latest/api/API_GetFunctionUrlConfig.html
+* https://stackoverflow.com/questions/48386497/aws-lambda-list-functions-filter-out-just-function-names
+* https://nodogmablog.bryanhogan.net/2022/08/simple-lambda-function-with-a-function-url/
+* https://www.serverless.com/framework/docs/providers/aws/cli-reference/info
+* https://docs.aws.amazon.com/cli/latest/reference/redshift-serverless/get-endpoint-access.html
+* https://stackoverflow.com/questions/68718127/how-to-get-aws-api-gateway-endpoint-url-from-command-line-interface
+* https://dev.to/aws-builders/setting-up-aws-code-pipeline-to-automate-deployment-of-tweets-streaming-application-m7o

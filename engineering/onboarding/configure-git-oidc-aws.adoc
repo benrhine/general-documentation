@@ -1,0 +1,103 @@
+= Configure: Git OIDC with Aws
+
+The goal of this page is to facilitate communication between GitHub and Aws Accounts without having to provide explicit credentials to GitHub.
+
+This is best configured via Terraform for records and repeatability even though this should only need to be executed when setting up a new GitHub instance with Aws.
+
+Start by setting up the `aws_iam_openid_connect_provider`. The url can be found https://docs.github.com/en/actions/how-tos/secure-your-work/security-harden-deployments/oidc-in-aws#adding-the-identity-provider-to-aws[here], and the thumbprints can be found https://github.blog/changelog/2023-06-27-github-actions-update-on-oidc-integration-with-aws/[here].
+
+[NOTE]
+To see how to configure this manually through Aws Console, see https://dev.to/aws-builders/aws-sso-github-setup-35ld[here].
+
+[CAUTION]
+You may need to enable the Aws Identity center if this is a new account.
+
+[source, hcl-terraform]
+----
+resource "aws_iam_openid_connect_provider" "github" {
+  url = "https://token.actions.githubusercontent.com"
+
+  client_id_list = [
+    "sts.amazonaws.com",
+  ]
+  # GitHub OIDC root CA thumbprint - second value may be unnecessary
+  thumbprint_list = ["6938fd4d98bab03faadb97b34396831e3780aea1", "1c58a3a8518e8759bf075b76b750d4f2df264fcd"]
+}
+----
+
+The details for the role policy can be found https://dev.to/aws-builders/aws-sso-github-setup-35ld[here] or https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-idp_oidc.html#idp_oidc_Create_GitHub[here].
+
+[source, hcl-terraform]
+----
+data "aws_iam_policy_document" "github_oidc_assume_role" {
+  statement {
+    effect = "Allow"
+    actions   = [
+      "sts:AssumeRoleWithWebIdentity"
+    ]
+    principals {
+      # Note that in CF and SLS i have this set to the PROD account not non-prod
+      # identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:oidc-provider/token.actions.githubusercontent.com"]
+      identifiers = [aws_iam_openid_connect_provider.github.arn]
+      type = "Federated"
+    }
+    condition {
+      test     = "StringEquals"
+      variable = "token.actions.githubusercontent.com:aud"
+      values   = ["sts.amazonaws.com"]
+    }
+    # this causes the job to fail
+    # condition {
+    #   test     = "StringEquals"
+    #   variable = "token.actions.githubusercontent.com:ref"
+    #   values   = ["refs/heads/main"]
+    # }
+
+    condition {
+      test     = "StringLike"
+      variable = "token.actions.githubusercontent.com:sub"
+      values   = ["repo:benrhine/spring-boot-with-aws-secrets-manager:ref:refs/heads/main"]
+    }
+  }
+}
+----
+
+Then create your role for GitHub to assume.
+
+[source, hcl-terraform]
+----
+module "aws_tools_github_oidc_assume_role" {
+  providers = {
+    aws = aws.brr-tools
+  }
+  source                        = "../modules/iam-roles"                                   # Where to find the module
+  ######################################################################################################################   # Value passed in via variables.tf
+  iam_role_name                 = "github_oidc_assume_role"
+  iam_role_description          = "This is the base role that will be assumed"
+  iam_assume_role_policy        = data.aws_iam_policy_document.github_oidc_assume_role.json
+  iam_tags_environment          = "test"
+  iam_tags_origination          = "test"
+  iam_tags_project              = "test"
+}
+----
+
+
+
+== Reference
+
+* https://dev.to/aws-builders/aws-sso-github-setup-35ld
+* https://docs.github.com/en/actions/how-tos/secure-your-work/security-harden-deployments/oidc-in-aws
+* https://github.com/aws-actions/configure-aws-credentials
+* https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-idp_oidc.html#idp_oidc_Create_GitHub
+* https://www.google.com/search?client=safari&rls=en&q=github+action+authenticate+to+aws&ie=UTF-8&oe=UTF-8
+* https://chatgpt.com/share/689384b5-1c0c-8011-b9b3-c9e57379ba9f
+* https://github.blog/changelog/2023-06-27-github-actions-update-on-oidc-integration-with-aws/
+* https://www.reddit.com/r/aws/comments/1e0o0oi/github_one_command_to_authorize_github_actions_to/
+
+* https://developer.hashicorp.com/terraform/language/backend/s3#multi-account-aws-architecture
+* https://www.reddit.com/r/Terraform/comments/1b6e2pk/terraform_with_multiaccount_aws/
+* https://docs.github.com/en/apps/creating-github-apps/about-creating-github-apps/about-creating-github-apps
+* https://stackoverflow.com/questions/79246900/github-actions-configure-aws-credentials-error-the-security-token-included-in-t
+* https://github.com/aws/aws-sdk-js/issues/55
+* https://www.google.com/search?client=safari&rls=en&q=Could+not+assume+role+with+OIDC%3A+getaddrinfo+ENOTFOUND+sts.aws-east-2.amazonaws.com&ie=UTF-8&oe=UTF-8
+*

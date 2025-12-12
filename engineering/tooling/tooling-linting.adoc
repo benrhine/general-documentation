@@ -1,0 +1,8 @@
+= Linting
+
+== Reference
+
+* https://dev.to/tschaka1904/intellij-google-java-format-plugin-vs-intellij-java-google-style-xml-what-s-the-deal-197b
+* https://www.google.com/search?q=best+java+linter&ie=UTF-8&oe=UTF-8&hl=en-us&client=safari&sec_act=d
+* https://www.google.com/search?q=edit+goofle+java+style+guide+xml&ie=UTF-8&oe=UTF-8&hl=en-us&client=safari
+* https://commitizen-tools.github.io/commitizen/

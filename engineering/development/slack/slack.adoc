@@ -1,0 +1,37 @@
+= Slack
+
+
+
+
+
+
+
+
+
+
+== Reference
+
+* https://medium.com/analytics-vidhya/generate-slack-notifications-for-aws-cloudwatch-alarms-e46b68540133
+* https://www.serverless.com/plugins/serverless-plugin-metric
+* https://www.serverless.com/plugins/serverless-log-metric-filter
+* Serverless-Log-Metric-Filter&rlz=1C1GCEU_enUS1059US1059&oq=Serverless-Log-Metric-Filter&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTINCAEQABiGAxiABBiKBTINCAIQABiGAxiABBiKBTINCAMQABiGAxiABBiKBTIGCAQQRRg80gEHMzE0ajBqN6gCALACAA&sourceid=chrome&ie=UTF-8
+* https://forum.serverless.com/t/how-to-provision-aws-logs-metricfilter/2712/3   - this one has alot of potential
+* https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-metricfilter.html - so does this one
+* https://stackoverflow.com/questions/65797765/adding-custom-metric-to-cloudformation-template - and this one
+* configure+cloudwatch+alarm+to+send+on+every+error+log&rlz=1C1GCEU_enUS1059US1059&oq=configure+cloudwatch+alarm+to+send+on+every+error+log&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIHCAEQIRigATIHCAIQIRigATIHCAMQIRigATIGCAQQIRgVMgcIBRAhGJ8FMgcIBhAhGJ8F0gEJMTM0NTZqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8
+* https://medium.com/insiderengineering/realtime-alerting-from-applications-logs-in-amazon-cloudwatch-168b2cb587fd
+* https://aws.amazon.com/blogs/mt/how-to-enable-amazon-cloudwatch-alarms-to-send-repeated-notifications/
+* https://www.antstack.com/blog/how-to-get-instant-email-notifications-for-aws/
+* https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/permissions-reference-cwl.html
+* https://medium.com/analytics-vidhya/generate-slack-notifications-for-aws-cloudwatch-alarms-e46b68540133
+* https://www.serverless.com/plugins/serverless-plugin-metric
+* https://www.serverless.com/plugins/serverless-log-metric-filter
+* Serverless-Log-Metric-Filter&rlz=1C1GCEU_enUS1059US1059&oq=Serverless-Log-Metric-Filter&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTINCAEQABiGAxiABBiKBTINCAIQABiGAxiABBiKBTINCAMQABiGAxiABBiKBTIGCAQQRRg80gEHMzE0ajBqN6gCALACAA&sourceid=chrome&ie=UTF-8
+* https://forum.serverless.com/t/how-to-provision-aws-logs-metricfilter/2712/3   - this one has alot of potential
+* https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-metricfilter.html - so does this one
+* https://stackoverflow.com/questions/65797765/adding-custom-metric-to-cloudformation-template - and this one
+* configure+cloudwatch+alarm+to+send+on+every+error+log&rlz=1C1GCEU_enUS1059US1059&oq=configure+cloudwatch+alarm+to+send+on+every+error+log&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIHCAEQIRigATIHCAIQIRigATIHCAMQIRigATIGCAQQIRgVMgcIBRAhGJ8FMgcIBhAhGJ8F0gEJMTM0NTZqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8
+* https://medium.com/insiderengineering/realtime-alerting-from-applications-logs-in-amazon-cloudwatch-168b2cb587fd
+* https://aws.amazon.com/blogs/mt/how-to-enable-amazon-cloudwatch-alarms-to-send-repeated-notifications/
+* https://www.antstack.com/blog/how-to-get-instant-email-notifications-for-aws/
+* https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/permissions-reference-cwl.html

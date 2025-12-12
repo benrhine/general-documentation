@@ -1,0 +1,21 @@
+= Glossary
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
+:toc:
+
+// Tags created on pages with keywords relevant to content - default values are present and can be overridden by passed in attribute (and should be). Additionally, when using the publishToConfluence plugin it is more difficult to pass in the keywords so the defaults are preferred.
+:keywords: glossary, definition, what, does, this, mean
+
+include::../../_includes/second-level-includes.adoc[]
+
+* OKR - which stands for Objectives and Key Results, is a goal-setting framework used by teams and organizations to define measurable goals and track their progress. It helps focus efforts, align teams, and drive performance by setting ambitious, yet achievable, objectives and defining specific, measurable key results to track progress toward those objectives
+* KPI - Key Performance Indicator, is a quantifiable measure that tracks progress toward specific business objectives. It helps organizations assess the success of their efforts, allocate resources effectively, and make data-driven decisions. KPIs are used across various levels, from individual performance to overall company strategy
+* AD - Architectural Decision
+* ADR - {project-adr-link}[Architectural Decision Record]
+* Project - In the context of the {engineering-link}[Engineering] documentation project means an individual grouping of executable code. This could be a Terraform script that performs a specific setup or an application that was developed for the business.
+* ASR - Architecturally Significant Requirement
+* AKM - Architectural Knowledge Management
+* ADL - Architecture Decision Log
+* Greenfield software development - refers to developing a system for a totally new environment and requires development from a clean slate – no legacy code around. It is an approach used when you’re starting fresh and with no restrictions or dependencies.
+* Brownfield software development - refers to the development and deployment of a new software system in the presence of existing or legacy software systems. Brownfield application development usually happens when you want to develop or improve upon an existing application, and compels you to work with previously created code.
+* todo

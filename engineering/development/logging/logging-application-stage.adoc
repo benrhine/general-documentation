@@ -1,0 +1,15 @@
+= Logging: Application Stage
+
+These are logs that are generated from the application itself (ie part of the code / compiled artifact) and are output at
+runtime. Each application folder under Application(s) may have additional logging information that is highly specific to
+the application underneath it.
+
+== Are you using Log4j2 with shadowJar?
+
+If you are using log4j2 with shadowJar please go review link:../../../engineering/how-to/aws-powertools.adoc[here] and review as there is a known issue with a fix.
+
+== Not what you are looking for?
+
+* link:../../../engineering/development/logging/logging.adoc[Logging]
+* link:../../../engineering/development/testing/testing-logging-codebuild.adoc[Logging: Test Stage - CodeBuild]
+* link:../build/build-logging.adoc[Logging: Build Stage - CodeBuild]

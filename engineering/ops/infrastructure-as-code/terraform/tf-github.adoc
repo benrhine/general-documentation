@@ -1,0 +1,7 @@
+= Terraform: Managing GitHub
+
+
+== Reference
+
+* https://spacelift.io/blog/terraform-github
+* https://solideogloria.tech/terraform/authenticating-terraform-with-a-github-app/

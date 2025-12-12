@@ -1,0 +1,12 @@
+= AsciiDoc: How to use
+
+== Reference
+
+- https://medium.com/james-reads-public-cloud-technology-blog/auto-build-and-host-pretty-html-documentation-using-asciidoc-github-pages-github-actions-758a03f93d7d
+- https://www.google.com/search?client=safari&rls=en&q=asciidoc+multi+page+example+2025&ie=UTF-8&oe=UTF-8#cobssid=s
+- https://www.google.com/search?client=safari&rls=en&q=how+to+have+multiple+asciidoc+tasks+gradle&ie=UTF-8&oe=UTF-8
+- https://www.google.com/search?q=mutlple+asciidoc+tasks+gradle+kotlin+example&client=safari&cs=0&sca_esv=d81d33885b31fd73&sxsrf=AE3TifNBAR4WnAvveucd9ZEd69-BM8vYAA%3A1753990598691&ei=xsWLaISVKby5qtsPtaPGuQY&ved=0ahUKEwiEkMuU7OeOAxW8nGoFHbWRMWcQ4dUDCBA&uact=5&oq=mutlple+asciidoc+tasks+gradle+kotlin+example&gs_lp=Egxnd3Mtd2l6LXNlcnAiLG11dGxwbGUgYXNjaWlkb2MgdGFza3MgZ3JhZGxlIGtvdGxpbiBleGFtcGxlMgoQIRigARjDBBgKMgUQIRirAkiDEVC4CFj1DnABeAGQAQCYAagBoAG9BqoBAzEuNrgBA8gBAPgBAZgCBqACjQXCAgoQABiwAxjWBBhHmAMA4gMFEgExIECIBgGQBgaSBwMxLjWgB6MgsgcDMC41uAeJBcIHBTAuNC4yyAcM&sclient=gws-wiz-serp
+- https://github.com/owenh000/asciidoctor-multipage
+- https://www.google.com/search?client=safari&rls=en&q=gradle+kotlin+chain+tasks&ie=UTF-8&oe=UTF-8
+- https://www.google.com/search?client=safari&rls=en&q=adoc+example&ie=UTF-8&oe=UTF-8
+- https://docs.asciidoctor.org/asciidoc/latest/syntax-quick-reference/#admonitions

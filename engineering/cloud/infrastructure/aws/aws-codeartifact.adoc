@@ -1,0 +1,8 @@
+= Aws: CodeArtifact
+
+== Connecting to CodeArtifact with Maven
+
+* link:../../../engineering/how-to/configure-maven-to-connect-to-aws-codeartifact.adoc[Configure: Maven connection]
+
+
+

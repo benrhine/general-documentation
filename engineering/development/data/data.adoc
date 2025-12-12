@@ -1,0 +1,9 @@
+= Data
+
+This section is dedicated to my thoughts on how data should be constructed and maintained within a given organization.
+It is intended to serve as best practice and guidelines when architecting and developing new data infrastructure.
+
+* link:../../../engineering/development/data/data-generation.adoc[Data: Generation]
+* link:../../../engineering/development/data/data-makers.adoc[Data: Makers]
+* link:../../../engineering/development/data/data-cleanup.adoc[Data: Cleanup]
+* link:../../../engineering/development/data/data-company-wide-meta-data.adoc[Data: Company wide meta data]

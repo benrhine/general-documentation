@@ -1,0 +1,108 @@
+= Compare: Creating a IAM Role Policy
+:toc:
+
+[NOTE]
+Creating resources within both CloudFormation and Serverless Framework are exactly the same. Whenever you create a resource
+in Serverless, it is just RAW CloudFormation, Serverless is *only unique* when not creating resources.
+
+== Creating a new Role Policy
+
+To create a new IAM role policy using either CloudFormation or Serverless Framework, you can add the following to
+either your CloudFormation template or your `serverless.yml`
+
+=== CloudFormation / Serverless declaration
+[source, yaml]
+----
+Resources:
+    ...
+    roleName:
+      ...
+      Properties:
+        ...
+        Policies:
+          ...
+           - PolicyName: ${self:custom.serverlessPrefix}-resource-iam-policy
+            PolicyDocument:
+              Version: '2012-10-17'
+              Statement:
+                - Effect: Allow
+                  Action:
+                    - iam:AttachRolePolicy
+                    - iam:CreateRole
+                    - iam:GetRole
+                    - iam:PassRole
+                    - iam:DeleteRole
+                    - iam:DeleteRolePolicy
+                    - iam:DetachRolePolicy
+                    - iam:PutRolePolicy
+                  Resource:
+                    - '*'
+----
+
+
+=== The equivalent Terraform code is the following ...
+
+.module data.tf
+[source, shell]
+----
+data "aws_iam_policy_document" "tf_resource_iam_policy_all" {
+  statement {
+    actions   = [
+      "iam:AttachRolePolicy",
+      "iam:CreateRole",
+      "iam:GetRole",
+      "iam:PassRole",
+      "iam:DeleteRole",
+      "iam:DeleteRolePolicy",
+      "iam:DetachRolePolicy",
+      "iam:PutRolePolicy",
+    ]
+    resources = ["*"]
+    effect = "Allow"
+  }
+}
+----
+
+.module main.tf
+[source, shell]
+----
+resource "aws_iam_policy" "tf_resource_iam_policy_all" {
+  name        = "tf_resource_iam_policy_all"
+  description = "Custom IAM policy for base role"
+  policy      = data.aws_iam_policy_document.tf_resource_iam_policy_all.json
+}
+----
+
+Creating policies is fairly rinse and repeat, however, this module is not as re-usable as some due to the nature that each
+policy needs to be unique to a given use case. A well-defined policy module will contain all policies required to be attached
+to roles declared from the role module.
+
+=== Include IAM roles policy module
+
+.main.tf
+[source, shell]
+----
+module "iam_policies" {
+  source                        = "./modules/iam-policies"                    # Where to find the module
+  #############################################################################
+  aws_region                    = data.aws_region.current.name                # Value retrieved in data.tf
+  aws_account                   = data.aws_caller_identity.current.account_id # Value retrieved in data.tf
+  policy_resource_arn           = module.iam_roles.create_base_assumed_service_role_arn   # Value retrieved from module outputs.tf
+  deployment_bucket_name        = module.s3.aws_s3_bucket.bucket              # Value retrieved from module outputs.tf
+  aws_codepipeline_project_name = module.codepipeline.aws_codepipeline_project_name # Value retrieved from module outputs.tf
+
+  # iam_policies module instantiation depends on the following modules; resources in modules declared within "depends_on"
+  # must complete instantiation prior to iam_policies instantiation.
+  depends_on = [
+    module.codepipeline,
+    module.iam_roles,
+    module.s3
+  ]
+}
+----
+
+== Testing a role with policies
+
+To manually test if a role works as expected see the directions link:../../../../engineering/cloud/infrastructure/aws/aws-iam.adoc#_testing_iam_roles[here].
+
+

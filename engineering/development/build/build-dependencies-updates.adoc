@@ -1,0 +1,105 @@
+= Dependencies: Updates
+:toc:
+
+The goal of this page is to describe how and when dependencies should be updated and what processes are in place to help
+with keeping versions up to date.
+
+== When to update dependencies?
+
+Optimally, whenever the application is touched the person doing the work should review the dependencies and if possible
+should update them and incorporate those changes with their work. If the application is frequently under development this
+should be an easy task as normally bumping a few minor versions does not cause issues. *However*, if an application is
+not worked on frequently and version updates are larger or major versions then issues may occur (_note this is another
+reason to have great testing on an application to help identify dependency issues when doing larger version upgrades_).
+*For this reason it is recommended to have a ticket once a quarter to do nothing but go around and update dependency
+versions in your applications.* This is generally frequent enough to prevent major dependency upgrade issues and ensures
+that remediation of any security issues in dependencies is dealt with in a reasonable amount of time.
+
+== What are we doing to ease the dependency update process?
+
+Since ensuring dependencies are up to date is commonly a process that falls by the way side we strive to make the process
+as smooth as possible by leveraging several Gradle plugins
+
+=== Notification of out of date dependencies
+
+* Gradle Plugin: https://plugins.gradle.org/plugin/com.github.ben-manes.versions
+
+This plugin identifies whenever and whichever dependencies (including Gradle itself) are out of date. This can be done
+manually be executing `./gradlew dependencyUpdates`  and it will print a list of all the out of date dependencies and
+what the current version is. This has been incorporated into our dev builds. Whenever a dev build executes on AWS you
+can see this list printed in the build logs.
+
+[CAUTION]
+TODO: It is recommended to get a slack bot put together and to message the result of this Gradle task to a specific channel
+
+=== Dependency Version (pseudo) Auto Update
+
+* Gradle Plugin: https://splitties.github.io/refreshVersions/
+
+This plugin also identifies whenever and whichever dependencies (including Gradle itself) are out of date (but does not
+display them). This can be done manually be executing `./gradlew refreshVersions`. Unlike the previous discussed task this
+will update the dependency versions in the `versions.properties` file for developer review. To more clearly explain how
+this works all dependency versions are stored in the `versions.properties` file and the dependency itself is set to a
+placeholder like follows ...
+
+[source, java]
+----
+implementation "org.aspectj:aspectjrt:_"
+----
+
+The plugin will the replace "_" with whatever value is assigned in the `versions.properties` file
+
+[source, properties]
+----
+version.org.aspectj..aspectjrt=1.9.20.1
+##                 # available=1.9.21.M1
+##                 # available=1.9.21.RC1
+##                 # available=1.9.21
+----
+
+When `./gradlew refreshVersions` has been executed it will add in any newer versions as comments for developer review,
+so similar to how dependencyUpdates works but instead stores the values directly in the properties file to facilitate easy upgrades after a developer review.
+
+This has also been integrated with our dev build process and it will check the dependencies on every dev release, update
+the `versions.properties` and push the most recent version into the repo for future review by a dev.
+
+[NOTE]
+To read more on the configuration of this plugin see https://splitties.github.io/refreshVersions/[gradle refreshVersions]
+
+== Why do we not ACTUALLY auto update the dependency version?
+
+This is a case of we can only safely provide so much automation without endangering the stability of the application.
+With fully automated dependency version updates we run the risk of a build going out with an untested configuration and
+unexpected errors occurring. If this happens it is exceptionally hard to understand what is going on as most times a dev
+will not realize that the dependency has changed behind the scenes and it will take time to come to that understanding.
+Additionally, when applied to a lambda with layers this causes further complications in that it would update the versions in the application itself but can not update the versions in a layer so you then would run the risk of pushing out an application using other versions of a dependency than what is available in a given layer which will again result in errors that are unintuitive and extremely difficult to debug.
+
+For these reasons it is best to notify for out of date dependencies (nag the builder) and make determining what is the
+most recent version as easy as possible (auto update versions.properties  but as comments for review). This should ensure
+that we do not get into a state of mismatched dependencies between the application and its layers or that something silently
+updated in the background and we didn't realize it. This should also ensure that when a dependency update comes in that the
+application is still working as expected as it required https://splitties.github.io/refreshVersions/update-dependencies/#why-as-comments[manual review].
+
+Lastly, by following this process and having a ticket once a quarter (minimum) to review this it should be easy to keep
+dependencies up to date and to keep security risk from dependencies to a minimum.
+
+=== To Migrate
+
+[source, shell]
+----
+./gradlew refreshVersionsMigrate --mode=VersionsPropertiesOnly
+----
+
+== Not what you were looking for?
+
+* link:../engineering/development/java/java-maven.adoc[Java: Maven]
+* link:../../development/build/build-maven-artifact.adoc[Maven: Build Artifact]
+* link:../../development/build/build-maven-troubleshooting.adoc[Maven: Troubleshooting]
+* link:../engineering/development/java/java-gradle.adoc[Java: Gradle]
+* link:../../development/build/build-gradle-artifact.adoc[Gradle: Build Artifact]
+* link:../../development/build/build-gradle-troubleshooting.adoc[Gradle: Troubleshooting]
+* link:../../development/build/build-logging.adoc[Build Logging]
+
+
+
+

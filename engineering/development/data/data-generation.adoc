@@ -1,0 +1,119 @@
+= Data: Generation
+:toc:
+
+Every software development project should strive to have the ability to generate unique test data on the fly.
+This is one of the largest struggles I have observed during my time in the software development field. The lack of test
+data leads to more poorly tested applications and increases development time as developers then need to wait on either
+the business or testers to provide reasonable test data (see Note). This lack of test data can also lead to inner team strife over
+disagreements around what role is responsible for providing this information. But what if it were possible to remedy
+this in most situations?
+
+[NOTE]
+While no developer should _wait_ on anyone to move their work forward and should do there best to test without the provided
+information. It is reasonable to expect some test data to be provided with a given requirement.
+
+== How do we fix this issue?
+
+While it is reasonable to expect at least one set of real world data to test against be provided, many times it still
+doesn't happen. In order to fix this issue every project should be building the tools necessary to quickly and fully test their
+applications ... enter data generation. Having the ability to generate unique and constraint based data will vastly improve
+how well the given application is tested.
+
+Even so, many will resist this approach as it is an extra step to developing an application so let's take a look at what
+this can do for us.
+
+== Slow down to go faster
+
+On the surface it may seem like building a data generation framework may add a lot of additional time to the application
+development lifecycle. I'm here to tell you that the small over-head of doing this pays massive time returns in the
+backend (at least where greenfield work is at play).
+
+=== Slow down: How to build a data generation framework
+
+So how does one build a data generation framework and what is the slow-down? To build a great data generation framework,
+a developer/team should write a data generation object/class for every domain object within their application called a
+link:data-makers.adoc[maker]. Inside this maker class will be multiple methods that can and will generate random data for every field of that
+object. Some methods may generate that data for specific cases such as an object has a string field that expects only
+alpha characters but you want to know what happens when a number is present so it generates that field with a
+number present.
+
+This is the slow-down; you must take the time to write this additional class to be able to generate all these data
+variations for the object.
+
+But how does taking this extra time when you are writing a domain class help you go faster?
+
+=== Speeding up
+
+When a new domain object is written the initial constraints of that object are generally quite clear, meaning that writing
+a method to generate data that will satisfy those constraints is also fairly clear. In the future though, once the application
+is up and running those constraints may not be as obvious to a future developer and having provided many data generation
+examples of a given domain object will more quickly improve future developers understanding of what is and is not allowed
+for that domain object.
+
+Additionally, think about the following scenario to better understand how building these data generation objects (makers)
+will exponentially increase future test development speed.
+
+==== Scenario 1
+
+Given object A has 5 fields and one of those fields is object B, and B can not be null or empty ...
+
+----
+public class A {
+    String one;
+    String two;
+    String three;
+    String four;
+    Object B;       // Can not be null or empty
+
+    public A(String one, String two, String three, String four, Object b) { ... }
+}
+----
+
+----
+public class B {
+    String one;
+    String two;
+    String three;
+    String four;
+    String five;
+    String six;
+    String seven;
+}
+----
+
+This means that object B must be defined and must have values for object A to accept it. Dreaming up valid test data when
+writing code can take up a significant amount of time. Creating test data that satisfies all constraints can take up even
+more time. But, if we take the time to develop a data generation framework this now becomes easy as we can just pass in a
+generated object (B) with the selected criteria to satisfy the creation of object A.
+
+The more complex objects you have, the more time this can save at test time. Additionally, by having set standards of how
+the data will be generated this generally means that the objects will be much more fully tested and many fewer edge cases
+will be missed.
+
+== Conclusion
+
+In short, it may be challenging to convince the business that this small overhead is worth it at the beginning when starting
+development but over the long term it pays massive dividends in test time, test coverage, and a much greater understanding
+of how objects can and should be used.
+
+== Create a maker
+
+Next lets see how to actually link:../../../engineering/development/data/data-makers.adoc[Create a maker]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

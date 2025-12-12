@@ -1,0 +1,102 @@
+= Gradle: Build Artifact
+:toc:
+
+The https://gradle.org[Gradle build system] is a modern alternative to the legacy https://maven.apache.org[Maven system]. While maven is still a great tool it is
+somewhat confusing in how to do more advanced configuration since it is based in xml and is lacking much of the flexibility
+that is available through the groovy scripting available through Gradle (gradle also supports Kotlin).
+
+== Gradle Wrapper
+
+It is recommended to always use the Gradle Wrapper artifact (./gradlew) so that it can be included directly in the
+repository alongside the code to ensure that anyone who checks out the code is immediately able to execute the code and
+to guarantee that developers are all using the same version of gradle when operating on the code. The easiest way to get
+the wrapper is copy it from an existing project or download it with a template project from the
+https://start.spring.io[spring initializr]. Once you have the wrapper artifact it can be upgraded by executing the following command and supplying the version you wish to upgrade or downgrade to.
+
+[source, shell]
+----
+./gradlew wrapper --gradle-version x.x.x
+----
+
+== Check Version
+
+To check what version of Gradle is being used
+
+[source, shell]
+----
+./gradlew -v
+----
+
+== Shadow Jar (A.K.A. Fat Jar)
+
+In the event you need to include dependencies directly in your jar file (aka a fat jar) you will need to include the
+`com.github.johnrengelman.shadow` plugin. This will create a jar file named `*-all.jar` under `build/libs` .
+_Note: this is a requirement for lambda code to ensure that all the dependencies necessary to operate in a stripped down
+environment are present._
+
+[source, shell]
+----
+./gradlew clean shadowJar
+----
+
+[NOTE]
+Note: `com.github.johnrengelman.shadow` plugin is by far the most common shadowJar plugin in the gradle eco system.
+
+== Task Chaining
+
+Do note that it is possible to add additional functionality to the above commands by task chaining. An example of this
+would be if lambda layers are being used and a zip needs to be created instead of the jar. This could be added by adding the following to the `build.gradle`
+
+[source, shell]
+----
+// Task for building the zip file for upload
+task buildZip(type: Zip) {
+  from compileJava
+  from processResources
+}
+build.dependsOn buildZip    // Note we have chained the buildZip task to the build task
+----
+
+== Configuration
+
+While it is certainly possible to have a very simple `build.gradle` file gradle is extremely flexible on what can be
+configured during the artifact build process. Unfortunately, this can result in a very large `build.gradle` file and for
+that reason gradle makes its easy to build and chain separate `*.gradle` files. To keep the build clean it is highly
+suggested these sub `.gradle` files be placed in the project under `gradle/steps`. To see how specific things are
+configured please review the individual files in the `gradle-lambda-template` repository.
+
+* build.gradle
+** Primary build file connects all the following
+* step-001-repository-config.gradle
+** Configure different repository sources
+* step-005-application-config.gradle
+** Configures items specific to the application
+* step-010-additional-config.gradle
+** Configures additional source sets
+* step-015-additional-tasks.gradle
+** Configures custom gradle tasks
+* step-020-sonar-config.gradle
+** Config to hook project into sonar
+* step-025-jacoco-config.gradle
+** Config to ensure test coverage
+* step-030-checkstyle-config.gradle
+** Config to check for style errors
+* step-035-pmd-config.gradle
+** Config to check for pmd errors
+* step-040-dependencies.gradle
+** Config of application dependencies
+* step-045-test-config.gradle
+** Config of test sets, test dependencies, test logging, retry, and slack results
+
+== Not what you were looking for?
+
+* link:../engineering/development/java/java-maven.adoc[Java: Maven]
+* link:../../development/build/build-maven-artifact.adoc[Maven: Build Artifact]
+* link:../../development/build/build-maven-troubleshooting.adoc[Maven: Troubleshooting]
+* link:../engineering/development/java/java-gradle.adoc[Java: Gradle]
+* link:../../development/build/build-gradle-troubleshooting.adoc[Gradle: Troubleshooting]
+* link:../../development/build/build-dependencies-updates.adoc[Dependency Updates]
+* link:../../development/build/build-logging.adoc[Build Logging]
+
+
+

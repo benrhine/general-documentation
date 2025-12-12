@@ -1,0 +1,7 @@
+= Gradle: Git Hooks
+
+To ensure that all team members are adhering to the same development practices, Gradle is configured to automatically
+install pre-defined link:../../../engineering/tooling/tooling-git-hooks.adoc[git hooks] from the repository on build.
+
+
+

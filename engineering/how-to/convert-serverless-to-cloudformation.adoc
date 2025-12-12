@@ -1,0 +1,37 @@
+= How To: Convert Serverless to CloudFormation
+
+[WARNING]
+This page as of 20230706 is experimental and currently untested. Use it for reference then update the page
+
+The intent of this page is to describe how to convert Serverless / `servlerless.yml` to pure https://aws.amazon.com/cloudformation/[CloudFormation]
+in the event there is ever a desire to to move away from the https://www.serverless.com[Serverless framework] or if
+there is a need to inspect the generated https://aws.amazon.com/cloudformation/[CloudFormation] directly. For internal
+documentation on Cloudformation see link:../engineering/ops/infrastructure-as-code/aws/aws-cf.adoc[here].
+
+== How to convert Serverless to Cloudformation
+
+Execute the following
+
+[source, shell]
+----
+sls package
+----
+
+or
+
+[source, shell]
+----
+serverless package
+----
+
+The above will generate a `.servlerless` folder in the project and it will contain generated CloudFormation templates
+in JSON format that can then be executed.
+
+== Reference
+
+- https://stackoverflow.com/questions/69012620/how-to-transform-a-serverless-framework-yaml-to-template-of-cloudformation
+
+
+
+
+
