@@ -3,6 +3,8 @@
 
 ifdef::intellij[]
 
+// These will only work from the file they are included in - NOT this file
+
 * link:architecture.adoc[Architecture]
 * link:business.adoc[Business]
 * link:engineering.adoc[Engineering]
@@ -13,8 +15,8 @@ endif::[]
 ifdef::deploy[]
 
 * https://doc.benrhine.com/architecture[Architecture]
-* link:business.adoc[Business]
-* link:engineering.adoc[Engineering]
-* link:archive.adoc[Archive]
+* https://doc.benrhine.com/business[Business]
+* https://doc.benrhine.com/engineering[Engineering]
+* https://doc.benrhine.com/archive[Archive]
 
 endif::[]
