@@ -1,5 +1,7 @@
 
-* link:../architecture.adoc[Architecture]
-* link:../business.adoc[Business]
-* link:../engineering.adoc[Engineering]
-* link:../archive.adoc[Archive]
+:includedir: ../_include
+
+* link:architecture.adoc[Architecture]
+* link:business.adoc[Business]
+* link:engineering.adoc[Engineering]
+* link:archive.adoc[Archive]
