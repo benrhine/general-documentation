@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.18">
 <meta name="author" content="git-user-name">
-<title>Archive</title>
+<title>Naming Conventions</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -439,42 +439,128 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>Archive</h1>
-<div class="details">
-<span id="author" class="author">git-user-name</span><br>
-<span id="revnumber">version 2025.12.50,</span>
-<span id="revdate">2025-12-13</span>
-</div>
 </div>
 <div id="content">
-<div id="preamble">
+<div class="sect1">
+<h2 id="_naming_conventions">Naming Conventions</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Information under this page is old and irrelevant and should probably be deleted. If a page ends up under this location there is probably a permissions issue with removal.</p>
+<p>Naming conventions should be clear and conciese as well as clearly documented as to there meaning.</p>
+</div>
+<div class="sect2">
+<h3 id="_repositories">Repositories</h3>
+<div class="paragraph">
+<p>It is suggested to give repositories a descriptive name. It is even better to give the repository a name that can be the same as the deployment name (i.e. in Docker, Aws, ect) for easy reference.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_repositories_that_share_an_underlying_technology">Repositories that share an underlying technology</h3>
+<div class="paragraph">
+<p>It is suggested to give repositories names that not only reflect what the application is intended to do but if possible some of the technology that is used (i.e <code>TECHNOLOGY-APPLICATION-NAME</code>). This improves the clarity of the intent.</p>
+</div>
+<div class="sect3">
+<h4 id="_lambda">Lambda</h4>
+<div class="paragraph">
+<p>Suggest repos that are intended to be deployed to Aws Lambda be named simlar to as follows <code>lambda-application-name</code></p>
 </div>
 </div>
 </div>
-<div class="sect1">
-<h2 id="_not_what_you_were_looking_for">Not what you were looking for?</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_deployed_lambda_services">Deployed Lambda Services</h3>
+<div class="paragraph">
+<p>To improve visibility of a deployed application it is important that naming conventions are consistent so it is easy to say this item is associated with this product/project. It is also important that the naming conventions is concise as some interfaces can only display so many characters reducing the visiibility of portions of the application. For this reason clear and documented abbreviations (short names) are recommended to keep the AWS Console clean and easy to read.</p>
+</div>
+<div class="paragraph">
+<p>Once deployed all lambda services should share the following naming convention (i.e. <code>TECHNOLOGY-APPLIATION-NAME</code>) which results in names like the following &#8230;&#8203;</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://doc.benrhine.com">Home</a></p>
+<p>lan-service</p>
 </li>
 <li>
-<p><a href="https://doc.benrhine.com/architecture">Architecture</a></p>
-</li>
-<li>
-<p><a href="https://doc.benrhine.com/business">Business</a></p>
-</li>
-<li>
-<p><a href="https://doc.benrhine.com/engineering">Engineering</a></p>
-</li>
-<li>
-<p><a href="https://doc.benrhine.com/archive">Archive</a></p>
+<p>lbc-service</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>Thus it is more or less following the same convention as the repository naming convention except we are shortening the names for clarity but still reflecting the technology and the action intent.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>ex. (l)ambda-(a)pplication-(n)ame-service - <em>lan-service</em></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_short_names_abv">Short Names (ABV)</h3>
+<div class="paragraph">
+<p>Short names are leveraged throughout these applications to provide a clear and consistent naming convention for deployed applications, dynamodb tables, sns, sqs, roles, and policy names. So why do this?</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>makes groups of application resources quickly visible to the casual viewer</p>
+</li>
+<li>
+<p>easy searchability within Aws interfaces. i.e. its easy to search for lpsc and get all related resources back where it is much more cumbersome to search <code>lambda-application-name</code></p>
+</li>
+<li>
+<p>short names are used in the creation of all resources (roles, policies, db, sns, sqs, service deploy)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_other_variations">Other variations</h3>
+<div class="paragraph">
+<p>You may also see the following</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>CONTROLLING-TECHNOLOGY-NAME-ENVIRONMENT</p>
+<div class="ulist">
+<ul>
+<li>
+<p>sls-ltr-dev</p>
+</li>
+<li>
+<p>what technology was used to implement this, what this is, where it is</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>NAME-TOOL-ENVIRONMENT</p>
+<div class="ulist">
+<ul>
+<li>
+<p>ldr-queue-topic-dev</p>
+</li>
+<li>
+<p>what this is, what tool is being used, where it is</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>NAME-TOOL-ENVIRONMENT-EXTRA</p>
+<div class="ulist">
+<ul>
+<li>
+<p>ldr-queue-topic-dev-alert</p>
+</li>
+<li>
+<p>what this is, what tool is being used, where it is, modifier</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
@@ -482,7 +568,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="footer">
 <div id="footer-text">
 Version 2025.12.50<br>
-Last updated 2025-12-12 14:19:00 -0700
+Last updated 2024-07-17 12:58:14 -0600
 </div>
 </div>
 </body>

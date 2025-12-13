@@ -1,25 +1,26 @@
 
 // To view included values uncomment below
 // :intellij: intellij
+// :deploy: deploy
 
 // :sourcedir: documentation
 :revdate: {current-date}
 
-:space-name-full:           Rhine Consulting
-:space-name-abv:            rc
-:space-name-abv-upper:      RC
-:org-name-1-full:           
-:org-name-1-abv:           
-:org-name-1-abv-upper:      
-:org-name-1-link:          
+:space-name-full:           Confluence Space
+:space-name-abv:            cs
+:space-name-abv-upper:      CS
+:org-name-1-full:           Rhine Consulting
+:org-name-1-abv:            rc
+:org-name-1-abv-upper:      RC
+:org-name-1-link:           n/a
 :team-name-1-full:          Ben Rhine
 :team-name-1-abv:           br
 :team-name-1-abv-upper:     BR
 :project-name-1-full:       general-documentation
 :project-name-1-abv:        gd
 :project-name-1-abv-upper:  GD
-:project-link:             
-:project-repo:             
+:project-link:              https://github.com/benrhine/general-documentation
+:project-repo:              https://github.com/benrhine/general-documentation
 :fl-home-link:              https://doc.benrhine.com
 :fl-architecture-link:      https://doc.benrhine.com/architecture
 :fl-business-link:          https://doc.benrhine.com/business

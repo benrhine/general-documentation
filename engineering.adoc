@@ -7,7 +7,7 @@
 // To view included values uncomment below
 // :intellij: intellij
 
-All documentation under this page is technical in nature and is intended to be internal to the development team(s) but is available for reference for any non-technical resource (i.e. business side of the house) upon request.  If you need to review the business documentation please see the documentation under {business-link}[Business].
+All documentation under this page is technical in nature and is intended to be internal to the development team(s) but is available for reference for any non-technical resource (i.e. business side of the house) upon request.  If you need to review the business documentation please see the documentation under {fl-business-link}[Business].
 
 == How to navigate this documentation?
 

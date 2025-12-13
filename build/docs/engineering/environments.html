@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.18">
 <meta name="author" content="git-user-name">
-<title>Archive</title>
+<title>Environments</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -439,7 +439,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>Archive</h1>
+<h1>Environments</h1>
 <div class="details">
 <span id="author" class="author">git-user-name</span><br>
 <span id="revnumber">version 2025.12.50,</span>
@@ -450,29 +450,96 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Information under this page is old and irrelevant and should probably be deleted. If a page ends up under this location there is probably a permissions issue with removal.</p>
+<p>While each and every work place has its own set of rules and requirements. There are a few base assumptions that will be
+made about how environments are setup and configured regardless of who you are working for.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_not_what_you_were_looking_for">Not what you were looking for?</h2>
+<h2 id="_minimum_expectations">Minimum Expectations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>It is expected that any workplace will have at least 3 environments &#8230;&#8203;</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>dev</p>
+</li>
+<li>
+<p>test</p>
+</li>
+<li>
+<p>prod</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Caution</div>
+</td>
+<td class="content">
+This is essentially the minimum scenario. If you observe anything less be very cautious and suggest that the environments
+be setup in this fashion.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The above environments may be in the same account or may be spread across multiple accounts. It is highly recommended for
+security that prod reside in a separate account.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_preferred_environment_setup">Preferred environment setup</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://doc.benrhine.com">Home</a></p>
+<p>dev</p>
 </li>
 <li>
-<p><a href="https://doc.benrhine.com/architecture">Architecture</a></p>
+<p>test</p>
 </li>
 <li>
-<p><a href="https://doc.benrhine.com/business">Business</a></p>
+<p>regression</p>
 </li>
 <li>
-<p><a href="https://doc.benrhine.com/engineering">Engineering</a></p>
+<p>pre-prod / uat</p>
+<div class="ulist">
+<ul>
+<li>
+<p>exact duplicate of prod env</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><a href="https://doc.benrhine.com/archive">Archive</a></p>
+<p>prod</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The above environment structure is what is preferred to have solid testing and automated deployment in place.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>dev can be deployed to at anytime or once everyday for the team</p>
+</li>
+<li>
+<p>test is deployed to on a weekly basis for testers</p>
+</li>
+<li>
+<p>regression is deployed to on a sprint basis</p>
+</li>
+<li>
+<p>pre-prod / uat is deployed to when prepping a release and maintained post-release so that in the event any issues or
+failures occur that traffic could be transferred to the environment OR so that testing could be done in a prod equivalent
+without actually testing on prod</p>
 </li>
 </ul>
 </div>
@@ -482,7 +549,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="footer">
 <div id="footer-text">
 Version 2025.12.50<br>
-Last updated 2025-12-12 14:19:00 -0700
+Last updated 2025-04-14 11:38:26 -0600
 </div>
 </div>
 </body>
