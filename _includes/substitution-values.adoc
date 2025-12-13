@@ -5,6 +5,7 @@
 
 // :sourcedir: documentation
 :revdate: {current-date}
+:project-name:              general-documentation
 
 :space-name-full:           Confluence Space
 :space-name-abv:            cs

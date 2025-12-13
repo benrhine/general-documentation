@@ -16,13 +16,61 @@ While this documentation does not speak for the entirety of the business, this d
 
 This layout is intended to provide quick navigation and to enhance the understanding and flow of the organization.
 
-include::_includes/repo-level-engineering-links.adoc[]
+// include::_includes/repo-level-engineering-links.adoc[]
 
-== Business Documentation
+=== Business Documentation
 
 Documentation under this page will be written in business language
 
 * {fl-business-link}[Business]
+
+=== Architectural Documentation
+
+Documentation under this page will be very technical written with engineers in mind
+
+* {fl-architecture-link}[Architecture]
+
+=== Engineering Documentation
+
+Documentation under this page will be very technical written with engineers in mind
+
+* {fl-engineering-link}[Engineering]
+
+=== Project Documentation
+
+Project specific documentation will be found under `Engineering`
+
+* {sl-projects-link}[Projects]
+
+[TIP]
+This documentation 9 times out of 10 will be published from the project specific repository.
+
+[CAUTION]
+Project specific documentation *_IS NOT_* part of the `{project-name}` repository. The `{project-name}` repository _only_ contains high level _general_ documentation and documentation that pertains to account setup.
+
+=== Other Documentation
+
+If you are looking for how to do a specific technical task please review the How-To's ...
+
+* {sl-how-to-link}[How-To's]
+
+If you are looking for how to perform a specific setup or grouping of tasks please review the Tutorials ...
+
+* {sl-tutorials-link}[Tutorials]
+
+== Adding to this documentation
+
+Much of this documentation is under version control and is auto published as part of the `{project-name}` repository or project specific repositories. If possible, documentation should be added in the respective project/repo to take advantages of auto-publishing and version control.
+
+=== When documentation is published to Confluence
+
+However, if that above is not possible and documentation is being published to Confluence; feel free to add pages under any header in Engineering as the page will be maintained and not affected by the auto publishing (when documentation is published).
+
+Do note, a warning will/should be on any page that is version controlled ... if you edit a page that is under version control through confluence, when the page is re-published those changes *WILL BE LOST* if they have not been added to the repository.
+
+== If you are new to the team ...
+
+If you are new to the team, welcome! We look forward to working with you and are sure you have a lot to offer. To help get you up to speed and going, after reading this page you should {sl-onboarding-link}[Start Here]. This will ensure your system is set up the same (or as similar as possible) to other team members and will guide you through the documentation to give you an overview of what we build and support.
 
 
 include::_includes/repo-level-not-what-you-were-looking-for.adoc[]
