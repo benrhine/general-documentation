@@ -1,0 +1,30 @@
+
+:includedir: ../_include
+
+ifdef::intellij[]
+
+// These will only work from the file they are included in - NOT this file
+
+* link:engineering/onboarding-start-here.adoc[Onboarding - Start Here!!!]
+* link:engineering/development.adoc[Development]
+* link:engineering/ops.adoc[Ops]
+* link:engineering/environments.adoc[Environments]
+* link:engineering/glossary.adoc[Glossary]
+* link:engineering/naming-convention.adoc[Naming Convention]
+* link:engineering/team-practices-proceedures.adoc[Team - Practices and Procedures]
+* link:engineering/troubleshooting.adoc[Troubleshooting]
+
+endif::[]
+
+ifdef::deploy[]
+
+* https://doc.benrhine.com/onboarding-start-here[Onboarding - Start Here!!!]
+* https://doc.benrhine.com/development[Development]
+* https://doc.benrhine.com/ops[Ops]
+* https://doc.benrhine.com/environments[Environments]
+* https://doc.benrhine.com/glossary[Glossary]
+* https://doc.benrhine.com/naming-convention[Naming Convention]
+* https://doc.benrhine.com/team-practices-proceedures[Team - Practices and Procedures]
+* https://doc.benrhine.com/troubleshooting[Troubleshooting]
+
+endif::[]

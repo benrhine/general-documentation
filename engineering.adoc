@@ -15,6 +15,8 @@ While this documentation does not speak for the entirety of the business, this d
 
 This layout is intended to provide quick navigation and to enhance the understanding and flow of the organization.
 
+include::_includes/engineering-links.adoc[]
+
 == Business Documentation
 
 Documentation under this page will be written in business language
