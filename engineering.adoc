@@ -21,7 +21,7 @@ include::_includes/repo-level-engineering-links.adoc[]
 
 Documentation under this page will be written in business language
 
-* {business-link}[Business]
+* {fl-business-link}[Business]
 
 
 include::_includes/repo-level-not-what-you-were-looking-for.adoc[]

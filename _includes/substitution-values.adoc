@@ -1,4 +1,7 @@
 
+// To view included values uncomment below
+// :intellij: intellij
+
 // :sourcedir: documentation
 :revdate: {current-date}
 
@@ -25,14 +28,14 @@
 :sl-best-practices-link:    
 :sl-cloud-link:       
 :sl-deployment-link:       
-:sl-development-link:       
+:sl-development-link:       https://doc.benrhine.com/engineering/development
 :sl-documentation-link:       
-:sl-environments-link:       
-:sl-glossary-link:       
+:sl-environments-link:      https://doc.benrhine.com/engineering/environments
+:sl-glossary-link:          https://doc.benrhine.com/engineering/glossary
 :sl-how-to-link:       
-:sl-naming-conventions-link:       
-:sl-onboarding-link:       
-:sl-ops-link:       
+:sl-naming-conventions-link: https://doc.benrhine.com/engineering/naming-conventions
+:sl-onboarding-link:        https://doc.benrhine.com/engineering/onboarding
+:sl-ops-link:               https://doc.benrhine.com/engineering/ops
 :sl-projects-link:       
 :sl-properties-link:       
 :sl-support-link:       
@@ -40,7 +43,7 @@
 :sl-technology-link:       
 :sl-tooling-link:       
 :sl-training-link:       
-:sl-troubleshooting-link:       
+:sl-troubleshooting-link:   https://doc.benrhine.com/engineering/troubleshooting
 :sl-tutorials-link:       
 :sl-reference-link:         https://doc.benrhine.com/links/reference
 :sl-research-link:          https://doc.benrhine.com/links/research
