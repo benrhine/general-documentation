@@ -297,7 +297,7 @@ tasks {
         // Define custom attributes using a map
         attributes(asciiDocAttributes )
         // Fill in will all sub-page jobs
-        dependsOn("docBusiness", "docArchitecture", "docArchive", "docLinks")
+        dependsOn("docBusiness", "docArchitecture", "docArchive", "docLinks", "docEngineering")
     }
     // # end::docConfluence[]
     // # tag::docConfluenceBusiness[]
