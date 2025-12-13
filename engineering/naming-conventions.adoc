@@ -3,6 +3,8 @@
 // having the :toc: value in the adoc files is required for publishToConfluence to work correctly
 :toc:
 
+:keywords: engineering, naming, convention
+
 Naming conventions should be clear and concise as well as clearly documented as to there meaning.
 
 === Repositories
@@ -47,4 +49,14 @@ You may also see the following
 ** what this is, what tool is being used, where it is, modifier
 
 
+// Renders correctly in IDE
+ifndef::deploy[]
+:intellij: intellij
 include::../_includes/repo-level-engineering-not-what-you-were-looking-for.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/repo-level-engineering-not-what-you-were-looking-for.adoc[]
+endif::[]
+
+

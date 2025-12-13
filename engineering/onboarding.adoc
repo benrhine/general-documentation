@@ -3,6 +3,8 @@
 // having the :toc: value in the adoc files is required for publishToConfluence to work correctly
 :toc:
 
+:keywords: engineering, onboarding, start, here
+
 == Application Documentation
 
 === Documentation
@@ -75,4 +77,15 @@ How to correctly configure your system - Choose your path
 - link:../../engineering/onboarding/windows.adoc[Windows]
 
 
+// Renders correctly in IDE
+ifndef::deploy[]
+:intellij: intellij
 include::../_includes/repo-level-engineering-not-what-you-were-looking-for.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/repo-level-engineering-not-what-you-were-looking-for.adoc[]
+endif::[]
+
+
+

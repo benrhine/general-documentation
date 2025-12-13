@@ -3,6 +3,8 @@
 // having the :toc: value in the adoc files is required for publishToConfluence to work correctly
 :toc:
 
+:keywords: engineering, best, practices, learn, educate
+
 This page is intended to encourage all the basic best practices that should be implemented on your project from the very
 beginning.
 
@@ -16,4 +18,12 @@ beginning.
 
 - link:../engineering/development/logging/logging-masking-sensitive-data.adoc[Logging: Masking sensitive data]
 
+// Renders correctly in IDE
+ifndef::deploy[]
+:intellij: intellij
+include::../_includes/repo-level-engineering-not-what-you-were-looking-for.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
 include::{includedir}/repo-level-engineering-not-what-you-were-looking-for.adoc[]
+endif::[]

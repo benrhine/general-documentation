@@ -3,9 +3,22 @@
 // having the :toc: value in the adoc files is required for publishToConfluence to work correctly
 :toc:
 
+:keywords: engineering, deployment, application, infrastructure, iac
+
 This page is intended to be the top level container for all deployment documentation.
 
 include::../_includes/eng-level-deployment-links.adoc[]
 
 
+// Renders correctly in IDE
+ifndef::deploy[]
+:intellij: intellij
 include::../_includes/repo-level-engineering-not-what-you-were-looking-for.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/repo-level-engineering-not-what-you-were-looking-for.adoc[]
+endif::[]
+
+
+
