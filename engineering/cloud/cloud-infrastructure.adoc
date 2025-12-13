@@ -1,4 +1,7 @@
 = Cloud Infrastructure
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
+:toc:
 
 This folder contains notes and setups for various cloud providers and are documented from
 the perspective of being setup/configured using the web interface or the cloud providers specific command line tools.

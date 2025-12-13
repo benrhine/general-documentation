@@ -1,5 +1,9 @@
 == Naming Conventions
-Naming conventions should be clear and conciese as well as clearly documented as to there meaning.
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
+:toc:
+
+Naming conventions should be clear and concise as well as clearly documented as to there meaning.
 
 === Repositories
 It is suggested to give repositories a descriptive name. It is even better to give the repository a name that can be the same as the deployment name (i.e. in Docker, Aws, ect) for easy reference.

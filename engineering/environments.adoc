@@ -1,4 +1,7 @@
 = Environments
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
+:toc:
 
 While each and every work place has its own set of rules and requirements. There are a few base assumptions that will be
 made about how environments are setup and configured regardless of who you are working for.

@@ -1,4 +1,7 @@
 = Best Practices
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
+:toc:
 
 This page is intended to encourage all the basic best practices that should be implemented on your project from the very
 beginning.
@@ -13,4 +16,4 @@ beginning.
 
 - link:../engineering/development/logging/logging-masking-sensitive-data.adoc[Logging: Masking sensitive data]
 
-include::../_includes/repo-level-engineering-not-what-you-were-looking-for.adoc[]
+include::{includedir}/repo-level-engineering-not-what-you-were-looking-for.adoc[]
