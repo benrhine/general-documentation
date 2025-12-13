@@ -1,5 +1,6 @@
 == Read Me
 
+// To view included values uncomment below
 // :intellij: intellij
 
 include::_includes/repo-level-links.adoc[]

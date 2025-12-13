@@ -1,4 +1,25 @@
 = Engineering
 
+:toc:
+
+:keywords: engineering, technical, developer, ops
+
+// To view included values uncomment below
+// :intellij: intellij
+
+All documentation under this page is technical in nature and is intended to be internal to the development team(s) but is available for reference for any non-technical resource (i.e. business side of the house) upon request.  If you need to review the business documentation please see the documentation under {business-link}[Business].
+
+== How to navigate this documentation?
+
+While this documentation does not speak for the entirety of the business, this documentation is geared toward any developers within the organization. This top level structure is constructed in such a manner that it can be copied and pasted under any high level organization and give a sense of unified structure between different pillars of the company and teams.
+
+This layout is intended to provide quick navigation and to enhance the understanding and flow of the organization.
+
+== Business Documentation
+
+Documentation under this page will be written in business language
+
+* {business-link}[Business]
+
 
 include::_includes/repo-level-not-what-you-were-looking-for.adoc[]

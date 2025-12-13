@@ -138,8 +138,8 @@ val month                                           = getCurrentMonth()
 val week                                            = LocalDate.now().get(IsoFields.WEEK_OF_WEEK_BASED_YEAR)
 
 // Confluence values
-val srcDirAbs                                       = file("documentation").absolutePath
-val includeDirAbs                                   = file("documentation/_includes").absolutePath
+val srcDirAbs                                       = file(projectDir).absolutePath
+val includeDirAbs                                   = file("$projectDir/_includes").absolutePath
 var confluenceSpaceNameFull                         = "Confluence Space"
 var confluenceSpaceNameAbv                          = "CS"                 // Global Data Product
 var organization1NameFull                           = "Rhine Consulting"
@@ -180,7 +180,8 @@ val asciiDocAttributes = mapOf(
     "project-name-1-abv"        to "TEST-PROJECT".lowercase(),
     "project-name-1-abv-upper"  to "TEST-PROJECT",
     "project-link"              to "",
-    "project-repo"              to ""
+    "project-repo"              to "",
+    "business-link"             to "https://doc.benrhine.com/business"
 
 
 

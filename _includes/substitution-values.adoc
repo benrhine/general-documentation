@@ -1,0 +1,7 @@
+
+// :sourcedir: documentation
+:revdate: {current-date}
+
+:team-name-1-abv: br
+:business-link: https://doc.benrhine.com/business
+:org-name-1-link:
