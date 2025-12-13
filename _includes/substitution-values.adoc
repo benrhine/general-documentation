@@ -1,7 +1,7 @@
 
 // To view included values uncomment below
 // :intellij: intellij
-// :deploy: deploy
+:deploy: deploy
 
 // :sourcedir: documentation
 :revdate: {current-date}
