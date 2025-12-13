@@ -2,6 +2,45 @@
 // :sourcedir: documentation
 :revdate: {current-date}
 
-:team-name-1-abv: br
-:business-link: https://doc.benrhine.com/business
-:org-name-1-link:
+:space-name-full:           Rhine Consulting
+:space-name-abv:            rc
+:space-name-abv-upper:      RC
+:org-name-1-full:           
+:org-name-1-abv:           
+:org-name-1-abv-upper:      
+:org-name-1-link:          
+:team-name-1-full:          Ben Rhine
+:team-name-1-abv:           br
+:team-name-1-abv-upper:     BR
+:project-name-1-full:       general-documentation
+:project-name-1-abv:        gd
+:project-name-1-abv-upper:  GD
+:project-link:             
+:project-repo:             
+:fl-home-link:              https://doc.benrhine.com
+:fl-architecture-link:      https://doc.benrhine.com/architecture
+:fl-business-link:          https://doc.benrhine.com/business
+:fl-engineering-link:       https://doc.benrhine.com/engineering
+:fl-archive-link:           https://doc.benrhine.com/archive
+:sl-best-practices-link:    
+:sl-cloud-link:       
+:sl-deployment-link:       
+:sl-development-link:       
+:sl-documentation-link:       
+:sl-environments-link:       
+:sl-glossary-link:       
+:sl-how-to-link:       
+:sl-naming-conventions-link:       
+:sl-onboarding-link:       
+:sl-ops-link:       
+:sl-projects-link:       
+:sl-properties-link:       
+:sl-support-link:       
+:sl-team-link:       
+:sl-technology-link:       
+:sl-tooling-link:       
+:sl-training-link:       
+:sl-troubleshooting-link:       
+:sl-tutorials-link:       
+:sl-reference-link:         https://doc.benrhine.com/links/reference
+:sl-research-link:          https://doc.benrhine.com/links/research

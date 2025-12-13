@@ -1,6 +1,8 @@
 
 :includedir: ../_include
 
+include::substitution-values.adoc[]
+
 ifdef::intellij[]
 
 // These will only work from the file they are included in - NOT this file

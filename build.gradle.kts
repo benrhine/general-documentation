@@ -206,7 +206,8 @@ val asciiDocAttributes = mapOf(
     "sl-training-link"       to "",
     "sl-troubleshooting-link"       to "",
     "sl-tutorials-link"       to "",
-
+    "sl-reference-link"       to "https://doc.benrhine.com/links/reference",
+    "sl-research-link"       to "https://doc.benrhine.com/links/research",
 
 
 )

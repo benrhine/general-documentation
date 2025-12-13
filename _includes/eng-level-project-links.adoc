@@ -1,0 +1,4 @@
+
+:includedir: ../../_include
+
+include::substitution-values.adoc[]
