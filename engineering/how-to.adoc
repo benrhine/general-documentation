@@ -1,0 +1,5 @@
+= How To
+
+:toc:
+
+include::../_includes/how-to-links.adoc[]

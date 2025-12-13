@@ -1,0 +1,5 @@
+= Properties
+
+:toc:
+
+include::../_includes/properties-links.adoc[]

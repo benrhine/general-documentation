@@ -1,0 +1,5 @@
+= Team
+
+:toc:
+
+include::../_includes/team-links.adoc[]

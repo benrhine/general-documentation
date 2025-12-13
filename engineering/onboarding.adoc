@@ -6,7 +6,7 @@
 === Documentation
 Documentation is written in Confluence or Asciidoc
 
-- link:../engineering/best-practices/best-practices.adoc[Best Practices]
+- link:../engineering/best-practices.adoc[Best Practices]
 - link:../engineering/development/build/build.adoc[Build]
 - link:../engineering/cloud/cloud-infrastructure.adoc[Cloud Infrastructure]
 - link:../../engineering/development/data/data.adoc[Data]

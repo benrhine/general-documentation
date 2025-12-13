@@ -1,0 +1,5 @@
+= Tutorials
+
+:toc:
+
+include::../_includes/training-links.adoc[]

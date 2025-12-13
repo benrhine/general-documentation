@@ -9,7 +9,7 @@ me to more quickly bring necessary documentation and notes to any new team in th
 
 - [Onboarding: Start Here](engineering/onboarding.adoc)
 - [Application](application/application.adoc)
-- [Best Practices](engineering/best-practices/best-practices.adoc)
+- [Best Practices](engineering/best-practices.adoc)
   - [Faster Strings](engineering/best-practices/java-faster-strings.adoc)
   - [Use of the keyword final](engineering/best-practices/java-use-of-the-keyword-final.adoc)
 - [Build](engineering/development/build/build.adoc)

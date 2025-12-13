@@ -1,0 +1,5 @@
+= Ops
+
+:toc:
+
+include::../_includes/ops-links.adoc[]

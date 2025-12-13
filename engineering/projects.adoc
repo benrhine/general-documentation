@@ -1,0 +1,5 @@
+= Projects
+
+:toc:
+
+include::../_includes/project-links.adoc[]

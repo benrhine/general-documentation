@@ -1,0 +1,5 @@
+= Documentation
+
+:toc:
+
+include::../_includes/documentation-links.adoc[]
