@@ -15,10 +15,10 @@ endif::[]
 
 ifdef::deploy[]
 
-* https://doc.benrhine.com[Home]
-* https://doc.benrhine.com/architecture[Architecture]
-* https://doc.benrhine.com/business[Business]
-* https://doc.benrhine.com/engineering[Engineering]
-* https://doc.benrhine.com/archive[Archive]
+* {fl-home-link}[Home]
+* {fl-architecture-link}[Architecture]
+* {fl-business-link}[Business]
+* {fl-engineering-link}[Engineering]
+* {fl-archive-link}[Archive]
 
 endif::[]

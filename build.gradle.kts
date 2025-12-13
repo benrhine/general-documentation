@@ -181,7 +181,31 @@ val asciiDocAttributes = mapOf(
     "project-name-1-abv-upper"  to "TEST-PROJECT",
     "project-link"              to "",
     "project-repo"              to "",
-    "business-link"             to "https://doc.benrhine.com/business"
+    "fl-home-link"              to "https://doc.benrhine.com",
+    "fl-architecture-link"      to "https://doc.benrhine.com/architecture",
+    "fl-business-link"          to "https://doc.benrhine.com/business",
+    "fl-engineering-link"       to "https://doc.benrhine.com/engineering",
+    "fl-archive-link"           to "https://doc.benrhine.com/archive",
+    "sl-best-practices-link"       to "",
+    "sl-cloud-link"       to "",
+    "sl-deployment-link"       to "",
+    "sl-development-link"       to "",
+    "sl-documentation-link"       to "",
+    "sl-environments-link"       to "",
+    "sl-glossary-link"       to "",
+    "sl-how-to-link"       to "",
+    "sl-naming-conventions-link"       to "",
+    "sl-onboarding-link"       to "",
+    "sl-ops-link"       to "",
+    "sl-projects-link"       to "",
+    "sl-properties-link"       to "",
+    "sl-support-link"       to "",
+    "sl-team-link"       to "",
+    "sl-technology-link"       to "",
+    "sl-tooling-link"       to "",
+    "sl-training-link"       to "",
+    "sl-troubleshooting-link"       to "",
+    "sl-tutorials-link"       to "",
 
 
 
@@ -321,8 +345,8 @@ tasks {
         // Fill in will all sub-page jobs
         dependsOn()
     }
-    register<AsciidoctorTask>("docConfluenceEngineering")  {
-        setSourceDir(file("documentation/engineering"))
+    register<AsciidoctorTask>("docEngineering")  {
+        setSourceDir(file("engineering"))
         sources(delegateClosureOf<PatternSet> {
             include("*.adoc")
         })
@@ -330,12 +354,12 @@ tasks {
         // Define custom attributes using a map
         attributes(asciiDocAttributes )
         // Fill in will all sub-page jobs
-        dependsOn(
-            "docConfluenceEngAdr", "docConfluenceEngBuild", "docConfluenceEngCloud",
-            "docConfluenceEngDeployment", "docConfluenceEngGit", "docConfluenceEngHowTo", "docConfluenceEngJava",
-            "docConfluenceEngMisc", "docConfluenceEngReference", "docConfluenceEngSetups", "docConfluenceEngSupport",
-            "docConfluenceEngTeam", "docConfluenceEngTechSpecs", "docConfluenceEngTest",
-            "docConfluenceEngTooling", "docConfluenceEngTutorial")
+//        dependsOn(
+//            "docConfluenceEngAdr", "docConfluenceEngBuild", "docConfluenceEngCloud",
+//            "docConfluenceEngDeployment", "docConfluenceEngGit", "docConfluenceEngHowTo", "docConfluenceEngJava",
+//            "docConfluenceEngMisc", "docConfluenceEngReference", "docConfluenceEngSetups", "docConfluenceEngSupport",
+//            "docConfluenceEngTeam", "docConfluenceEngTechSpecs", "docConfluenceEngTest",
+//            "docConfluenceEngTooling", "docConfluenceEngTutorial")
     }
     // # end::docConfluenceBusiness[]
 

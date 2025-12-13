@@ -7,7 +7,7 @@ to a given issue at a company.
 This documentation has also been sanitized of any company information so that it can be portable between roles and allow
 me to more quickly bring necessary documentation and notes to any new team in the future.
 
-- [Onboarding: Start Here](engineering/onboarding-start-here.adoc)
+- [Onboarding: Start Here](engineering/onboarding.adoc)
 - [Application](application/application.adoc)
 - [Best Practices](engineering/best-practices/best-practices.adoc)
   - [Faster Strings](engineering/best-practices/java-faster-strings.adoc)
