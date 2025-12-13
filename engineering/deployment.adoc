@@ -7,12 +7,18 @@
 
 This page is intended to be the top level container for all deployment documentation.
 
+// Renders correctly in IDE
+ifndef::deploy[]
 include::../_includes/eng-level-deployment-links.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/eng-level-deployment-links.adoc[]
+endif::[]
 
 
 // Renders correctly in IDE
 ifndef::deploy[]
-:intellij: intellij
 include::../_includes/repo-level-engineering-not-what-you-were-looking-for.adoc[]
 endif::[]
 // Renders correctly in AsciiDoc Deployment

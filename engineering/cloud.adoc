@@ -7,7 +7,14 @@
 
 This page is intended to be the top level container for all documentation relating to cloud providers and cloud resources.
 
+// Renders correctly in IDE
+ifndef::deploy[]
 include::../_includes/eng-level-cloud-links.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/eng-level-cloud-links.adoc[]
+endif::[]
 
 
 // Renders correctly in IDE

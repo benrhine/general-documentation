@@ -5,8 +5,14 @@
 
 :keywords: engineering, support, run, books
 
+// Renders correctly in IDE
+ifndef::deploy[]
 include::../_includes/eng-level-support-links.adoc[]
-
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/eng-level-support-links.adoc[]
+endif::[]
 
 
 

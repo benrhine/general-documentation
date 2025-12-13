@@ -5,8 +5,14 @@
 
 :keywords: engineering, training
 
+// Renders correctly in IDE
+ifndef::deploy[]
 include::../_includes/eng-level-training-links.adoc[]
-
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/eng-level-training-links.adoc[]
+endif::[]
 
 
 

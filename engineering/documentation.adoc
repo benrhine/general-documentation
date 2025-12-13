@@ -5,8 +5,14 @@
 
 :keywords: engineering, documentation, doc
 
+// Renders correctly in IDE
+ifndef::deploy[]
 include::../_includes/eng-level-documentation-links.adoc[]
-
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/eng-level-documentation-links.adoc[]
+endif::[]
 
 // Renders correctly in IDE
 ifndef::deploy[]

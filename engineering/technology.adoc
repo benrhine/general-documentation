@@ -5,8 +5,14 @@
 
 :keywords: engineering, technology, tech
 
+// Renders correctly in IDE
+ifndef::deploy[]
 include::../_includes/eng-level-technology-links.adoc[]
-
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/eng-level-technology-links.adoc[]
+endif::[]
 
 
 

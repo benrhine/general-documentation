@@ -5,8 +5,14 @@
 
 :keywords: engineering, projects
 
+// Renders correctly in IDE
+ifndef::deploy[]
 include::../_includes/eng-level-project-links.adoc[]
-
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/eng-level-project-links.adoc[]
+endif::[]
 
 
 // Renders correctly in IDE

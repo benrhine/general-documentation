@@ -6,7 +6,14 @@
 // Tags created on pages with keywords relevant to content - default values are present and can be overridden by passed in attribute (and should be). Additionally, when using the publishToConfluence plugin it is more difficult to pass in the keywords so the defaults are preferred.
 :keywords: engineering, glossary, definition, what, does, this, mean
 
+// Renders correctly in IDE
+ifndef::deploy[]
 include::../_includes/eng-level-glossary-links.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/eng-level-glossary-links.adoc[]
+endif::[]
 
 * OKR - which stands for Objectives and Key Results, is a goal-setting framework used by teams and organizations to define measurable goals and track their progress. It helps focus efforts, align teams, and drive performance by setting ambitious, yet achievable, objectives and defining specific, measurable key results to track progress toward those objectives
 * KPI - Key Performance Indicator, is a quantifiable measure that tracks progress toward specific business objectives. It helps organizations assess the success of their efforts, allocate resources effectively, and make data-driven decisions. KPIs are used across various levels, from individual performance to overall company strategy
@@ -23,7 +30,6 @@ include::../_includes/eng-level-glossary-links.adoc[]
 
 // Renders correctly in IDE
 ifndef::deploy[]
-:intellij: intellij
 include::../_includes/repo-level-engineering-not-what-you-were-looking-for.adoc[]
 endif::[]
 // Renders correctly in AsciiDoc Deployment
