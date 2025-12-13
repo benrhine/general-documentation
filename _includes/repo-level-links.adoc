@@ -3,7 +3,7 @@
 
 include::substitution-values.adoc[]
 
-ifdef::intellij[]
+ifndef::deploy[]
 
 // These will only work from the file they are included in - NOT this file
 

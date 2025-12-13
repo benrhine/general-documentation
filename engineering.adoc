@@ -34,7 +34,15 @@ Documentation under this page will be very technical written with engineers in m
 
 Documentation under this page will be very technical written with engineers in mind
 
-* {fl-engineering-link}[Engineering]
+// Renders correctly in IDE
+ifndef::deploy[]
+:intellij: intellij
+include::_includes/repo-level-engineering-links.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/repo-level-engineering-links.adoc[]
+endif::[]
 
 === Project Documentation
 
