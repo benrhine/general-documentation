@@ -35,3 +35,6 @@ The above environment structure is what is preferred to have solid testing and a
 * pre-prod / uat is deployed to when prepping a release and maintained post-release so that in the event any issues or
 failures occur that traffic could be transferred to the environment OR so that testing could be done in a prod equivalent
 without actually testing on prod
+
+
+include::../_includes/repo-level-engineering-not-what-you-were-looking-for.adoc[]

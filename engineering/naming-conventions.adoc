@@ -11,7 +11,7 @@ It is suggested to give repositories names that not only reflect what the applic
 Suggest repos that are intended to be deployed to Aws Lambda be named simlar to as follows `lambda-application-name`
 
 === Deployed Lambda Services
-To improve visibility of a deployed application it is important that naming conventions are consistent so it is easy to say this item is associated with this product/project. It is also important that the naming conventions is concise as some interfaces can only display so many characters reducing the visiibility of portions of the application. For this reason clear and documented abbreviations (short names) are recommended to keep the AWS Console clean and easy to read.
+To improve visibility of a deployed application it is important that naming conventions are consistent so it is easy to say this item is associated with this product/project. It is also important that the naming conventions is concise as some interfaces can only display so many characters reducing the visibility of portions of the application. For this reason clear and documented abbreviations (short names) are recommended to keep the AWS Console clean and easy to read.
 
 Once deployed all lambda services should share the following naming convention (i.e. `TECHNOLOGY-APPLIATION-NAME`) which results in names like the following ...
 
@@ -41,3 +41,6 @@ You may also see the following
 * NAME-TOOL-ENVIRONMENT-EXTRA
 ** ldr-queue-topic-dev-alert
 ** what this is, what tool is being used, where it is, modifier
+
+
+include::../_includes/repo-level-engineering-not-what-you-were-looking-for.adoc[]

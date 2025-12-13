@@ -71,3 +71,6 @@ How to correctly configure your system - Choose your path
 - link:../../engineering/onboarding/linux.adoc[Linux]
 - link:../../engineering/onboarding/mac-os.adoc[MacOS]
 - link:../../engineering/onboarding/windows.adoc[Windows]
+
+
+include::../_includes/repo-level-engineering-not-what-you-were-looking-for.adoc[]

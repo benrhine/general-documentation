@@ -1,7 +1,7 @@
 
 // To view included values uncomment below
 // :intellij: intellij
-:deploy: deploy
+// :deploy: deploy
 
 // :sourcedir: documentation
 :revdate: {current-date}
@@ -26,25 +26,25 @@
 :fl-business-link:          https://doc.benrhine.com/business
 :fl-engineering-link:       https://doc.benrhine.com/engineering
 :fl-archive-link:           https://doc.benrhine.com/archive
-:sl-best-practices-link:    
-:sl-cloud-link:       
-:sl-deployment-link:       
+:sl-best-practices-link:    https://doc.benrhine.com/engineering/best-practices
+:sl-cloud-link:             https://doc.benrhine.com/engineering/cloud
+:sl-deployment-link:        https://doc.benrhine.com/engineering/deployment
 :sl-development-link:       https://doc.benrhine.com/engineering/development
-:sl-documentation-link:       
+:sl-documentation-link:     https://doc.benrhine.com/engineering/documentation
 :sl-environments-link:      https://doc.benrhine.com/engineering/environments
 :sl-glossary-link:          https://doc.benrhine.com/engineering/glossary
-:sl-how-to-link:       
+:sl-how-to-link:            https://doc.benrhine.com/engineering/how-to
 :sl-naming-conventions-link: https://doc.benrhine.com/engineering/naming-conventions
 :sl-onboarding-link:        https://doc.benrhine.com/engineering/onboarding
 :sl-ops-link:               https://doc.benrhine.com/engineering/ops
-:sl-projects-link:       
-:sl-properties-link:       
-:sl-support-link:       
-:sl-team-link:       
-:sl-technology-link:       
-:sl-tooling-link:       
-:sl-training-link:       
+:sl-projects-link:          https://doc.benrhine.com/engineering/projects
+:sl-properties-link:        https://doc.benrhine.com/engineering/properties
+:sl-support-link:           https://doc.benrhine.com/engineering/support
+:sl-team-link:              https://doc.benrhine.com/engineering/team
+:sl-technology-link:        https://doc.benrhine.com/engineering/technology
+:sl-tooling-link:           https://doc.benrhine.com/engineering/tooling
+:sl-training-link:          https://doc.benrhine.com/engineering/training
 :sl-troubleshooting-link:   https://doc.benrhine.com/engineering/troubleshooting
-:sl-tutorials-link:       
+:sl-tutorials-link:         https://doc.benrhine.com/engineering/tutorials
 :sl-reference-link:         https://doc.benrhine.com/links/reference
 :sl-research-link:          https://doc.benrhine.com/links/research

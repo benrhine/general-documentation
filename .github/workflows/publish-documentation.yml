@@ -27,6 +27,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Get Git Commiter Name and Email
+        run: | 
+          COMMITER_NAME=$(git log -1 --pretty=%cn)
+          COMMITER_EMAIL=$(git log -1 --pretty=%ce)
+          echo "COMMITER_NAME=$COMMITER_NAME" >> $GITHUB_ENV
+          echo "COMMITER_EMAIL=COMMITER_EMAIL" >> $GITHUB_ENV
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Setup JDK 24
@@ -39,8 +45,21 @@ jobs:
 #        uses: gradle/actions/setup-gradle@v4
       - name: Grant execute permission for Gradle
         run: chmod +x gradlew
+      - name: Get current date and time
+        id: current-time
+        uses: Kaven-Universe/github-action-current-date-time@v1
+        with:
+          format: "YYYY-MM-DD HH:mm:ss"
+      - name: Get build number
+        run: |
+          echo "Current Build Number: ${{github.run_number}} name: Use Build Number in another step"
       - name: Build with AsciiDoc
         run: ./gradlew docGeneral
+        env:
+          GIT_USER_NAME: ${{env.COMMITER_NAME}}
+          GIT_USER_EMAIL: ${{env.COMMITER_EMAIL}}
+          GIT_COMMIT_MSG: ${{github.event.head_commit.message}}
+          GIT_BUILD_NUM: ${{github.run_number}}
 #        with:
 #          source: ./
 #          destination: ./_site
