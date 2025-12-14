@@ -17,14 +17,14 @@ endif::[]
 
 This page is intended to capture all documentation specific to the team and team processes to create a single unified place for reference. If you are new to the team please review these practices to become familiar with how {team-name-1-abv-upper} teams operate.
 
-// // Renders correctly in IDE
-// ifndef::deploy[]
-// include::../_includes/eng-level-team-links.adoc[]
-// endif::[]
-// // Renders correctly in AsciiDoc Deployment
-// ifdef::deploy[]
-// include::{includedir}/eng-level-team-links.adoc[]
-// endif::[]
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../_includes/eng-level-team-links.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/eng-level-team-links.adoc[]
+endif::[]
 
 // Renders correctly in IDE
 ifndef::deploy[]

@@ -369,7 +369,7 @@ tasks {
 
     // START - Build all sub-pages under eng
     register<AsciidoctorTask>("docEngTraining")  {
-        setSourceDir(file("documentation/engineering/training"))
+        setSourceDir(file("engineering/training"))
         sources(delegateClosureOf<PatternSet> {
             include("*.adoc")
         })
@@ -377,8 +377,29 @@ tasks {
 
         // Define custom attributes using a map
         attributes(asciiDocAttributes )
+        // Fill in will all sub-page jobs
+        dependsOn("docEngTrainingTutorial", "docEngTrainingHowTo")
     }
+    register<AsciidoctorTask>("docEngTrainingTutorial")  {
+        setSourceDir(file("engineering/training/tutorial"))
+        sources(delegateClosureOf<PatternSet> {
+            include("*.adoc")
+        })
+        setOutputDir(file("build/docs/engineering/Training/tutorial"))
 
+        // Define custom attributes using a map
+        attributes(asciiDocAttributes )
+    }
+    register<AsciidoctorTask>("docEngTrainingHowTo")  {
+        setSourceDir(file("engineering/training/how-to"))
+        sources(delegateClosureOf<PatternSet> {
+            include("*.adoc")
+        })
+        setOutputDir(file("build/docs/engineering/training/how-to"))
+
+        // Define custom attributes using a map
+        attributes(asciiDocAttributes )
+    }
     //---
     register<AsciidoctorTask>("docConfluenceEngAdr")  {
         setSourceDir(file("documentation/engineering/eng-adr"))
@@ -400,16 +421,7 @@ tasks {
         // Define custom attributes using a map
         attributes(asciiDocAttributes )
     }
-    register<AsciidoctorTask>("docConfluenceEngHowTo")  {
-        setSourceDir(file("documentation/engineering/eng-how-to"))
-        sources(delegateClosureOf<PatternSet> {
-            include("*.adoc")
-        })
-        setOutputDir(file("build/docs/engineering/eng-how-to"))
 
-        // Define custom attributes using a map
-        attributes(asciiDocAttributes )
-    }
     register<AsciidoctorTask>("docConfluenceEngMisc")  {
         setSourceDir(file("documentation/engineering/eng-misc"))
         sources(delegateClosureOf<PatternSet> {
@@ -492,16 +504,7 @@ tasks {
         // Fill in will all sub-page jobs
         dependsOn("docConfluenceEngGit", "docConfluenceEngJava")
     }
-    register<AsciidoctorTask>("docConfluenceEngTutorial")  {
-        setSourceDir(file("documentation/engineering/eng-tutorial"))
-        sources(delegateClosureOf<PatternSet> {
-            include("*.adoc")
-        })
-        setOutputDir(file("build/docs/engineering/eng-tutorial"))
 
-        // Define custom attributes using a map
-        attributes(asciiDocAttributes )
-    }
     // END - Build all sub-pages under eng
 
     // START - Build all sub-pages under eng-tooling
