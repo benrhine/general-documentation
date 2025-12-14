@@ -15,6 +15,8 @@ ifdef::confluence[]
 include::{includedir}/version-control-warning.adoc[]
 endif::[]
 
+The pages and documentation below this page are intended to document the tooling the team uses on their local system to quickly and successfully develop the requested business applications.
+
 // Renders correctly in IDE
 ifndef::deploy[]
 include::../_includes/eng-level-tooling-links.adoc[]
@@ -24,8 +26,13 @@ ifdef::deploy[]
 include::{includedir}/eng-level-tooling-links.adoc[]
 endif::[]
 
+== Projects
 
+All projects being executed by the {team-name-1-abv-upper} team and their associated technologies
 
+=== Future project title goes here
+
+* TODO
 
 // Renders correctly in IDE
 ifndef::deploy[]
