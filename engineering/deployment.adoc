@@ -5,6 +5,15 @@
 
 :keywords: engineering, deployment, application, infrastructure, iac
 
+// Renders correctly in IDE for testing purposes
+// ifndef::confluence[]
+// include::../_includes/version-control-warning.adoc[]
+// endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
+
 This page is intended to be the top level container for all deployment documentation.
 
 // Renders correctly in IDE

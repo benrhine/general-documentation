@@ -5,8 +5,17 @@
 
 :keywords: engineering, environments, env
 
+// Renders correctly in IDE for testing purposes
+// ifndef::confluence[]
+// include::../_includes/version-control-warning.adoc[]
+// endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
+
 While each and every work place has its own set of rules and requirements. There are a few base assumptions that will be
-made about how environments are setup and configured regardless of who you are working for.
+made about how environments are set up and configured regardless of who you are working for.
 
 == Minimum Expectations
 

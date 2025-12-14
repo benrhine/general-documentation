@@ -5,6 +5,15 @@
 
 :keywords: engineering, naming, convention
 
+// Renders correctly in IDE for testing purposes
+// ifndef::confluence[]
+// include::../_includes/version-control-warning.adoc[]
+// endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
+
 Naming conventions should be clear and concise as well as clearly documented as to there meaning.
 
 === Repositories

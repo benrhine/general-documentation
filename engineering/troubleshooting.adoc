@@ -5,6 +5,15 @@
 
 :keywords: engineering, troubleshooting,
 
+// Renders correctly in IDE for testing purposes
+// ifndef::confluence[]
+// include::../_includes/version-control-warning.adoc[]
+// endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
+
 A directory of all troubleshooting documentation ...
 
 * link:engineering/development/build/build-maven-troubleshooting.adoc[Build: Maven Troubleshooting]

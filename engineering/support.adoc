@@ -5,6 +5,15 @@
 
 :keywords: engineering, support, run, books
 
+// Renders correctly in IDE for testing purposes
+// ifndef::confluence[]
+// include::../_includes/version-control-warning.adoc[]
+// endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
+
 // Renders correctly in IDE
 ifndef::deploy[]
 include::../_includes/eng-level-support-links.adoc[]

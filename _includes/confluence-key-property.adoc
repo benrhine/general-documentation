@@ -1,0 +1,3 @@
+
+[NOTE]
+The key that Confluence generates for this page will be stored as a property in Aws System Manager Parameter Store using Terraform so that applications developed under {team-name-1-abv-upper} can auto-publish there documentation to Confluence (project specific documentation will live alongside the application in the project repository).

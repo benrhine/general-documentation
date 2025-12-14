@@ -1,9 +1,27 @@
 = Documentation
 // Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
 // having the :toc: value in the adoc files is required for publishToConfluence to work correctly
-:toc:
+:toc: left
 
 :keywords: engineering, documentation, doc
+
+// Renders correctly in IDE for testing purposes
+// ifndef::confluence[]
+// include::../_includes/version-control-warning.adoc[]
+// endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
+
+This page is intended to be the top level container for information about engineering documentation and how it is produced. It is *NOT* the container _FOR_ documentation.
+
+== Reference
+
+== Research
+
+* https://antora.org
+** This may allow a real left hand link bar, should review once doc is a little more stable
 
 // Renders correctly in IDE
 ifndef::deploy[]

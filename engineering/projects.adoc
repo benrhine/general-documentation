@@ -5,6 +5,17 @@
 
 :keywords: engineering, projects
 
+// Renders correctly in IDE for testing purposes
+// ifndef::confluence[]
+// include::../_includes/version-control-warning.adoc[]
+// include::../_includes/confluence-key-property.adoc[]
+// endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+include::{includedir}/version-control-warning.adoc[]
+include::{includedir}/confluence-key-property.adoc[]
+endif::[]
+
 // Renders correctly in IDE
 ifndef::deploy[]
 include::../_includes/eng-level-project-links.adoc[]
@@ -14,6 +25,42 @@ ifdef::deploy[]
 include::{includedir}/eng-level-project-links.adoc[]
 endif::[]
 
+[TIP]
+Create new projects/application pages as sub-pages of this page.
+
+This is the top level container for all projects that are developed as part of {team-name-1-abv-upper}. Each project that is developed by the {team-name-1-abv-upper} team and subteams will publish projects specific documentation as sub-pages of this page.
+
+== Project documentation organizational expectations
+
+Page names under the "Projects" header should match the top level repository name. If the repository has multiple projects then those should be under the repository page name. It is expected that the top level entry for any project is the accompanying README from that repository.
+
+=== Naming Convention(s)
+
+How pages should be named and structured under projects ...
+
+==== Singular/Mono project
+
+If the project repo is a singular project i.e. something stand-alone then
+
+* The page name under the `Projects` page should match the repository name and contain the projects README contents
+
+==== Multi Project
+
+If the project repo contains multiple projects i.e. and application and its related Terraform scripts, then ...
+
+* The top page name under the `Projects` page should match the repository name and contain the projects README contents
+* Additionally, there should be sub-pages for each subproject (i.e. Terraform script) and those should contain the subprojects README contents
+* Subproject sub-pages should contain demarcation in the header to indicate what type of project it is (i.e. TF for Terraform, lib for library, FRONT for frontend, ect ...)
+
+=== Expected documentation to be published with project
+
+Each project is responsible for their own documentation and is expected to publish it {team-projects-link}[here]. As part of that documentation it is expected that each project and or subproject will publish the following as the minimum expected level of documentation ...
+
+* Deployment - A complete set of instructions on how to fully deploy the project
+* Properties - Any properties used by or created by the project
+* Troubleshooting - Any known issues and how to work around them
+* Disaster Recovery - What is the plan in a worst case scenario and how do we recover this project
+* Changelog - Notes on what changed between deployments
 
 // Renders correctly in IDE
 ifndef::deploy[]

@@ -2,6 +2,15 @@
 
 :keywords: engineering, reference
 
+// Renders correctly in IDE for testing purposes
+// ifndef::confluence[]
+// include::../_includes/version-control-warning.adoc[]
+// endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
+
 * https://intellipaat.com/community/2369/downloading-the-latest-file-in-an-s3-bucket-using-aws-cli
 * https://intellipaat.com/community/534/how-to-display-just-the-name-of-files-using-aws-s3-ls-command
 * https://stackoverflow.com/questions/31062365/get-last-modified-object-from-s3-using-aws-cli
