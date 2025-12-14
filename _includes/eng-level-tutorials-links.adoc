@@ -2,3 +2,18 @@
 :includedir: ../../_include
 
 include::substitution-values.adoc[]
+
+ifndef::deploy[]
+
+// These will only work from the file they are included in - NOT this file
+
+* link:../engineering/training/tutorials/tutorial-cloudwatch-send-slack.adoc[Tutorial: CloudWatch Send to Slack]
+
+endif::[]
+
+ifdef::deploy[]
+
+* {}[Tutorial: CloudWatch Send to Slack]
+
+
+endif::[]

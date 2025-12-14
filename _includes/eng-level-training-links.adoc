@@ -2,3 +2,19 @@
 :includedir: ../../_include
 
 include::substitution-values.adoc[]
+
+ifndef::deploy[]
+
+// These will only work from the file they are included in - NOT this file
+
+* link:../engineering/training/how-to.adoc[How To]
+* link:../engineering/training/tutorials.adoc[Tutorials]
+
+endif::[]
+
+ifdef::deploy[]
+
+* {tl-how-to-link}[How To]
+* {tl-tutorials-link}[Tutorials]
+
+endif::[]

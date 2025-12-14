@@ -61,11 +61,11 @@ Project specific documentation *_IS NOT_* part of the `{project-name}` repositor
 
 If you are looking for how to do a specific technical task please review the How-To's ...
 
-* {sl-how-to-link}[How-To's]
+* {tl-how-to-link}[How-To's]
 
 If you are looking for how to perform a specific setup or grouping of tasks please review the Tutorials ...
 
-* {sl-tutorials-link}[Tutorials]
+* {tl-tutorials-link}[Tutorials]
 
 == Adding to this documentation
 

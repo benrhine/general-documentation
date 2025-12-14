@@ -17,7 +17,7 @@ endif::[]
 
 // Renders correctly in IDE
 ifndef::deploy[]
-include::../_includes/generic-information.adoc[]
+include::../../_includes/generic-information.adoc[]
 endif::[]
 // Renders correctly in AsciiDoc Deployment
 ifdef::deploy[]
@@ -28,7 +28,7 @@ This is the top level container for all non-team specific How To documentation.
 
 // Renders correctly in IDE
 ifndef::deploy[]
-include::../_includes/eng-level-how-to-links.adoc[]
+include::../../_includes/eng-level-how-to-links.adoc[]
 endif::[]
 // Renders correctly in AsciiDoc Deployment
 ifdef::deploy[]
@@ -39,7 +39,7 @@ endif::[]
 // Renders correctly in IDE
 ifndef::deploy[]
 :intellij: intellij
-include::../_includes/repo-level-engineering-not-what-you-were-looking-for.adoc[]
+include::../../_includes/repo-level-engineering-not-what-you-were-looking-for.adoc[]
 endif::[]
 // Renders correctly in AsciiDoc Deployment
 ifdef::deploy[]

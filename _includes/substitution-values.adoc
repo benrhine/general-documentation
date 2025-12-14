@@ -34,7 +34,6 @@
 :sl-documentation-link:     https://doc.benrhine.com/engineering/documentation
 :sl-environments-link:      https://doc.benrhine.com/engineering/environments
 :sl-glossary-link:          https://doc.benrhine.com/engineering/glossary
-:sl-how-to-link:            https://doc.benrhine.com/engineering/how-to
 :sl-naming-conventions-link: https://doc.benrhine.com/engineering/naming-conventions
 :sl-onboarding-link:        https://doc.benrhine.com/engineering/onboarding
 :sl-ops-link:               https://doc.benrhine.com/engineering/ops
@@ -42,10 +41,10 @@
 :sl-properties-link:        https://doc.benrhine.com/engineering/properties
 :sl-support-link:           https://doc.benrhine.com/engineering/support
 :sl-team-link:              https://doc.benrhine.com/engineering/team
-:sl-technology-link:        https://doc.benrhine.com/engineering/technology
 :sl-tooling-link:           https://doc.benrhine.com/engineering/tooling
 :sl-training-link:          https://doc.benrhine.com/engineering/training
 :sl-troubleshooting-link:   https://doc.benrhine.com/engineering/troubleshooting
-:sl-tutorials-link:         https://doc.benrhine.com/engineering/tutorials
 :sl-reference-link:         https://doc.benrhine.com/links/reference
 :sl-research-link:          https://doc.benrhine.com/links/research
+:tl-how-to-link:            https://doc.benrhine.com/engineering/training/how-to
+:tl-tutorials-link:         https://doc.benrhine.com/engineering/training/tutorials
