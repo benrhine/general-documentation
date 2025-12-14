@@ -1,5 +1,6 @@
 = Terraform Modules
-:toc:
+// Not sure how placement will affect publishing to Confluence
+:toc: left
 
 == What is a Terraform Module?
 Terraform modules are a way to modularize sections of a project terraform code for re-use in order to increase readability,

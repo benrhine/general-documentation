@@ -1,5 +1,6 @@
 = Data: Generation
-:toc:
+// Not sure how placement will affect publishing to Confluence
+:toc: left
 
 Every software development project should strive to have the ability to generate unique test data on the fly.
 This is one of the largest struggles I have observed during my time in the software development field. The lack of test

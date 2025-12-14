@@ -1,5 +1,6 @@
 = Compare: Cross-Account / Multi-Account
-:toc:
+// Not sure how placement will affect publishing to Confluence
+:toc: left
 
 This is specifically geared toward multiple accounts or cross-account work, _NOT_ multiple environments. To see about
 multi-environment see link:compare-multiple-environments.adoc[here]. While cross/multi-account and multi-environment are

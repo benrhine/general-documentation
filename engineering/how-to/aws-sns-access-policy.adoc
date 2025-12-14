@@ -1,5 +1,6 @@
 = How To: SNS Access Policy
-:toc:
+// Not sure how placement will affect publishing to Confluence
+:toc: left
 
 The goal of this page is how to define a custom SNS access policy at resource deployment time
 

@@ -1,5 +1,6 @@
 = How To: Powertools
-:toc:
+// Not sure how placement will affect publishing to Confluence
+:toc: left
 
 Aws Power Tools is a logging, metrics, and observability tool suite developed by Aws to improve all aforementioned aspects in lambda based applications.
 

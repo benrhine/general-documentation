@@ -1,5 +1,6 @@
 = Terraform: (AWS) Create CodeBuild job
-:toc:
+// Not sure how placement will affect publishing to Confluence
+:toc: left
 
 [CAUTION]
 Please be aware that to be able to create a CodeBuild job using IaC the executing role

@@ -7,11 +7,11 @@ ifndef::deploy[]
 
 // These will only work from the file they are included in - NOT this file
 
-* link:index.adoc[Home]
-* link:architecture.adoc[Architecture]
-* link:business.adoc[Business]
-* link:engineering.adoc[Engineering]
-* link:archive.adoc[Archive]
+* link:../index.adoc[Home]
+* link:../architecture.adoc[Architecture]
+* link:../business.adoc[Business]
+* link:../engineering.adoc[Engineering]
+* link:../archive.adoc[Archive]
 
 endif::[]
 

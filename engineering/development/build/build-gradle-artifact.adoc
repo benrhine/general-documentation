@@ -1,5 +1,6 @@
 = Gradle: Build Artifact
-:toc:
+// Not sure how placement will affect publishing to Confluence
+:toc: left
 
 The https://gradle.org[Gradle build system] is a modern alternative to the legacy https://maven.apache.org[Maven system]. While maven is still a great tool it is
 somewhat confusing in how to do more advanced configuration since it is based in xml and is lacking much of the flexibility

@@ -1,5 +1,6 @@
 = CodeCommit
-:toc:
+// Not sure how placement will affect publishing to Confluence
+:toc: left
 
 This page is to capture all details related to CodeCommit.
 

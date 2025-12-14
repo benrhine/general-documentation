@@ -1,5 +1,6 @@
 = How To: Configure DLQ
-:TOC:
+// Not sure how placement will affect publishing to Confluence
+:toc: left
 
 This page describes how to setup a DLQ (Dead Letter Queue)
 

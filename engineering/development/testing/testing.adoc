@@ -1,5 +1,6 @@
 = Test
-:toc:
+// Not sure how placement will affect publishing to Confluence
+:toc: left
 
 The intent of this page is to collect all the various testing types applied to a product during development as well as
 any additional requirements for said testing.

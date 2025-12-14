@@ -1,5 +1,6 @@
 = Comparison: Variables
-:toc:
+// Not sure how placement will affect publishing to Confluence
+:toc: left
 
 All three IaC frameworks support variable input (it would be kind of silly if they didn't) but how each one achieves this
 is different.

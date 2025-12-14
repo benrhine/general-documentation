@@ -1,5 +1,6 @@
 = Testing: Mocking
-:toc:
+// Not sure how placement will affect publishing to Confluence
+:toc: left
 
 [WARNING]
 *DO NOT USE* PowerMockito or EasyMockito anymore. Neither of these libraries has been updated in several years and most of this functionality is now part of Mockito or Mockito-inline proper at this point.

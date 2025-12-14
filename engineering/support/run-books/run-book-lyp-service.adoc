@@ -1,5 +1,6 @@
 = lyp-service: Run Book Example
-:toc:
+// Not sure how placement will affect publishing to Confluence
+:toc: left
 
 This page is to cover how to run the lyp-service (?service) and basic troubleshooting of the application.
 

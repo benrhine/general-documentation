@@ -1,5 +1,6 @@
 = Setup: CodeBuild
-:toc:
+// Not sure how placement will affect publishing to Confluence
+:toc: left
 
 This is a top level page intended to function as a catch all for references on CodeBuild or related materials. For further details on how to configure Code build please visit the following sub pages.
 

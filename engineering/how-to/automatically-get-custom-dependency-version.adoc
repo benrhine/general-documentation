@@ -1,5 +1,6 @@
 = How To: Automatically get custom dependency version
-:toc:
+// Not sure how placement will affect publishing to Confluence
+:toc: left
 
 This page is describing how to get the current version of dependencies you or your organization control programmatically at build time.
 

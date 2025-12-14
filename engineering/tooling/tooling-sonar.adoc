@@ -1,5 +1,6 @@
 = Sonar
-:toc:
+// Not sure how placement will affect publishing to Confluence
+:toc: left
 
 Sonar is a static type checking tool that helps identify bugs and other code issues.
 

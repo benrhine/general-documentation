@@ -1,5 +1,6 @@
 = Terraform
-:toc:
+// Not sure how placement will affect publishing to Confluence
+:toc: left
 
 The swiss army knife of IaC https://www.terraform.io[Terraform] is by far the most flexible of the IaC languages,
 but it also has a much steeper learning curve.

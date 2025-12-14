@@ -1,5 +1,6 @@
 = How To: Remove a Git tag
-:toc:
+// Not sure how placement will affect publishing to Confluence
+:toc: left
 
 The goal of this page is to describe how to remove a tag from a given git commit.
 

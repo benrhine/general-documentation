@@ -1,5 +1,6 @@
 = Scrum: Process Flow Variations
-:toc:
+// Not sure how placement will affect publishing to Confluence
+:toc: left
 
 This page is intended to cover options for the various Scrum flows and to help come up with the single best flow that keeps
 the team moving and the most people happy.

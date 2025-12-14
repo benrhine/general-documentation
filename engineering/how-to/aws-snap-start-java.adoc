@@ -1,5 +1,6 @@
 = How To: SnapStart for Java
-:toc:
+// Not sure how placement will affect publishing to Confluence
+:toc: left
 
 One of the biggest concerns with using Java in a lambda is the cold start problem. While you can easily find many
 articles on the cold start issue to summarize since java has been around a long time and it was not necessarily designed

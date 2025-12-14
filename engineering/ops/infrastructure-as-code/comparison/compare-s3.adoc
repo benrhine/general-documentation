@@ -1,5 +1,6 @@
 = Compare: Creating a S3 Bucket
-:toc:
+// Not sure how placement will affect publishing to Confluence
+:toc: left
 
 [NOTE]
 Creating resources within both CloudFormation and Serverless Framework are exactly the same. Whenever you create a resource

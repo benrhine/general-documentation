@@ -1,5 +1,6 @@
 = How To: Configure Metrics Filter Alarm
-:toc:
+// Not sure how placement will affect publishing to Confluence
+:toc: left
 
 This page is to instruct on how to enable an alarm once other metrics are in place.
 

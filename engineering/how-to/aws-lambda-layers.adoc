@@ -1,5 +1,6 @@
 = How To: Lambda Layers
-:toc:
+// Not sure how placement will affect publishing to Confluence
+:toc: left
 
 Using Lambda Layers with serverless is exceptionally easy and is a great way to increase the lambda deployment speed and
 improve control over dependency versions

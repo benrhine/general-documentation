@@ -1,6 +1,7 @@
 
 = CLI: Usage
-:toc:
+// Not sure how placement will affect publishing to Confluence
+:toc: left
 
 This page is intended to collect common commands that are executed from the CLI as a easy reference for how to run them
 and what they do.

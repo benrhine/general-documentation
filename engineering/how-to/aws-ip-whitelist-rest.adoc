@@ -1,5 +1,6 @@
 = How To: Ip Whitelist (AWS REST API)
-:toc:
+// Not sure how placement will affect publishing to Confluence
+:toc: left
 
 [WARNING]
 This will ONLY work for lambdas using the REST API, NOT the HTTP API!!!

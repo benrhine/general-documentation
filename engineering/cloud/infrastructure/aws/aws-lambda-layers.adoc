@@ -1,5 +1,6 @@
 = Lambda Layers
-:toc:
+// Not sure how placement will affect publishing to Confluence
+:toc: left
 
 Lambda layers is an additional construct that can significantly increase how quickly a lambda can be deployed as well as
 increase control over how dependencies are versioned.

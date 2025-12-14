@@ -1,5 +1,6 @@
 = Serverless: (AWS) Create CodePipeline
-:toc:
+// Not sure how placement will affect publishing to Confluence
+:toc: left
 
 [CAUTION]
 Please be aware that to be able to create a CodePipeline job using IaC the executing role

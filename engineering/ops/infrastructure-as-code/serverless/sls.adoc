@@ -1,5 +1,6 @@
 = Serverless Framework
-:toc:
+// Not sure how placement will affect publishing to Confluence
+:toc: left
 
 https://www.serverless.com[Serverless] is a framework for simplifying deployments. It has the goal of being abstract so that it can be used with
 multiple cloud providers and is intended to be simpler than CloudFormation, SAM or Terraform.

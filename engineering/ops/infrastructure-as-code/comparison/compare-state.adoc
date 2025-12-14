@@ -1,5 +1,6 @@
 = Compare: State
-:toc:
+// Not sure how placement will affect publishing to Confluence
+:toc: left
 
 How _state_ is maintained is quite different between the given frameworks
 

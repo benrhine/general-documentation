@@ -1,5 +1,6 @@
 = CloudWatch Insights for JSON logs
-:TOC:
+// Not sure how placement will affect publishing to Confluence
+:toc: left
 
 This page is a collection of pre-built CloudWatch Insight filters designed to quickly enable searching of logs. To lower
 the bar, it is desirable to have a number of pre-defined queries in place to help with quick searching and debugging.

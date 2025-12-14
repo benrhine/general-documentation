@@ -1,5 +1,6 @@
 = AWS: Base IAM Roles
-:toc:
+// Not sure how placement will affect publishing to Confluence
+:toc: left
 
 Whenever a new AWS account is being setup a set of base roles that provide permissions for various account actions must
 be created.

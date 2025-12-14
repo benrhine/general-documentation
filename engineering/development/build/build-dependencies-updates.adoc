@@ -1,5 +1,6 @@
 = Dependencies: Updates
-:toc:
+// Not sure how placement will affect publishing to Confluence
+:toc: left
 
 The goal of this page is to describe how and when dependencies should be updated and what processes are in place to help
 with keeping versions up to date.

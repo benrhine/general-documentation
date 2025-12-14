@@ -1,5 +1,6 @@
 = (Step 3) - Application Deploy
-:toc:
+// Not sure how placement will affect publishing to Confluence
+:toc: left
 
 The 3rd and final stage of the deploy process is to deploy the application itself. By this point the sls domain should
 be setup in region and any application resources should also be setup.

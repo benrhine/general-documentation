@@ -1,5 +1,6 @@
 = Profiles / Properties / Environment Variables
-:toc:
+// Not sure how placement will affect publishing to Confluence
+:toc: left
 
 A chronic debate in the development community is what is the best way to handle environment specific values. Many times
 in more traditional java development we would use spring profiles and property files that were defined by environment.

@@ -1,5 +1,6 @@
 = Certificates
-:toc:
+// Not sure how placement will affect publishing to Confluence
+:toc: left
 
 == Convert p12 to pfx
 

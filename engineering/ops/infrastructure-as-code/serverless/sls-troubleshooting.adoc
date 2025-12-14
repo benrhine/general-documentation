@@ -1,5 +1,6 @@
 = Troubleshooting: Serverless
-:toc:
+// Not sure how placement will affect publishing to Confluence
+:toc: left
 
 This is an attempt to document all the errors that were overcome during the initial development period and their
 solutions for future reference to ensure quick resolution of any future issues. Additionally, it is intended to educate

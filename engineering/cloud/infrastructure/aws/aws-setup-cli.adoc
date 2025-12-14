@@ -1,5 +1,6 @@
 = Setup: CLI
-:toc:
+// Not sure how placement will affect publishing to Confluence
+:toc: left
 
 This page is to describe how to install the AWS Cli and configuration process.
 See https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html[here] for Aws reference documentation.

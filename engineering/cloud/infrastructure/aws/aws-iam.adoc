@@ -1,5 +1,6 @@
 = IAM
-:toc:
+// Not sure how placement will affect publishing to Confluence
+:toc: left
 
 == Manually create IAM Role TODO
 

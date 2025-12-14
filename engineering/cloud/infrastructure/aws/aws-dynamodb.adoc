@@ -1,5 +1,6 @@
 = DynamoDB
-:toc:
+// Not sure how placement will affect publishing to Confluence
+:toc: left
 
 == Table IDS
 

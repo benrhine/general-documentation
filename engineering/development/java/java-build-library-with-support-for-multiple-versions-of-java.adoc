@@ -1,5 +1,6 @@
 = Building a library with support for multiple versions of Java
-:toc:
+// Not sure how placement will affect publishing to Confluence
+:toc: left
 
 This how to is to describe how to build a library against different language levels of java so that it can be imported
 into applications using various different versions of java. In addition, this will also describe how to setup your

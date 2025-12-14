@@ -1,5 +1,6 @@
 = AWS
-:toc:
+// Not sure how placement will affect publishing to Confluence
+:toc: left
 
 Notes and setups for AWS specific items.
 

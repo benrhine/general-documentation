@@ -7,8 +7,8 @@
 
 ifndef::deploy[]
 // These will only work from the file they are included in - NOT this file
-* link:index.adoc[Home]
-* link:engineering.adoc[Engineering]
+* link:../index.adoc[Home]
+* link:../engineering.adoc[Engineering]
 endif::[]
 
 ifdef::deploy[]

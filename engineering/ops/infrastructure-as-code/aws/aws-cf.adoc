@@ -1,5 +1,6 @@
 == CloudFormation
-:toc:
+// Not sure how placement will affect publishing to Confluence
+:toc: left
 
 CloudFormation is a proprietary IaC language that only works with AWS. It can be leveraged in the following ways ...
 
