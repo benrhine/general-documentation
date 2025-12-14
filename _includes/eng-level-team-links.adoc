@@ -2,3 +2,25 @@
 :includedir: ../../_include
 
 include::substitution-values.adoc[]
+
+ifndef::deploy[]
+
+// These will only work from the file they are included in - NOT this file
+
+* link:../engineering/team/processes-and-proceedures/ba-ticket-breakdown.adoc[BA Ticket breakdown]
+* link:../engineering/team/processes-and-proceedures/project-planning.adoc[Project planning]
+* link:../engineering/team/processes-and-proceedures/scrum-flow-variations.adoc[Scrum flow variations]
+* link:../engineering/team/processes-and-proceedures/scrum-misc.adoc[Scrum misc]
+* link:../engineering/team/processes-and-proceedures/scrum-pointing-and-scale.adoc[Scrom pointing and scale]
+* link:../engineering/team/processes-and-proceedures/scrum-sprint-total-view.adoc[Scrum sprint total view]
+* link:../engineering/team/processes-and-proceedures/ticket-template-story.adoc[Ticket Template Story]
+* link:../engineering/team/processes-and-proceedures/ticketing-flow.adoc[Ticketing Flow]
+
+endif::[]
+
+ifdef::deploy[]
+
+* {tl-asciidoc-link}[AsciiDoc]
+* {ll-markdown-link}[Markdown]
+
+endif::[]

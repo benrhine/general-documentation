@@ -32,8 +32,8 @@ endif::[]
 
 ifdef::deploy[]
 
-* ===== {sl-onboarding-link}[Onboarding - Start Here!!!]
-* ===== {sl-naming-conventions-link}[Naming Convention]
+===== {sl-onboarding-link}[* Onboarding - Start Here!!!]
+===== {sl-naming-conventions-link}[Naming Convention]
 ===== {sl-best-practices-link}[Best Practices]
 ===== {sl-development-link}[Development]
 ===== {sl-ops-link}[Ops]
