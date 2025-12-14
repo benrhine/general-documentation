@@ -50,7 +50,7 @@ me to more quickly bring necessary documentation and notes to any new team in th
 - [Deployment](engineering/deployment/deployment.adoc)
   - [Deployment: Checklist(s)](engineering/deployment/deployment-checklists.adoc)
   - [Deployment: lyp-service Checklist EXAMPLE](engineering/deployment/deployment-lyp-example-checklist.adoc)
-- [Documentation](engineering/documentation/doc-asciidoc.adoc)
+- [Documentation](engineering/tooling/tooling-asciidoc.adoc)
 - [Environments](engineering/environments.adoc)
 - How To
 - [Infrastructure as Code](engineering/ops/infrastructure-as-code/iac.adoc)

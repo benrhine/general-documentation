@@ -7,8 +7,8 @@ ifndef::deploy[]
 
 // These will only work from the file they are included in - NOT this file
 
-* link:../engineering/documentation/doc-asciidoc.adoc[AsciiDoc]
-* link:../engineering/documentation/doc.markdown.adoc[Markdown]
+* link:../engineering/tooling/tooling-asciidoc.adoc[AsciiDoc]
+* link:../engineering/tooling/tooling-markdown.adoc[Markdown]
 
 endif::[]
 

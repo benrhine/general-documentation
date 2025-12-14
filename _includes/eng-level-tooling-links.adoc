@@ -2,3 +2,52 @@
 :includedir: ../../_include
 
 include::substitution-values.adoc[]
+
+ifndef::deploy[]
+
+// These will only work from the file they are included in - NOT this file
+
+* link:../engineering/tooling/tooling-asciidoc.adoc[AsciiDoc]
+* link:../engineering/tooling/tooling-certificates.adoc[Certificates]
+* link:../engineering/tooling/tooling-coverity.adoc[Coverity]
+* link:../engineering/tooling/tooling-git.adoc[Git]
+* link:../engineering/tooling/tooling-git-actions.adoc[Git: Actions]
+* link:../engineering/tooling/tooling-git-hooks.adoc[Git: Hooks]
+* link:../engineering/tooling/tooling-git-main-vs-master.adoc[Git: Main vs Master]
+* link:../engineering/tooling/tooling-git-remove-all-history.adoc[Git: Remove all history]
+* link:../engineering/tooling/tooling-git-trunk-based-development.adoc[Git: Trunk based development]
+* link:../engineering/tooling/tooling-jira.adoc[Jira]
+* link:../engineering/tooling/tooling-linting.adoc[Linting]
+* link:../engineering/tooling/tooling-logging.adoc[Logging]
+* link:../engineering/tooling/tooling-markdown.adoc[Markdown]
+* link:../engineering/tooling/tooling-properties-and-parameters.adoc[Properties and Parameters]
+* link:../engineering/tooling/tooling-sonar.adoc[Sonar]
+* link:../engineering/tooling/tooling-ssl.adoc[SSL]
+* link:../engineering/tooling/tooling-windows.adoc[Windows]
+
+endif::[]
+
+ifdef::deploy[]
+
+* {}[AsciiDoc]
+* {}[Certificates]
+* {}[Coverity]
+* {}[Git]
+* {}[Git: Actions]
+* {}[Git: Hooks]
+* {}[Git: Main vs Master]
+* {}[Git: Remove all history]
+* {}[Git: Trunk based development]
+* {}[Jira]
+* {}[Linting]
+* {}[Logging]
+* {}[Markdown]
+* {}[Properties and Parameters]
+* {}[Sonar]
+* {}[SSL]
+* {}[Windows]
+
+endif::[]
+
+
+
