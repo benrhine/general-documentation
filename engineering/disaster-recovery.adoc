@@ -1,0 +1,44 @@
+= Disaster Recovery
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
+// Not sure how placement will affect publishing to Confluence
+:toc: left
+
+:keywords: engineering, disaster, recovery
+
+// Renders correctly in IDE for testing purposes
+// ifndef::confluence[]
+// include::../_includes/version-control-warning.adoc[]
+// endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
+
+
+[cols="60%,40%"]
+|===
+|This page is intended to cover the top level design of how disaster recovery will work occur for projects that are part of {team-name-1-abv-upper} and will describe several specific scenarios that are designed to be handled. |TODO
+|===
+
+== Possible Issues
+
+=== GitHub is down / unavailable
+
+=== Aws Region becomes unavailable
+
+=== Lost Account Access
+
+=== Lost Account
+
+== Repositories Covered by these plans
+
+
+== Recovery Actions
+
+
+== Open Questions
+
+== Individual Project Disaster Recovery Steps
+
+If you are looking for detailed disaster recovery actions for a specific project please navigate to the specific projects disaster recovery page located under {sl-projects-link}[Projects].

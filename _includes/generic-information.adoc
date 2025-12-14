@@ -1,0 +1,3 @@
+
+[NOTE]
+Information contained on this page or its sub-pages is general and applies to anyone needing to perform this setup and/or use this technology.

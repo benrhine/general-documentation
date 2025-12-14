@@ -15,6 +15,11 @@ ifdef::confluence[]
 include::{includedir}/version-control-warning.adoc[]
 endif::[]
 
+[NOTE]
+If further help is required please review the individual project Troubleshooting or Disaster Recovery pages located under {sl-projects-link}[Projects]. Example location `Projects -> Repo/Project Name -> Sub-project/Terraform name`
+
+This is the top level container for all support documentation. Any support articles or documentation specifically geared toward supporting the operation of any projects developed by the {team-name-1-abv-upper} team(s) should be published here. This includes but is not limited to the following ...
+
 // Renders correctly in IDE
 ifndef::deploy[]
 include::../_includes/eng-level-support-links.adoc[]
@@ -24,7 +29,10 @@ ifdef::deploy[]
 include::{includedir}/eng-level-support-links.adoc[]
 endif::[]
 
+If further help is required please look under the individual projects located at `Projects -> Repo/Project Name -> Sub-project/Terraform name` for specific Troubleshooting or Disaster Recovery information.
 
+[CAUTION]
+Pages under "Support" may be published by individual projects. Please review the header note for which repo is executing the publishing.
 
 // Renders correctly in IDE
 ifndef::deploy[]

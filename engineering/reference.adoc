@@ -1,0 +1,29 @@
+= Reference
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
+:toc: left
+
+// Tags created on pages with keywords relevant to content - default values are present and can be overridden by passed in attribute (and should be). Additionally, when using the publishToConfluence plugin it is more difficult to pass in the keywords so the defaults are preferred.
+:keywords: help, reference, long, term, notes, setups, one, off, rare
+
+// Renders correctly in IDE for testing purposes
+// ifndef::confluence[]
+// include::../_includes/version-control-warning.adoc[]
+// endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
+
+This page is intended to be the top level container for reference documentation. What do we mean when we say "Reference Documentation"? Reference documentation is any documentation that is important to know how something is/was done but is not actively used in day to day development processes.
+
+== When is this useful?
+
+* Historical notes of what was or was not done
+* In the event of a catastrophic disaster and we need a overview of how things were configured
+* More deeply understanding the architecture from beginning to end
+
+== When is this not useful?
+
+* This is not generally useful day to day as once these items are in place they will rarely, if ever need updated.
+* Will not help you understand day to day work

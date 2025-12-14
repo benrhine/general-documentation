@@ -1,10 +1,10 @@
-= Technology
+= Tutorials
 // Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
 // having the :toc: value in the adoc files is required for publishToConfluence to work correctly
 // Not sure how placement will affect publishing to Confluence
 :toc: left
 
-:keywords: engineering, technology, tech
+:keywords: engineering, tutorials
 
 // Renders correctly in IDE for testing purposes
 // ifndef::confluence[]
@@ -15,16 +15,16 @@ ifdef::confluence[]
 include::{includedir}/version-control-warning.adoc[]
 endif::[]
 
+This is the top level container for all non-team specific Tutorial documentation.
+
 // Renders correctly in IDE
 ifndef::deploy[]
-include::../_includes/eng-level-technology-links.adoc[]
+include::../_includes/eng-level-training-links.adoc[]
 endif::[]
 // Renders correctly in AsciiDoc Deployment
 ifdef::deploy[]
-include::{includedir}/eng-level-technology-links.adoc[]
+include::{includedir}/eng-level-training-links.adoc[]
 endif::[]
-
-
 
 // Renders correctly in IDE
 ifndef::deploy[]
@@ -35,8 +35,5 @@ endif::[]
 ifdef::deploy[]
 include::{includedir}/repo-level-engineering-not-what-you-were-looking-for.adoc[]
 endif::[]
-
-
-
 
 

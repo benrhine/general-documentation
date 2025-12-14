@@ -15,6 +15,84 @@ ifdef::confluence[]
 include::{includedir}/version-control-warning.adoc[]
 endif::[]
 
+This page and pages below are dedicated to tracking properties that are used within all {team-name-1-abv-upper} environments. While some properties may be under version control and included in the deployment process others are not or can not be put in the repositories for security purposes.
+
+|===
+a| [NOTE]
+System Manager Properties (Including SecureStrings) are free (or at least quite a few are) a|
+[IMPORTANT]
+SecureString properties will not work with CloudFormation
+|===
+
+== Naming Convention
+
+For how to correctly name Aws System Manager properties please see {team-practice-2-link}#NamingConventions-_property_naming_conventionPropertyNamingConvention[here].
+
+== Manually Configured Properties
+
+Manually configured properties are primarily manual due to security purposes.
+
+.{team-name-1-abv-upper} Tools
+[%collapsible]
+====
+|===
+|Name |Value | Description
+
+|
+|
+|
+
+|
+|
+|
+|===
+====
+
+.{team-name-1-abv-upper} Non-prod
+[%collapsible]
+====
+|===
+|Name |Value | Description
+
+|
+|
+|
+
+|
+|
+|
+|===
+====
+
+.{team-name-1-abv-upper} Prod
+[%collapsible]
+====
+|===
+|Name |Value | Description
+
+|
+|
+|
+
+|
+|
+|
+|===
+====
+
+== Project Specific Properties
+
+To review app specific properties (used by a specific app OR created by a specific app) please navigate to the specific projects properties page located under {sl-projects-link}[Projects].
+
+== Reference
+
+* https://start.jcolemorrison.com/using-ssm-parameters-with-cloudformation-templates-and-terraform-projects/
+* https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-access.html
+* https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-parameter.html
+* https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/parameters-section-structure.html#parameters-section-structure-properties-type
+* https://devops.stackexchange.com/questions/10266/parameter-store-values-show-instead-of-actual-value
+* do+system+manager+secure+string+cost&rlz=1C1GCEU_enUS1059US1059&oq=do+system+manager+secure+string+cost&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRhA0gEJMTE2MTdqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8
+
 // Renders correctly in IDE
 ifndef::deploy[]
 include::../_includes/eng-level-properties-links.adoc[]

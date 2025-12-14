@@ -1,10 +1,10 @@
-= Tutorials
+= How To
 // Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
 // having the :toc: value in the adoc files is required for publishToConfluence to work correctly
 // Not sure how placement will affect publishing to Confluence
 :toc: left
 
-:keywords: engineering, tutorials
+:keywords: engineering, how, to
 
 // Renders correctly in IDE for testing purposes
 // ifndef::confluence[]
@@ -17,15 +17,23 @@ endif::[]
 
 // Renders correctly in IDE
 ifndef::deploy[]
-include::../_includes/eng-level-training-links.adoc[]
+include::../_includes/generic-information.adoc[]
 endif::[]
 // Renders correctly in AsciiDoc Deployment
 ifdef::deploy[]
-include::{includedir}/eng-level-training-links.adoc[]
+include::{includedir}/generic-information.adoc[]
 endif::[]
 
+This is the top level container for all non-team specific How To documentation.
 
-
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../_includes/eng-level-how-to-links.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/eng-level-how-to-links.adoc[]
+endif::[]
 
 
 // Renders correctly in IDE
@@ -37,5 +45,6 @@ endif::[]
 ifdef::deploy[]
 include::{includedir}/repo-level-engineering-not-what-you-were-looking-for.adoc[]
 endif::[]
+
 
 

@@ -32,7 +32,7 @@ Documentation is written in Confluence or Asciidoc
 - link:../../engineering/development/metrics/metrics-reference.adoc[Metrics]
 - link:../../engineering/development/recovery/disaster-recovery.adoc[Disaster Recovery]
 - link:../../engineering/development/style/style.adoc[Style]
-- link:../engineering/support/support.adoc[Support]
+- link:../engineering/support/run-books.adoc[Support]
 - link:../engineering/technology/technology.adoc[Technology]
 - link:../engineering/development/testing/testing.adoc[Testing]
 - link:../engineering/development/third-party-services/third-party-services.adoc[Third Party Services]

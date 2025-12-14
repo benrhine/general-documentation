@@ -2,3 +2,20 @@
 :includedir: ../../_include
 
 include::substitution-values.adoc[]
+
+ifndef::deploy[]
+
+// These will only work from the file they are included in - NOT this file
+
+* link:../engineering/support/run-books.adoc[Run Books]
+
+include::third-level-run-books.adoc[]
+
+endif::[]
+
+ifdef::deploy[]
+
+* {tl-run-books-link}[Run Books]
+* {tl-run-books-lyp-example-link}[Run Books: Lyp Service Example]
+
+endif::[]

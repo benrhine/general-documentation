@@ -1,0 +1,10 @@
+= Run Books
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../_includes/third-level-run-books.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/third-level-run-books.adoc[]
+endif::[]

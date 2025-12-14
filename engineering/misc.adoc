@@ -1,0 +1,18 @@
+= Misc
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
+// Not sure how placement will affect publishing to Confluence
+:toc: left
+
+:keywords: engineering, misc
+
+// Renders correctly in IDE for testing purposes
+// ifndef::confluence[]
+// include::../_includes/version-control-warning.adoc[]
+// endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
+
+This page is intended to collect notes and other items we are not quite sure where to put for the time being.

@@ -140,7 +140,7 @@ me to more quickly bring necessary documentation and notes to any new team in th
   - [Setup: Request Slack Access](engineering/onboarding/request-slack-access.adoc)
 - [Slack](engineering/development/slack/slack.adoc)
 - [Style](engineering/development/style/style.adoc)
-- [Support](engineering/support/support.adoc)
+- [Support](engineering/support/run-books.adoc)
   - Run Books
     - [Run Books: lyp-service EXAMPLE](engineering/support/run-books/run-book-lyp-service.adoc)
 - [Technology](engineering/technology/technology.adoc)
@@ -167,7 +167,7 @@ me to more quickly bring necessary documentation and notes to any new team in th
   - [SSL](engineering/tooling/tooling-ssl.adoc)
   - [Windows](engineering/tooling/tooling-windows.adoc)
 - [Training](engineering/training/training.adoc)
-- [Tutorials](engineering/tutorials/tutorials.adoc)
-  - [Cloudwatch Send to Slack](engineering/tutorials/tutorial-cloudwatch-send-slack.adoc)
+- [Tutorials](engineering/training/tutorials/tutorials.adoc)
+  - [Cloudwatch Send to Slack](engineering/training/tutorials/tutorial-cloudwatch-send-slack.adoc)
 - [Naming Conventions](engineering/naming-conventions.adoc)
 - [Troubleshooting](engineering/troubleshooting.adoc)
