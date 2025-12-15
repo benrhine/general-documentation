@@ -24,6 +24,21 @@ ifdef::deploy[]
 include::{includedir}/generic-information.adoc[]
 endif::[]
 
+== UI Setups
+
+If you are looking for information about how to configure these tools through the UI then please view the following ...
+
+TODO
+
+== IaC Setups
+
+If you are looking for information about how to leverage these tools using IaC (Infrastructure as code) then please view the following …
+
+* link:../../engineering/ops/infrastructure-as-code/aws/aws.adoc[Aws specific IaC]
+* link:../../engineering/ops/infrastructure-as-code/serverless/sls.adoc[Serverless Framework]
+* link:../../engineering/ops/infrastructure-as-code/terraform/tf.adoc[Terraform]
+* link:../../engineering/ops/infrastructure-as-code/comparison/compare-iac.adoc[Comparison of IaC]
+
 
 // Renders correctly in IDE
 ifndef::deploy[]

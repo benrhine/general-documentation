@@ -24,6 +24,22 @@ ifdef::deploy[]
 include::{includedir}/generic-information.adoc[]
 endif::[]
 
+This page contains notes and links to setups for various cloud providers.
+
+== Providers
+
+// Renders correctly in IDE
+ifndef::deploy[]
+* link:tooling-cloud-aws.adoc[Aws]
+* link:tooling-cloud-gcp.adoc[Gcp]
+* link:tooling-cloud-azure.adoc[Azure]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+* {tl-tooling-link-22}[Aws]
+* {tl-tooling-link-23}[Gcp]
+* {tl-tooling-link-24}[Azure]
+endif::[]
 
 // Renders correctly in IDE
 ifndef::deploy[]
