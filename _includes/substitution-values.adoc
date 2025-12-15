@@ -52,6 +52,15 @@
 :sl-team-link-006:          https://doc.benrhine.com/engineering/team/scrum-sprint-total-view
 :sl-team-link-007:          https://doc.benrhine.com/engineering/team/ticket-template-story
 :sl-team-link-008:          https://doc.benrhine.com/engineering/team/ticketing-flow
+:sl-team-link-009:          https://doc.benrhine.com/engineering/team/team-adr
+:sl-team-link-010:          https://doc.benrhine.com/engineering/team/team-adr-template
+:sl-team-link-011:          https://doc.benrhine.com/engineering/team/team-best-practices
+:sl-team-link-012:          https://doc.benrhine.com/engineering/team/team-doc-as-code
+:sl-team-link-013:          https://doc.benrhine.com/engineering/team/team-meeting-notes
+:sl-team-link-014:          https://doc.benrhine.com/engineering/team/team-naming-conventions
+:sl-team-link-015:          https://doc.benrhine.com/engineering/team/team-ticket-template-spike
+:sl-team-link-016:          https://doc.benrhine.com/engineering/team/team-ticket-template-story
+:sl-team-link-017:          https://doc.benrhine.com/engineering/team/team-video-training
 :sl-tooling-link:           https://doc.benrhine.com/engineering/tooling
 :tl-tooling-link-01:        https://doc.benrhine.com/engineering/tooling/tooling-asciidoc
 :tl-tooling-link-02:        https://doc.benrhine.com/engineering/tooling/tooling-certificates

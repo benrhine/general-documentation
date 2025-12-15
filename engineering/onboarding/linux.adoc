@@ -1,6 +1,6 @@
 = Linux
 
-Currently none of these setups have been tested on linux.
+No one on the team is currently on a linux machine. Thus this section is mostly empty but has been placed here for completeness and if a specific reference becomes required serces as a place to put that information.
 
 
 

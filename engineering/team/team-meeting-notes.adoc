@@ -1,0 +1,21 @@
+= Meeting Note(s)
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
+:toc:
+
+// Tags created on pages with keywords relevant to content - default values are present and can be overridden by passed in attribute (and should be). Additionally, when using the publishToConfluence plugin it is more difficult to pass in the keywords so the defaults are preferred.
+:keywords: team, documenation, meeting, notes
+
+include::../../../_includes/third-level-includes.adoc[]
+
+[TIP]
+Create new Meeting Notes as a sub-page of this page.
+
+Any meeting that specifically had notes recorded should have a new page created for that meeting and attached under this page.
+
+== Not what you were looking for?
+
+include::{includedir}/team-not-what-you-are-looking-for.adoc[]
+
+
+

@@ -1,0 +1,60 @@
+= Naming Conventions
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
+:toc:
+
+// Tags created on pages with keywords relevant to content - default values are present and can be overridden by passed in attribute (and should be). Additionally, when using the publishToConfluence plugin it is more difficult to pass in the keywords so the defaults are preferred.
+:keywords: team, naming, conventions
+
+include::../../../_includes/third-level-includes.adoc[]
+
+The goal of this page is to capture why things are named as they are along with the reasoning behind it.
+
+Where possible and it makes sense for naming repositories and top level items we want names like the following
+
+== Naming Convention - REQUIRED
+
+Enforcing naming convention ensures DPD repos are easy to find in GitHub and repo scope easily understood.
+
+ids-dpd-dpc-x-y-z
+
+i.e. <organization>-<team>-<project>-<service or library name>
+
+=== Application Services or Libraries
+
+ids-dpd-<project name>-<service or library name>
+
+Example: ids-dpd-dpc-authorization; ids-dpd-dpc-tailored
+
+=== Application Infrastructure
+
+ids-dpd-<project name>-infrastructure
+
+Example: ids-dpd-dpc-infrastructure
+
+=== Application Manifests (For Kubernetes)
+
+ids-dpd-<project name>-manifests
+
+Example: ids-dpd-dpc-manifests
+
+== Property Naming Convention
+
+Aws System Manager Properties should follow the following naming convention ...
+
+/<business-area>/<team>/<account/env>/<tech-framework>/<property-name>
+
+example: /ids/dpd/dev/tf/slack_dpd_dev_aws_dp_alerts_channel_id
+
+
+== Not what you were looking for?
+
+include::{includedir}/team-not-what-you-are-looking-for.adoc[]
+
+* https://dat.jeppesen.com/confluence/spaces/FDS/pages/277744699/START+HERE+-+Flight+Deck+GitHub+and+AWS#STARTHEREFlightDeckGitHubandAWS-NamingConvention-REQUIRED[Flight Deck - Naming Convention]
+
+
+
+
+
+

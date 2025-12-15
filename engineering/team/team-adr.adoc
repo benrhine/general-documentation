@@ -1,0 +1,70 @@
+= Architectural Decision Records
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
+:toc:
+
+// Tags created on pages with keywords relevant to content - default values are present and can be overridden by passed in attribute (and should be). Additionally, when using the publishToConfluence plugin it is more difficult to pass in the keywords so the defaults are preferred.
+:keywords: team, documenation, architecture, decision, records
+
+include::../../../_includes/third-level-includes.adoc[]
+
+[TIP]
+Create new ADR's as a sub-page of this page.
+
+== What is an Architectural Decision Record?
+
+An Architecture Decision Record (ADR) is a document that captures the rationale behind significant architectural choices made in a software project. It essentially records the "why" behind architectural decisions, including the context, alternatives considered, and the consequences of the chosen path. ADRs are crucial for maintaining a clear understanding of the project's architecture, facilitating future development, and enabling informed decision-making.
+
+=== Key aspects of ADRs:
+
+==== Purpose:
+ADRs serve as a living document that records architectural decisions, their context, and their consequences.
+
+==== Content:
+They typically include the decision itself, the context (the situation leading to the decision), alternatives considered, and the consequences of the chosen path.
+
+==== Benefits:
+
+* Knowledge Sharing: ADRs help new team members understand the rationale behind existing architectural choices.
+* Improved Communication: They facilitate better communication and collaboration by providing a clear record of decisions.
+* Historical Context: ADRs create a historical record of architectural evolution, aiding in future development and maintenance.
+* Reduced Risk: They help avoid repeating past mistakes by documenting the reasoning behind decisions.
+
+==== Storage:
+ADRs are often stored as Markdown files within the project's codebase, ensuring they are readily accessible to the team.
+
+==== Immutability:
+Once an ADR is accepted, it's generally considered immutable, meaning it shouldn't be changed without a good reason. If a decision needs to be revisited, a new ADR should be created to supersede the previous one.
+
+==== ADR Lifecycle:
+ADRs have a lifecycle, potentially going through stages like proposed, accepted, deprecated, or superseded.
+
+==== Example:
+An ADR might document the decision to use a specific caching mechanism, including the context of needing to improve performance, the alternatives considered (e.g., different caching strategies or no caching), and the consequences of the chosen approach (e.g., increased complexity but improved response times).
+In essence, ADRs are a valuable tool for maintaining a transparent, well-documented, and evolving architectural landscape for software projects
+
+== {team-name-1-abv-upper} Team and Architectural Decision Records
+
+The {team-name-1-abv-upper} Team will be attempting to use ADR's as part of the development process to improve the teams processes and documentation. All ADR's should be created as a new Confluence sub-page of this page.
+
+== Internal Documentation
+
+Other internally created documentation on the subject ...
+
+* https://confluence.digitalaviationservices.com/display/DCP/Architecture+Decision+Records[Digital Platform 2.0 - Architecture Decision Records]
+
+== Template
+
+A reference template has been created by the {team-name-1-abv-upper} team and can be accessed {team-practice-1-link}[here].
+
+== Project ADR's
+
+To review project specific architectural decision records please see the ADRs folder located under the specific project under {team-projects-link}[Projects].
+
+
+== Reference
+
+* https://adr.github.io/
+* https://github.com/joelparkerhenderson/architecture-decision-record
+
+

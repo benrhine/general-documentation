@@ -1,0 +1,37 @@
+= Best Practices
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
+:toc:
+
+// Tags created on pages with keywords relevant to content - default values are present and can be overridden by passed in attribute (and should be). Additionally, when using the publishToConfluence plugin it is more difficult to pass in the keywords so the defaults are preferred.
+:keywords: build, documentation, best, practices, integrated, data, services
+
+include::../../../_includes/third-level-includes.adoc[]
+
+This page encapsulates the expectations for the {team-name-1-abv-upper} team. Best practices may be added to this page, or they may be linked to if they are written up elsewhere.
+
+== Java
+
+* {tooling-java-2-link}s[Java - Best Practices]
+
+== Build Systems
+
+* {team-name-1-abv-upper} Team will use the {tooling-java-4-link}[Gradle build system] as a best practice when writing Java code due to its greater flexibility over Maven
+
+== Documentation
+
+* {team-name-1-abv-upper} Team subscribes to the {team-practice-6-link}[Doc as Code] philosophy.
+** This allows developers to write documentation directly alongside the code
+** It incentivises writing the documentation by lowering the bar of how many systems are needed
+** When configured correctly it allows for auto-publishing of documentation.
+* When possible we will attempt to use {team-practice-3-link}[Architectural Decision Records]
+
+== Ticketing
+
+* When creating tickets the team will use the provided ticket templates located under {team-practices-link}[Team Practices / Procedures]
+** {team-practice-4-link}[Template - Spike]
+** {team-practice-5-link}y[Template - Story]
+
+== Not what you were looking for?
+
+include::{includedir}/team-not-what-you-are-looking-for.adoc[]

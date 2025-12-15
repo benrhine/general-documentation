@@ -1,0 +1,15 @@
+= Video Training
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
+:toc:
+
+// Tags created on pages with keywords relevant to content - default values are present and can be overridden by passed in attribute (and should be). Additionally, when using the publishToConfluence plugin it is more difficult to pass in the keywords so the defaults are preferred.
+:keywords:: team, tech, spec, documentation
+
+include::../../../_includes/third-level-includes.adoc[]
+
+This page is intended to collect training videos for and produced by the {team-name-1-abv-upper} Team.
+
+== Not what you were looking for?
+
+include::{includedir}/team-not-what-you-are-looking-for.adoc[]

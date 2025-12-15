@@ -1,0 +1,48 @@
+= Ticket Template - Spike
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
+:toc:
+
+// Tags created on pages with keywords relevant to content - default values are present and can be overridden by passed in attribute (and should be). Additionally, when using the publishToConfluence plugin it is more difficult to pass in the keywords so the defaults are preferred.
+:keywords: build, documentation, top, level, integrated, data, services
+
+include::../../../_includes/third-level-includes.adoc[]
+
+== Description
+
+Description field should include area of work and a one line description of what is being researched
+
+[ SPIKE ] This spike is responsible for researching X
+
+== Acceptance Criteria
+
+Spikes generally do not have specific Acceptance Criteria as they are research tasks to determine how something should be done or how it should work. This should result on comments on the spike or a Confluence page documenting the results of the research
+
+If acceptance criteria are required ...
+
+All acceptance criteria should be written in the *Given / When / Then / And* format.
+
+[NOTE]
+Whenever a ticket has more than a single _and_ statement, then each _and_ should be considered as its own test (i.e. given/when/then/and/and/and counts as 3 unique test cases that are written as a single acceptance criteria)
+
+
+== Spike
+
+A human-readable version of the research task i.e. the business case for the research and desired outcome.
+
+== Resources
+
+Spikes should have all the necessary resources attached to them. This can be through linking to a technical spec and or individually attached resources. Resources include but are not limited to the following …
+
+* What documentation is already available, if any
+* Who to reach out to for questions
+* Who to reach out to for any usernames or passwords
+
+== Not what you were looking for?
+
+include::{includedir}/team-not-what-you-are-looking-for.adoc[]
+
+
+
+
+

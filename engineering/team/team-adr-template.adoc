@@ -1,0 +1,357 @@
+= Decision Template - ADR
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
+:toc:
+
+// Tags created on pages with keywords relevant to content - default values are present and can be overridden by passed in attribute (and should be). Additionally, when using the publishToConfluence plugin it is more difficult to pass in the keywords so the defaults are preferred.
+:keywords: documentation, adr, architectural, decision, record, template
+
+include::../../../_includes/third-level-includes.adoc[]
+
+[TIP]
+This page is what the provided "Decision Template" will look like when rendered
+
+== Group
+
+A label of what this issue is and how it fits into the application.
+
+* General grouping - Security/Authentication
+* Project Name
+** Feature Name
+
+== Status
+
+[IMPORTANT]
+If this decision has been superseded include this block with the text "This decision has been superseded by [LINK TO UPDATED DECISION]"
+
+The decision’s status, such as pending, decided, or approved.
+
+|===
+|Status |Deciders |Date
+a| * proposed
+a| * Ben Rhine
+* Chris
+a| * 20250827
+|===
+
+// Leave this when copying to a real ADR for reference for the viewer
+[NOTE]
+Possible statuses include the following ... +
+* proposed +
+* researching +
+* in-progress +
+* approved +
+* rejected +
+* deprecated +
+* superseded
+
+|===
+|Status History |Date
+| Transitioned from proposed -> research on | 20250827
+|===
+
+== Issue
+
+Describe the architectural design issue you’re addressing, leaving no questions about why you’re addressing this issue now. Following a minimalist approach, address and document only the issues that need addressing at various points in the life cycle.
+
+== Decision
+
+Clearly state the architecture’s direction—that is, the position you’ve selected.
+
+=== Decision Drivers
+
+[%collapsible]
+====
+* [driver 1, e.g., a force, facing concern, …]
+* [driver 2, e.g., a force, facing concern, …]
+====
+
+// Insert a visual page break
+'''
+// END visual page break
+
+== Assumptions
+
+Clearly describe the underlying assumptions in the environment in which you’re making the decision—cost, schedule, technology, and so on. Note that environmental constraints (such as accepted technology standards, enterprise architecture, commonly employed patterns, and so on) might limit the alternatives you consider.
+
+== Constraints
+
+Capture any additional constraints to the environment that the chosen alternative (the decision) might pose.
+
+== Options
+
+List the options (or viable alternatives) you considered. These often require long explanations, sometimes even models and diagrams. This isn’t an exhaustive list. However, you don’t want to hear the question "Did you think about...?" during a final review; this leads to loss of credibility and questioning of other architectural decisions. This section also helps ensure that you heard others’ opinions; explicitly stating other opinions helps enroll their advocates in your decision.
+
+=== Option 1: X-Option
+
+Research and analysis of option ...
+
+* Summary: explain briefly research methods, and draw attention to patterns, clusters, and outliers
+* Does/doesn't meet criteria and why
+** Summary
+** Specifics
+* Cost analysis (optional)
+** Summary
+** Examples
+*** Licensing
+*** Training
+*** Operating
+*** Metering
+* Internal opinions and feedback
+** Summary
+** Examples
+*** Ben likes this idea because of X
+* External opinions and feedback
+** Summary
+** Who is providing the opinion
+** What are other options you considered
+** What are you creating
+** How did you evaluate the options
+** Why did you choose the winner
+** What is happening since then
+
+==== Pros
+
+* TODO
+
+==== Cons
+
+* TODO
+
+=== Option 2: Y-Option
+
+Research and analysis of option ...
+
+==== Pros
+
+* TODO
+
+==== Cons
+
+* TODO
+
+== Recommendation
+
+Outline why you selected a option, including items such as implementation cost, total ownership cost, time to market, and required development resources’ availability. This is probably as important as the decision itself.
+
+== Decision Implications / Outcomes
+
+A decision comes with many implications, as the REMAP metamodel denotes. For example, a decision might introduce a need to make other decisions, create new requirements, or modify existing requirements; pose additional constraints to the environment; require renegotiating scope or schedule with customers; or require additional staff training. Clearly understanding and stating your decision’s implications can be very effective in gaining buy-in and creating a roadmap for architecture execution.
+
+=== Positive Consequences
+
+* issues that are solved by this decision
+
+=== Negative Consequences
+
+* challenges that may arise from this decision
+
+== Related decisions
+
+It’s obvious that many decisions are related; you can list them here. However, we’ve found that in practice, a traceability matrix, decision trees, or metamodels are more useful. Metamodels are useful for showing complex relationships diagrammatically (such as Rose models).
+
+== Related requirements
+
+Decisions should be business driven. To show accountability, explicitly map your decisions to the objectives or requirements. You can enumerate these related requirements here, but we’ve found it more convenient to reference a traceability matrix. You can assess each architecture decision’s contribution to meeting each requirement, and then assess how well the requirement is met across all decisions. If a decision doesn’t contribute to meeting a requirement, don’t make that decision.
+
+== Related artifacts
+
+List the related architecture, design, or scope documents that this decision impacts.
+
+== Related principles
+
+If the enterprise has an agreed-upon set of principles, make sure the decision is consistent with one or more of them. This helps ensure alignment along domains or systems.
+
+== Notes
+
+Because the decision-making process can take weeks, we’ve found it useful to capture notes and issues that the team discusses during the socialization process.
+
+
+== Links
+
+* TODO
+
+.Complete Copy/Paste AsciiDoc Template
+[%collapsible]
+====
+[source, asciidoc]
+----
+= Decision Template - ADR
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
+:toc:
+// Tells file where to find included snippets with default value - default value is the relative path this allows it to
+// Default values allow documentation to work correctly in the IDE.
+// includedir value should be overridden at build time with an attribute from the build task, other values are suggested to be overridden.
+:includedir: ../../_includes
+:global-org: gdp
+:sub-org: ids
+:organization: DPD
+:org-lower: dpd
+// Tags created on pages with keywords relevant to content - default values are present and can be overridden by passed in attribute (and should be). Additionally, when using the publishToConfluence plugin it is more difficult to pass in the keywords so the defaults are preferred.
+:keywords: documentation, adr, architectural, decision, record, template
+
+// This include should work for all but only works for confluence - it will not resolve in the html version of the doc
+include::{includedir}/version-control-warning.adoc[]
+
+[TIP]
+This page is what the provided "Decision Template" will look like when rendered
+
+== Group
+
+A label of what this issue is and how it fits into the application.
+
+* General grouping - Security/Authentication
+* Project Name
+** Feature Name
+
+== Status
+
+[IMPORTANT]
+If this decision has been superseded include this block with the text "This decision has been superseded by [LINK TO UPDATED DECISION]"
+
+The decision’s status, such as pending, decided, or approved.
+
+|===
+|Status |Deciders |Date
+a| * proposed
+a| * Ben Rhine
+* Chris
+a| * 20250827
+|===
+
+// Leave this when copying to a real ADR for reference for the viewer
+[NOTE]
+Possible statuses include the following ... +
+* proposed +
+* researching +
+* in-progress +
+* approved +
+* rejected +
+* deprecated +
+* superseded
+
+|===
+|Status History |Date
+| Transitioned from proposed -> research on | 20250827
+|===
+
+== Issue
+
+Describe the architectural design issue you’re addressing, leaving no questions about why you’re addressing this issue now. Following a minimalist approach, address and document only the issues that need addressing at various points in the life cycle.
+
+== Decision
+
+Clearly state the architecture’s direction—that is, the position you’ve selected.
+
+=== Decision Drivers
+
+* [driver 1, e.g., a force, facing concern, …]
+* [driver 2, e.g., a force, facing concern, …]
+
+// Insert a visual page break
+'''
+// END visual page break
+
+== Assumptions
+
+Clearly describe the underlying assumptions in the environment in which you’re making the decision—cost, schedule, technology, and so on. Note that environmental constraints (such as accepted technology standards, enterprise architecture, commonly employed patterns, and so on) might limit the alternatives you consider.
+
+== Constraints
+
+Capture any additional constraints to the environment that the chosen alternative (the decision) might pose.
+
+== Options
+
+List the options (or viable alternatives) you considered. These often require long explanations, sometimes even models and diagrams. This isn’t an exhaustive list. However, you don’t want to hear the question "Did you think about...?" during a final review; this leads to loss of credibility and questioning of other architectural decisions. This section also helps ensure that you heard others’ opinions; explicitly stating other opinions helps enroll their advocates in your decision.
+
+=== Option 1: X-Option
+
+Research and analysis of option ...
+
+* Summary: explain briefly research methods, and draw attention to patterns, clusters, and outliers
+* Does/doesn't meet criteria and why
+** Summary
+** Specifics
+* Cost analysis (optional)
+** Summary
+** Examples
+*** Licensing
+*** Training
+*** Operating
+*** Metering
+* Internal opinions and feedback
+** Summary
+** Examples
+*** Ben likes this idea because of X
+* External opinions and feedback
+** Summary
+** Who is providing the opinion
+** What are other options you considered
+** What are you creating
+** How did you evaluate the options
+** Why did you choose the winner
+** What is happening since then
+
+==== Pros
+
+* TODO
+
+==== Cons
+
+* TODO
+
+=== Option 2: Y-Option
+
+Research and analysis of option ...
+
+==== Pros
+
+* TODO
+
+==== Cons
+
+* TODO
+
+== Recommendation
+
+Outline why you selected a option, including items such as implementation cost, total ownership cost, time to market, and required development resources’ availability. This is probably as important as the decision itself.
+
+== Decision Implications / Outcomes
+
+A decision comes with many implications, as the REMAP metamodel denotes. For example, a decision might introduce a need to make other decisions, create new requirements, or modify existing requirements; pose additional constraints to the environment; require renegotiating scope or schedule with customers; or require additional staff training. Clearly understanding and stating your decision’s implications can be very effective in gaining buy-in and creating a roadmap for architecture execution.
+
+=== Positive Consequences
+
+* issues that are solved by this decision
+
+=== Negative Consequences
+
+* challenges that may arise from this decision
+
+== Related decisions
+
+It’s obvious that many decisions are related; you can list them here. However, we’ve found that in practice, a traceability matrix, decision trees, or metamodels are more useful. Metamodels are useful for showing complex relationships diagrammatically (such as Rose models).
+
+== Related requirements
+
+Decisions should be business driven. To show accountability, explicitly map your decisions to the objectives or requirements. You can enumerate these related requirements here, but we’ve found it more convenient to reference a traceability matrix. You can assess each architecture decision’s contribution to meeting each requirement, and then assess how well the requirement is met across all decisions. If a decision doesn’t contribute to meeting a requirement, don’t make that decision.
+
+== Related artifacts
+
+List the related architecture, design, or scope documents that this decision impacts.
+
+== Related principles
+
+If the enterprise has an agreed-upon set of principles, make sure the decision is consistent with one or more of them. This helps ensure alignment along domains or systems.
+
+== Notes
+
+Because the decision-making process can take weeks, we’ve found it useful to capture notes and issues that the team discusses during the socialization process.
+
+
+== Links
+
+* TODO
+----
+====
