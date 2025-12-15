@@ -15,7 +15,7 @@ endif::[]
 
 ifdef::deploy[]
 
-* {tl-run-books-link}[Run Books]
-* {tl-run-books-lyp-example-link}[Run Books: Lyp Service Example]
+* {sl-support-link-001}[Run Books]
+* {sl-support-link-002}[Run Books: Lyp Service Example]
 
 endif::[]

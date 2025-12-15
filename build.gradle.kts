@@ -202,6 +202,8 @@ val asciiDocAttributes = mapOf(
     "sl-projects-link"          to "https://doc.benrhine.com/engineering/projects",
     "sl-properties-link"        to "https://doc.benrhine.com/engineering/properties",
     "sl-support-link"           to "https://doc.benrhine.com/engineering/support",
+    "sl-support-link-001"       to "https://doc.benrhine.com/engineering/support/run-books",
+    "sl-support-link-002"       to "https://doc.benrhine.com/engineering/support/run-books/run-book-lyp-service",
     "sl-team-link"              to "https://doc.benrhine.com/engineering/team",
     "sl-team-link-001"          to "https://doc.benrhine.com/engineering/team/team-ba-ticket-breakdown",
     "sl-team-link-002"          to "https://doc.benrhine.com/engineering/team/team-project-planning",
