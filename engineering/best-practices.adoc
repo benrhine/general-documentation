@@ -20,9 +20,21 @@ beginning.
 
 == Java
 
-- link:../java-faster-strings.adoc[Java: Faster Strings]
-- link:../java-use-of-the-keyword-final.adoc[Java: Use of the keyword final]
+ifndef::deploy[]
 
+// These will only work from the file they are included in - NOT this file
+
+* link:tooling/tooling-java-faster-strings.adoc[Java: Faster Strings]
+* link:tooling/tooling-java-use-of-the-keyword-final.adoc[Java: Use of the keyword final]
+
+endif::[]
+
+ifdef::deploy[]
+
+* {tl-tooling-link-18}[Java: Faster Strings]
+* {tl-tooling-link-19}[Java: The use of the keyword final]
+
+endif::[]
 
 == Logging
 

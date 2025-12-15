@@ -226,6 +226,8 @@ val asciiDocAttributes = mapOf(
     "tl-tooling-link-15"        to "https://doc.benrhine.com/engineering/tooling/tooling-sonar",
     "tl-tooling-link-16"        to "https://doc.benrhine.com/engineering/tooling/tooling-ssl",
     "tl-tooling-link-17"        to "https://doc.benrhine.com/engineering/tooling/tooling-windows",
+    "tl-tooling-link-18"        to "https://doc.benrhine.com/engineering/tooling/tooling-java-faster-strings",
+    "tl-tooling-link-19"        to "https://doc.benrhine.com/engineering/tooling/tooling-java-use-of-the-keyword-final",
     "sl-training-link"          to "https://doc.benrhine.com/engineering/training",
     "sl-troubleshooting-link"   to "https://doc.benrhine.com/engineering/troubleshooting",
     "sl-reference-link"         to "https://doc.benrhine.com/links/reference",
