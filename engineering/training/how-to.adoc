@@ -28,11 +28,11 @@ This is the top level container for all non-team specific How To documentation.
 
 // Renders correctly in IDE
 ifndef::deploy[]
-include::../../_includes/eng-level-how-to-links.adoc[]
+include::../../_includes/third-level-how-tos.adoc[]
 endif::[]
 // Renders correctly in AsciiDoc Deployment
 ifdef::deploy[]
-include::{includedir}/eng-level-how-to-links.adoc[]
+include::{includedir}/third-level-how-tos.adoc[]
 endif::[]
 
 
