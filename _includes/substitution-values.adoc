@@ -30,6 +30,9 @@
 :sl-best-practices-link:    https://doc.benrhine.com/engineering/best-practices
 :sl-cloud-link:             https://doc.benrhine.com/engineering/cloud
 :sl-deployment-link:        https://doc.benrhine.com/engineering/deployment
+:sl-deployment-link-001:    https://doc.benrhine.com/engineering/deployment/deployment
+:sl-deployment-link-002:    https://doc.benrhine.com/engineering/deployment/deployment-checklists
+:sl-deployment-link-003:    https://doc.benrhine.com/engineering/deployment/deployment-lyp-example-checklist
 :sl-development-link:       https://doc.benrhine.com/engineering/development
 :sl-documentation-link:     https://doc.benrhine.com/engineering/documentation
 :sl-environments-link:      https://doc.benrhine.com/engineering/environments

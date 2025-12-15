@@ -2,3 +2,21 @@
 :includedir: ../../_include
 
 include::substitution-values.adoc[]
+
+ifndef::deploy[]
+
+// These will only work from the file they are included in - NOT this file
+
+* link:../engineering/deployment/deployment.adoc[Deployment: NEEDS A NEW NAME]
+* link:../engineering/deployment/deployment-checklists.adoc[Deployment: Checklist]
+* link:../engineering/deployment/deployment-lyp-example-checklist.adoc[Deployment: lyp example checklist]
+
+endif::[]
+
+ifdef::deploy[]
+
+* {}[Deployment: NEEDS A NEW NAME]
+* {}[Deployment: Checklist]
+* {}[Deployment: lyp example checklist]
+
+endif::[]
