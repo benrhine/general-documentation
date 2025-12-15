@@ -1,0 +1,19 @@
+
+
+:includedir: ../../../_include
+
+include::substitution-values.adoc[]
+
+// ifndef::deploy[]
+//
+// // These will only work from the file they are included in - NOT this file
+//
+// * link:../engineering/tooling/tooling-asciidoc.adoc[Tooling: AsciiDoc]
+//
+// endif::[]
+//
+// ifdef::deploy[]
+//
+// * {tl-tooling-asciidoc-link}[Tooling: AsciiDoc]
+//
+// endif::[]

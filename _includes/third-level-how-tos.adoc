@@ -1,0 +1,18 @@
+
+:includedir: ../../../_include
+
+include::substitution-values.adoc[]
+
+ifndef::deploy[]
+
+// These will only work from the file they are included in - NOT this file
+
+* link:../engineering/support/run-books/run-book-lyp-service.adoc[Run Book: Lyp Service Example]
+
+endif::[]
+
+ifdef::deploy[]
+
+* {tl-run-books-lyp-example-link}[Run Book: Lyp Service Example]
+
+endif::[]

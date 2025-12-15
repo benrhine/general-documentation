@@ -17,16 +17,16 @@ endif::[]
 
 This is the top level container for all non-team specific Tutorial documentation.
 
-A tutorial is more than a How To, How To's are simply how a single
+A tutorial is more than a How-To, How To's are simply how a single
 item/setup should occur whereas a tutorial may tie multiple how to's into a single process.
 
 // Renders correctly in IDE
 ifndef::deploy[]
-include::../../_includes/eng-level-training-links.adoc[]
+include::../../_includes/third-level-tutorials.adoc[]
 endif::[]
 // Renders correctly in AsciiDoc Deployment
 ifdef::deploy[]
-include::{includedir}/eng-level-training-links.adoc[]
+include::{includedir}/third-level-tutorials.adoc[]
 endif::[]
 
 // Renders correctly in IDE
