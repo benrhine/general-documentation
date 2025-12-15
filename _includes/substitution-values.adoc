@@ -72,7 +72,7 @@
 :sl-reference-link:         https://doc.benrhine.com/links/reference
 :sl-research-link:          https://doc.benrhine.com/links/research
 :tl-how-to-link:            https://doc.benrhine.com/engineering/training/how-to
-:tl-how-to-link-001:        https://doc.benrhine.com/engineering/training/how-to/automattically-get-custom-dependency-version
+:tl-how-to-link-001:        https://doc.benrhine.com/engineering/training/how-to/automatically-get-custom-dependency-version
 :tl-how-to-link-002:        https://doc.benrhine.com/engineering/training/how-to/aws-add-lambda-to-vpc
 :tl-how-to-link-003:        https://doc.benrhine.com/engineering/training/how-to/aws-build-time-credentialing
 :tl-how-to-link-004:        https://doc.benrhine.com/engineering/training/how-to/aws-codebuild-after-recreating-resources

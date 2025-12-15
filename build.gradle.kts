@@ -231,7 +231,7 @@ val asciiDocAttributes = mapOf(
     "sl-reference-link"         to "https://doc.benrhine.com/links/reference",
     "sl-research-link"          to "https://doc.benrhine.com/links/research",
     "tl-how-to-link"            to "https://doc.benrhine.com/engineering/training/how-to",
-    "tl-how-to-link-001"        to "https://doc.benrhine.com/engineering/training/how-to/automattically-get-custom-dependency-version",
+    "tl-how-to-link-001"        to "https://doc.benrhine.com/engineering/training/how-to/automatically-get-custom-dependency-version",
     "tl-how-to-link-002"        to "https://doc.benrhine.com/engineering/training/how-to/aws-add-lambda-to-vpc",
     "tl-how-to-link-003"        to "https://doc.benrhine.com/engineering/training/how-to/aws-build-time-credentialing",
     "tl-how-to-link-004"        to "https://doc.benrhine.com/engineering/training/how-to/aws-codebuild-after-recreating-resources",
