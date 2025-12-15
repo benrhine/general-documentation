@@ -8,12 +8,16 @@ ifndef::deploy[]
 
 // These will only work from the file they are included in - NOT this file
 
-* link:../engineering/support/run-books/run-book-lyp-service.adoc[Run Book: Lyp Service Example]
+* link:../engineering/deployment/deployment.adoc[Deployment: Old]
+* link:../engineering/deployment/deployment-checklists.adoc[Deployment: Checklists]
+* link:../engineering/deployment/deployment-lyp-example-checklist.adoc[Deployment: lyp example checklist]
 
 endif::[]
 
 ifdef::deploy[]
 
-* {tl-run-books-lyp-example-link}[Run Book: Lyp Service Example]
+* {sl-deployment-link-001}[Deployment: Old]
+* {sl-deployment-link-002}[Deployment: Checklists]
+* {sl-deployment-link-003}[Deployment: lyp example checklist]
 
 endif::[]
