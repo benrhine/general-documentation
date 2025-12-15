@@ -41,6 +41,14 @@
 :sl-properties-link:        https://doc.benrhine.com/engineering/properties
 :sl-support-link:           https://doc.benrhine.com/engineering/support
 :sl-team-link:              https://doc.benrhine.com/engineering/team
+:sl-team-link-001:          https://doc.benrhine.com/engineering/team/ba-ticket-breakdown
+:sl-team-link-002:          https://doc.benrhine.com/engineering/team/project-planning
+:sl-team-link-003:          https://doc.benrhine.com/engineering/team/scrum-flow-variations
+:sl-team-link-004:          https://doc.benrhine.com/engineering/team/scrum-misc
+:sl-team-link-005:          https://doc.benrhine.com/engineering/team/scrum-pointing-and-scale
+:sl-team-link-006:          https://doc.benrhine.com/engineering/team/scrum-sprint-total-view
+:sl-team-link-007:          https://doc.benrhine.com/engineering/team/ticket-template-story
+:sl-team-link-008:          https://doc.benrhine.com/engineering/team/ticketing-flow
 :sl-tooling-link:           https://doc.benrhine.com/engineering/tooling
 :tl-tooling-link-01:        https://doc.benrhine.com/engineering/tooling/tooling-asciidoc
 :tl-tooling-link-02:        https://doc.benrhine.com/engineering/tooling/tooling-certificates

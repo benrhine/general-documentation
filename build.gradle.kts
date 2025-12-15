@@ -200,6 +200,14 @@ val asciiDocAttributes = mapOf(
     "sl-properties-link"        to "https://doc.benrhine.com/engineering/properties",
     "sl-support-link"           to "https://doc.benrhine.com/engineering/support",
     "sl-team-link"              to "https://doc.benrhine.com/engineering/team",
+    "sl-team-link-001"          to "https://doc.benrhine.com/engineering/team/ba-ticket-breakdown",
+    "sl-team-link-002"          to "https://doc.benrhine.com/engineering/team/project-planning",
+    "sl-team-link-003"          to "https://doc.benrhine.com/engineering/team/scrum-flow-variations",
+    "sl-team-link-004"          to "https://doc.benrhine.com/engineering/team/scrum-misc",
+    "sl-team-link-005"          to "https://doc.benrhine.com/engineering/team/scrum-pointing-and-scale",
+    "sl-team-link-006"          to "https://doc.benrhine.com/engineering/team/scrum-sprint-total-view",
+    "sl-team-link-007"          to "https://doc.benrhine.com/engineering/team/ticket-template-story",
+    "sl-team-link-008"          to "https://doc.benrhine.com/engineering/team/ticketing-flow",
     "sl-tooling-link"           to "https://doc.benrhine.com/engineering/tooling",
     "tl-tooling-link-01"        to "https://doc.benrhine.com/engineering/tooling/tooling-asciidoc",
     "tl-tooling-link-02"        to "https://doc.benrhine.com/engineering/tooling/tooling-certificates",
@@ -407,7 +415,8 @@ tasks {
         attributes(asciiDocAttributes )
         // Fill in will all sub-page jobs
         dependsOn(
-            "docEngTraining", "docEngTooling"
+            "docEngTraining", "docEngTooling", "docEngTeam", "docEngSupport", "docEngProperties",
+            "docEngEnvironments"
         )
 //        dependsOn(
 //            "docConfluenceEngAdr", "docConfluenceEngBuild", "docConfluenceEngCloud",
@@ -461,177 +470,229 @@ tasks {
         // Define custom attributes using a map
         attributes(asciiDocAttributes )
     }
-    //---
-    register<AsciidoctorTask>("docConfluenceEngAdr")  {
-        setSourceDir(file("documentation/engineering/eng-adr"))
+    register<AsciidoctorTask>("docEngTeam")  {
+        setSourceDir(file("engineering/team"))
         sources(delegateClosureOf<PatternSet> {
             include("*.adoc")
         })
-        setOutputDir(file("build/docs/engineering/eng-adr"))
+        setOutputDir(file("build/docs/engineering/team"))
 
         // Define custom attributes using a map
         attributes(asciiDocAttributes )
     }
-    register<AsciidoctorTask>("docConfluenceEngDeployment")  {
-        setSourceDir(file("documentation/engineering/eng-deployment"))
+    register<AsciidoctorTask>("docEngSupport")  {
+        setSourceDir(file("engineering/support"))
         sources(delegateClosureOf<PatternSet> {
             include("*.adoc")
         })
-        setOutputDir(file("build/docs/engineering/eng-deployment"))
-
-        // Define custom attributes using a map
-        attributes(asciiDocAttributes )
-    }
-
-    register<AsciidoctorTask>("docConfluenceEngMisc")  {
-        setSourceDir(file("documentation/engineering/eng-misc"))
-        sources(delegateClosureOf<PatternSet> {
-            include("*.adoc")
-        })
-        setOutputDir(file("build/docs/engineering/eng-misc"))
-
-        // Define custom attributes using a map
-        attributes(asciiDocAttributes )
-    }
-    register<AsciidoctorTask>("docConfluenceEngReference")  {
-        setSourceDir(file("documentation/engineering/eng-reference"))
-        sources(delegateClosureOf<PatternSet> {
-            include("*.adoc")
-        })
-        setOutputDir(file("build/docs/engineering/eng-reference"))
-
-        // Define custom attributes using a map
-        attributes(asciiDocAttributes )
-    }
-    register<AsciidoctorTask>("docConfluenceEngSetups")  {
-        setSourceDir(file("documentation/engineering/eng-setups"))
-        sources(delegateClosureOf<PatternSet> {
-            include("*.adoc")
-        })
-        setOutputDir(file("build/docs/engineering/eng-setups"))
-
-        // Define custom attributes using a map
-        attributes(asciiDocAttributes )
-    }
-    register<AsciidoctorTask>("docConfluenceEngSupport")  {
-        setSourceDir(file("documentation/engineering/eng-support"))
-        sources(delegateClosureOf<PatternSet> {
-            include("*.adoc")
-        })
-        setOutputDir(file("build/docs/engineering/eng-support"))
-
-        // Define custom attributes using a map
-        attributes(asciiDocAttributes )
-    }
-    register<AsciidoctorTask>("docConfluenceEngTeam")  {
-        setSourceDir(file("documentation/engineering/eng-team"))
-        sources(delegateClosureOf<PatternSet> {
-            include("*.adoc")
-        })
-        setOutputDir(file("build/docs/engineering/eng-team"))
-
-        // Define custom attributes using a map
-        attributes(asciiDocAttributes )
-    }
-    register<AsciidoctorTask>("docConfluenceEngTechSpecs")  {
-        setSourceDir(file("documentation/engineering/eng-tech-specs"))
-        sources(delegateClosureOf<PatternSet> {
-            include("*.adoc")
-        })
-        setOutputDir(file("build/docs/engineering/eng-tech-specs"))
-
-        // Define custom attributes using a map
-        attributes(asciiDocAttributes )
-    }
-    register<AsciidoctorTask>("docConfluenceEngTest")  {
-        setSourceDir(file("documentation/engineering/eng-test"))
-        sources(delegateClosureOf<PatternSet> {
-            include("*.adoc")
-        })
-        setOutputDir(file("build/docs/engineering/dpd-test"))
-
-        // Define custom attributes using a map
-        attributes(asciiDocAttributes )
-    }
-    register<AsciidoctorTask>("docConfluenceEngTooling")  {
-        setSourceDir(file("documentation/engineering/eng-tooling"))
-        sources(delegateClosureOf<PatternSet> {
-            include("*.adoc")
-        })
-        setOutputDir(file("build/docs/engineering/eng-tooling"))
+        setOutputDir(file("build/docs/engineering/support"))
 
         // Define custom attributes using a map
         attributes(asciiDocAttributes )
         // Fill in will all sub-page jobs
-        dependsOn("docConfluenceEngGit", "docConfluenceEngJava")
+        dependsOn("docEngSupportRunBooks")
     }
-
-    // END - Build all sub-pages under eng
-
-    // START - Build all sub-pages under eng-tooling
-    register<AsciidoctorTask>("docConfluenceEngBuild")  {
-        setSourceDir(file("documentation/engineering/eng-tooling/eng-build"))
+    register<AsciidoctorTask>("docEngSupportRunBooks")  {
+        setSourceDir(file("engineering/support/run-books"))
         sources(delegateClosureOf<PatternSet> {
             include("*.adoc")
         })
-        setOutputDir(file("build/docs/engineering/eng-tooling/eng-build"))
+        setOutputDir(file("build/docs/engineering/support/run-books"))
 
         // Define custom attributes using a map
         attributes(asciiDocAttributes )
     }
-    register<AsciidoctorTask>("docConfluenceEngCloud")  {
-        setSourceDir(file("documentation/engineering/eng-tooling/eng-cloud"))
+    register<AsciidoctorTask>("docEngProperties")  {
+        setSourceDir(file("engineering/properties"))
         sources(delegateClosureOf<PatternSet> {
             include("*.adoc")
         })
-        setOutputDir(file("build/docs/engineering/eng-tooling/eng-cloud"))
+        setOutputDir(file("build/docs/engineering/properties"))
 
         // Define custom attributes using a map
         attributes(asciiDocAttributes )
     }
-    register<AsciidoctorTask>("docConfluenceEngGit")  {
-        setSourceDir(file("documentation/engineering/eng-tooling/eng-git"))
+    register<AsciidoctorTask>("docEngEnvironments")  {
+        setSourceDir(file("engineering/environments"))
         sources(delegateClosureOf<PatternSet> {
             include("*.adoc")
         })
-        setOutputDir(file("build/docs/engineering/eng-tooling/eng-git"))
+        setOutputDir(file("build/docs/engineering/environments"))
 
         // Define custom attributes using a map
         attributes(asciiDocAttributes )
     }
-    register<AsciidoctorTask>("docConfluenceEngJava")  {
-        setSourceDir(file("documentation/engineering/eng-tooling/eng-java"))
-        sources(delegateClosureOf<PatternSet> {
-            include("*.adoc")
-        })
-        setOutputDir(file("build/docs/engineering/eng-tooling/eng-java"))
-
-        // Define custom attributes using a map
-        attributes(asciiDocAttributes )
-    }
-    // END - Build all sub-pages under eng-tooling
-
-    register<AsciidoctorTask>("docThisProject")  {
-        setSourceDir(projectDir)
-        sources(delegateClosureOf<PatternSet> {
-            include("*.adoc")
-        })
-        setOutputDir(file("build/docs/engineering/eng-project"))
-
-        // Define custom attributes using a map
-        attributes(asciiDocAttributes )
-    }
-
-    register<AsciidoctorTask>("docTerraformAwsGitHubOidcSetup")  {
-        setSourceDir(file("account/aws-github-oidc-setup"))
-        sources(delegateClosureOf<PatternSet> {
-            include("*.adoc")
-        })
-        setOutputDir(file("build/docs/engineering/eng-project/aws-github-oidc-setup"))
-
-        // Define custom attributes using a map
-        attributes(asciiDocAttributes )
-    }
+    //---
+//    register<AsciidoctorTask>("docConfluenceEngAdr")  {
+//        setSourceDir(file("documentation/engineering/eng-adr"))
+//        sources(delegateClosureOf<PatternSet> {
+//            include("*.adoc")
+//        })
+//        setOutputDir(file("build/docs/engineering/eng-adr"))
+//
+//        // Define custom attributes using a map
+//        attributes(asciiDocAttributes )
+//    }
+//    register<AsciidoctorTask>("docConfluenceEngDeployment")  {
+//        setSourceDir(file("documentation/engineering/eng-deployment"))
+//        sources(delegateClosureOf<PatternSet> {
+//            include("*.adoc")
+//        })
+//        setOutputDir(file("build/docs/engineering/eng-deployment"))
+//
+//        // Define custom attributes using a map
+//        attributes(asciiDocAttributes )
+//    }
+//
+//    register<AsciidoctorTask>("docConfluenceEngMisc")  {
+//        setSourceDir(file("documentation/engineering/eng-misc"))
+//        sources(delegateClosureOf<PatternSet> {
+//            include("*.adoc")
+//        })
+//        setOutputDir(file("build/docs/engineering/eng-misc"))
+//
+//        // Define custom attributes using a map
+//        attributes(asciiDocAttributes )
+//    }
+//    register<AsciidoctorTask>("docConfluenceEngReference")  {
+//        setSourceDir(file("documentation/engineering/eng-reference"))
+//        sources(delegateClosureOf<PatternSet> {
+//            include("*.adoc")
+//        })
+//        setOutputDir(file("build/docs/engineering/eng-reference"))
+//
+//        // Define custom attributes using a map
+//        attributes(asciiDocAttributes )
+//    }
+//    register<AsciidoctorTask>("docConfluenceEngSetups")  {
+//        setSourceDir(file("documentation/engineering/eng-setups"))
+//        sources(delegateClosureOf<PatternSet> {
+//            include("*.adoc")
+//        })
+//        setOutputDir(file("build/docs/engineering/eng-setups"))
+//
+//        // Define custom attributes using a map
+//        attributes(asciiDocAttributes )
+//    }
+//    register<AsciidoctorTask>("docConfluenceEngSupport")  {
+//        setSourceDir(file("documentation/engineering/eng-support"))
+//        sources(delegateClosureOf<PatternSet> {
+//            include("*.adoc")
+//        })
+//        setOutputDir(file("build/docs/engineering/eng-support"))
+//
+//        // Define custom attributes using a map
+//        attributes(asciiDocAttributes )
+//    }
+//    register<AsciidoctorTask>("docConfluenceEngTeam")  {
+//        setSourceDir(file("documentation/engineering/eng-team"))
+//        sources(delegateClosureOf<PatternSet> {
+//            include("*.adoc")
+//        })
+//        setOutputDir(file("build/docs/engineering/eng-team"))
+//
+//        // Define custom attributes using a map
+//        attributes(asciiDocAttributes )
+//    }
+//    register<AsciidoctorTask>("docConfluenceEngTechSpecs")  {
+//        setSourceDir(file("documentation/engineering/eng-tech-specs"))
+//        sources(delegateClosureOf<PatternSet> {
+//            include("*.adoc")
+//        })
+//        setOutputDir(file("build/docs/engineering/eng-tech-specs"))
+//
+//        // Define custom attributes using a map
+//        attributes(asciiDocAttributes )
+//    }
+//    register<AsciidoctorTask>("docConfluenceEngTest")  {
+//        setSourceDir(file("documentation/engineering/eng-test"))
+//        sources(delegateClosureOf<PatternSet> {
+//            include("*.adoc")
+//        })
+//        setOutputDir(file("build/docs/engineering/dpd-test"))
+//
+//        // Define custom attributes using a map
+//        attributes(asciiDocAttributes )
+//    }
+//    register<AsciidoctorTask>("docConfluenceEngTooling")  {
+//        setSourceDir(file("documentation/engineering/eng-tooling"))
+//        sources(delegateClosureOf<PatternSet> {
+//            include("*.adoc")
+//        })
+//        setOutputDir(file("build/docs/engineering/eng-tooling"))
+//
+//        // Define custom attributes using a map
+//        attributes(asciiDocAttributes )
+//        // Fill in will all sub-page jobs
+//        dependsOn("docConfluenceEngGit", "docConfluenceEngJava")
+//    }
+//
+//    // END - Build all sub-pages under eng
+//
+//    // START - Build all sub-pages under eng-tooling
+//    register<AsciidoctorTask>("docConfluenceEngBuild")  {
+//        setSourceDir(file("documentation/engineering/eng-tooling/eng-build"))
+//        sources(delegateClosureOf<PatternSet> {
+//            include("*.adoc")
+//        })
+//        setOutputDir(file("build/docs/engineering/eng-tooling/eng-build"))
+//
+//        // Define custom attributes using a map
+//        attributes(asciiDocAttributes )
+//    }
+//    register<AsciidoctorTask>("docConfluenceEngCloud")  {
+//        setSourceDir(file("documentation/engineering/eng-tooling/eng-cloud"))
+//        sources(delegateClosureOf<PatternSet> {
+//            include("*.adoc")
+//        })
+//        setOutputDir(file("build/docs/engineering/eng-tooling/eng-cloud"))
+//
+//        // Define custom attributes using a map
+//        attributes(asciiDocAttributes )
+//    }
+//    register<AsciidoctorTask>("docConfluenceEngGit")  {
+//        setSourceDir(file("documentation/engineering/eng-tooling/eng-git"))
+//        sources(delegateClosureOf<PatternSet> {
+//            include("*.adoc")
+//        })
+//        setOutputDir(file("build/docs/engineering/eng-tooling/eng-git"))
+//
+//        // Define custom attributes using a map
+//        attributes(asciiDocAttributes )
+//    }
+//    register<AsciidoctorTask>("docConfluenceEngJava")  {
+//        setSourceDir(file("documentation/engineering/eng-tooling/eng-java"))
+//        sources(delegateClosureOf<PatternSet> {
+//            include("*.adoc")
+//        })
+//        setOutputDir(file("build/docs/engineering/eng-tooling/eng-java"))
+//
+//        // Define custom attributes using a map
+//        attributes(asciiDocAttributes )
+//    }
+//    // END - Build all sub-pages under eng-tooling
+//
+//    register<AsciidoctorTask>("docThisProject")  {
+//        setSourceDir(projectDir)
+//        sources(delegateClosureOf<PatternSet> {
+//            include("*.adoc")
+//        })
+//        setOutputDir(file("build/docs/engineering/eng-project"))
+//
+//        // Define custom attributes using a map
+//        attributes(asciiDocAttributes )
+//    }
+//
+//    register<AsciidoctorTask>("docTerraformAwsGitHubOidcSetup")  {
+//        setSourceDir(file("account/aws-github-oidc-setup"))
+//        sources(delegateClosureOf<PatternSet> {
+//            include("*.adoc")
+//        })
+//        setOutputDir(file("build/docs/engineering/eng-project/aws-github-oidc-setup"))
+//
+//        // Define custom attributes using a map
+//        attributes(asciiDocAttributes )
+//    }
 
     //==================================================================================================================
     // Publish to Confluence:
