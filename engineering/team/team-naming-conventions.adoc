@@ -16,27 +16,27 @@ Where possible and it makes sense for naming repositories and top level items we
 
 Enforcing naming convention ensures DPD repos are easy to find in GitHub and repo scope easily understood.
 
-ids-dpd-dpc-x-y-z
+rc-brr-x-y-z
 
 i.e. <organization>-<team>-<project>-<service or library name>
 
 === Application Services or Libraries
 
-ids-dpd-<project name>-<service or library name>
+rc-brr-<project name>-<service or library name>
 
-Example: ids-dpd-dpc-authorization; ids-dpd-dpc-tailored
+Example: rc-brr-authorization; rc-brr-tailored
 
 === Application Infrastructure
 
-ids-dpd-<project name>-infrastructure
+rc-brr-<project name>-infrastructure
 
-Example: ids-dpd-dpc-infrastructure
+Example: rc-brr-infrastructure
 
 === Application Manifests (For Kubernetes)
 
-ids-dpd-<project name>-manifests
+rc-brr-<project name>-manifests
 
-Example: ids-dpd-dpc-manifests
+Example: rc-brr-manifests
 
 == Property Naming Convention
 
@@ -44,7 +44,7 @@ Aws System Manager Properties should follow the following naming convention ...
 
 /<business-area>/<team>/<account/env>/<tech-framework>/<property-name>
 
-example: /ids/dpd/dev/tf/slack_dpd_dev_aws_dp_alerts_channel_id
+example: /rc/brr/dev/tf/slack_brr_dev_aws_dp_alerts_channel_id
 
 
 == Not what you were looking for?

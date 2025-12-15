@@ -1,5 +1,14 @@
 = Ticket Template - Story
 
+// Renders correctly in IDE for testing purposes
+// ifndef::confluence[]
+// include::../_includes/version-control-warning.adoc[]
+// endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
+
 == Description
 
 Description field should include area of work and a one line description of the work

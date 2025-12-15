@@ -1,5 +1,14 @@
 = Sprint total view
 
+// Renders correctly in IDE for testing purposes
+// ifndef::confluence[]
+// include::../_includes/version-control-warning.adoc[]
+// endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
+
 == Key Agile Points to Remember
 
 * https://www.scrum.org/resources/blog/agile-principles-sustainable-pace[For most people doing knowledge work, 6 hours is about the limit in a typical day]

@@ -1,5 +1,14 @@
 = Scrum: Misc / Uncategorized / Needs further research
 
+// Renders correctly in IDE for testing purposes
+// ifndef::confluence[]
+// include::../_includes/version-control-warning.adoc[]
+// endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
+
 == Reference
 
 - https://community.atlassian.com/forums/Bitbucket-questions/Git-work-flow-for-pull-request-in-large-team/qaq-p/891553#:~:text=Once%20a%20developer%20is%20done,from%20the%20develop%20and%20delivered

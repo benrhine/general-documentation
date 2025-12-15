@@ -1,5 +1,14 @@
 = Project Planning
 
+// Renders correctly in IDE for testing purposes
+// ifndef::confluence[]
+// include::../_includes/version-control-warning.adoc[]
+// endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
+
 * Project goal, objectives, strategy - then gather requirements
 ** objective decrease rescheduling procedures by75%
 ** req - simultaneously schedule staff, equipment, and facilities for a procedure

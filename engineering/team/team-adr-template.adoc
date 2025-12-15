@@ -6,7 +6,14 @@
 // Tags created on pages with keywords relevant to content - default values are present and can be overridden by passed in attribute (and should be). Additionally, when using the publishToConfluence plugin it is more difficult to pass in the keywords so the defaults are preferred.
 :keywords: documentation, adr, architectural, decision, record, template
 
-include::../../../_includes/third-level-includes.adoc[]
+// Renders correctly in IDE for testing purposes
+// ifndef::confluence[]
+// include::../_includes/version-control-warning.adoc[]
+// endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
 
 [TIP]
 This page is what the provided "Decision Template" will look like when rendered

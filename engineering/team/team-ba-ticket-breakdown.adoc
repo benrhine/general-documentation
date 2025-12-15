@@ -1,5 +1,14 @@
 = BA: Ticket Breakdown
 
+// Renders correctly in IDE for testing purposes
+// ifndef::confluence[]
+// include::../_includes/version-control-warning.adoc[]
+// endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
+
 Analysts are expected to work with the technical lead and team to use an agreed upon ticket format for the various styles
 of work that need completed (see link:ticket-template-story.adoc[Template Ticket]).
 

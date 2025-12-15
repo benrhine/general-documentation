@@ -1,5 +1,14 @@
 = Scrum: Pointing Process / Scale
 
+// Renders correctly in IDE for testing purposes
+// ifndef::confluence[]
+// include::../_includes/version-control-warning.adoc[]
+// endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
+
 It is important to be using the same scale when talking about time and complexity to ensure that everyone is on the same page. To ensure that this page will cover the pointing process and the general scale.
 
 To follow the industry standard a Fibonacci pointing scale will be used (0.5, 1, 2, 3, 5, 8, 13, 21 …)
