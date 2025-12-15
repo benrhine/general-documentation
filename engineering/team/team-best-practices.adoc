@@ -19,7 +19,7 @@ This page encapsulates the expectations for the {team-name-1-abv-upper} team. Be
 
 == Java
 
-* {tooling-java-2-link}s[Java - Best Practices]
+* {tooling-java-2-link}[Java - Best Practices]
 
 == Build Systems
 
@@ -35,9 +35,9 @@ This page encapsulates the expectations for the {team-name-1-abv-upper} team. Be
 
 == Ticketing
 
-* When creating tickets the team will use the provided ticket templates located under {team-practices-link}[Team Practices / Procedures]
-** {team-practice-4-link}[Template - Spike]
-** {team-practice-5-link}y[Template - Story]
+* When creating tickets the team will use the provided ticket templates located under {sl-team-link}[Team]
+** {sl-team-link-015}[Template - Spike]
+** {sl-team-link-016}y[Template - Story]
 
 == Not what you were looking for?
 

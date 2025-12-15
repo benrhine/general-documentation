@@ -1,10 +1,15 @@
 = Run Books
 
-// Renders correctly in IDE
 ifndef::deploy[]
-include::../../_includes/third-level-run-books.adoc[]
+
+// These will only work from the file they are included in - NOT this file
+
+* link:../../engineering/support/run-books/run-book-lyp-service.adoc[Run Books: Lyp Service Example]
+
 endif::[]
-// Renders correctly in AsciiDoc Deployment
+
 ifdef::deploy[]
-include::{includedir}/third-level-run-books.adoc[]
+
+* {sl-support-link-002}[Run Books: Lyp Service Example]
+
 endif::[]
