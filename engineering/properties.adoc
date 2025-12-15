@@ -26,7 +26,7 @@ SecureString properties will not work with CloudFormation
 
 == Naming Convention
 
-For how to correctly name Aws System Manager properties please see {team-practice-2-link}#NamingConventions-_property_naming_conventionPropertyNamingConvention[here].
+For how to correctly name Aws System Manager properties please see {sl-team-link-014}#NamingConventions-_property_naming_conventionPropertyNamingConvention[here].
 
 == Manually Configured Properties
 
