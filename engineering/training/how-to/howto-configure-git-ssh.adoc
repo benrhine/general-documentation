@@ -1,17 +1,70 @@
-== Configure Git SSH key pair
+= How To: Configure Git SSH key pair
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
+// Not sure how placement will affect publishing to Confluence
+:toc: left
 
-* https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent[Create SSH Key Pair]
-* https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account[Add Key Pair to GitHub]
+:keywords: engineering, training, how, to, git, ssh
 
-Check out ssh git repo
+// Renders correctly in IDE for testing purposes
+// ifndef::confluence[]
+// include::../_includes/version-control-warning.adoc[]
+// endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
 
-[source, bash]
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../_includes/generic-information.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/generic-information.adoc[]
+endif::[]
+
+== Step 1:
+
+Follow the GitHub documentation https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent[here] to generate a new SSH key.
+
+[WARNING]
+When generating your SSH key you *_MAY_* need to set a password. This MAY be required by the GitHub organization.
+
+== Step 2:
+
+Then follow the GitHub documentation https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account[here] to add the newly generated key to your account.
+
+== Step 3: (Optional?)
+
+Update your `~/.gitconfig`
+
+[source, shell]
 ----
-git clone git@github.com:benrhine/general-documentation.git
+[user]
+        name = YOUR NAME
+        email = YOUR.NAME@jepp.com
+...
+[credential "https://github.com"]
+        provider = generic
+        helper = osxkeychain
+
+....
+
 ----
 
-== Not what you were looking for?
+[CAUTION]
+This step may or may not be necessary. The machine this was tested on is configured to go to multiple various git repositories so this was added for clarity to help the system know where to go. While it may not be strictly necessary it should help with clarity in configurations if added.
 
-* link:../../engineering/onboarding/howto-configure-git-quick-start.adoc[Git: Quick Start]
+== Step 4: Authorizing your organization
+
+Once you have been granted access to your organization you will need to explicitly allow the generated ssh-key to have access. In order to allow that follow the GitHub documentation https://docs.github.com/en/enterprise-cloud@latest/authentication/authenticating-with-single-sign-on/authorizing-an-ssh-key-for-use-with-single-sign-on[here].
+
+[NOTE]
+This assumes you have already configured an ssh key that is working for personal repos.
 
 
+== Reference
+
+* https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
+* https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account

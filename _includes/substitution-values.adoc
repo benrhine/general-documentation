@@ -66,10 +66,8 @@
 :tl-tooling-link-02:        https://doc.benrhine.com/engineering/tooling/tooling-certificates
 :tl-tooling-link-03:        https://doc.benrhine.com/engineering/tooling/tooling-coverity
 :tl-tooling-link-04:        https://doc.benrhine.com/engineering/tooling/tooling-git
-:tl-tooling-link-05:        https://doc.benrhine.com/engineering/tooling/tooling-git-actions
 :tl-tooling-link-06:        https://doc.benrhine.com/engineering/tooling/tooling-git-hooks
 :tl-tooling-link-07:        https://doc.benrhine.com/engineering/tooling/tooling-git-main-vs-master
-:tl-tooling-link-08:        https://doc.benrhine.com/engineering/tooling/tooling-git-remove-all-history
 :tl-tooling-link-09:        https://doc.benrhine.com/engineering/tooling/tooling-git-trunk-based-development
 :tl-tooling-link-10:        https://doc.benrhine.com/engineering/tooling/tooling-jira
 :tl-tooling-link-11:        https://doc.benrhine.com/engineering/tooling/tooling-linting
@@ -130,5 +128,11 @@
 :tl-how-to-link-043:        https://doc.benrhine.com/engineering/training/how-to/howto-configure-git-ssh
 :tl-how-to-link-044:        https://doc.benrhine.com/engineering/training/how-to/howto-configure-maven-quick-start
 :tl-how-to-link-045:        https://doc.benrhine.com/engineering/training/how-to/howto-request-slack-access
+:tl-how-to-link-046:        https://doc.benrhine.com/engineering/training/how-to/howto-install-terraform
+:tl-how-to-link-047:        https://doc.benrhine.com/engineering/training/how-to/howto-configure-git-pat
+:tl-how-to-link-048:        https://doc.benrhine.com/engineering/training/how-to/howto-configure-github-workflow
+:tl-how-to-link-049:        https://doc.benrhine.com/engineering/training/how-to/howto-setup-windows-wsl
+:tl-how-to-link-050:        https://doc.benrhine.com/engineering/training/how-to/howto-git-remove-all-history
+:tl-how-to-link-051:        https://doc.benrhine.com/engineering/training/how-to/howto-configure-git-actions
 :tl-tutorials-link:         https://doc.benrhine.com/engineering/training/tutorials
 :tl-tutorials-link-01:      https://doc.benrhine.com/engineering/training/tutorials/tutorial-cloudwatch-send-slack

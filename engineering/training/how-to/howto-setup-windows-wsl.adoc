@@ -1,0 +1,345 @@
+= How To: Setup Windows WSL
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
+// Not sure how placement will affect publishing to Confluence
+:toc: left
+
+:keywords: engineering, training, how, to, windows
+
+// Renders correctly in IDE for testing purposes
+// ifndef::confluence[]
+// include::../_includes/version-control-warning.adoc[]
+// endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../_includes/generic-information.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/generic-information.adoc[]
+endif::[]
+
+[WARNING]
+THE CONFIGURATION ON THIS PAGE IS NOT FULLY WORKING AND OR DOES NOT WORK CORRECTLY!!! USE ONLY AS POSSIBLE SETUPS.
+
+== WSL Setup
+Using windows WSL is the most cross-platform way to configure a Windows machine in a mixed dev environment. Lets take a look at a few reasons why we would want to setup a machine this way.
+
+* Easiest most repeatable process for devs available on windows.
+N* o additional windows software to maintain
+* Similar process to what is required for a mac or linux environment to ensure the team is working from the most similar setups possible
+* (Future work) should be a scriptable process
+* Windows IntelliJ reads from WSL by default so has a smoother integration.
+
+[NOTE]
+If everything has installed correctly and as expected then when you open IntelliJ for the first time it should automatically detect the installed Java version.
+
+[CAUTION]
+This setup path is not fully working yet due to Boeing / Jeppesen device security controls and is currently a work in progress as of 20230526.
+
+=== WSL V1
+This version while older is the easiest to work with, while this might not be the correct way to say this but this version is more like Linux emulation rather than a VM. V1 uses bridge networking by default out of the box which solves MOST of the hurdles to using WSL but unfortunately Git does not work correctly with V1. If you are attempting to use Git under V1 IntelliJ will tell you that the operation is not supported and you will see this message when trying to do any Git operations within IntelliJ
+
+To setup wsl's as v1 execute the following command
+
+* `wsl --set-default-version 1`
+
+=== WSL V2
+This version is the latest and greatest and unlike V1 is more of a true VM and is backed by Windows Hyper-V. Due to being more VM like this means that V2 instances have their own virtual NICs which means networking is significantly more challenging but Git does work as expected with V2.
+
+To setup wsl's as v2 execute the following command
+
+* `wsl --set-default-version 2`
+
+[NOTE]
+By default with no changes from the users wsl's will install as V2 by default.
+
+It is assumed you are installing WSL as v2 and the instructions below while similar are intended for a v2 instance
+Install Windows Linux Sub-System
+For reference the following instructions are largely based off this post with the additions of personal learnings about the Boeing environment.
+Press the Win + S key and type turn Windows features on or off, then press the Enter button
+Make sure the following are enabled
+Windows Subsystem for Linux
+Virtual Machine Platform
+Hyper-V - this is OFF by default
+Restart the machine
+Open PowerShell as Administrator
+Start by setting the default wsl version as stated above under the v1 comparison to v2
+Run `wsl --install`
+If this does not complete it implies that one of the windows features above is not enabled or available
+Create a Linux username (suggest Lastname with first initial i.e. wickj)
+Create a Linux password (suggest using the the pin you set for your badge since that is what is used most other places)
+Check what version of wsl is used with the following command wsl --list --verbose or wsl -l -v
+From Windows Search open "View Network Connections"
+
+You should now have at least 5 connections
+Ethernet
+WiFi
+Ethernet 2 - this should be the Global Protect VPN
+vEthernet (Default Switch)
+vEthernet (WSL)
+If you don't have the above there may be issues moving forward
+From Windows Search open "Hyper-V Manager" and you should see the following ...
+
+Select "Virtual Switch Manager"
+Select the "WSL" network and you should see the following
+
+Now select "External Network" and then select your active internet connect
+
+Click apply - sometimes you need to repeat this once or twice as it occasionally complains.
+This now results in a pseudo bridged network to your WSL
+Open Windows cmd and run ipconfig/all
+These results will be required for the next steps
+At this point open your wsl in power shell
+run the following commands - ADJUST THE IP FOR WHATEVER YOUR LOCAL IP IS
+
+[source,shell]
+----
+ sudo ip addr flush dev eth0
+ sudo ip addr add 192.168.1.244/24 dev eth0
+ ip addr show dev eth0
+ sudo ip link set eth0 up
+ sudo ip route add default via 192.168.1.1 dev eth0
+ ip route show
+ ping 192.168.1.1
+ ping google.com
+----
+
+Configure DNS
+run sudo vi /etc/wsl.conf  and add the following
+
+[source,shell]
+----
+[user]
+default=rhineb
+[network]
+generateResolveConf = false
+----
+
+run sudo vi /etc/resolv.conf  and add the following
+
+[source,shell]
+----
+# This file was automatically generated by WSL. To stop automatic generation of this file, add the following entry to /etc/wsl.conf:
+# Example
+# nameserver 205.171.2.65
+# THIS FOLLOWING IS AVAILABLE UNDER YOUR ACTIVE INTERNET CONNECTION FROM THE CMD IPCONFIG/ALL RESULT
+nameserver YOUR DNS SERVER IP
+----
+
+Troubleshooting
+Where is Linux subsystem in the Windows Filesystem Hierarchy?
+https://superuser.com/questions/1185033/what-is-the-home-directory-on-windows-subsystem-for-linux
+When viewing in explorer should be on the same level as C:\\ and should appear as \\wsl$\distribution
+Now test that you have full internet connectivity by running the following command. If it completes successfully then you have correctly configured the network.
+
+[CAUTION]
+VPN Warning
+Unfortunately, while the above gives full networking abilities to the wsl instance it is not passing the vpn connection at this point. So while everything you would want Linux to do should be available it is not currently possible to connect to the Jeppesen network. IE. while Git functionality is now available since the vpn connection is not it is still not possible to pull down the Jeppesen git repos.
+
+[CAUTION]
+Restart Warning
+Unfortunately, the above will need to be reconfigured on every restart so we should script this.
+
+Run sudo apt-get update
+This is important otherwise somethings may have issues installing
+Run
+
+[source,shell]
+----
+sudo apt-get install build-essential procps bash curl file git grep zip unzip
+----
+
+[source,shell]
+----
+brew install coreutils findutils gnu-sed gnu-tar gnu-indent gnu-which
+brew install ag ack autoconf automake fd ffind ffmpeg fpp
+brew install gettext gifsicle graphviz hub imagemagick jq libjpeg
+brew install libmemcached pkg-config terminal-notifier
+brew install the_silver_searcher tmux tree vim watchman wget z
+brew install go markdown node npm python python3 pypy rabbitmq ruby yarn
+brew install mercurial subversion
+brew install awscli aws-console serverless
+----
+
+Install SDKman
+Run
+
+
+
+curl -s "https://get.sdkman.io" | bash
+Run - this ensures sdkman is on the path
+
+
+
+source "$HOME/.sdkman/bin/sdkman-init.sh"
+To verify SDKman install you should now have a .sdkman folder in your user home directory
+Install Java (Using SDKman)
+Run - this will list all available java versions
+
+
+
+sdk list java
+Run - this will install the selected version of java
+
+
+
+install java 8.0.372-amzn OR install java SELECTED-VERSION-HERE
+This should now be visible under ~/home/YOUR-USER/.sdkman/current
+Run
+
+
+
+sdk install maven 3.2.5
+This should now be visible under ~/home/YOUR-USER/.sdkman/current
+Install additional software
+Firefox
+Chrome
+IntelliJ Community Edition
+Sublime Text
+Postman
+Slack
+Once everything above is installed verify that IntelliJ is looking at the correct installs
+Go to File → Settings
+Select Version Control → Git
+Make sure that Git executable is pointing to the Windows Git installation. In theory it should pick this up by default but it should be verified. In the case of WSL the path should look similar to //wsl$/Ubuntu/ect/git/bin
+Note: The above is not the exact path as I forgot to take a screenshot
+Please be aware if any of the tools are open you may need to close them and re-open them in order for them to pick up the environment variable changes.
+
+What is needed to finish this
+The one remaining item to complete the setup this way is to solve how to get vpn connectivity to the WSL instance. Going back to the beginning of this setup in Hyper-V manager it is possible to assign the vpn connection to the vWsl interface instead of the raw internet connection but then DNS no longer works within WSL. This also seems to cause Global Protect to sometimes freak-out and potentially get into a connect/disconnect loop that just repeats then requires a system restart.
+
+Having completed the Hyper-V networking step should result in having a Bridge Connection icon under Windows networking. I believe that the key to solving this is adding to that bridge connection the vpn then passing the bridge connection to the wsl instead of the wifi. So far though this has not seemed to work. There is also an experimental bridging within wsl (see here) but that has also not been successful at this point. In short I believe this much more universal path is almost complete and available just this last problem needs solved.
+
+If anyone has ideas please reach out.
+
+Resources
+https://www.windowscentral.com/how-set-and-manage-network-bridge-connection-windows-10
+https://randombytes.substack.com/p/bridged-networking-under-wsl
+this is for a experimental networking bridging feature in wsl v2
+Git Setup
+Pending the above has been completed successfully it should now be possible to access the Boeing / Jeppesen Git repositories.
+
+Git-SCM Standard Way - Easiest Way
+Click here to expand...
+WSL Command Line
+Click here to expand...
+SourceTree
+Click here to expand...
+Other Internal Git related documentation
+The following may or may not be useful but are other internal Boeing / Jeppesen documentation for various Git setups.
+
+GIT Developer Process - Pull Requests Required v0.1
+Git Set Up
+How To: Set up SourceTree to access ADO Git
+Install Git Windows Client
+git Usage And Scenarios
+SourceTree
+
+
+Node Setup
+This setup is more important if you are working from a windows machine as much of this work would be handled differently on Linux or Mac
+
+Windows Node
+Click here to expand...
+WebEx Teams
+Deprication
+
+Please be aware that as of 20230524 it is believed that Boeing / Jeppesen is moving away from this tool in the near future (1-4 mo?) so this section may only be relevant for the next few months. Please check with your manager.
+
+Open windows Run (Cmd-r) → paste the following "\\nos\swdepot\bca\chs\setools\xsetup.exe" (no quotes) → enter
+
+
+
+This will open the software portal. Search WebEx on the upper right hand side
+
+
+
+If there is a red lock on the software you will need to complete the form here, in order to complete the form you will need to complete additional training located here https://mylearn-ss.web.boeing.com/psc/mylprd/EMPLOYEE/ELM/c/LM_SS_LEARNING.LM_FIND_LEARNING.GBL (if the link does not open correctly go here then under Quick Access select My Learn at Boeing → Find Learning → Search for "Global Trade Awareness Training" class 80537). Once the training is completed finish the initial form and within 24-48 hours you should have approval and will receive an email similar to as follows.
+
+
+----
+Hello.  The Cisco Webex Teams administrators have activated your Webex Teams account.  You can now download the app from Software Express and activate your account on your Boeing-provided devices.
+
+HELP NEEDED?  Please access the Webex Teams website for an introduction and basic instruction on Webex Teams.  If you have trouble installing the application, please contact the Enterprise Help Desk.
+
+BOEING-PROVIDED WORKSTATION OR LAPTOP activation steps.  These steps must be completed before you download the app to your Boeing-provided mobile device.
+1.        If you have previously installed Cisco Webex Teams from the Cisco website,  you must uninstall via Control Panel before proceeding with the next steps.
+2.        Open Software Express
+3.        Search for “Webex”
+4.        Find and double-click Webex TEAMS FedRAMP application
+5.        Click Start
+6.    It will install as “Webex” – not “Webex Teams”.  Please note that the icon is very similar to Webex Meetings.  The Webex Teams icon is just a blue-green W, whereas the Webex Meetings icon is the same blue-green W with a tiny little white and black graphic of a camera.
+7.        You must log in to Webex Teams with your name@boeing.com email address (do not use name@exchange.boeing.com ) on your desktop application before installing it on your mobile device.
+8.    “Failed to Connect to Server” – follow the steps located here.
+
+ACCESS WEBEX TEAMS ON YOUR BROWSER:  Please try logging in using your browser (use Edge or Firefox) with this URL: http://teams-usgov.webex.com if any of the following situations are applicable.  If you have any trouble with getting it to work in your browser, please see this article.
+1.	If you are having trouble downloading/installing/logging into the software application
+2.	Do not have your own Boeing-provided workstation
+3.	Are using a thin client device
+
+BOEING-ISSUED APPLE (iOS) iPHONE or iPAD activation steps. NOTE: You must activate Cisco Webex Teams on your workstation or laptop first.
+1.      If you already have the Cisco Webex Teams application downloaded from the Apple App Store, delete the application and restart your mobile device before proceeding with step 2.
+2.      Open the Boeing EAS icon on your Boeing-provided iOS device.
+3.      Download the Cisco Webex Teams application from the Boeing secure EAS folder (DO NOT download the Webex Teams application from the Apple App Store!).
+NOTE 1:  If you do not see the Webex Teams application, please wait and check later for the app to appear. If it does not appear after 6 hours, send a note to GRP Webex Teams.
+NOTE 2:  After 30 minutes of processing, if it hasn’t changed to installed, close EAS and reopen.
+4.      Launch the Webex Teams application.
+5.      On the Welcome to Webex Teams screen:
+a.      Click Start
+b.      Tap Are you a FedRAMP customer? (Don’t skip this step. It is at the bottom of screen in tiny blue print)
+c.       Enter your Boeing Email Address - use name@boeing.com.
+d.      Check I agree to the terms and conditions
+e.       Click Next
+6.      During SSO process:
+a.      Select Mobile Device Certificate
+b.      Click Select Certificate and Sign On
+c.       Select a client certificate similar to the following format:  F17WCPJRHG7F.  NOTE:  This is actually your mobile device serial number.
+7.       Click OK for Microphone and Notifications questions.
+8.       Click Allow for “Teams” Would Like to Send You Notifications
+
+BOEING-ISSUED ANDROID PHONE activation steps.  You must activate Cisco Webex Teams on your workstation or laptop first.
+ 1:   Your Samsung must first be configured with Android for Enterprise.
+2.      Open the “Google Play” icon on the work side of your Boeing-provided Android device.
+3.      Find and download the “Cisco Webex” application from the Playstore list.
+NOTE 1:  If you do not see the Webex application in the managed Google Playstore (work side), please wait and check later for the app to appear. If it does not appear after 6 hours, send a note to GRP Webex Teams.
+NOTE 2:  After a few minutes of processing, if it hasn’t changed to installed, you may need to tap install/processing a few more times. Restart the device and try again if download never occurs.
+4.      Launch the Webex Teams application
+5.      Click Get Started
+6.      Click Next
+7.   During SSO process (NOTE: Please see step 10 if the WSSO screen does not appear):
+a.      Select Mobile Certificate
+b.       Select a client certificate similar to the following format: CN-R38K401Z03Y, OU=VPN
+8.     If the WSSO screen does not appear, and you only see a white screen with a securelogon URL:
+a.      Select top-left Back Arrow
+b.       Click Next
+c.       If you still see a blank screen or a "Sign-on failed" screen, repeat steps a and b up to 3 times.
+9.  Click OK for Microphone and Notifications questions
+
+
+Review the information on the Webex Teams website.
+Webex Teams
+----
+
+Once you have received the email please repeat the process to complete installation of WebEx Teams.
+
+Bookmarks (Highly Recommended)
+Please see Configure Bookmarks
+
+Configure Git
+Please see Configure Git (Quick Start)
+
+Git was installed as part of the setup script
+
+Configure Maven
+Please see Configure Maven (Quick Start)
+
+Configure Aws CLI
+Please see Configure Aws CLI (Quick Start)
+
+Aws CLI was installed as part of the setup script

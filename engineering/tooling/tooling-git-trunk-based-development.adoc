@@ -1,4 +1,28 @@
 = Git: Trunk Based Development
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
+// Not sure how placement will affect publishing to Confluence
+:toc: left
+
+:keywords: engineering, tooling, git, trunk, based, development
+
+// Renders correctly in IDE for testing purposes
+// ifndef::confluence[]
+// include::../_includes/version-control-warning.adoc[]
+// endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../_includes/generic-information.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/generic-information.adoc[]
+endif::[]
 
 Trunk-based development is a paradigm where everyone works off of main/master with the goal of main/master always being a deployable state. This can work two different ways, 1. everyone commits directly into main/master or 2. everyone cuts from main/master and changes must be reviewed and approved for a merge prior to dev deployment to ensure that main/master is always in a deployable state.
 
@@ -17,6 +41,19 @@ Trunk-based development is a paradigm where everyone works off of main/master wi
 * lack unit/int tests
 * lack of ci/cd
 
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../_includes/eng-level-tooling-not-what-you-were-looking-for.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/ng-level-tooling-not-what-you-were-looking-for.adoc[]
+endif::[]
+
+== Reference
+
+* https://www.linkedin.com/pulse/why-i-prefer-trunk-based-development-over-feature-branching-sharma
+* https://www.toptal.com/software/trunk-based-development-git-flow
 
 
 

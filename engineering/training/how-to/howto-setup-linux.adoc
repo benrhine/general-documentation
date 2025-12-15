@@ -1,6 +1,30 @@
-= Linux
+= How To: Setup Linux
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
+// Not sure how placement will affect publishing to Confluence
+:toc: left
 
-No one on the team is currently on a linux machine. Thus this section is mostly empty but has been placed here for completeness and if a specific reference becomes required serces as a place to put that information.
+:keywords: engineering, training, how, to, linux
+
+// Renders correctly in IDE for testing purposes
+// ifndef::confluence[]
+// include::../_includes/version-control-warning.adoc[]
+// endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../_includes/generic-information.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/generic-information.adoc[]
+endif::[]
+
+No one on the team is currently on a linux machine. Thus this section is mostly empty but has been placed here for completeness and if a specific reference becomes required services as a place to put that information.
 
 
 

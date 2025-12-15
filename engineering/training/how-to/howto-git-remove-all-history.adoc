@@ -1,4 +1,4 @@
-= Git: Remove all history
+= How To: Git Remove all history
 
 While chances are, you will never do this in a corporate environment,
 there are times you may want to remove all historical commits from a project.

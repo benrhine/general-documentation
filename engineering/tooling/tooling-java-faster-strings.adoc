@@ -1,9 +1,28 @@
 = Java: Faster Strings
-
 // Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
 // having the :toc: value in the adoc files is required for publishToConfluence to work correctly
 // Not sure how placement will affect publishing to Confluence
 :toc: left
+
+:keywords: engineering, tooling, java
+
+// Renders correctly in IDE for testing purposes
+// ifndef::confluence[]
+// include::../_includes/version-control-warning.adoc[]
+// endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../_includes/generic-information.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/generic-information.adoc[]
+endif::[]
 
 This page is to discuss performance benchmarking of String and StringBuilder classes in Java and discuss how to modify
 strings efficiently.
@@ -152,6 +171,15 @@ image:images/java-faster-strings-2.png[]
 * Modifying a String creates a new String in the heap memory. To change the content of the String, we should consider the StringBuilder class.
 * Any attempt to modify the String class creates a new object in the heap memory, which has significant performance drawbacks.
 * StringBuilder is ideal for modifying string content; it does so without creating any extra objects in the memory.
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../_includes/eng-level-tooling-not-what-you-were-looking-for.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/ng-level-tooling-not-what-you-were-looking-for.adoc[]
+endif::[]
 
 == Reference
 

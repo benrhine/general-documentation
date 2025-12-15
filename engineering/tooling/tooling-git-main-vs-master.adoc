@@ -1,4 +1,28 @@
 = Git: Main vs Master
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
+// Not sure how placement will affect publishing to Confluence
+:toc: left
+
+:keywords: engineering, tooling, git, trunk, based, development
+
+// Renders correctly in IDE for testing purposes
+// ifndef::confluence[]
+// include::../_includes/version-control-warning.adoc[]
+// endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../_includes/generic-information.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/generic-information.adoc[]
+endif::[]
 
 In trying to build a more inclusive environment for all, it is now recommended to use the `main` branch naming convention
 over the `master` branch convention. Most open git repositories now use `main` by default. In AWS case they are still
@@ -26,4 +50,43 @@ If you received the above do the following ...
 * navigate to the repo main and you will now see the branch is set to main
 
 Now re-run `git push origin --delete master` and you should be all set
+
+== If using CodeCommit (deprecated)
+
+Chances are you will receive the following error as you need to manually change the default branch
+
+[source, shell]
+----
+To https://github.com/gittower/git-crashcourse.git
+! [remote rejected]   master (refusing to delete the current branch: refs/heads/master)
+error: failed to push some refs to 'https://example@github.com/gittower/git-crashcourse.git'
+----
+
+If you received the above do the following ...
+
+* navigate to your repository
+
+image:images/git-3.png[]
+
+* go to settings
+
+image:images/git-1.png[]
+
+* set the "Default branch" to main and save
+
+image:images/git-2.png[]
+
+* navigate to the repo main, and you will now see the branch is set to main
+
+
+Now re-run `git push origin --delete master` and you should be all set
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../_includes/eng-level-tooling-not-what-you-were-looking-for.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/ng-level-tooling-not-what-you-were-looking-for.adoc[]
+endif::[]
 

@@ -21,7 +21,7 @@ Information contained within this page or subpages is specific to onboarding, sy
 
 === Step 0: {team-name-1-abv-upper} Team (Team Specific)
 
-Please start by reviewing the business Team information https://dat.jeppesen.com/confluence/spaces/GDP/pages/254612550/Team+Home+Page[here] and the https://dat.jeppesen.com/confluence/spaces/GDP/pages/254612544/Development+Details[Development Details].
+Please start by reviewing the business Team information {fl-business-link}[here] and the {}[Development Details].
 
 If you are not part of the {team-name-1-abv-upper} team and are referencing this documentation it is recommended you review you're Team home page.
 
@@ -31,18 +31,18 @@ This will walk you through system configuration and some tool setups
 
 Choose the setup based on the machine you have ...
 
-* {tl-how-to-link-036}[Linux]
-* {tl-how-to-link-035}[MacOS]
-* {tl-how-to-link-037}[Windows]
+* {tl-how-to-link-036}[How To: Setup Linux]
+* {tl-how-to-link-035}[How To: Setup MacOS]
+* {tl-how-to-link-037}[How To: Setup Windows]
 
 == Step 2: Tool configurations
 
-* {tl-how-to-link-043}[Git - Configure SSH]
+* {tl-how-to-link-043}[How To: Git - Configure SSH]
 
 [TIP]
 Please make sure you have configured authorization for your organization as described {tl-how-to-link-043}#GitConfigureSSH-_step_4_authorizing_your_organizationStep4:Authorizingyourorganization[here]. This is critical for being able to push code.
 
-* {tooling-git-5-link}[Git - Configure PAT]
+* {tl-how-to-link-047}[How To: Git - Configure PAT]
 
 [NOTE]
 Until authentication is handled by GitHub Apps you will need a personal and organizational token.
@@ -52,6 +52,15 @@ Until authentication is handled by GitHub Apps you will need a personal and orga
 If you are part of the {team-name-1-abv-upper}  team please review the following ...
 
 If you are not part of the {team-name-1-abv-upper} team and are referencing this documentation it is recommended you review you're Team practices page or use the following as helpful suggestions for your team.
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../_includes/eng-level-team-links.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/eng-level-test-links.adoc[]
+endif::[]
 
 // Renders correctly in IDE
 ifndef::deploy[]

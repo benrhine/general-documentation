@@ -1,4 +1,4 @@
-= Git: Actions
+= How To: GitHub Actions
 
 == Reference
 

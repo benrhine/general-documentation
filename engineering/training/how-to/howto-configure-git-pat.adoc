@@ -1,0 +1,112 @@
+= How To: Configure Git personal access token (PAT)
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
+// Not sure how placement will affect publishing to Confluence
+:toc: left
+
+:keywords: engineering, training, how, to, git, pat, personal, access, token
+
+// Renders correctly in IDE for testing purposes
+// ifndef::confluence[]
+// include::../_includes/version-control-warning.adoc[]
+// endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../_includes/generic-information.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/generic-information.adoc[]
+endif::[]
+
+== GitHub
+
+To configure personal access tokens for GitHub see the following variations ...
+
+=== Personal Token (Fine-Grain)
+
+.Select Settings from the upper right hand menu
+image:images/github-pat-1.png[]
+
+.Scroll down the left side menu and select "Developer Settings" at the bottom
+image:images/github-pat-2.png[]
+
+.Expand "Personal access tokens"
+image:images/github-pat-4.png[]
+
+.Click "Generate new token"
+image:images/github-pat-7.png[]
+
+.Give the token a name and description
+image:images/github-pat-5.png[]
+
+Select which repos the token should apply to ...
+
+Click "Generate Token"
+
+Make sure you write down the token as it will only be available *ONCE* after clicking "Generate Token"
+
+=== Personal Token (Classic)
+
+.Select Settings from the upper right hand menu
+image:images/github-pat-1.png[]
+
+.Scroll down the left side menu and select "Developer Settings" at the bottom
+image:images/github-pat-2.png[]
+
+.Expand "Personal access tokens"
+image:images/github-pat-4.png[]
+
+.Select Tokens (classic)
+image:images/github-pat-10.png[]
+
+.Select classic
+image:images/github-pat-11.png[]
+
+.Set token duration and permission
+image:images/github-pat-12.png[]
+
+Click "Generate Token"
+
+Make sure you write down the token as it will only be available *ONCE* after clicking "Generate Token"
+
+Now, with the PAT saved somewhere secure authorize the token for SSO for your organization
+
+image:images/github-pat-13.png[]
+
+=== Organizational Token
+
+[WARNING]
+Organizational tokens are limited to a lifetime of 1 year and require approval on *ANY* permission change from an org admin.
+
+.Select Settings from the upper right hand menu
+image:images/github-pat-1.png[]
+
+.Scroll down the left side menu and select "Developer Settings" at the bottom
+image:images/github-pat-2.png[]
+
+.Expand "Personal access tokens"
+image:images/github-pat-4.png[]
+
+.Click "Generate new token"
+image:images/github-pat-7.png[]
+
+.Give the token a name and description
+image:images/github-pat-6.png[]
+
+Select which repos the token should apply to ...
+
+Click "Generate Token"
+
+== GitLab
+
+_TODO_
+
+== Other
+
+_TODO_

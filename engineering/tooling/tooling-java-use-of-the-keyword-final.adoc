@@ -4,6 +4,26 @@
 // Not sure how placement will affect publishing to Confluence
 :toc: left
 
+:keywords: engineering, tooling, java
+
+// Renders correctly in IDE for testing purposes
+// ifndef::confluence[]
+// include::../_includes/version-control-warning.adoc[]
+// endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../_includes/generic-information.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/generic-information.adoc[]
+endif::[]
+
 == Why you should use final everywhere
 
 When using the `final` keyword just for variables we can improve the application in the following measurable ways ...
@@ -38,6 +58,15 @@ use of final can compromise good object-oriented design principles.
 I do suggest that all test classes be made final by default. There is no real reason that any test class should ever be
 extended (or in almost 20 years I have not found one yet). If you see a test class being extended there is a good chance
 something is designed incorrectly and should be re-evaluated.
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../_includes/eng-level-tooling-not-what-you-were-looking-for.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/ng-level-tooling-not-what-you-were-looking-for.adoc[]
+endif::[]
 
 == Reference
 
