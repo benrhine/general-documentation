@@ -11,6 +11,8 @@ ifdef::confluence[]
 include::{includedir}/version-control-warning.adoc[]
 endif::[]
 
+* Java Records
+
 * https://www.google.com/search?q=convert+serverless.yml+to+aws+sam&rlz=1C1GCEU_enUS1059US1059&oq=convert+serverless&aqs=chrome.1.69i57j69i59l2j0i512l2j69i60l3.4319j0j7&sourceid=chrome&ie=UTF-8#ip=1
 * https://alexharv074.github.io/2020/01/13/a-method-for-migrating-serverless-framework-to-sam.html
 * https://www.serverless.com/blog/serverless-framework-now-supports-aws-sam-cloudformation

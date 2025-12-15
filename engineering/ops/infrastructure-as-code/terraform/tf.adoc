@@ -8,7 +8,7 @@ but it also has a much steeper learning curve.
 == Get Started
 
 To get started using Terraform start by ensuring it is installed on your local system by following the directions
-provided link:../../../../engineering/onboarding/install-terraform.adoc[here].
+provided link:../../../../engineering/onboarding/howto-install-terraform.adoc[here].
 
 [#_add_terraform_to_your_project]
 == Add Terraform to your project

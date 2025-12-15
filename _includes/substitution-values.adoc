@@ -118,5 +118,17 @@
 :tl-how-to-link-032:        https://doc.benrhine.com/engineering/training/how-to/git-remove-tag
 :tl-how-to-link-033:        https://doc.benrhine.com/engineering/training/how-to/local-deploy
 :tl-how-to-link-034:        https://doc.benrhine.com/engineering/training/how-to/programmatically-check-dependency-update
+:tl-how-to-link-034:        https://doc.benrhine.com/engineering/training/how-to/programmatically-check-dependency-update
+:tl-how-to-link-035:        https://doc.benrhine.com/engineering/training/how-to/howto-setup-mac-os
+:tl-how-to-link-036:        https://doc.benrhine.com/engineering/training/how-to/howto-setup-linux
+:tl-how-to-link-037:        https://doc.benrhine.com/engineering/training/how-to/howto-setup-windows
+:tl-how-to-link-038:        https://doc.benrhine.com/engineering/training/how-to/howto-access-requests
+:tl-how-to-link-039:        https://doc.benrhine.com/engineering/training/how-to/howto-configure-aws-cli-quick-start
+:tl-how-to-link-040:        https://doc.benrhine.com/engineering/training/how-to/howto-configure-bookmarks
+:tl-how-to-link-041:        https://doc.benrhine.com/engineering/training/how-to/howto-configure-git-oidc-aws
+:tl-how-to-link-042:        https://doc.benrhine.com/engineering/training/how-to/howto-configure-git-quick-start
+:tl-how-to-link-043:        https://doc.benrhine.com/engineering/training/how-to/howto-configure-git-ssh
+:tl-how-to-link-044:        https://doc.benrhine.com/engineering/training/how-to/howto-configure-maven-quick-start
+:tl-how-to-link-045:        https://doc.benrhine.com/engineering/training/how-to/howto-request-slack-access
 :tl-tutorials-link:         https://doc.benrhine.com/engineering/training/tutorials
 :tl-tutorials-link-01:      https://doc.benrhine.com/engineering/training/tutorials/tutorial-cloudwatch-send-slack

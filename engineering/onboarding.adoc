@@ -1,10 +1,10 @@
-= Start Here: Onboarding
+= Start Here: Onboarding / Setups / Configurations
 // Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
 // having the :toc: value in the adoc files is required for publishToConfluence to work correctly
 // Not sure how placement will affect publishing to Confluence
 :toc: left
 
-:keywords: engineering, onboarding, start, here
+:keywords: engineering, onboarding, start, here, setups, config, configuration
 
 // Renders correctly in IDE for testing purposes
 // ifndef::confluence[]
@@ -15,77 +15,43 @@ ifdef::confluence[]
 include::{includedir}/version-control-warning.adoc[]
 endif::[]
 
-== Application Documentation
+== Start Here
 
-=== Documentation
-Documentation is written in Confluence or Asciidoc
+Information contained within this page or subpages is specific to onboarding, system setup, and/or configurations that are necessary in order to complete your job. This is the top level page and all information that fits the above description should be added as a sub-page here. While system configuration portion is generic and should mostly apply to any developer starting a new position, some aspects of this documentation is written with a {team-name-1-abv-upper} bent.
 
-- link:../engineering/best-practices.adoc[Best Practices]
-- link:../engineering/development/build/build.adoc[Build]
-- link:../engineering/cloud/cloud-infrastructure.adoc[Cloud Infrastructure]
-- link:../../engineering/development/data/data.adoc[Data]
-- link:../engineering/deployment/deployment.adoc[Deployment]
-- link:../../engineering/environments.adoc[Environments]
-- link:../../engineering/ops/infrastructure-as-code/iac.adoc[Infrastructure as Code]
-- link:../../engineering/development/libraries/libraries.adoc[Libraries]
-- link:../../engineering/properties/properties.adoc[Properties]
-- link:../../engineering/development/metrics/metrics-reference.adoc[Metrics]
-- link:../../engineering/development/recovery/disaster-recovery.adoc[Disaster Recovery]
-- link:../../engineering/development/style/style.adoc[Style]
-- link:../engineering/support/run-books.adoc[Support]
-- link:../engineering/technology/technology.adoc[Technology]
-- link:../engineering/development/testing/testing.adoc[Testing]
-- link:../engineering/development/third-party-services/third-party-services.adoc[Third Party Services]
-- link:../engineering/tooling/tooling.adoc[Tooling]
-- link:../engineering/training/training.adoc[Training]
-- link:../engineering/tutorials/tutorials.adoc[Tutorials]
-- link:../engineering/naming-conventions.adoc[Naming Conventions]
-- link:../engineering/troubleshooting.adoc[Troubleshooting]
+=== Step 0: {team-name-1-abv-upper} Team (Team Specific)
 
-=== Code Repositories
-github/gitlab/codecommit
+Please start by reviewing the business Team information https://dat.jeppesen.com/confluence/spaces/GDP/pages/254612550/Team+Home+Page[here] and the https://dat.jeppesen.com/confluence/spaces/GDP/pages/254612544/Development+Details[Development Details].
 
-=== Training
+If you are not part of the {team-name-1-abv-upper} team and are referencing this documentation it is recommended you review you're Team home page.
 
-=== Jira
+== Step 1: Configure your system
 
-=== Versions
-==== Java
-- 21
+This will walk you through system configuration and some tool setups
 
-==== Maven
-- n/a
+Choose the setup based on the machine you have ...
 
-==== Gradle
-- 8.7+
+* {tl-how-to-link-036}[Linux]
+* {tl-how-to-link-035}[MacOS]
+* {tl-how-to-link-037}[Windows]
 
-=== Okta
-Links to your okta
+== Step 2: Tool configurations
 
-=== Team Mailing List
+* {tl-how-to-link-043}[Git - Configure SSH]
 
-=== Primary Team Contacts
+[TIP]
+Please make sure you have configured authorization for your organization as described {tl-how-to-link-043}#GitConfigureSSH-_step_4_authorizing_your_organizationStep4:Authorizingyourorganization[here]. This is critical for being able to push code.
 
-== Setup Process
+* {tooling-git-5-link}[Git - Configure PAT]
 
-=== Step 0: Links
-Important links that you will need, most of the above will be imported when you import the bookmarks. Arm yourself with
-knowledge you will need - link:../../engineering/onboarding/configure-bookmarks.adoc[Configure: Bookmarks]
+[NOTE]
+Until authentication is handled by GitHub Apps you will need a personal and organizational token.
 
-=== Step 1: Access Request
-In order to be able to perform the following setup you will need to have expanded access approved, do this first to get
-moving - see link:../../engineering/onboarding/access-requests.adoc[Access Requests]
+== Step 3: Review Team Practices (Team Specific)
 
-=== Step 2: Request Slack Access
-To get access to slack, recommend doing this at the same time you are working on Access Requests - see link:../../engineering/onboarding/request-slack-access.adoc[Request Slack Access]
+If you are part of the {team-name-1-abv-upper}  team please review the following ...
 
-=== Step 3: System Setup
-How to correctly configure your system - Choose your path
-
-- link:../../engineering/onboarding/linux.adoc[Linux]
-- link:../../engineering/onboarding/mac-os.adoc[MacOS]
-- link:../../engineering/onboarding/windows.adoc[Windows]
-
+If you are not part of the {team-name-1-abv-upper} team and are referencing this documentation it is recommended you review you're Team practices page or use the following as helpful suggestions for your team.
 
 // Renders correctly in IDE
 ifndef::deploy[]

@@ -64,6 +64,6 @@ For more info on Git configuration please see the following
 
 == Not what you were looking for?
 
-* link:../../engineering/onboarding/configure-git-ssh.adoc[Configure: Git SSH]
+* link:../../engineering/onboarding/howto-configure-git-ssh.adoc[Configure: Git SSH]
 
 

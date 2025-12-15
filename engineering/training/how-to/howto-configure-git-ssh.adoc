@@ -12,6 +12,6 @@ git clone git@github.com:benrhine/general-documentation.git
 
 == Not what you were looking for?
 
-* link:../../engineering/onboarding/configure-git-quick-start.adoc[Git: Quick Start]
+* link:../../engineering/onboarding/howto-configure-git-quick-start.adoc[Git: Quick Start]
 
 
