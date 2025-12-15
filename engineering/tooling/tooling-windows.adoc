@@ -42,6 +42,6 @@ include::../../_includes/eng-level-tooling-not-what-you-were-looking-for.adoc[]
 endif::[]
 // Renders correctly in AsciiDoc Deployment
 ifdef::deploy[]
-include::{includedir}/ng-level-tooling-not-what-you-were-looking-for.adoc[]
+include::{includedir}e/ng-level-tooling-not-what-you-were-looking-for.adoc[]
 endif::[]
 

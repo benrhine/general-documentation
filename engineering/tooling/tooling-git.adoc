@@ -26,9 +26,18 @@ endif::[]
 
 Git is the preferred source control tool …
 
+// Renders correctly in IDE
+ifndef::deploy[]
 * link:tooling-git-hooks.adoc[Git Hooks]
 * link:tooling-git-main-vs-master.adoc[Main vs Master]
 * link:tooling-git-trunk-based-development.adoc[Trunk Based Development]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+* {tl-tooling-link-06}[Git Hooks]
+* {tl-tooling-link-07}[Main vs Master]
+* {tl-tooling-link-09}[Trunk Based Development]
+endif::[]
 
 // Renders correctly in IDE
 ifndef::deploy[]
@@ -36,16 +45,7 @@ include::../../_includes/eng-level-tooling-not-what-you-were-looking-for.adoc[]
 endif::[]
 // Renders correctly in AsciiDoc Deployment
 ifdef::deploy[]
-include::{includedir}/ng-level-tooling-not-what-you-were-looking-for.adoc[]
+include::{includedir}/eng-level-tooling-not-what-you-were-looking-for.adoc[]
 endif::[]
 
-
-// Renders correctly in IDE
-ifndef::deploy[]
-include::../../_includes/eng-level-tooling-not-what-you-were-looking-for.adoc[]
-endif::[]
-// Renders correctly in AsciiDoc Deployment
-ifdef::deploy[]
-include::{includedir}/ng-level-tooling-not-what-you-were-looking-for.adoc[]
-endif::[]
 
