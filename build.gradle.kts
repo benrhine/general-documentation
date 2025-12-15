@@ -199,6 +199,11 @@ val asciiDocAttributes = mapOf(
     "sl-naming-conventions-link" to "https://doc.benrhine.com/engineering/naming-conventions",
     "sl-onboarding-link"        to "https://doc.benrhine.com/engineering/onboarding",
     "sl-ops-link"               to "https://doc.benrhine.com/engineering/ops",
+    "sl-ops-link-001"           to "https://doc.benrhine.com/engineering/ops/argo-cd",
+    "sl-ops-link-002"           to "https://doc.benrhine.com/engineering/ops/helm",
+    "sl-ops-link-003"           to "https://doc.benrhine.com/engineering/ops/infrastructure-as-code",
+    "sl-ops-link-004"           to "https://doc.benrhine.com/engineering/ops/infraweave",
+    "sl-ops-link-005"           to "https://doc.benrhine.com/engineering/ops/kubernetes",
     "sl-projects-link"          to "https://doc.benrhine.com/engineering/projects",
     "sl-properties-link"        to "https://doc.benrhine.com/engineering/properties",
     "sl-support-link"           to "https://doc.benrhine.com/engineering/support",
@@ -240,6 +245,14 @@ val asciiDocAttributes = mapOf(
     "tl-tooling-link-17"        to "https://doc.benrhine.com/engineering/tooling/tooling-windows",
     "tl-tooling-link-18"        to "https://doc.benrhine.com/engineering/tooling/tooling-java-faster-strings",
     "tl-tooling-link-19"        to "https://doc.benrhine.com/engineering/tooling/tooling-java-use-of-the-keyword-final",
+    "tl-tooling-link-20"        to "https://doc.benrhine.com/engineering/tooling/tooling-argocd",
+    "tl-tooling-link-21"        to "https://doc.benrhine.com/engineering/tooling/tooling-cloud",
+    "tl-tooling-link-22"        to "https://doc.benrhine.com/engineering/tooling/tooling-cloud-aws",
+    "tl-tooling-link-23"        to "https://doc.benrhine.com/engineering/tooling/tooling-cloud-gcp",
+    "tl-tooling-link-24"        to "https://doc.benrhine.com/engineering/tooling/tooling-cloud-azure",
+    "tl-tooling-link-25"        to "https://doc.benrhine.com/engineering/tooling/tooling-helm",
+    "tl-tooling-link-26"        to "https://doc.benrhine.com/engineering/tooling/tooling-infraweave",
+    "tl-tooling-link-27"        to "https://doc.benrhine.com/engineering/tooling/tooling-kubernetes",
     "sl-training-link"          to "https://doc.benrhine.com/engineering/training",
     "sl-troubleshooting-link"   to "https://doc.benrhine.com/engineering/troubleshooting",
     "sl-reference-link"         to "https://doc.benrhine.com/links/reference",
@@ -447,7 +460,7 @@ tasks {
         // Fill in will all sub-page jobs
         dependsOn(
             "docEngTraining", "docEngTooling", "docEngTeam", "docEngSupport", "docEngProperties",
-            "docEngEnvironments"
+            "docEngEnvironments", "docEngOps"
         )
 //        dependsOn(
 //            "docConfluenceEngAdr", "docConfluenceEngBuild", "docConfluenceEngCloud",
@@ -549,6 +562,71 @@ tasks {
             include("*.adoc")
         })
         setOutputDir(file("build/docs/engineering/environments"))
+
+        // Define custom attributes using a map
+        attributes(asciiDocAttributes )
+    }
+    register<AsciidoctorTask>("docEngOps")  {
+        setSourceDir(file("engineering/ops"))
+        sources(delegateClosureOf<PatternSet> {
+            include("*.adoc")
+        })
+        setOutputDir(file("build/docs/engineering/ops"))
+
+        // Define custom attributes using a map
+        attributes(asciiDocAttributes )
+        // Fill in will all sub-page jobs
+        dependsOn(
+            "docEngOpsKubernetes", "docEngOpsKubernetes", "docEngOpsHelm", "docEngOpsInfraweave",
+            "docEngOpsArgoCD", "docEngOpsIaC"
+        )
+    }
+    register<AsciidoctorTask>("docEngOpsKubernetes")  {
+        setSourceDir(file("engineering/ops/kubernetes"))
+        sources(delegateClosureOf<PatternSet> {
+            include("*.adoc")
+        })
+        setOutputDir(file("build/docs/engineering/ops/kubernetes"))
+
+        // Define custom attributes using a map
+        attributes(asciiDocAttributes )
+    }
+    register<AsciidoctorTask>("docEngOpsHelm")  {
+        setSourceDir(file("engineering/ops/helm"))
+        sources(delegateClosureOf<PatternSet> {
+            include("*.adoc")
+        })
+        setOutputDir(file("build/docs/engineering/ops/helm"))
+
+        // Define custom attributes using a map
+        attributes(asciiDocAttributes )
+    }
+    register<AsciidoctorTask>("docEngOpsInfraweave")  {
+        setSourceDir(file("engineering/ops/infraweave"))
+        sources(delegateClosureOf<PatternSet> {
+            include("*.adoc")
+        })
+        setOutputDir(file("build/docs/engineering/ops/infraweave"))
+
+        // Define custom attributes using a map
+        attributes(asciiDocAttributes )
+    }
+    register<AsciidoctorTask>("docEngOpsArgoCD")  {
+        setSourceDir(file("engineering/ops/argo-cd"))
+        sources(delegateClosureOf<PatternSet> {
+            include("*.adoc")
+        })
+        setOutputDir(file("build/docs/engineering/ops/argo-cd"))
+
+        // Define custom attributes using a map
+        attributes(asciiDocAttributes )
+    }
+    register<AsciidoctorTask>("docEngOpsIaC")  {
+        setSourceDir(file("engineering/ops/infrastructure-as-code"))
+        sources(delegateClosureOf<PatternSet> {
+            include("*.adoc")
+        })
+        setOutputDir(file("build/docs/engineering/ops/infrastructure-as-code"))
 
         // Define custom attributes using a map
         attributes(asciiDocAttributes )
