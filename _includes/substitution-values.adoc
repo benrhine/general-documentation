@@ -84,10 +84,10 @@
 :tl-how-to-link-010:        https://doc.benrhine.com/engineering/training/how-to/aws-configure-sns-or-sqs
 :tl-how-to-link-011:        https://doc.benrhine.com/engineering/training/how-to/aws-create-a-custom-domain
 :tl-how-to-link-012:        https://doc.benrhine.com/engineering/training/how-to/aws-cross-account-deploy
-:tl-how-to-link-013:        https://doc.benrhine.com/engineering/training/how-to/aws-get-generated-lambda-url
+:tl-how-to-link-013:        https://doc.benrhine.com/engineering/training/how-to/aws-get-generated-lambda-uri
 :tl-how-to-link-014:        https://doc.benrhine.com/engineering/training/how-to/aws-ip-whitelist-rest
 :tl-how-to-link-015:        https://doc.benrhine.com/engineering/training/how-to/aws-lambda-layer-import-certificate
-:tl-how-to-link-016:        https://doc.benrhine.com/engineering/training/how-to/aws-lambda-layer
+:tl-how-to-link-016:        https://doc.benrhine.com/engineering/training/how-to/aws-lambda-layers
 :tl-how-to-link-017:        https://doc.benrhine.com/engineering/training/how-to/aws-powertools
 :tl-how-to-link-018:        https://doc.benrhine.com/engineering/training/how-to/aws-programatically-assume-role
 :tl-how-to-link-019:        https://doc.benrhine.com/engineering/training/how-to/aws-secrets-manager

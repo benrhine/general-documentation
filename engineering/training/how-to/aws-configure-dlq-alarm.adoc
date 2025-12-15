@@ -6,7 +6,7 @@ This page describes how to programmatically setup a DLQ (Dead Letter Queue) Alar
 
 [CAUTION]
 If you are looking for general info on SNS and SQS see link:aws-configure-sns-or-sqs.adoc[How To: Configure SNS or SQS].
-Please be aware that this page contains similar content to link:aws-configure-metric-filters-alarms.adoc[How To: Configure Metrics Filters Alarm]
+Please be aware that this page contains similar content to link:aws-configure-metric-filters-alarm.adoc[How To: Configure Metrics Filters Alarm]
 but has some variations.
 
 == Using Serverless
