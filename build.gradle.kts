@@ -604,7 +604,7 @@ tasks {
         // Fill in will all sub-page jobs
         dependsOn(
             "docEngTraining", "docEngTooling", "docEngTeam", "docEngSupport", "docEngProperties",
-            "docEngEnvironments", "docEngOps", "docEngDeployment"
+            "docEngEnvironments", "docEngOps", "docEngDeployment", "docEngDev"
         )
 //        dependsOn(
 //            "docConfluenceEngAdr", "docConfluenceEngBuild", "docConfluenceEngCloud",

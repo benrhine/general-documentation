@@ -443,7 +443,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="details">
 <span id="author" class="author">git-user-name</span><br>
 <span id="revnumber">version 2025.12.51,</span>
-<span id="revdate">2025-12-15</span>
+<span id="revdate">2025-12-16</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -456,6 +456,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_standard_role">Standard Role</a></li>
 </ul>
 </li>
+<li><a href="#_not_what_you_were_looking_for">Not what you were looking for?</a></li>
 </ul>
 </div>
 </div>
@@ -494,10 +495,10 @@ available in the non-prod or prod accounts.
 <div class="ulist">
 <ul>
 <li>
-<p><a href="../comparison/compare-iac-role.adoc">Compare: Creating a IAM Role</a></p>
+<p><a href="https://doc.benrhine.com/engineering/ops/infrastructure-as-code/comparison/compare-iac-role">Compare: Creating a IAM Role</a></p>
 </li>
 <li>
-<p><a href="../comparison/compare-iac-role-policies.adoc">Compare: Creating a IAM Role Policy</a></p>
+<p><a href="https://doc.benrhine.com/engineering/ops/infrastructure-as-code/comparison/compare-iac-role-policies">Compare: Creating a IAM Role Policy</a></p>
 </li>
 </ul>
 </div>
@@ -514,11 +515,11 @@ for easy future updates and serves as its own level of documentation as to what 
 <ul>
 <li>
 <p>If you are using CloudFormation and your individual user has the permissions, it should be possible to create a role by
-uploading and deploying a CloudFormation template, (see <a href="../aws/aws-cf-create-role-complete.adoc">here</a>).</p>
+uploading and deploying a CloudFormation template, (see <a href="https://doc.benrhine.com/engineering/ops/infrastructure-as-code/aws/aws-cf-create-role-complete">here</a>).</p>
 </li>
 <li>
 <p>If you are using Terraform and your individual user has the permissions, it should be possible to create a role by
-executing a Terraform script, (see <a href="../terraform/tf-aws-create-role-complete.adoc">here</a>).</p>
+executing a Terraform script, (see <a href="https://doc.benrhine.com/engineering/ops/infrastructure-as-code/terraform/tf-aws-create-role-complete">here</a>).</p>
 </li>
 <li>
 <p>If you are using Serverless this is not possible without also using CloudFormation or Terraform.</p>
@@ -532,7 +533,7 @@ executing a Terraform script, (see <a href="../terraform/tf-aws-create-role-comp
 <div class="title">Tip</div>
 </td>
 <td class="content">
-Use the policy and details in the <a href="aws-base-iam-roles.adoc#_manual_role_creation">manual section</a>
+Use the policy and details in the <a href="https://doc.benrhine.com/engineering/ops/infrastructure-as-code/aws/aws-base-iam-roles#_manual_role_creation">manual section</a>
 of this page as the basis for any automatically created base roles.
 </td>
 </tr>
@@ -666,11 +667,63 @@ See that the previously created assumed role is specified for which resources ar
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_not_what_you_were_looking_for">Not what you were looking for?</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://doc.benrhine.com">Home</a></p>
+</li>
+<li>
+<p><a href="https://doc.benrhine.com/engineering">Engineering</a></p>
+</li>
+<li>
+<p><a href="https://doc.benrhine.com/engineering/ops/infrastructure-as-code">Ops: Infrastructure as Code (IaC)</a></p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://doc.benrhine.com/engineering/ops/infrastructure-as-code/aws/aws-base-iam-roles">CloudFormation: Base IAM roles</a></p>
+</li>
+<li>
+<p><a href="https://doc.benrhine.com/engineering/ops/infrastructure-as-code/aws/aws-cf">CloudFormation</a></p>
+</li>
+<li>
+<p><a href="https://doc.benrhine.com/engineering/ops/infrastructure-as-code/aws/aws-cf-create-cloudwatch-insight-query">CloudFormation: Create CloudWatch Insight Query</a></p>
+</li>
+<li>
+<p><a href="https://doc.benrhine.com/engineering/ops/infrastructure-as-code/aws/aws-cf-create-codebuild-job">CloudFormation: Create CodeBuild Job</a></p>
+</li>
+<li>
+<p><a href="https://doc.benrhine.com/engineering/ops/infrastructure-as-code/aws/aws-cf-create-codepipeline">CloudFormation: Create CodePipeline</a></p>
+</li>
+<li>
+<p><a href="https://doc.benrhine.com/engineering/ops/infrastructure-as-code/aws/aws-cf-create-dynamo-table">CloudFormation: Create DynamoDB table</a></p>
+</li>
+<li>
+<p><a href="https://doc.benrhine.com/engineering/ops/infrastructure-as-code/aws/aws-cf-create-role-complete">CloudFormation: Create an IAM role</a></p>
+</li>
+<li>
+<p><a href="https://doc.benrhine.com/engineering/ops/infrastructure-as-code/aws/aws-cf-create-system-property">CloudFormation: Create System Property/Parameter</a></p>
+</li>
+<li>
+<p><a href="https://doc.benrhine.com/engineering/ops/infrastructure-as-code/aws/aws-cf-get-system-property">CloudFormation: Get System Property</a></p>
+</li>
+<li>
+<p><a href="https://doc.benrhine.com/engineering/ops/infrastructure-as-code/aws/aws-cf-troubleshooting">CloudFormation: Troubleshooting</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 2025.12.51<br>
-Last updated 2025-12-13 23:11:28 -0700
+Last updated 2025-12-16 13:50:43 -0700
 </div>
 </div>
 </body>
