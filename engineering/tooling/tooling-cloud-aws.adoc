@@ -69,14 +69,33 @@ If you are looking for information about how to configure these tools through th
 
 TODO
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+endif::[]
+
 == IaC Setups
 
 If you are looking for information about how to leverage these tools using IaC (Infrastructure as code) then please view the following …
 
-* link:../../engineering/ops/infrastructure-as-code/aws/aws.adoc[Aws specific IaC]
-* link:../../engineering/ops/infrastructure-as-code/serverless/sls.adoc[Serverless Framework]
-* link:../../engineering/ops/infrastructure-as-code/terraform/tf.adoc[Terraform]
-* link:../../engineering/ops/infrastructure-as-code/comparison/compare-iac.adoc[Comparison of IaC]
+// Renders correctly in IDE
+ifndef::deploy[]
+* link:../../engineering/ops/infrastructure-as-code/aws.adoc[Aws specific IaC]
+* link:../../engineering/ops/infrastructure-as-code/serverless.adoc[Serverless Framework]
+* link:../../engineering/ops/infrastructure-as-code/terraform.adoc[Terraform]
+* link:../../engineering/ops/infrastructure-as-code/comparison.adoc[Comparison of IaC]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+* {sl-ops-link-003-001}[Aws specific IaC]
+* {sl-ops-link-003-004}[Serverless Framework]
+* {sl-ops-link-003-005}[Terraform]
+* {sl-ops-link-003-002}[Comparison of IaC]
+endif::[]
 
 == Verify Dependency Caching
 
