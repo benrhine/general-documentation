@@ -7,7 +7,7 @@ This page is intended to collect common commands that are executed from the CLI 
 and what they do.
 
 [TIP]
-If you have not yet setup the Aws CLI see link:aws-setup-cli.adoc[here] first.
+If you have not yet setup the Aws CLI see link:tooling-aws-setup-cli.adoc[here] first.
 
 == List accounts configured for Sign in
 .Click here to expand ...

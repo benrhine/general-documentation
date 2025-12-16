@@ -6,8 +6,8 @@ This is a top level page intended to function as a catch all for references on C
 
 == Manual job configuration
 
-* link:aws-setup-code-build-single.adoc[(Standard) Single Build]
-* link:aws-setup-code-build-multiple.adoc[(Batch) Multiple Build]
+* link:tooling-aws-setup-code-build-single.adoc[(Standard) Single Build]
+* link:tooling-aws-setup-code-build-multiple.adoc[(Batch) Multiple Build]
 
 == Jobs under IaC control
 It is also possible to configure CodeBuild jobs using IaC to make setup a breeze. Please see the following for how to use

@@ -81,28 +81,28 @@ Now, to make everything function as intended. Configure a (Standard) single buil
 
 * Navigate to AWS CodeBuild - Build Projects
 * click "Create Build Project"
-image:../images/aws-codebuild-setup-single-1.png[]
+image:images/aws-codebuild-setup-single-1.png[]
 * Fill in the project name
 * Select "Build Badge" if you want
 * Fill in "Repository" with the desired repo
 * Leave "Reference Type" as "Branch"
-image:../images/aws-codebuild-setup-single-2.png[]
+image:images/aws-codebuild-setup-single-2.png[]
 * Select the desired branch (ie "main")
 * Select OS
 * Select Runtime
 * Select most recent image
-image:../images/aws-codebuild-setup-single-3.png[]
+image:images/aws-codebuild-setup-single-3.png[]
 * Allow to create new service role
 * Use buildspec
 * If `buildspec.yml` is any where other than the root directory of the repository or is named anything other than buildspec.yml specify the "Buildspec name"
-image:../images/aws-codebuild-setup-single-4.png[]
+image:images/aws-codebuild-setup-single-4.png[]
 * Give CloudWatch a group name so logs for the given build are easy to find.
 * Click "Create build project"
-image:../images/aws-codebuild-setup-single-5.png[]
+image:images/aws-codebuild-setup-single-5.png[]
 * Start / Run Build after configuring
-image:../images/aws-codebuild-setup-single-6.png[]
+image:images/aws-codebuild-setup-single-6.png[]
 * How the named log group will show up in CloudWatch after the project has been created and ran
-image:../images/aws-codebuild-setup-single-7.png[]
+image:images/aws-codebuild-setup-single-7.png[]
 
 
 

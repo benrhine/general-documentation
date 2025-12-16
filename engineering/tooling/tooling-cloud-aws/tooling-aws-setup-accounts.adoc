@@ -33,24 +33,24 @@ https://www.youtube.com/watch?v=bQ2EtLnN6KQ[YouTube].
 
 Navigate to the `Aws Organizations` page (search for it if it is not on your home console)
 
-image:../images/aws-root-account-org-create-0.png[]
+image:images/aws-root-account-org-create-0.png[]
 
 Tell it to create an org (i forgot to take a screenshot here but this is the screen immediately after)
 
-image:../images/aws-root-account-org-create-1.png[]
+image:images/aws-root-account-org-create-1.png[]
 
 Next, you want to create an organizational unit or OU. Do this by selecting the `root` account then clicking on `Action`
 followed by clicking `Create new` ...
 
-image:../images/aws-root-account-org-create-2.png[]
+image:images/aws-root-account-org-create-2.png[]
 
 Give the OU a name and click create
 
-image:../images/aws-root-account-org-create-3.png[]
+image:images/aws-root-account-org-create-3.png[]
 
 A new OU now exists ...
 
-image:../images/aws-root-account-org-create-4.png[]
+image:images/aws-root-account-org-create-4.png[]
 
 [TIP]
 You may need to refresh the page before it is visible
@@ -59,7 +59,7 @@ You may need to refresh the page before it is visible
 
 Now with the OU in place, select the org and click `Add an AWS account`
 
-image:../images/aws-root-account-org-account-create-1.png[]
+image:images/aws-root-account-org-account-create-1.png[]
 
 Fill in the new account details ...
 
@@ -71,7 +71,7 @@ the `@` symbol.
 [TIP]
 Leave the suggested IAM role
 
-image:../images/aws-root-account-org-account-create-2.png[]
+image:images/aws-root-account-org-account-create-2.png[]
 
 I suggest creating 3 accounts at this point ...
 
@@ -87,13 +87,13 @@ By default, event though the OU was selected when creating the new accounts, the
 the OU and must be moved into it. To move the accounts into the OU, select the account, then the actions menu, then move.
 At this point select the OU you created and tell it to move the accounts. The end result should look like the following ...
 
-image:../images/aws-root-account-org-account-create-3.png[]
+image:images/aws-root-account-org-account-create-3.png[]
 
 == Signing in to your new accounts
 
 Copy the emails that were used when creating the accounts from the root management account
 
-image:../images/aws-root-account-org-account-create-3.png[]
+image:images/aws-root-account-org-account-create-3.png[]
 
 To sign in to the new accounts, navigate to ...
 
@@ -119,42 +119,42 @@ https://www.youtube.com/watch?v=_KhrGFV_Npw[YouTube].
 
 * Enable IAM Identity Center
 
-image:../images/aws-account-config-1.png[]
+image:images/aws-account-config-1.png[]
 
 * Tell it yes this is the right region and enable
 
-image:../images/aws-account-config-2.png[]
+image:images/aws-account-config-2.png[]
 
 * You will be greated by this dashboard
 
-image:../images/aws-account-config-3.png[]
+image:images/aws-account-config-3.png[]
 
 * Go to users
 * Create a user
 * Create a permission set
 ** Just select a predefined one for now
 
-image:../images/aws-account-config-4.png[]
+image:images/aws-account-config-4.png[]
 
 * Go to AWS Accounts
 
-image:../images/aws-account-config-5.png[]
+image:images/aws-account-config-5.png[]
 
 * Select the user that was created
 
-image:../images/aws-account-config-6.png[]
+image:images/aws-account-config-6.png[]
 
 * Select the permissions that were granted
 
-image:../images/aws-account-config-7.png[]
+image:images/aws-account-config-7.png[]
 
 * Review and approve
 
-image:../images/aws-account-config-8.png[]
+image:images/aws-account-config-8.png[]
 
 * Navigate to the access portal to see all accounts granted access to via the created user
 
-image:../images/aws-account-config-9.png[]
+image:images/aws-account-config-9.png[]
 
 
 

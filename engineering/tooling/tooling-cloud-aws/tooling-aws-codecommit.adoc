@@ -19,7 +19,7 @@ known systems.
 * Navigate to the CodeCommit
 * Select Approval rule templates
 
-image::../images/aws-codecommit-approval-rules-template-1.png[]
+image::images/aws-codecommit-approval-rules-template-1.png[]
 
 * Create template
 * Provide a name and description
@@ -27,14 +27,14 @@ image::../images/aws-codecommit-approval-rules-template-1.png[]
 * _We will come back to "Add approval pool members"_
 * Select the repositories you want the rule to apply to
 
-image::../images/aws-codecommit-approval-rules-template-2.png[]
+image::images/aws-codecommit-approval-rules-template-2.png[]
 
 * _"Add approval pool members"_
 * Since we use federated access we want to supply the role that is provided to our SSO accounts ...
 In this case that would look like the following ... `AWSReservedSSO_ProjectAdmin_d87dfsoid903de17/*`
 * Make sure the /* is added otherwise the matching will not work correctly
 
-image::../images/aws-codecommit-approval-rules-template-3.png[]
+image::images/aws-codecommit-approval-rules-template-3.png[]
 
 === Creating with CloudFormation / Serverless
 
@@ -56,16 +56,16 @@ Notification rules are useful for when you want to send push notifications on ev
 * Navigate to the CodeCommit
 * Select a repository
 * Select settings
-image:../images/aws-codecommit-notification-rules-1.png[]
+image:images/aws-codecommit-notification-rules-1.png[]
 * Select notifications
 * Create notification rule
-image:../images/aws-codecommit-notification-rules-2.png[]
+image:images/aws-codecommit-notification-rules-2.png[]
 * Provide a name
 * Leave on full
 * Select the events to alert on
 * Select either a SNS topic or Chatbot to event to
-image:../images/aws-codecommit-notification-rules-3.png[]
-image:../images/aws-codecommit-notification-rules-4.png[]
+image:images/aws-codecommit-notification-rules-3.png[]
+image:images/aws-codecommit-notification-rules-4.png[]
 
 While the above is simple and easy enough for a one off it is recommended such alerting be done programmatically and
 version controlled. See the following section...

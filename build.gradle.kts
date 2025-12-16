@@ -310,6 +310,35 @@ val asciiDocAttributes = mapOf(
     "tl-tooling-link-20"        to "https://doc.benrhine.com/engineering/tooling/tooling-argocd",
     "tl-tooling-link-21"        to "https://doc.benrhine.com/engineering/tooling/tooling-cloud",
     "tl-tooling-link-22"        to "https://doc.benrhine.com/engineering/tooling/tooling-cloud-aws",
+    "tl-tooling-link-022-001"   to "https://doc.benrhine.com/engineering/tooling/tooling-cloud-aws/tooling-aws-alarms",
+    "tl-tooling-link-022-002"   to "https://doc.benrhine.com/engineering/tooling/tooling-cloud-aws/tooling-aws-cdk",
+    "tl-tooling-link-022-003"   to "https://doc.benrhine.com/engineering/tooling/tooling-cloud-aws/tooling-aws-cdk-troubleshooting",
+    "tl-tooling-link-022-004"   to "https://doc.benrhine.com/engineering/tooling/tooling-cloud-aws/tooling-aws-cli",
+    "tl-tooling-link-022-005"   to "https://doc.benrhine.com/engineering/tooling/tooling-cloud-aws/tooling-aws-cli-troubleshooting",
+    "tl-tooling-link-022-006"   to "https://doc.benrhine.com/engineering/tooling/tooling-cloud-aws/tooling-aws-cloudwatch-insights-json",
+    "tl-tooling-link-022-007"   to "https://doc.benrhine.com/engineering/tooling/tooling-cloud-aws/tooling-aws-codeartifact",
+    "tl-tooling-link-022-008"   to "https://doc.benrhine.com/engineering/tooling/tooling-cloud-aws/tooling-aws-codecommit",
+    "tl-tooling-link-022-009"   to "https://doc.benrhine.com/engineering/tooling/tooling-cloud-aws/tooling-aws-cognito",
+    "tl-tooling-link-022-010"   to "https://doc.benrhine.com/engineering/tooling/tooling-cloud-aws/tooling-aws-dynamodb",
+    "tl-tooling-link-022-011"   to "https://doc.benrhine.com/engineering/tooling/tooling-cloud-aws/tooling-aws-dynamodb-troubleshooting",
+    "tl-tooling-link-022-012"   to "https://doc.benrhine.com/engineering/tooling/tooling-cloud-aws/tooling-aws-glue",
+    "tl-tooling-link-022-013"   to "https://doc.benrhine.com/engineering/tooling/tooling-cloud-aws/tooling-aws-iam",
+    "tl-tooling-link-022-014"   to "https://doc.benrhine.com/engineering/tooling/tooling-cloud-aws/tooling-aws-lambda",
+    "tl-tooling-link-022-015"   to "https://doc.benrhine.com/engineering/tooling/tooling-cloud-aws/tooling-aws-lambda-authorizers",
+    "tl-tooling-link-022-016"   to "https://doc.benrhine.com/engineering/tooling/tooling-cloud-aws/tooling-aws-lambda-complete-json",
+    "tl-tooling-link-022-017"   to "https://doc.benrhine.com/engineering/tooling/tooling-cloud-aws/tooling-aws-lambda-layers",
+    "tl-tooling-link-022-018"   to "https://doc.benrhine.com/engineering/tooling/tooling-cloud-aws/tooling-aws-sam",
+    "tl-tooling-link-022-019"   to "https://doc.benrhine.com/engineering/tooling/tooling-cloud-aws/tooling-aws-sam-troubleshooting",
+    "tl-tooling-link-022-020"   to "https://doc.benrhine.com/engineering/tooling/tooling-cloud-aws/tooling-aws-setup-accounts",
+    "tl-tooling-link-022-021"   to "https://doc.benrhine.com/engineering/tooling/tooling-cloud-aws/tooling-aws-setup-code-build",
+    "tl-tooling-link-022-022"   to "https://doc.benrhine.com/engineering/tooling/tooling-cloud-aws/tooling-aws-setup-code-build-multiple",
+    "tl-tooling-link-022-023"   to "https://doc.benrhine.com/engineering/tooling/tooling-cloud-aws/tooling-aws-setup-code-build-single",
+    "tl-tooling-link-022-024"   to "https://doc.benrhine.com/engineering/tooling/tooling-cloud-aws/tooling-aws-setup-code-commit",
+    "tl-tooling-link-022-025"   to "https://doc.benrhine.com/engineering/tooling/tooling-cloud-aws/tooling-aws-setup-code-pipeline",
+    "tl-tooling-link-022-026"   to "https://doc.benrhine.com/engineering/tooling/tooling-cloud-aws/tooling-aws-sns",
+    "tl-tooling-link-022-027"   to "https://doc.benrhine.com/engineering/tooling/tooling-cloud-aws/tooling-aws-ssm",
+    "tl-tooling-link-022-028"   to "https://doc.benrhine.com/engineering/tooling/tooling-cloud-aws/tooling-aws-system-parameters",
+    "tl-tooling-link-022-029"   to "https://doc.benrhine.com/engineering/tooling/tooling-cloud-aws/tooling-aws-setup-cli",
     "tl-tooling-link-23"        to "https://doc.benrhine.com/engineering/tooling/tooling-cloud-gcp",
     "tl-tooling-link-24"        to "https://doc.benrhine.com/engineering/tooling/tooling-cloud-azure",
     "tl-tooling-link-25"        to "https://doc.benrhine.com/engineering/tooling/tooling-helm",
@@ -582,6 +611,20 @@ tasks {
             include("*.adoc")
         })
         setOutputDir(file("build/docs/engineering/tooling"))
+
+        // Define custom attributes using a map
+        attributes(asciiDocAttributes )
+        // Fill in will all sub-page jobs
+        dependsOn(
+            "docEngToolingCloudAws"
+        )
+    }
+    register<AsciidoctorTask>("docEngToolingCloudAws")  {
+        setSourceDir(file("engineering/tooling/tooling-cloud-aws"))
+        sources(delegateClosureOf<PatternSet> {
+            include("*.adoc")
+        })
+        setOutputDir(file("build/docs/engineering/tooling/tooling-cloud-aws"))
 
         // Define custom attributes using a map
         attributes(asciiDocAttributes )

@@ -16,8 +16,21 @@ available in the non-prod or prod accounts.
 
 For a comparative analysis of the various ways to create roles see the following ...
 
-* link:../comparison/compare-iac-role.adoc[Compare: Creating a IAM Role]
-* link:../comparison/compare-iac-role-policies.adoc[Compare: Creating a IAM Role Policy]
+ifndef::deploy[]
+
+// These will only work from the file they are included in - NOT this file
+
+* link:../engineering/ops/infrastructure-as-code/comparison/compare-iac-role.adoc[Compare: Creating a IAM Role]
+* link:../engineering/ops/infrastructure-as-code/comparison/compare-iac-role-policies.adoc[Compare: Creating a IAM Role Policy]
+
+endif::[]
+
+ifdef::deploy[]
+
+* {sl-ops-link-003-002-006}[Compare: Creating a IAM Role]
+* {sl-ops-link-003-002-007}[Compare: Creating a IAM Role Policy]
+
+endif::[]
 
 == Automated role creation (Preferred)
 
@@ -25,13 +38,13 @@ If possible the base roles should be created with an IaC tool and put under vers
 for easy future updates and serves as its own level of documentation as to what has been set up in a given account.
 
 * If you are using CloudFormation and your individual user has the permissions, it should be possible to create a role by
-uploading and deploying a CloudFormation template, (see link:../aws/aws-cf-create-role-complete.adoc[here]).
+uploading and deploying a CloudFormation template, (see {sl-ops-link-003-001-007}[here]).
 * If you are using Terraform and your individual user has the permissions, it should be possible to create a role by
-executing a Terraform script, (see link:../terraform/tf-aws-create-role-complete.adoc[here]).
+executing a Terraform script, (see {sl-ops-link-003-005-005}[here]).
 * If you are using Serverless this is not possible without also using CloudFormation or Terraform.
 
 [TIP]
-Use the policy and details in the link:aws-base-iam-roles.adoc#_manual_role_creation[manual section]
+Use the policy and details in the {sl-ops-link-003-001-001}#_manual_role_creation[manual section]
 of this page as the basis for any automatically created base roles.
 
 == Manual role creation

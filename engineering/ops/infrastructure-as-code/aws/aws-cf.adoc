@@ -14,7 +14,7 @@ A auto-generated S3 bucket will be created when uploading a CF template.
 
 == Creating a base CloudFormation Template
 
-* link:../../../../engineering/how-to/create-base-cloudformation-template.adoc[How To: Create a base CloudFomration template]
+* {tl-how-to-link-030}[How To: Create a base CloudFormation template]
 
 == Reference
 

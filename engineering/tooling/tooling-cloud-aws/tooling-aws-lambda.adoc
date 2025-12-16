@@ -28,8 +28,8 @@ The above is extremely hard to verify as there is no way to directly see this ot
 
 * link:../../../engineering/how-to/aws-lambda-layers.adoc[How To: Lambda Layers]
 * link:../../../engineering/how-to/aws-lambda-layer-import-certificate.adoc[How To: Import certificate from lambda layer]
-* link:aws-lambda-layers.adoc[Layers]
-* link:aws-lambda-complete-json.adoc[What does a complete Lambda JSON look like?]
+* link:tooling-aws-lambda-layers.adoc[Layers]
+* link:tooling-aws-lambda-complete-json.adoc[What does a complete Lambda JSON look like?]
 
 
 == Reference

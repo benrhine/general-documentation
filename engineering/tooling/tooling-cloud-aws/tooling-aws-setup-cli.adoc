@@ -31,19 +31,19 @@ It is very important to install the v2 version
 * Once the AWS Cli has been installed it needs to be configured in order to successfully connect to the account. This configuration should be the same regardless of which OS you are attempting to set this up on.
 
 * First see what AWS Accounts you have access to through Okta
-image:../images/aws-cli-setup-1.png[]
+image:images/aws-cli-setup-1.png[]
 
 * Next Open Single Sign-On to verify you are configured correctly
-image:../images/aws-cli-setup-2.png[]
+image:images/aws-cli-setup-2.png[]
 
 * Expand the Aws Accounts
-image:../images/aws-cli-setup-3.png[]
+image:images/aws-cli-setup-3.png[]
 
 * Expand the specific Aws Account you need access to and select a role
-image:../images/aws-cli-setup-4.png[]
+image:images/aws-cli-setup-4.png[]
 
 * Click on Command line or programmatic access
-image:../images/aws-cli-setup-5.png[]
+image:images/aws-cli-setup-5.png[]
 
 * Once that loads you will see something similar to as follows
 
@@ -55,7 +55,7 @@ image:../images/aws-cli-setup-5.png[]
 * Set the region - this will auto suggest several regions
 * Set the scopes to the suggested scopes
 * See the following example
-image:../images/aws-cli-setup-6.png[]
+image:images/aws-cli-setup-6.png[]
 
 === Example Configuration
 
@@ -105,7 +105,7 @@ For some example usages of the Aws CLI please see link:../../../../engineering/c
 Previous Aws CLI credentialing relied on an additional credentials file located at user home `.aws/cerdentials`.
 When using the more modern SSO approach described above that puts the credentials under an SSO folder (see example).
 
-image:../images/aws-cli-setup-7.png[]
+image:images/aws-cli-setup-7.png[]
 
 Some services have not yet been updated to fully work with the updated Aws CLI SSO model and require the legacy "credentials"
 file to be in place. In order to keep everything happy it is possible to create the legacy credentials file for the services
@@ -133,4 +133,4 @@ file. This will be required every time you re-login to make the credentials avai
 == Not what you were looking for?
 
 * link:../../../engineering/onboarding/configure-aws-cli-quick-start.adoc[Aws CLI Quickstart]
-* link:aws-cli.adoc[How To: Aws CLI Usage]
+* link:tooling-aws-cli.adoc[How To: Aws CLI Usage]

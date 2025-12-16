@@ -6,36 +6,36 @@
 
 * Navigate to CodePipeline
 * Click "Create pipeline"
-image:../images/aws-codepipeline-setup-1.png[]
+image:images/aws-codepipeline-setup-1.png[]
 * Provide a pipeline name
 ** suggest <APP-SHORT-NAME>-pipeline-<BRANCH-NAME>
-image:../images/aws-codepipeline-setup-2.png[]
+image:images/aws-codepipeline-setup-2.png[]
 * Choose "Existing service role"
 * search for the short application name (in the example case "short") this should have been created by the serverless-resource.yml  deploy and should be the same role that was used to configure other CodeBuild steps.
 * Click "next"
-image:../images/aws-codepipeline-setup-3.png[]
+image:images/aws-codepipeline-setup-3.png[]
 * Select "AWS CodeCommit" for source provider
 * Select the project
 * Select the branch
 * Click "next"
-image:../images/aws-codepipeline-setup-4.png[]
+image:images/aws-codepipeline-setup-4.png[]
 * Select "AWS CodeBuild"
 * Select previously configured "build and deploy" CodeBuild step under Project Name
 * Click "next"
-image:../images/aws-codepipeline-setup-5.png[]
+image:images/aws-codepipeline-setup-5.png[]
 * "Skip deploy stage" (if using serverless framework like we currently are)
 * Say yes to skip
-image:../images/aws-codepipeline-setup-6.png[]
-image:../images/aws-codepipeline-setup-7.png[]
+image:images/aws-codepipeline-setup-6.png[]
+image:images/aws-codepipeline-setup-7.png[]
 * Review and create
 * Hooray!! The pipeline has been created, unfortunately the process is not complete yet as you are unable to add all required steps during the initial wizard configuration.
-image:../images/aws-codepipeline-setup-8.png[]
+image:images/aws-codepipeline-setup-8.png[]
 * From the pipeline page select "edit"
-image:../images/aws-codepipeline-setup-9.png[]
+image:images/aws-codepipeline-setup-9.png[]
 * Add stage
-image:../images/aws-codepipeline-setup-10.png[]
+image:images/aws-codepipeline-setup-10.png[]
 * Add a test stage
-image:../images/aws-codepipeline-setup-11.png[]
+image:images/aws-codepipeline-setup-11.png[]
 * Give it a name
 * Select provider CodeBuild
 * Select input artifact SourceArtifact
@@ -44,12 +44,12 @@ image:../images/aws-codepipeline-setup-11.png[]
 * Select single build if the previously configured project is a single build
 * Click "done"
 * Click "done" again
-image:../images/aws-codepipeline-setup-12.png[]
+image:images/aws-codepipeline-setup-12.png[]
 
-image:../images/aws-codepipeline-setup-14.png[]
+image:images/aws-codepipeline-setup-14.png[]
 
 * result
-image:../images/aws-codepipeline-setup-13.png[]
+image:images/aws-codepipeline-setup-13.png[]
 At this point you have configured an automated pipeline, continue adding steps as required or necessary.
 
 == Pipelines under IaC control
