@@ -24,6 +24,61 @@ ifdef::deploy[]
 include::{includedir}/generic-information.adoc[]
 endif::[]
 
+== Aws
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../_includes/fourth-level-iac-aws.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/fourth-level-iac-aws.adoc[]
+endif::[]
+
+== Examples
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../_includes/fourth-level-iac-examples.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/fourth-level-iac-examples.adoc[]
+endif::[]
+
+== Serverless
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../_includes/fourth-level-iac-serverless.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/fourth-level-iac-serverless.adoc[]
+endif::[]
+
+== Terraform
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../_includes/fourth-level-iac-terraform.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/fourth-level-iac-terraform.adoc[]
+endif::[]
+
+== Comparison
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../_includes/fourth-level-iac-comparison.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/fourth-level-iac-comparison.adoc[]
+endif::[]
+
 
 // Renders correctly in IDE
 ifndef::deploy[]

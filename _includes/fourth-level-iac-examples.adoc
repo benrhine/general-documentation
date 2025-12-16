@@ -15,7 +15,7 @@ endif::[]
 
 ifdef::deploy[]
 
-* {}[Create Approval Rules Template with CloudFormation or Serverless Framework]
-* {}[Create Notification Rules with CloudFormation or Serverless Framework]
+* {sl-ops-link-003-003-001}[Create Approval Rules Template with CloudFormation or Serverless Framework]
+* {sl-ops-link-003-003-002}[Create Notification Rules with CloudFormation or Serverless Framework]
 
 endif::[]
