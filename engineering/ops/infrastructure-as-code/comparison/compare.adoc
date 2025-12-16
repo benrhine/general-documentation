@@ -1,5 +1,0 @@
-= Compare: Comparing IaC Frameworks
-
-
-
-

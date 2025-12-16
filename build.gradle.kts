@@ -202,6 +202,11 @@ val asciiDocAttributes = mapOf(
     "sl-ops-link-001"           to "https://doc.benrhine.com/engineering/ops/argo-cd",
     "sl-ops-link-002"           to "https://doc.benrhine.com/engineering/ops/helm",
     "sl-ops-link-003"           to "https://doc.benrhine.com/engineering/ops/infrastructure-as-code",
+    "sl-ops-link-003-001"       to "https://doc.benrhine.com/engineering/ops/infrastructure-as-code/aws",
+    "sl-ops-link-003-002"       to "https://doc.benrhine.com/engineering/ops/infrastructure-as-code/comparison",
+    "sl-ops-link-003-003"       to "https://doc.benrhine.com/engineering/ops/infrastructure-as-code/examples",
+    "sl-ops-link-003-004"       to "https://doc.benrhine.com/engineering/ops/infrastructure-as-code/serverless",
+    "sl-ops-link-003-005"       to "https://doc.benrhine.com/engineering/ops/infrastructure-as-code/terraform",
     "sl-ops-link-004"           to "https://doc.benrhine.com/engineering/ops/infraweave",
     "sl-ops-link-005"           to "https://doc.benrhine.com/engineering/ops/kubernetes",
     "sl-projects-link"          to "https://doc.benrhine.com/engineering/projects",
@@ -637,6 +642,61 @@ tasks {
             include("*.adoc")
         })
         setOutputDir(file("build/docs/engineering/ops/infrastructure-as-code"))
+
+        // Define custom attributes using a map
+        attributes(asciiDocAttributes )
+        // Fill in will all sub-page jobs
+        dependsOn(
+            "docEngOpsIaCAws", "docEngOpsIaCComparison", "docEngOpsIaCExamples", "docEngOpsIaCServerless",
+            "docEngOpsIaCTerraform"
+        )
+    }
+    register<AsciidoctorTask>("docEngOpsIaCAws")  {
+        setSourceDir(file("engineering/ops/infrastructure-as-code/aws"))
+        sources(delegateClosureOf<PatternSet> {
+            include("*.adoc")
+        })
+        setOutputDir(file("build/docs/engineering/ops/infrastructure-as-code/aws"))
+
+        // Define custom attributes using a map
+        attributes(asciiDocAttributes )
+    }
+    register<AsciidoctorTask>("docEngOpsIaCComparison")  {
+        setSourceDir(file("engineering/ops/infrastructure-as-code/comparison"))
+        sources(delegateClosureOf<PatternSet> {
+            include("*.adoc")
+        })
+        setOutputDir(file("build/docs/engineering/ops/infrastructure-as-code/comparison"))
+
+        // Define custom attributes using a map
+        attributes(asciiDocAttributes )
+    }
+    register<AsciidoctorTask>("docEngOpsIaCExamples")  {
+        setSourceDir(file("engineering/ops/infrastructure-as-code/examples"))
+        sources(delegateClosureOf<PatternSet> {
+            include("*.adoc")
+        })
+        setOutputDir(file("build/docs/engineering/ops/infrastructure-as-code/examples"))
+
+        // Define custom attributes using a map
+        attributes(asciiDocAttributes )
+    }
+    register<AsciidoctorTask>("docEngOpsIaCServerless")  {
+        setSourceDir(file("engineering/ops/infrastructure-as-code/serverless"))
+        sources(delegateClosureOf<PatternSet> {
+            include("*.adoc")
+        })
+        setOutputDir(file("build/docs/engineering/ops/infrastructure-as-code/serverless"))
+
+        // Define custom attributes using a map
+        attributes(asciiDocAttributes )
+    }
+    register<AsciidoctorTask>("docEngOpsIaCTerraform")  {
+        setSourceDir(file("engineering/ops/infrastructure-as-code/terraform"))
+        sources(delegateClosureOf<PatternSet> {
+            include("*.adoc")
+        })
+        setOutputDir(file("build/docs/engineering/ops/infrastructure-as-code/terraform"))
 
         // Define custom attributes using a map
         attributes(asciiDocAttributes )

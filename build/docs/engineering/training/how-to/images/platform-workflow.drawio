@@ -1,0 +1,100 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36" version="28.2.7">
+  <diagram name="Page-1" id="IltVpvY0RZ3QNbH2YM5U">
+    <mxGraphModel dx="2084" dy="824" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="BwhJEsW9QxsuS4WJp-Kd-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="BwhJEsW9QxsuS4WJp-Kd-5" target="BwhJEsW9QxsuS4WJp-Kd-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="BwhJEsW9QxsuS4WJp-Kd-1" value="IoC and Deployment" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="200" width="320" height="440" as="geometry" />
+        </mxCell>
+        <mxCell id="BwhJEsW9QxsuS4WJp-Kd-3" value="InfraWeave enabled repository" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="BwhJEsW9QxsuS4WJp-Kd-1">
+          <mxGeometry x="10" y="40" width="300" height="390" as="geometry" />
+        </mxCell>
+        <mxCell id="BwhJEsW9QxsuS4WJp-Kd-6" value="Commit received" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="BwhJEsW9QxsuS4WJp-Kd-3">
+          <mxGeometry x="90" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="BwhJEsW9QxsuS4WJp-Kd-2" value="Application Build" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="480" y="200" width="320" height="480" as="geometry" />
+        </mxCell>
+        <mxCell id="BwhJEsW9QxsuS4WJp-Kd-16" value="Commit received" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="BwhJEsW9QxsuS4WJp-Kd-2">
+          <mxGeometry x="100" y="80" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="BwhJEsW9QxsuS4WJp-Kd-19" value="Tests Execute" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="BwhJEsW9QxsuS4WJp-Kd-2">
+          <mxGeometry x="100" y="160" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="BwhJEsW9QxsuS4WJp-Kd-25" value="Container is built" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="BwhJEsW9QxsuS4WJp-Kd-2">
+          <mxGeometry x="100" y="320" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="BwhJEsW9QxsuS4WJp-Kd-24" value="Artifact is built" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="BwhJEsW9QxsuS4WJp-Kd-2">
+          <mxGeometry x="100" y="240" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="BwhJEsW9QxsuS4WJp-Kd-27" value="Container is published to registry" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="BwhJEsW9QxsuS4WJp-Kd-2">
+          <mxGeometry x="100" y="400" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="BwhJEsW9QxsuS4WJp-Kd-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.88;exitY=0.25;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="BwhJEsW9QxsuS4WJp-Kd-4" target="BwhJEsW9QxsuS4WJp-Kd-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="BwhJEsW9QxsuS4WJp-Kd-14" value="Watching for commits" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="BwhJEsW9QxsuS4WJp-Kd-13">
+          <mxGeometry x="-0.2632" y="-1" relative="1" as="geometry">
+            <mxPoint x="34" y="-1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="BwhJEsW9QxsuS4WJp-Kd-4" value="" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-400" y="200" width="400" height="440" as="geometry" />
+        </mxCell>
+        <mxCell id="BwhJEsW9QxsuS4WJp-Kd-5" value="User Commit" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="180" y="50" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="BwhJEsW9QxsuS4WJp-Kd-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="BwhJEsW9QxsuS4WJp-Kd-7" target="BwhJEsW9QxsuS4WJp-Kd-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="BwhJEsW9QxsuS4WJp-Kd-7" value="InfraWeave executes&lt;br&gt;Terraform/Opentofu&lt;br&gt;Creates all cloud&lt;br&gt;resources" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-250" y="310" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="BwhJEsW9QxsuS4WJp-Kd-8" value="Deploys defined containers to Kubernetes" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-250" y="430" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="BwhJEsW9QxsuS4WJp-Kd-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="BwhJEsW9QxsuS4WJp-Kd-15" target="BwhJEsW9QxsuS4WJp-Kd-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="BwhJEsW9QxsuS4WJp-Kd-15" value="User Commit" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="580" y="50" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="BwhJEsW9QxsuS4WJp-Kd-28" value="" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="880" y="240" width="400" height="440" as="geometry" />
+        </mxCell>
+        <mxCell id="BwhJEsW9QxsuS4WJp-Kd-29" value="Container registry /&lt;div&gt;ECR&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1030" y="430" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="BwhJEsW9QxsuS4WJp-Kd-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="BwhJEsW9QxsuS4WJp-Kd-27" target="BwhJEsW9QxsuS4WJp-Kd-29">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="BwhJEsW9QxsuS4WJp-Kd-32" value="DevOps" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-400" width="830" height="760" as="geometry" />
+        </mxCell>
+        <mxCell id="BwhJEsW9QxsuS4WJp-Kd-33" value="Developer" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="450" width="830" height="760" as="geometry" />
+        </mxCell>
+        <mxCell id="BwhJEsW9QxsuS4WJp-Kd-34" value="" style="endArrow=classic;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endFill=1;" edge="1" parent="1" source="BwhJEsW9QxsuS4WJp-Kd-8" target="BwhJEsW9QxsuS4WJp-Kd-29">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="150" y="630" as="sourcePoint" />
+            <mxPoint x="200" y="580" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="-190" y="840" />
+              <mxPoint x="440" y="840" />
+              <mxPoint x="1090" y="840" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="BwhJEsW9QxsuS4WJp-Kd-35" value="Deploys configured to&amp;nbsp;&lt;div&gt;watch ECR&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="BwhJEsW9QxsuS4WJp-Kd-34">
+          <mxGeometry x="-0.9313" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

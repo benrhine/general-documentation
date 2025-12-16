@@ -442,8 +442,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h1>Disaster Recovery</h1>
 <div class="details">
 <span id="author" class="author">git-user-name</span><br>
-<span id="revnumber">version 2025.12.50,</span>
-<span id="revdate">2025-12-14</span>
+<span id="revnumber">version 2025.12.51,</span>
+<span id="revdate">2025-12-15</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -452,6 +452,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#_github_is_down_unavailable">GitHub is down / unavailable</a></li>
 <li><a href="#_aws_region_becomes_unavailable">Aws Region becomes unavailable</a></li>
+<li><a href="#_aws_specific_solution">Aws Specific solution</a></li>
 <li><a href="#_lost_account_access">Lost Account Access</a></li>
 <li><a href="#_lost_account">Lost Account</a></li>
 </ul>
@@ -460,6 +461,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_recovery_actions">Recovery Actions</a></li>
 <li><a href="#_open_questions">Open Questions</a></li>
 <li><a href="#_individual_project_disaster_recovery_steps">Individual Project Disaster Recovery Steps</a></li>
+<li><a href="#_reference">Reference</a></li>
 </ul>
 </div>
 </div>
@@ -492,19 +494,35 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 
 </div>
 <div class="sect2">
+<h3 id="_aws_specific_solution">Aws Specific solution</h3>
+<div class="paragraph">
+<p>To mitigate the possibly of an entire region of Aws becoming unavailable all repositories could be mirrored to a separate region on every push via CodeBuild and CodePipeline. This mirroring is down to the commit, meaning that even the commit hashes will be the same in both repos. This configuration is part of e4ach projects CloudFormation template and the default backup region is us-east-1. In theory this should guarantee access to the source code across regions and allow for the CloudFormation template to quickly re-imported and applications re-deployed in a different region</p>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_lost_account_access">Lost Account Access</h3>
-
+<div class="paragraph">
+<p>Who do you contact?</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_lost_account">Lost Account</h3>
-
+<div class="paragraph">
+<p>Who do you contact?</p>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_repositories_covered_by_these_plans">Repositories Covered by these plans</h2>
 <div class="sectionbody">
-
+<div class="ulist">
+<ul>
+<li>
+<p>TODO</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -516,7 +534,19 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect1">
 <h2 id="_open_questions">Open Questions</h2>
 <div class="sectionbody">
-
+<div class="ulist">
+<ul>
+<li>
+<p>Is the same type of replication necessary for libraries and layers? Yes</p>
+</li>
+<li>
+<p>Should a pipeline be configured in the backup account to deploy the resources on every push so that in the event of a failure the app deployment jobs just have to be run as everything is ready to go? or would this be to much of an additional cost?</p>
+</li>
+<li>
+<p>What happens if an app with a custom domain name goes down due to a region being down and we want to redeploy but we can no longer us the same domain as it is now held/reserved elsewhere in aws?</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -527,11 +557,23 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_reference">Reference</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://dev.to/apatil88/replicate-aws-codecommit-repositories-between-regions-using-codebuild-and-codepipeline-5fh1" class="bare">https://dev.to/apatil88/replicate-aws-codecommit-repositories-between-regions-using-codebuild-and-codepipeline-5fh1</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 2025.12.50<br>
-Last updated 2025-12-13 23:57:31 -0700
+Version 2025.12.51<br>
+Last updated 2025-12-15 09:41:46 -0700
 </div>
 </div>
 </body>

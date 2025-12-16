@@ -1,0 +1,55 @@
+
+
+:includedir: ../../../../_include
+
+include::substitution-values.adoc[]
+
+ifndef::deploy[]
+
+// These will only work from the file they are included in - NOT this file
+
+* link:../engineering/ops/infrastructure-as-code/terraform/tf-aws-create-cloudwatch-insight-query.adoc[Terraform: (AWS) Create CloudWatch Insight Query]
+* link:../engineering/ops/infrastructure-as-code/terraform/tf-aws-create-codebuild-job.adoc[Terraform: (AWS) Create CodeBuild job]
+* link:../engineering/ops/infrastructure-as-code/terraform/tf-aws-create-codepipeline.adoc[Terraform: (AWS) Create CodePipeline]
+* link:../engineering/ops/infrastructure-as-code/terraform/tf-aws-create-dynamo-table.adoc[Terraform: (AWS) Create DynamoDB table]
+* link:../engineering/ops/infrastructure-as-code/terraform/tf-aws-create-role-complete.adoc[Terraform: (AWS) Create a IAM role]
+* link:../engineering/ops/infrastructure-as-code/terraform/tf-aws-create-system-property.adoc[Terraform: (AWS) Create System Property/Parameter]
+* link:../engineering/ops/infrastructure-as-code/terraform/tf-aws-get-system-property.adoc[Terraform: (AWS) Get system property]
+* link:../engineering/ops/infrastructure-as-code/terraform/tf-chechov.adoc[Chechov]
+* link:../engineering/ops/infrastructure-as-code/terraform/tf-check-if-resource-exists.adoc[Terraform: Check if resource exists?]
+* link:../engineering/ops/infrastructure-as-code/terraform/tf-compliance.adoc[Terraform Compliance]
+* link:../engineering/ops/infrastructure-as-code/terraform/tf-conditionals.adoc[Terraform: Conditionals]
+* link:../engineering/ops/infrastructure-as-code/terraform/tf-github.adoc[Terraform: Managing GitHub]
+* link:../engineering/ops/infrastructure-as-code/terraform/tf-lifecycle-hooks.adoc[Terraform: Lifecycle Hooks]
+* link:../engineering/ops/infrastructure-as-code/terraform/tf-module.adoc[Terraform: Modules]
+* link:../engineering/ops/infrastructure-as-code/terraform/tf-reference.adoc[Terraform: References]
+* link:../engineering/ops/infrastructure-as-code/terraform/tf-state.adoc[Terraform: Managing State]
+* link:../engineering/ops/infrastructure-as-code/terraform/tf-testing.adoc[Terraform: Testing]
+* link:../engineering/ops/infrastructure-as-code/terraform/tf-troubleshooting.adoc[Terraform: Troubleshooting]
+* link:../engineering/ops/infrastructure-as-code/terraform/tf-variables.adoc[Terraform: Variables]
+
+endif::[]
+
+ifdef::deploy[]
+
+* {}[Terraform: (AWS) Create CloudWatch Insight Query]
+* {}[Terraform: (AWS) Create CodeBuild job]
+* {}[Terraform: (AWS) Create CodePipeline]
+* {}[Terraform: (AWS) Create DynamoDB table]
+* {}[Terraform: (AWS) Create a IAM role]
+* {}[Terraform: (AWS) Create System Property/Parameter]
+* {}[Terraform: (AWS) Get system property]
+* {}[Chechov]
+* {}[Terraform: Check if resource exists?]
+* {}[Terraform Compliance]
+* {}[Terraform: Conditionals]
+* {}[Terraform: Managing GitHub]
+* {}[Terraform: Lifecycle Hooks]
+* {}[Terraform: Modules]
+* {}[Terraform: References]
+* {}[Terraform: Managing State]
+* {}[Terraform: Testing]
+* {}[Terraform: Troubleshooting]
+* {}[Terraform: Variables]
+
+endif::[]

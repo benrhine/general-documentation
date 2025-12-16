@@ -1,0 +1,34 @@
+
+:includedir: ../../../../_include
+
+include::substitution-values.adoc[]
+
+ifndef::deploy[]
+
+// These will only work from the file they are included in - NOT this file
+
+* link:../engineering/ops/infrastructure-as-code/aws/aws-base-iam-roles.adoc[CloudFormation: Base IAM roles]
+* link:../engineering/ops/infrastructure-as-code/aws/aws-cf.adoc[CloudFormation]
+* link:../engineering/ops/infrastructure-as-code/aws/aws-cf-create-codebuild-job.adoc[CloudFormation: Create CodeBuild Job]
+* link:../engineering/ops/infrastructure-as-code/aws/aws-cf-create-codepipeline.adoc[CloudFormation: Create CodePipeline]
+* link:../engineering/ops/infrastructure-as-code/aws/aws-cf-create-dynamo-table.adoc[CloudFormation: Create DynamoDB table]
+* link:../engineering/ops/infrastructure-as-code/aws/aws-cf-create-role-complete.adoc[CloudFormation: Create an IAM role]
+* link:../engineering/ops/infrastructure-as-code/aws/aws-cf-create-system-property.adoc[CloudFormation: Create System Property/Parameter]
+* link:../engineering/ops/infrastructure-as-code/aws/aws-cf-get-system-property.adoc[CloudFormation: Get System Property]
+* link:../engineering/ops/infrastructure-as-code/aws/aws-cf-troubleshooting.adoc[CloudFormation: Troubleshooting]
+
+endif::[]
+
+ifdef::deploy[]
+
+* {}[CloudFormation: Base IAM roles]
+* {}[CloudFormation]
+* {}[CloudFormation: Create CodeBuild Job]
+* {}c[CloudFormation: Create CodePipeline]
+* {}[CloudFormation: Create DynamoDB table]
+* {}[CloudFormation: Create an IAM role]
+* {}[CloudFormation: Create System Property/Parameter]
+* {}[CloudFormation: Get System Property]
+* {}[CloudFormation: Troubleshooting]
+
+endif::[]

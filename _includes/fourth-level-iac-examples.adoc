@@ -1,0 +1,21 @@
+
+
+:includedir: ../../../../_include
+
+include::substitution-values.adoc[]
+
+ifndef::deploy[]
+
+// These will only work from the file they are included in - NOT this file
+
+* link:../engineering/ops/infrastructure-as-code/examples/aws-cf-sls-codecommit-approval-rules-template.adoc[Create Approval Rules Template with CloudFormation or Serverless Framework]
+* link:../engineering/ops/infrastructure-as-code/examples/aws-cf-sls-codecommit-notification-rules.adoc[Create Notification Rules with CloudFormation or Serverless Framework]
+
+endif::[]
+
+ifdef::deploy[]
+
+* {}[Create Approval Rules Template with CloudFormation or Serverless Framework]
+* {}[Create Notification Rules with CloudFormation or Serverless Framework]
+
+endif::[]

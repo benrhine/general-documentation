@@ -43,6 +43,11 @@
 :sl-ops-link-001:           https://doc.benrhine.com/engineering/ops/argo-cd
 :sl-ops-link-002:           https://doc.benrhine.com/engineering/ops/helm
 :sl-ops-link-003:           https://doc.benrhine.com/engineering/ops/infrastructure-as-code
+:sl-ops-link-003-001:       https://doc.benrhine.com/engineering/ops/infrastructure-as-code/aws
+:sl-ops-link-003-002:       https://doc.benrhine.com/engineering/ops/infrastructure-as-code/comparison
+:sl-ops-link-003-003:       https://doc.benrhine.com/engineering/ops/infrastructure-as-code/examples
+:sl-ops-link-003-004:       https://doc.benrhine.com/engineering/ops/infrastructure-as-code/serverless
+:sl-ops-link-003-005:       https://doc.benrhine.com/engineering/ops/infrastructure-as-code/terraform
 :sl-ops-link-004:           https://doc.benrhine.com/engineering/ops/infraweave
 :sl-ops-link-005:           https://doc.benrhine.com/engineering/ops/kubernetes
 :sl-projects-link:          https://doc.benrhine.com/engineering/projects

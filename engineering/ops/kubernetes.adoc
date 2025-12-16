@@ -1,4 +1,4 @@
-= Kubernetes:
+= Ops: Kubernetes:
 // Not sure how placement will affect publishing to Confluence
 :toc: left
 

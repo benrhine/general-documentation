@@ -437,16 +437,37 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
 </head>
-<body class="article">
+<body class="article toc2 toc-left">
 <div id="header">
 <h1>Git: Main vs Master</h1>
 <div class="details">
 <span id="author" class="author">git-user-name</span><br>
-<span id="revnumber">version 2025.12.50,</span>
-<span id="revdate">2025-12-14</span>
+<span id="revnumber">version 2025.12.51,</span>
+<span id="revdate">2025-12-15</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_if_using_codecommit_deprecated">If using CodeCommit (deprecated)</a></li>
+<li><a href="#_not_what_you_were_looking_for">Not what you were looking for?</a></li>
+</ul>
 </div>
 </div>
 <div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Information contained on this page or its sub-pages is general and applies to anyone needing to perform this setup and/or use this technology.
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>In trying to build a more inclusive environment for all, it is now recommended to use the <code>main</code> branch naming convention
 over the <code>master</code> branch convention. Most open git repositories now use <code>main</code> by default. In AWS case they are still
@@ -501,10 +522,164 @@ error: failed to push some refs to 'https://example@github.com/gittower/git-cras
 <p>Now re-run <code>git push origin --delete master</code> and you should be all set</p>
 </div>
 </div>
+</div>
+<div class="sect1">
+<h2 id="_if_using_codecommit_deprecated">If using CodeCommit (deprecated)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Chances are you will receive the following error as you need to manually change the default branch</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-shell" data-lang="shell">To https://github.com/gittower/git-crashcourse.git
+! [remote rejected]   master (refusing to delete the current branch: refs/heads/master)
+error: failed to push some refs to 'https://example@github.com/gittower/git-crashcourse.git'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you received the above do the following &#8230;&#8203;</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>navigate to your repository</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/git-3.png" alt="git 3"></span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>go to settings</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/git-1.png" alt="git 1"></span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>set the "Default branch" to main and save</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/git-2.png" alt="git 2"></span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>navigate to the repo main, and you will now see the branch is set to main</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Now re-run <code>git push origin --delete master</code> and you should be all set</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_not_what_you_were_looking_for">Not what you were looking for?</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://doc.benrhine.com">Home</a></p>
+</li>
+<li>
+<p><a href="https://doc.benrhine.com/engineering">Engineering</a></p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://doc.benrhine.com/engineering/tooling/tooling-asciidoc">AsciiDoc</a></p>
+</li>
+<li>
+<p><a href="https://doc.benrhine.com/engineering/tooling/tooling-certificates">Certificates</a></p>
+</li>
+<li>
+<p><a href="https://doc.benrhine.com/engineering/tooling/tooling-coverity">Coverity</a></p>
+</li>
+<li>
+<p><a href="https://doc.benrhine.com/engineering/tooling/tooling-git">Git</a></p>
+</li>
+<li>
+<p><a href="https://doc.benrhine.com/engineering/tooling/tooling-git-hooks">Git: Hooks</a></p>
+</li>
+<li>
+<p><a href="https://doc.benrhine.com/engineering/tooling/tooling-git-main-vs-master">Git: Main vs Master</a></p>
+</li>
+<li>
+<p><a href="https://doc.benrhine.com/engineering/tooling/tooling-git-trunk-based-development">Git: Trunk based development</a></p>
+</li>
+<li>
+<p><a href="https://doc.benrhine.com/engineering/tooling/tooling-java-faster-strings">Java: Faster Strings</a></p>
+</li>
+<li>
+<p><a href="https://doc.benrhine.com/engineering/tooling/tooling-java-use-of-the-keyword-final">Java: The use of the keyword final</a></p>
+</li>
+<li>
+<p><a href="https://doc.benrhine.com/engineering/tooling/tooling-jira">Jira</a></p>
+</li>
+<li>
+<p><a href="https://doc.benrhine.com/engineering/tooling/tooling-linting">Linting</a></p>
+</li>
+<li>
+<p><a href="https://doc.benrhine.com/engineering/tooling/tooling-logging">Logging</a></p>
+</li>
+<li>
+<p><a href="https://doc.benrhine.com/engineering/tooling/tooling-markdown">Markdown</a></p>
+</li>
+<li>
+<p><a href="https://doc.benrhine.com/engineering/tooling/tooling-properties-and-parameters">Properties and Parameters</a></p>
+</li>
+<li>
+<p><a href="https://doc.benrhine.com/engineering/tooling/tooling-sonar">Sonar</a></p>
+</li>
+<li>
+<p><a href="https://doc.benrhine.com/engineering/tooling/tooling-ssl">SSL</a></p>
+</li>
+<li>
+<p><a href="https://doc.benrhine.com/engineering/tooling/tooling-windows">Windows</a></p>
+</li>
+<li>
+<p><a href="https://doc.benrhine.com/engineering/tooling/tooling-argocd">ArgoCD</a></p>
+</li>
+<li>
+<p><a href="https://doc.benrhine.com/engineering/tooling/tooling-cloud">Cloud</a></p>
+</li>
+<li>
+<p><a href="https://doc.benrhine.com/engineering/tooling/tooling-cloud-aws">Aws</a></p>
+</li>
+<li>
+<p><a href="https://doc.benrhine.com/engineering/tooling/tooling-cloud-gcp">Azure</a></p>
+</li>
+<li>
+<p><a href="https://doc.benrhine.com/engineering/tooling/tooling-cloud-azure">Gcp</a></p>
+</li>
+<li>
+<p><a href="https://doc.benrhine.com/engineering/tooling/tooling-helm">Helm</a></p>
+</li>
+<li>
+<p><a href="https://doc.benrhine.com/engineering/tooling/tooling-infraweave">Infraweave</a></p>
+</li>
+<li>
+<p><a href="https://doc.benrhine.com/engineering/tooling/tooling-kubernetes">Kubernetes</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
 <div id="footer">
 <div id="footer-text">
-Version 2025.12.50<br>
-Last updated 2025-04-12 00:11:45 -0600
+Version 2025.12.51<br>
+Last updated 2025-12-15 13:38:31 -0700
 </div>
 </div>
 </body>

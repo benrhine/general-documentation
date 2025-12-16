@@ -7,12 +7,22 @@ ifndef::deploy[]
 
 // These will only work from the file they are included in - NOT this file
 
-* link:../engineering/support/run-books/run-book-lyp-service.adoc[Run Book: Lyp Service Example]
+* link:../engineering/ops/argo-cd.adoc[ArgoCD]
+* link:../engineering/ops/helm.adoc[Helm]
+* link:../engineering/ops/infraweave.adoc[Infraweave]
+* link:../engineering/ops/kubernetes.adoc[Kubernetes]
+* link:../engineering/ops/infrastructure-as-code.adoc[IaC]
+
 
 endif::[]
 
 ifdef::deploy[]
 
-* {tl-run-books-lyp-example-link}[Run Book: Lyp Service Example]
+* {sl-ops-link-001}[ArgoCD]
+* {sl-ops-link-002}[Helm]
+* {sl-ops-link-004}[Infraweave]
+* {sl-ops-link-005}[Kubernetes]
+* {sl-ops-link-003}[IaC]
+
 
 endif::[]

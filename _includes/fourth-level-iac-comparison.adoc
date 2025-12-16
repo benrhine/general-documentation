@@ -1,0 +1,45 @@
+
+
+:includedir: ../../../../_include
+
+include::substitution-values.adoc[]
+
+ifndef::deploy[]
+
+// These will only work from the file they are included in - NOT this file
+
+* link:../engineering/ops/infrastructure-as-code/comparison/compare-codebuild.adoc[Compare: CodeBuild]
+* link:../engineering/ops/infrastructure-as-code/comparison/compare-codepipeline.adoc[Compare: CodePipeline]
+* link:../engineering/ops/infrastructure-as-code/comparison/compare-cross-account.adoc[Compare: Cross Account]
+* link:../engineering/ops/infrastructure-as-code/comparison/compare-event-rule.adoc[Compare: Event Rule]
+* link:../engineering/ops/infrastructure-as-code/comparison/compare-iac.adoc[Compare: IaC]
+* link:../engineering/ops/infrastructure-as-code/comparison/compare-iac-role.adoc[Compare: IaC Role]
+* link:../engineering/ops/infrastructure-as-code/comparison/compare-iac-role-policies.adoc[Compare: IaC Role Policies]
+* link:../engineering/ops/infrastructure-as-code/comparison/compare-iac-variables.adoc[Compare: IaC variables]
+* link:../engineering/ops/infrastructure-as-code/comparison/compare-multiple-environments.adoc[Compare: Multiple Environments]
+* link:../engineering/ops/infrastructure-as-code/comparison/compare-s3.adoc[Compare: S3]
+* link:../engineering/ops/infrastructure-as-code/comparison/compare-s3-policies.adoc[Compare: S3 Policies]
+* link:../engineering/ops/infrastructure-as-code/comparison/compare-ssm.adoc[Compare: SSM]
+* link:../engineering/ops/infrastructure-as-code/comparison/compare-state.adoc[Compare: State]
+* link:../engineering/ops/infrastructure-as-code/comparison/comparison-modules.adoc[Comparison Modules]
+
+endif::[]
+
+ifdef::deploy[]
+
+* {}[Compare: CodeBuild]
+* {}[Compare: CodePipeline]
+* {}[Compare: Cross Account]
+* {}[Compare: Event Rule]
+* {}[Compare: IaC]
+* {}[Compare: IaC Role]
+* {}[Compare: IaC Role Policies]
+* {}[Compare: IaC variables]
+* {}[Compare: Multiple Environments]
+* {}Compare: S3]
+* {}[Compare: S3 Policies]
+* {}[Compare: SSM]
+* {}[Compare: State]
+* {}[Comparison Modules]
+
+endif::[]
