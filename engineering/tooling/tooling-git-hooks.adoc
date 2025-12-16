@@ -26,10 +26,25 @@ endif::[]
 
 == How are hooks installed?
 
+ifndef::deploy[]
+
+// These will only work from the file they are included in - NOT this file
+
 Hooks can be installed by manually creating the file with the given name in a projects .git/hooks  directory. Sadly,
 this directory is not under version control so some additional thought is required to ensure that everyone is adhering to
 the same standard. For this reason on newer projects the hooks are maintained in the repo in the `.githooks` directory and
-will be automatically installed on a per-project basis using Gradle (see link:../engineering/development/build/build-gradle-git-hooks.adoc[here] for details).
+will be automatically installed on a per-project basis using Gradle (see link:../../engineering/development/build/build-gradle-git-hooks.adoc[here] for details).
+
+endif::[]
+
+ifdef::deploy[]
+
+Hooks can be installed by manually creating the file with the given name in a projects .git/hooks  directory. Sadly,
+this directory is not under version control so some additional thought is required to ensure that everyone is adhering to
+the same standard. For this reason on newer projects the hooks are maintained in the repo in the `.githooks` directory and
+will be automatically installed on a per-project basis using Gradle (see {sl-development-build-link-011}[here] for details).
+
+endif::[]
 
 == Check branch name for correctness (pre-commit hook)
 

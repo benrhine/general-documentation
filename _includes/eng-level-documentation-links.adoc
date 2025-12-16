@@ -14,8 +14,8 @@ endif::[]
 
 ifdef::deploy[]
 
-* {tl-asciidoc-link}[AsciiDoc]
-* {ll-markdown-link}[Markdown]
+* {tl-tooling-link-01}[AsciiDoc]
+* {tl-tooling-link-13}[Markdown]
 
 endif::[]
 

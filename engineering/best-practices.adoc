@@ -38,7 +38,19 @@ endif::[]
 
 == Logging
 
-- link:../engineering/development/logging/logging-masking-sensitive-data.adoc[Logging: Masking sensitive data]
+ifndef::deploy[]
+
+// These will only work from the file they are included in - NOT this file
+
+* link:../engineering/development/logging/logging-masking-sensitive-data.adoc[Logging: Masking sensitive data]
+
+endif::[]
+
+ifdef::deploy[]
+
+* {sl-development-log-link-003}[Logging: Masking sensitive data]
+
+endif::[]
 
 // Renders correctly in IDE
 ifndef::deploy[]

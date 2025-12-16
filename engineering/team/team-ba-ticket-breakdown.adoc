@@ -9,8 +9,21 @@ ifdef::confluence[]
 include::{includedir}/version-control-warning.adoc[]
 endif::[]
 
+ifndef::deploy[]
+
+// These will only work from the file they are included in - NOT this file
+
 Analysts are expected to work with the technical lead and team to use an agreed upon ticket format for the various styles
 of work that need completed (see link:ticket-template-story.adoc[Template Ticket]).
+
+endif::[]
+
+ifdef::deploy[]
+
+Analysts are expected to work with the technical lead and team to use an agreed upon ticket format for the various styles
+of work that need completed (see {sl-team-link-007}[Template Ticket]).
+
+endif::[]
 
 It is expected that a BA will meet with the team lead or technical lead at least once a week to help refine tickets to a
 level that can be ingested by the team

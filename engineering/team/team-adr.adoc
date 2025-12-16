@@ -58,15 +58,15 @@ The {team-name-1-abv-upper} Team will be attempting to use ADR's as part of the 
 
 Other internally created documentation on the subject ...
 
-* https://confluence.digitalaviationservices.com/display/DCP/Architecture+Decision+Records[Digital Platform 2.0 - Architecture Decision Records]
+* TODO
 
 == Template
 
-A reference template has been created by the {team-name-1-abv-upper} team and can be accessed {team-practice-1-link}[here].
+A reference template has been created by the {team-name-1-abv-upper} team and can be accessed {sl-team-link-010}[here].
 
 == Project ADR's
 
-To review project specific architectural decision records please see the ADRs folder located under the specific project under {team-projects-link}[Projects].
+To review project specific architectural decision records please see the ADRs folder located under the specific project under {sl-projects-link}[Projects].
 
 
 == Reference

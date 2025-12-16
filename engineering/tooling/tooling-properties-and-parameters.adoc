@@ -31,13 +31,29 @@ With many cloud providers, it is no longer necessary to role your own property s
 
 == Aws System Manager Parameter Store
 
-* link:../engineering/ops/infrastructure-as-code/aws/aws-cf-create-system-property.adoc[CloudFormation: Create System Property/Parameter]
-* link:../engineering/ops/infrastructure-as-code/aws/aws-cf-get-system-property.adoc[CloudFormation: Get System Property]
-* link:../engineering/ops/infrastructure-as-code/serverless/sls-aws-create-system-property.adoc[Serverless: Create System Property/Parameter]
-* link:../engineering/ops/infrastructure-as-code/serverless/sls-aws-get-system-property.adoc[Serverless: Get System Property]
-* link:../engineering/ops/infrastructure-as-code/terraform/tf-aws-create-system-property.adoc[Terraform: Create System Property/Parameter]
-* link:../engineering/ops/infrastructure-as-code/terraform/tf-aws-get-system-property.adoc[Terraform: Get System Property]
-* link:../comparison/compare-ssm.adoc[Compare: SSM across frameworks]
+ifndef::deploy[]
+
+* link:../../engineering/ops/infrastructure-as-code/aws/aws-cf-create-system-property.adoc[CloudFormation: Create System Property/Parameter]
+* link:../../engineering/ops/infrastructure-as-code/aws/aws-cf-get-system-property.adoc[CloudFormation: Get System Property]
+* link:../../engineering/ops/infrastructure-as-code/serverless/sls-aws-create-system-property.adoc[Serverless: Create System Property/Parameter]
+* link:../../engineering/ops/infrastructure-as-code/serverless/sls-aws-get-system-property.adoc[Serverless: Get System Property]
+* link:../../engineering/ops/infrastructure-as-code/terraform/tf-aws-create-system-property.adoc[Terraform: Create System Property/Parameter]
+* link:../../engineering/ops/infrastructure-as-code/terraform/tf-aws-get-system-property.adoc[Terraform: Get System Property]
+* link:../../engineering/ops/infrastructure-as-code/comparison/compare-ssm.adoc[Compare: SSM across frameworks]
+
+endif::[]
+
+ifdef::deploy[]
+
+* {sl-ops-link-003-001-008}[CloudFormation: Create System Property/Parameter]
+* {sl-ops-link-003-001-009}[CloudFormation: Get System Property]
+* {sl-ops-link-003-004-006}[Serverless: Create System Property/Parameter]
+* {sl-ops-link-003-004-007}[Serverless: Get System Property]
+* {sl-ops-link-003-005-006}[Terraform: Create System Property/Parameter]
+* {sl-ops-link-003-005-007}[Terraform: Get System Property]
+* {sl-ops-link-003-002-012}[Compare: SSM across frameworks]
+
+endif::[]
 
 == GCP?
 

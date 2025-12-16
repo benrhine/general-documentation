@@ -26,6 +26,26 @@ ifdef::deploy[]
 include::{includedir}/eng-level-cloud-links.adoc[]
 endif::[]
 
+ifndef::deploy[]
+
+// These will only work from the file they are included in - NOT this file
+
+* link:../engineering/tooling/tooling-cloud.adoc[Tooling: Cloud]
+* link:../engineering/tooling/tooling-cloud-aws.adoc[Tooling: Aws]
+* link:../engineering/tooling/tooling-cloud-azure.adoc[Tooling: Azure]
+* link:../engineering/tooling/tooling-cloud-gcp.adoc[Tooling: Gcp]
+
+endif::[]
+
+ifdef::deploy[]
+
+* {tl-tooling-link-21}[Tooling: Cloud]
+* {tl-tooling-link-22}[Tooling: Aws]
+* {tl-tooling-link-24}[Tooling: Azure]
+* {tl-tooling-link-23}[Tooling: Gcp]
+
+endif::[]
+
 
 // Renders correctly in IDE
 ifndef::deploy[]

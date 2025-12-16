@@ -19,19 +19,31 @@ This page encapsulates the expectations for the {team-name-1-abv-upper} team. Be
 
 == Java
 
-* {tooling-java-2-link}[Java - Best Practices]
+ifndef::deploy[]
+
+// These will only work from the file they are included in - NOT this file
+
+* link:../best-practices.adoc[Java - Best Practices]
+
+endif::[]
+
+ifdef::deploy[]
+
+* {sl-best-practices-link}[Java - Best Practices]
+
+endif::[]
 
 == Build Systems
 
-* {team-name-1-abv-upper} Team will use the {tooling-java-4-link}[Gradle build system] as a best practice when writing Java code due to its greater flexibility over Maven
+* {team-name-1-abv-upper} Team will use the {sl-development-java-link-003}[Gradle build system] as a best practice when writing Java code due to its greater flexibility over Maven
 
 == Documentation
 
-* {team-name-1-abv-upper} Team subscribes to the {team-practice-6-link}[Doc as Code] philosophy.
+* {team-name-1-abv-upper} Team subscribes to the {sl-team-link-012}[Doc as Code] philosophy.
 ** This allows developers to write documentation directly alongside the code
-** It incentivises writing the documentation by lowering the bar of how many systems are needed
+** It incentivizes writing the documentation by lowering the bar of how many systems are needed
 ** When configured correctly it allows for auto-publishing of documentation.
-* When possible we will attempt to use {team-practice-3-link}[Architectural Decision Records]
+* When possible we will attempt to use {sl-team-link-009}[Architectural Decision Records]
 
 == Ticketing
 
@@ -41,4 +53,4 @@ This page encapsulates the expectations for the {team-name-1-abv-upper} team. Be
 
 == Not what you were looking for?
 
-include::{includedir}/team-not-what-you-are-looking-for.adoc[]
+// include::{includedir}/team-not-what-you-are-looking-for.adoc[]

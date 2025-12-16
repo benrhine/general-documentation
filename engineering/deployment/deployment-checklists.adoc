@@ -2,7 +2,20 @@
 
 This lists all pre-deployment checklists for shared services projects
 
-- link:deployment-lyp-example-checklist.adoc[lyp-example-service]
+ifndef::deploy[]
+
+// These will only work from the file they are included in - NOT this file
+
+* link:../../engineering/deployment/deployment-lyp-example-checklist.adoc[lyp-example-service]
+
+
+endif::[]
+
+ifdef::deploy[]
+
+* {sl-deployment-link-003}[lyp-example-service]
+
+endif::[]
 
 
 

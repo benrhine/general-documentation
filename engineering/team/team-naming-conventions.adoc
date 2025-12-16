@@ -6,7 +6,6 @@
 // Tags created on pages with keywords relevant to content - default values are present and can be overridden by passed in attribute (and should be). Additionally, when using the publishToConfluence plugin it is more difficult to pass in the keywords so the defaults are preferred.
 :keywords: team, naming, conventions
 
-include::../../../_includes/third-level-includes.adoc[]
 
 The goal of this page is to capture why things are named as they are along with the reasoning behind it.
 
@@ -49,9 +48,6 @@ example: /rc/brr/dev/tf/slack_brr_dev_aws_dp_alerts_channel_id
 
 == Not what you were looking for?
 
-include::{includedir}/team-not-what-you-are-looking-for.adoc[]
-
-* https://dat.jeppesen.com/confluence/spaces/FDS/pages/277744699/START+HERE+-+Flight+Deck+GitHub+and+AWS#STARTHEREFlightDeckGitHubandAWS-NamingConvention-REQUIRED[Flight Deck - Naming Convention]
 
 
 
