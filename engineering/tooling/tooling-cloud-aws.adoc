@@ -60,7 +60,7 @@ include::../../_includes/tooling-cloud-aws-links.adoc[]
 endif::[]
 // Renders correctly in AsciiDoc Deployment
 ifdef::deploy[]
-include::{includedir}/tooling-cloud-aws-links.adoc[
+include::{includedir}/tooling-cloud-aws-links.adoc[]
 endif::[]
 
 == UI Setups
