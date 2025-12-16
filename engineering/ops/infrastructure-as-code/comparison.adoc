@@ -34,13 +34,14 @@ include::{includedir}/fourth-level-iac-comparison.adoc[]
 endif::[]
 
 
-// Renders correctly in IDE
-// ifndef::deploy[]
-// include::../../../_includes/eng-level-tooling-not-what-you-were-looking-for.adoc[]
-// endif::[]
-// // Renders correctly in AsciiDoc Deployment
-// ifdef::deploy[]
-// include::{includedir}/eng-level-tooling-not-what-you-were-looking-for.adoc[]
-// endif::[]
-
 == Reference
+
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../_includes/ops-iac-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/ops-iac-nwywlf.adoc[]
+endif::[]

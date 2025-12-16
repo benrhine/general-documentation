@@ -20,7 +20,14 @@ explaining how terraform variables and tfvars work.
 - https://dev.to/pwd9000/terraform-variable-validation-47ka
 - https://registry.terraform.io/providers/hashicorp/assert/latest/docs/functions/regex
 
-
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../../_includes/ops-iac-terraform-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/ops-iac-terraform-nwywlf.adoc[]
+endif::[]
 
 
 

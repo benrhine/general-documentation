@@ -45,7 +45,14 @@ of that given resource provided the appropriate configuration.
 - https://developer.hashicorp.com/terraform/language/modules
 
 
-
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../../_includes/ops-iac-terraform-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/ops-iac-terraform-nwywlf.adoc[]
+endif::[]
 
 
 

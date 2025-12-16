@@ -5,3 +5,16 @@
 
 * https://spacelift.io/blog/terraform-github
 * https://solideogloria.tech/terraform/authenticating-terraform-with-a-github-app/
+
+
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../../_includes/ops-iac-terraform-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/ops-iac-terraform-nwywlf.adoc[]
+endif::[]
+
+

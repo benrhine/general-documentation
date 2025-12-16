@@ -854,6 +854,156 @@ tasks {
         // Define custom attributes using a map
         attributes(asciiDocAttributes )
     }
+    register<AsciidoctorTask>("docEngDev")  {
+        setSourceDir(file("engineering/development"))
+        sources(delegateClosureOf<PatternSet> {
+            include("*.adoc")
+        })
+        setOutputDir(file("build/docs/engineering/development"))
+
+        // Define custom attributes using a map
+        attributes(asciiDocAttributes )
+        // Fill in will all sub-page jobs
+        dependsOn(
+            "docEngDevBuild", "docEngDevContainers", "docEngDevData", "docEngDevJava",
+            "docEngDevLibraries", "docEngDevLogging", "docEngDevMetrics", "docEngDevRecovery",
+            "docEngDevSlack", "docEngDevStyle", "docEngDevTesting", "docEngDevThirdPartyServices"
+        )
+    }
+    register<AsciidoctorTask>("docEngDevBuild")  {
+        setSourceDir(file("engineering/development/build"))
+        sources(delegateClosureOf<PatternSet> {
+            include("*.adoc")
+        })
+        setOutputDir(file("build/docs/engineering/development/build"))
+
+        // Define custom attributes using a map
+        attributes(asciiDocAttributes )
+    }
+    register<AsciidoctorTask>("docEngDevContainers")  {
+        setSourceDir(file("engineering/development/containers"))
+        sources(delegateClosureOf<PatternSet> {
+            include("*.adoc")
+        })
+        setOutputDir(file("build/docs/engineering/development/containers"))
+
+        // Define custom attributes using a map
+        attributes(asciiDocAttributes )
+        // Fill in will all sub-page jobs
+        dependsOn(
+            "docEngDevContainersDocker"
+        )
+    }
+    register<AsciidoctorTask>("docEngDevContainersDocker")  {
+        setSourceDir(file("engineering/development/containers/docker"))
+        sources(delegateClosureOf<PatternSet> {
+            include("*.adoc")
+        })
+        setOutputDir(file("build/docs/engineering/development/containers/docker"))
+
+        // Define custom attributes using a map
+        attributes(asciiDocAttributes )
+    }
+    register<AsciidoctorTask>("docEngDevData")  {
+        setSourceDir(file("engineering/development/data"))
+        sources(delegateClosureOf<PatternSet> {
+            include("*.adoc")
+        })
+        setOutputDir(file("build/docs/engineering/development/data"))
+
+        // Define custom attributes using a map
+        attributes(asciiDocAttributes )
+    }
+    register<AsciidoctorTask>("docEngDevJava")  {
+        setSourceDir(file("engineering/development/java"))
+        sources(delegateClosureOf<PatternSet> {
+            include("*.adoc")
+        })
+        setOutputDir(file("build/docs/engineering/development/java"))
+
+        // Define custom attributes using a map
+        attributes(asciiDocAttributes )
+    }
+    register<AsciidoctorTask>("docEngDevLibraries")  {
+        setSourceDir(file("engineering/development/libraries"))
+        sources(delegateClosureOf<PatternSet> {
+            include("*.adoc")
+        })
+        setOutputDir(file("build/docs/engineering/development/libraries"))
+
+        // Define custom attributes using a map
+        attributes(asciiDocAttributes )
+    }
+    register<AsciidoctorTask>("docEngDevLogging")  {
+        setSourceDir(file("engineering/development/logging"))
+        sources(delegateClosureOf<PatternSet> {
+            include("*.adoc")
+        })
+        setOutputDir(file("build/docs/engineering/development/logging"))
+
+        // Define custom attributes using a map
+        attributes(asciiDocAttributes )
+    }
+    register<AsciidoctorTask>("docEngDevMetrics")  {
+        setSourceDir(file("engineering/development/metrics"))
+        sources(delegateClosureOf<PatternSet> {
+            include("*.adoc")
+        })
+        setOutputDir(file("build/docs/engineering/development/metrics"))
+
+        // Define custom attributes using a map
+        attributes(asciiDocAttributes )
+    }
+    register<AsciidoctorTask>("docEngDevRecovery")  {
+        setSourceDir(file("engineering/development/recovery"))
+        sources(delegateClosureOf<PatternSet> {
+            include("*.adoc")
+        })
+        setOutputDir(file("build/docs/engineering/development/recovery"))
+
+        // Define custom attributes using a map
+        attributes(asciiDocAttributes )
+    }
+    register<AsciidoctorTask>("docEngDevSlack")  {
+        setSourceDir(file("engineering/development/slack"))
+        sources(delegateClosureOf<PatternSet> {
+            include("*.adoc")
+        })
+        setOutputDir(file("build/docs/engineering/development/slack"))
+
+        // Define custom attributes using a map
+        attributes(asciiDocAttributes )
+    }
+    register<AsciidoctorTask>("docEngDevStyle") {
+        setSourceDir(file("engineering/development/style"))
+        sources(delegateClosureOf<PatternSet> {
+            include("*.adoc")
+        })
+        setOutputDir(file("build/docs/engineering/development/style"))
+
+        // Define custom attributes using a map
+        attributes(asciiDocAttributes )
+    }
+    register<AsciidoctorTask>("docEngDevTesting")  {
+        setSourceDir(file("engineering/development/testing"))
+        sources(delegateClosureOf<PatternSet> {
+            include("*.adoc")
+        })
+        setOutputDir(file("build/docs/engineering/development/testing"))
+
+        // Define custom attributes using a map
+        attributes(asciiDocAttributes )
+    }
+    register<AsciidoctorTask>("docEngDevThirdPartyServices") {
+        setSourceDir(file("engineering/development/third-party-services"))
+        sources(delegateClosureOf<PatternSet> {
+            include("*.adoc")
+        })
+        setOutputDir(file("build/docs/engineering/development/third-party-services"))
+
+        // Define custom attributes using a map
+        attributes(asciiDocAttributes )
+    }
     //---
 //    register<AsciidoctorTask>("docConfluenceEngAdr")  {
 //        setSourceDir(file("documentation/engineering/eng-adr"))

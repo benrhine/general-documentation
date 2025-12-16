@@ -38,6 +38,13 @@ Resources:
 [TIP]
 Use the above as an example and copy/paste into a CloudFormation template and edit the values to suit your purpose.
 
-
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../../_includes/ops-iac-aws-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/ops-iac-aws-nwywlf.adoc[]
+endif::[]
 
 

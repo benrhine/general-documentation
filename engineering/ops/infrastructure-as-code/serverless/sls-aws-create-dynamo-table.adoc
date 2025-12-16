@@ -86,3 +86,11 @@ it to be able to access DynamoDB.
 == Reference
 
 
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../../_includes/ops-iac-serverless-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/ops-iac-serverless-nwywlf.adoc[]
+endif::[]

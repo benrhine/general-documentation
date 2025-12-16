@@ -1,0 +1,17 @@
+
+== Not what you were looking for?
+
+ifndef::deploy[]
+// These will only work from the file they are included in - NOT this file
+* link:../index.adoc[Home]
+* link:../engineering.adoc[Engineering]
+* link:../engineering/ops/infrastructure-as-code.adoc[Ops: Infrastructure as Code (IaC)]
+endif::[]
+
+ifdef::deploy[]
+* {fl-home-link}[Home]
+* {fl-engineering-link}[Engineering]
+* {sl-ops-link-003}[Ops: Infrastructure as Code (IaC)]
+endif::[]
+
+include::ops-iac-aws-links.adoc[]

@@ -103,3 +103,13 @@ Policies:
 
 To manually test if a role works as expected, see the directions link:../../../../engineering/cloud/infrastructure/aws/aws-iam.adoc#_testing_iam_roles[here].
 
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../../_includes/ops-iac-serverless-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/ops-iac-serverless-nwywlf.adoc[]
+endif::[]
+

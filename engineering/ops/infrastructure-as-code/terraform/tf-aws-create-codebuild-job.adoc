@@ -144,12 +144,11 @@ statement {
   }
 ----
 
-== Not what you were looking for?
-
-* link:../../../../engineering/cloud/infrastructure/aws/aws-setup-code-build.adoc[Setup: CodeBuild]
-* link:../../../../engineering/cloud/infrastructure/aws/aws-setup-code-pipeline.adoc[Setup: CodePipeline]
-* link:../serverless/sls-aws-create-codebuild-job.adoc[Serverless: (AWS) Create CodeBuild job]
-* link:../aws/aws-cf-create-codebuild-job.adoc[CloudFormation: (AWS) Create CodeBuild job]
-* link:../aws/aws-cf-create-codepipeline.adoc[CloudFormation: (AWS) Create CodePipeline]
-* link:../serverless/sls-aws-create-codepipeline.adoc[Serverless: (AWS) Create CodePipeline]
-* link:../terraform/tf-aws-create-codepipeline.adoc[Terraform: (AWS) Create CodePipeline]
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../../_includes/ops-iac-terraform-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/ops-iac-terraform-nwywlf.adoc[]
+endif::[]

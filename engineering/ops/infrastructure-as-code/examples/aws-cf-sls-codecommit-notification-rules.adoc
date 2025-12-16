@@ -29,7 +29,14 @@ In order to execute these Serverless/CloudFormation scripts a Aws Chatbot MUST p
 
 
 
-
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../../_includes/ops-iac-examples-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/ops-iac-examples-nwywlf.adoc[]
+endif::[]
 
 
 

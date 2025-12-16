@@ -189,3 +189,12 @@ static (ie does not change).
 
 * https://developer.hashicorp.com/terraform/language/values/variables[Terraform: Variables]
 * https://spacelift.io/blog/how-to-use-terraform-variables[SpaceLift: TF Variables]
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../../_includes/ops-iac-comparison-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/ops-iac-comparison-nwywlf.adoc[]
+endif::[]

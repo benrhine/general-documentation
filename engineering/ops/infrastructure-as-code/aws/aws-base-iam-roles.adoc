@@ -151,7 +151,14 @@ The trust policy on this role should look as follows ...
 ----
 
 
-
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../../_includes/ops-iac-aws-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/ops-iac-aws-nwywlf.adoc[]
+endif::[]
 
 
 

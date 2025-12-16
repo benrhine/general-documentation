@@ -18,10 +18,12 @@ endif::[]
 // Renders correctly in IDE
 ifndef::deploy[]
 include::../_includes/eng-level-ops-links.adoc[]
+// include::../_includes/ops-iac-aws-links.adoc[]
 endif::[]
 // Renders correctly in AsciiDoc Deployment
 ifdef::deploy[]
 include::{includedir}/eng-level-ops-links.adoc[]
+// include::{includedir}/ops-iac-aws-links.adoc[]
 endif::[]
 
 // Renders correctly in IDE

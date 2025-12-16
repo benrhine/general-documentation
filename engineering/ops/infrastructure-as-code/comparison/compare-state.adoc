@@ -166,4 +166,11 @@ The `variables.tf` file must have the variables declared in it
 - https://www.reddit.com/r/aws/comments/rac2yp/access_denied_when_trying_to_assume_a_iam_role/
 - https://blog.slauth.io/troubleshooting-aws-iam-errors-resolving-5-common-errors
 
-
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../../_includes/ops-iac-comparison-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/ops-iac-comparison-nwywlf.adoc[]
+endif::[]

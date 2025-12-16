@@ -7,3 +7,11 @@ Neither CloudFormation nor Serverless Framework support this concept. Not that y
 and copy pasted to different projects for re-use but to my knowledge you can't create and publish a CloudFormation library
 that can be picked up through a build tool and I know for certain this can't currently be done in Serverless Framework.
 
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../../_includes/ops-iac-comparison-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/ops-iac-comparison-nwywlf.adoc[]
+endif::[]

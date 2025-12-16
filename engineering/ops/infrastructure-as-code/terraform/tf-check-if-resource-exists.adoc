@@ -51,3 +51,15 @@ Another option may be to use Terraform link:tf-lifecycle-hooks.adoc[Lifecycle Ho
 
 - https://registry.terraform.io/providers/hashicorp/external/latest/docs/data-sources/external
 - https://stackoverflow.com/questions/70689512/terraform-check-if-resource-exists-before-creating-it
+
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../../_includes/ops-iac-terraform-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/ops-iac-terraform-nwywlf.adoc[]
+endif::[]
+
+

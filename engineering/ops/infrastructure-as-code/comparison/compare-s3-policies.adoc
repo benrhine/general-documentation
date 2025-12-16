@@ -119,7 +119,14 @@ module "s3_policies" {
 
 
 
-
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../../_includes/ops-iac-comparison-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/ops-iac-comparison-nwywlf.adoc[]
+endif::[]
 
 
 

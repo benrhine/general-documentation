@@ -1734,7 +1734,14 @@ keeping the one off's in a single repo but maintains the ability to execute them
 
 
 
-
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../../_includes/ops-iac-comparison-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/ops-iac-comparison-nwywlf.adoc[]
+endif::[]
 
 
 

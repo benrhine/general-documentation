@@ -270,3 +270,14 @@ For more information on multiple environments see link:compare-multiple-environm
 - https://dev.to/sepiyush/using-terraform-to-manage-resources-in-multiple-aws-accounts-1b61
 - https://www.google.com/search?q=terraform+switch+aws+profiles+while+running&oq=terraform+switch+aws+profiles+while+running&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIHCAEQIRigATIHCAIQIRigATIHCAMQIRigATIHCAQQIRigATIHCAUQIRigAdIBCDkzMThqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8
 - https://stackoverflow.com/questions/64019034/how-to-generate-an-aws-profile-in-aws-config-for-use-in-a-codebuild-project
+
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../../_includes/ops-iac-comparison-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/ops-iac-comparison-nwywlf.adoc[]
+endif::[]
+

@@ -1,0 +1,26 @@
+
+:includedir: ../../../_include
+
+include::substitution-values.adoc[]
+
+ifndef::deploy[]
+
+// These will only work from the file they are included in - NOT this file
+
+* link:../engineering/ops/infrastructure-as-code/aws.adoc[IaC: Aws]
+* link:../engineering/ops/infrastructure-as-code/comparison.adoc[IaC: Comparison]
+* link:../engineering/ops/infrastructure-as-code/examples.adoc[IaC: Examples]
+* link:../engineering/ops/infrastructure-as-code/serverless.adoc[IaC: Serverless]
+* link:../engineering/ops/infrastructure-as-code/terraform.adoc[IaC: Terraform]
+
+endif::[]
+
+ifdef::deploy[]
+
+* {sl-ops-link-003-001}[IaC: Aws]
+* {sl-ops-link-003-002}[IaC: Comparison]
+* {sl-ops-link-003-003}[IaC: Examples]
+* {sl-ops-link-003-004}[IaC: Serverless]
+* {sl-ops-link-003-005}[IaC: Terraform]
+
+endif::[]

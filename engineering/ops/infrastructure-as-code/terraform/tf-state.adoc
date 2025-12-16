@@ -3,3 +3,13 @@
 == Reference
 
 * https://www.reddit.com/r/Terraform/comments/1b6e2pk/terraform_with_multiaccount_aws/
+
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../../_includes/ops-iac-terraform-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/ops-iac-terraform-nwywlf.adoc[]
+endif::[]
