@@ -1,6 +1,12 @@
 = How To: Configure SNS or SQS
 // Not sure how placement will affect publishing to Confluence
+ifndef::confluence[]
 :toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
 
 This page describes how to configure SNS or SQS. Generic queues (SQS) are great when there is only a single consumer of
 messages but there are times where it may be desirable to have multiple consumers or to just provide greater flexibility

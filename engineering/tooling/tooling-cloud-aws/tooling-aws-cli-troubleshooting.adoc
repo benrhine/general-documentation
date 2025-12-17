@@ -1,4 +1,12 @@
 = CLI: Troubleshooting
+ifndef::confluence[]
+:toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
+
 
 
 

@@ -1,6 +1,12 @@
 = DynamoDB
 // Not sure how placement will affect publishing to Confluence
+ifndef::confluence[]
 :toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
 
 == Table IDS
 

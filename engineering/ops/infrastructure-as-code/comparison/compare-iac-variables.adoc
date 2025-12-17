@@ -1,6 +1,12 @@
 = Comparison: Variables
 // Not sure how placement will affect publishing to Confluence
+ifndef::confluence[]
 :toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
 
 All three IaC frameworks support variable input (it would be kind of silly if they didn't) but how each one achieves this
 is different.

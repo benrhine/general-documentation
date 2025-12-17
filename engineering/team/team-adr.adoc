@@ -1,7 +1,13 @@
 = Architectural Decision Records
 // Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
 // having the :toc: value in the adoc files is required for publishToConfluence to work correctly
+ifndef::confluence[]
+:toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
 :toc:
+endif::[]
 
 // Tags created on pages with keywords relevant to content - default values are present and can be overridden by passed in attribute (and should be). Additionally, when using the publishToConfluence plugin it is more difficult to pass in the keywords so the defaults are preferred.
 :keywords: team, documenation, architecture, decision, records

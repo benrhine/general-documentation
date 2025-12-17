@@ -1,6 +1,15 @@
 = Data: Makers
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
 // Not sure how placement will affect publishing to Confluence
+// Renders correctly in IDE
+ifndef::confluence[]
 :toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
 
 Makers are the required tooling for adding data generation into your application. As discussed in link:data-generation.adoc[Data: Generation]
 makers are a tool to enable generating test data in a variety of ways with the goals of speeding up development and

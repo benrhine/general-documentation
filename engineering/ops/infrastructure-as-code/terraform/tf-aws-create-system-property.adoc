@@ -62,8 +62,20 @@ module "ssm_1" {
 }
 ----
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 [NOTE]
 To see how variables are declared and setup within Terraform please review link:../terraform/tf-variables.adoc[Terraform: Variables]
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+[NOTE]
+To see how variables are declared and setup within Terraform please review {sl-ops-link-003-005-019}[Terraform: Variables]
+
+endif::[]
 
 For each additional property declared in CloudFormation or Serverless it requires and additional resource block (ie copy/paste
 and change values). Whereas depending on requirements Terraform can perform creation within a loop ...

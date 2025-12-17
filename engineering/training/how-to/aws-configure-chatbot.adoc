@@ -1,4 +1,11 @@
 = How To: Configure Aws Chatbot
+ifndef::confluence[]
+:toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
 
 Setting up the Aws Chatbot is the first step to significantly improving the alerting for all Aws based projects. This
 allows significantly more transparency of when and where things are occurring within the application stack and improves

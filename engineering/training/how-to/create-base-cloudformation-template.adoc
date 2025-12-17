@@ -1,6 +1,12 @@
 = How To: Create a base CloudFormation Template
 // Not sure how placement will affect publishing to Confluence
+ifndef::confluence[]
 :toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
 
 Creating a base CloudFormation template can be used to support additional CloudFormation or the Serverless Framework.
 When creating a base template this should take care of creating all minimally required resources such as required roles

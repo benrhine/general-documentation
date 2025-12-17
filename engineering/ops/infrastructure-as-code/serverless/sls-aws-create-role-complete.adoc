@@ -33,7 +33,7 @@ Serverless creates resources; Serverless resource creation is just pure CloudFor
 The following two example roles are the base roles that are expected to be available in every AWS account.
 
 [NOTE]
-To view details on IAM, see {Function…}[Aws: IAM]
+To view details on IAM, see {tl-tooling-link-022-013}[Aws: IAM]
 
 endif::[]
 

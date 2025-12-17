@@ -1,4 +1,11 @@
 = How To: Add a lambda function to a VPC
+ifndef::confluence[]
+:toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
 
 When using Serverless Framework it is actually exceptionally easy to add a Lambda function to a pre-configured VPC.
 In order to do this just update your `serverless.yml` file with the following ...

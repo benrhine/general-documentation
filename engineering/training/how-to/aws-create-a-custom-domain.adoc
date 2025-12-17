@@ -1,6 +1,12 @@
 = How To: Create a custom domain
 // Not sure how placement will affect publishing to Confluence
+ifndef::confluence[]
 :toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
 
 This page is intended to describe how to apply a custom domain to your project using the Serverless Framework.
 

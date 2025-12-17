@@ -1,6 +1,12 @@
 == CloudFormation
 // Not sure how placement will affect publishing to Confluence
+ifndef::confluence[]
 :toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
 
 CloudFormation is a proprietary IaC language that only works with AWS. It can be leveraged in the following ways ...
 

@@ -1,4 +1,11 @@
 = Configure: Git OIDC with Aws
+ifndef::confluence[]
+:toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
 
 The goal of this page is to facilitate communication between GitHub and Aws Accounts without having to provide explicit credentials to GitHub.
 

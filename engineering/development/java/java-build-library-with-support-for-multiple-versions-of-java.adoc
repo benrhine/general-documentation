@@ -1,6 +1,15 @@
 = Building a library with support for multiple versions of Java
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
 // Not sure how placement will affect publishing to Confluence
+// Renders correctly in IDE
+ifndef::confluence[]
 :toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
 
 This how to is to describe how to build a library against different language levels of java so that it can be imported
 into applications using various different versions of java. In addition, this will also describe how to setup your

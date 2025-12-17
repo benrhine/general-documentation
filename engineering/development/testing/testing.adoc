@@ -1,6 +1,15 @@
 = Test
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
 // Not sure how placement will affect publishing to Confluence
+// Renders correctly in IDE
+ifndef::confluence[]
 :toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
 
 The intent of this page is to collect all the various testing types applied to a product during development as well as
 any additional requirements for said testing.

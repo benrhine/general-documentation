@@ -1,4 +1,11 @@
 = How To: Programmatically check for dependency updates
+ifndef::confluence[]
+:toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
 
 == Reference
 

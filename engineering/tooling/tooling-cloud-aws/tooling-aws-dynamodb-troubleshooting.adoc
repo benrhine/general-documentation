@@ -1,4 +1,11 @@
 = DynamoDB Troubleshooting
+ifndef::confluence[]
+:toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
 
 *Attempt to execute an operation that requires a primary index without defining any primary key attributes in the table metadata*
 

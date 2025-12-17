@@ -1,4 +1,11 @@
 == Install Terraform
+ifndef::confluence[]
+:toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
 
 To install Terraform start by navigating to the https://developer.hashicorp.com/terraform/install?product_intent=terraform[Terraform Download] page.
 

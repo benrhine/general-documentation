@@ -1,4 +1,11 @@
 = How To: Verify resource (file) location from a running lambda
+ifndef::confluence[]
+:toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
 
 Attempting to verify file/resources in a running lambda can be a tricky endeavor. That while according to
 https://www.baeldung.com/run-shell-command-in-java[this article] it is possible to run ls  commands I have not found that to be purely true. While the command does run it does no seem to operate as expected.

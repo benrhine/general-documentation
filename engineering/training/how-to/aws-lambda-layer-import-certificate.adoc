@@ -1,6 +1,12 @@
 = How To: Import certificate from lambda layer
 // Not sure how placement will affect publishing to Confluence
+ifndef::confluence[]
 :toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
 
 The goal of this page is to describe how to deploy a CA_CERT (ie root cert) to the application leveraging lambda layers
 

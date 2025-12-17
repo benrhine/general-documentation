@@ -1,4 +1,11 @@
 = Lambda Authorizers
+ifndef::confluence[]
+:toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
 
 * https://dev.to/aws-builders/secure-your-api-gateway-apis-with-lambda-authorizer-3b7g
 * https://stackoverflow.com/questions/66522902/using-cognito-for-authentication-and-custom-authorizer-for-authorization

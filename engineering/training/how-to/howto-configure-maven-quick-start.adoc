@@ -1,4 +1,11 @@
 = Configure Maven (Quick Start)
+ifndef::confluence[]
+:toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
 
 Using Maven sometimes requires an extra step to be able to authenticate to internal repositories.
 

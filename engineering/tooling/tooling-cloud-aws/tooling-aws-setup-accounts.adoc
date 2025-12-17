@@ -1,6 +1,12 @@
 = Setup: Aws accounts from scratch
 // Not sure how placement will affect publishing to Confluence
+ifndef::confluence[]
 :toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
 
 This is a quick overview of how to signup for and setup multiple brand new Aws accounts.
 

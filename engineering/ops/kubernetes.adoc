@@ -1,6 +1,14 @@
 = Ops: Kubernetes:
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
 // Not sure how placement will affect publishing to Confluence
+ifndef::confluence[]
 :toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
 
 [NOTE]
 Creating a cluster using the official distribution is relatively involved so most people use a packaged solution like Minikube, MicroK8s, K3s, or Kind.

@@ -1,6 +1,15 @@
 = Data: Generation
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
 // Not sure how placement will affect publishing to Confluence
+// Renders correctly in IDE
+ifndef::confluence[]
 :toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
 
 Every software development project should strive to have the ability to generate unique test data on the fly.
 This is one of the largest struggles I have observed during my time in the software development field. The lack of test

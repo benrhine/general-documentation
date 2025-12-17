@@ -1,6 +1,12 @@
 = How To: Aws CodeBuild after recreating resources
 // Not sure how placement will affect publishing to Confluence
+ifndef::confluence[]
 :toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
 
 The intent of this page is fully describe how to repair CodeBuild jobs after resources have been destroyed and recreated.
 

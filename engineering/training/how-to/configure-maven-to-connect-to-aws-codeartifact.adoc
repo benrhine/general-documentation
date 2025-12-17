@@ -1,4 +1,11 @@
 = How To: Configure Maven to Connect to Aws CodeArtifact
+ifndef::confluence[]
+:toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
 
 Configuring Maven to work with Aws CodeArtifact is not particularly challenging but it does require some steps that exist
 outside of the developer workflow that will need to be either manually executed by the developer or added as a pre-step to any CI configurations.

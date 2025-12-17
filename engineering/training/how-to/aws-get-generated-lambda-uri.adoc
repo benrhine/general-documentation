@@ -1,4 +1,11 @@
 = How To: Get generated AWS Lambda URI
+ifndef::confluence[]
+:toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
 
 In order to programmatically get the auto generated Aws Lambda URI for use in future build steps you can add the following to the `buildspec.yml`. This will get the url and define it into an environment variable.
 

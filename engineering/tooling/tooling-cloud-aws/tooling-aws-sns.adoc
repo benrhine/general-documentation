@@ -1,4 +1,11 @@
 = SNS
+ifndef::confluence[]
+:toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
 
 * link:../../../engineering/how-to/aws-configure-sns-or-sqs.adoc[How To: Configure SNS or SQS]
 * link:../../../engineering/how-to/aws-sns-access-policy.adoc[How To: SNS Access Policy]

@@ -1,4 +1,11 @@
 = How To: Connect Unit Test Execution to Sonar in CI
+ifndef::confluence[]
+:toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
 
 Adding unit tests and sonar directly to an application is a relatively simple process but unfortunately getting it to
 successfully execute as part of the CI process requires a bit more work.

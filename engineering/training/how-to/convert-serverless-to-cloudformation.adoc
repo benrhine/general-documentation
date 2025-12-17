@@ -1,4 +1,11 @@
 = How To: Convert Serverless to CloudFormation
+ifndef::confluence[]
+:toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
 
 [WARNING]
 This page as of 20230706 is experimental and currently untested. Use it for reference then update the page

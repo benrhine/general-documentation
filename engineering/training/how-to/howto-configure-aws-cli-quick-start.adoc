@@ -1,4 +1,11 @@
 = Configure Aws CLI (Quick Start)
+ifndef::confluence[]
+:toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
 
 To configure Aws CLI you can use the following file ...
 

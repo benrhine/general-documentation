@@ -1,6 +1,12 @@
 = Comparison of IaC
 // Not sure how placement will affect publishing to Confluence
+ifndef::confluence[]
 :toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
 
 This is intended to function as a 1 to 1 comparison of how the various IaC frameworks function and to make it easy to visualize
 how each individual task translates to each framework.

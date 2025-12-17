@@ -1,14 +1,14 @@
 = Terraform: (AWS) Create DynamoDB table
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 [WARNING]
 As discussed for Cloudformation link:../aws/aws-cf-create-dynamo-table.adoc[here] and Serverless link:../serverless/sls-aws-create-dynamo-table.adoc[here],
 it is possible to create dynamo tables with a `DeletionPolicy` to protect data from being removed during the deploy / undeploy
 process. _HOWEVER_, this is not possible when using Terraform. This is the one major drawback I have noted in migrating
 previous work to Terraform as in order to protect database tables it is a much more significant effort if it is even
 possible at all.
-
-// Renders correctly in IDE
-ifndef::deploy[]
 
 [CAUTION]
 For DynamoDB access to be successful the application using the table must be running with a role that has a minimum `dynamodb`
@@ -21,6 +21,13 @@ endif::[]
 
 // Renders correctly in AsciiDoc Deployment
 ifdef::deploy[]
+
+[WARNING]
+As discussed for Cloudformation {sl-ops-link-003-001-006}[here] and Serverless {sl-ops-link-003-004-004}[here],
+it is possible to create dynamo tables with a `DeletionPolicy` to protect data from being removed during the deploy / undeploy
+process. _HOWEVER_, this is not possible when using Terraform. This is the one major drawback I have noted in migrating
+previous work to Terraform as in order to protect database tables it is a much more significant effort if it is even
+possible at all.
 
 [CAUTION]
 For DynamoDB access to be successful the application using the table must be running with a role that has a minimum `dynamodb`

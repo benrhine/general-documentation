@@ -1,4 +1,11 @@
 = How To: Configure Metric Filters
+ifndef::confluence[]
+:toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
 
 Metric Filters are essentially queries that can be pre-defined to run against Aws CloudWatch. Creating Metric Filters
 is a prerequisite to being able to configure various alert strategies within Aws.

@@ -1,4 +1,11 @@
 = How To: Create a custom Slack Bot
+ifndef::confluence[]
+:toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
 
 Why would you want to create a custom Slack Bot? For several reasons ...
 

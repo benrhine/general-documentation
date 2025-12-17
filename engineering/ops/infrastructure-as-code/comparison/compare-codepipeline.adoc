@@ -1,6 +1,12 @@
 = Compare: Creating a CodePipeline
 // Not sure how placement will affect publishing to Confluence
+ifndef::confluence[]
 :toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
 
 [NOTE]
 Creating resources within both CloudFormation and Serverless Framework are exactly the same. Whenever you create a resource

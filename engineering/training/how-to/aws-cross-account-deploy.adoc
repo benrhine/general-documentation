@@ -1,6 +1,12 @@
 = How To: Cross-Account Deploy with Serverless
 // Not sure how placement will affect publishing to Confluence
+ifndef::confluence[]
 :toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
 
 This page is to describe how to accomplish a cross account deploy using Serverless, multiple AWS accounts, CodeBuild, and CodePipeline.
 

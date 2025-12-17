@@ -1,6 +1,12 @@
 = How To: Ip Whitelist (AWS REST API)
 // Not sure how placement will affect publishing to Confluence
+ifndef::confluence[]
 :toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
 
 [WARNING]
 This will ONLY work for lambdas using the REST API, NOT the HTTP API!!!

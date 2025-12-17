@@ -1,4 +1,11 @@
 = Project Planning
+ifndef::confluence[]
+:toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
 
 // Renders correctly in IDE for testing purposes
 // ifndef::confluence[]
