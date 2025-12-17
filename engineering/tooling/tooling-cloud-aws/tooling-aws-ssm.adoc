@@ -23,3 +23,16 @@ While AWS does offer some "global services" like IAM or Route 53, and certain op
 If you require access to the same parameter values across multiple Regions, you would typically need to replicate those parameters in each desired Region or implement a mechanism to fetch them from a central location.
 
 * https://www.google.com/search?client=safari&rls=en&q=are+aws+ssm+properties+globnal&ie=UTF-8&oe=UTF-8&sei=rl_GaKmPJ8LFp84P0sLqqAI
+
+
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../_includes/tooling-cloud-aws-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/tooling-cloud-aws-nwywlf.adoc[]
+endif::[]
+
+

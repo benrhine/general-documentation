@@ -27,3 +27,13 @@ For further reference see https://davidagood.com/dynamodb-enhanced-client-java-m
 
 
 
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../_includes/tooling-cloud-aws-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/tooling-cloud-aws-nwywlf.adoc[]
+endif::[]
+
+

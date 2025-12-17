@@ -8,21 +8,45 @@ ifdef::confluence[]
 :toc:
 endif::[]
 
-This is a top level page intended to function as a catch all for references on CodeBuild or related materials. For further details on how to configure Code build please visit the following sub pages.
+This is a top level page intended to function as a catch-all for references on CodeBuild or related materials. For further details on how to configure Code build please visit the following sub-pages.
 
 == Manual job configuration
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 * link:tooling-aws-setup-code-build-single.adoc[(Standard) Single Build]
 * link:tooling-aws-setup-code-build-multiple.adoc[(Batch) Multiple Build]
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+* {tl-tooling-link-022-023}[(Standard) Single Build]
+* {tl-tooling-link-022-022}[(Batch) Multiple Build]
+
+endif::[]
 
 == Jobs under IaC control
 It is also possible to configure CodeBuild jobs using IaC to make setup a breeze. Please see the following for how to use
 your flavor of IaC to configure your CodeBuild jobs.
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 * link:../../../engineering/ops/infrastructure-as-code/aws/aws-cf-create-codebuild-job.adoc[CloudWatch: (AWS) Create CodeBuild job]
 * link:../../../engineering/ops/infrastructure-as-code/serverless/sls-aws-create-codebuild-job.adoc[Serverless: (AWS) Create CodeBuild job]
 * link:../../../engineering/ops/infrastructure-as-code/terraform/tf-aws-create-codebuild-job.adoc[Terraform: (AWS) Create CodeBuild job]
 * link:../../../engineering/ops/infrastructure-as-code/comparison/compare-codebuild.adoc[Compare: CodeBuild]
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+* {sl-ops-link-003-001-004}[CloudWatch: (AWS) Create CodeBuild job]
+* {sl-ops-link-003-004-002}[Serverless: (AWS) Create CodeBuild job]
+* {sl-ops-link-003-005-002}[Terraform: (AWS) Create CodeBuild job]
+* {sl-ops-link-003-002-001}[Compare: CodeBuild]
+
+endif::[]
 
 == Configuring Environment Variables
 
@@ -33,3 +57,14 @@ To see all the environment variables that AWS provides to the build by default p
 
 * https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html
 * https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-env-vars.html
+
+
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../_includes/tooling-cloud-aws-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/tooling-cloud-aws-nwywlf.adoc[]
+endif::[]

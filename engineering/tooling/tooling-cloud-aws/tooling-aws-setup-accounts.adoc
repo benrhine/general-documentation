@@ -181,3 +181,16 @@ image:images/aws-account-config-9.png[]
 * https://www.youtube.com/watch?v=bQ2EtLnN6KQ
 ** this one was really helpful
 * https://www.youtube.com/watch?v=_KhrGFV_Npw
+
+
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../_includes/tooling-cloud-aws-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/tooling-cloud-aws-nwywlf.adoc[]
+endif::[]
+
+

@@ -37,3 +37,16 @@ endif::[]
 * can+lambda+authorizer+read+values+from+oauth+token&rlz=1C1GCEU_enUS1059US1059&oq=can+lambda+authorizer+read+values+from+oauth+token&aqs=chrome..69i57j33i160l4.8538j0j7&sourceid=chrome&ie=UTF-8
 * https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-use-lambda-authorizer.html
 * https://medium.com/chegg/creating-an-api-gateway-lambda-authorizer-985b4f011770
+
+
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../_includes/tooling-cloud-aws-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/tooling-cloud-aws-nwywlf.adoc[]
+endif::[]
+
+

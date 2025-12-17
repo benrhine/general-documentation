@@ -7,11 +7,26 @@ ifdef::confluence[]
 :toc:
 endif::[]
 
-* link:../../../engineering/how-to/aws-configure-sns-or-sqs.adoc[How To: Configure SNS or SQS]
-* link:../../../engineering/how-to/aws-sns-access-policy.adoc[How To: SNS Access Policy]
-* link:../../../engineering/how-to/aws-configure-dlq.adoc[How To: Configure DLQ]
-* link:../../../engineering/how-to/aws-configure-dlq-alarm.adoc[How To: Configure DLQ Alarm]
-* link:../../../engineering/how-to/aws-send-sqs-postman.adoc[How To: Send SQS Message Using Postman]
+// Renders correctly in IDE
+ifndef::deploy[]
+
+* link:../../../engineering/training/how-to/aws-configure-sns-or-sqs.adoc[How To: Configure SNS or SQS]
+* link:../../../engineering/training/how-to/aws-sns-access-policy.adoc[How To: SNS Access Policy]
+* link:../../../engineering/training/how-to/aws-configure-dlq.adoc[How To: Configure DLQ]
+* link:../../../engineering/training/how-to/aws-configure-dlq-alarm.adoc[How To: Configure DLQ Alarm]
+* link:../../../engineering/training/how-to/aws-send-sqs-postman.adoc[How To: Send SQS Message Using Postman]
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+* {tl-how-to-link-010}[How To: Configure SNS or SQS]
+* {tl-how-to-link-022}[How To: SNS Access Policy]
+* {tl-how-to-link-006}[How To: Configure DLQ]
+* {tl-how-to-link-007}[How To: Configure DLQ Alarm]
+* {tl-how-to-link-020}[How To: Send SQS Message Using Postman]
+
+endif::[]
 
 == Reference
 
@@ -23,3 +38,16 @@ endif::[]
 * https://www.google.com/search?q=aws+sns+client+builder+v2&rlz=1C1GCEU_enUS1059US1059&oq=aws+sns+client+builder+v2&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIHCAEQIRigATIHCAIQIRigATIHCAMQIRirAjIHCAQQIRirAjIHCAUQIRirAtIBCDYxMDBqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8#cobssid=s
 * https://stackoverflow.com/questions/59866799/publish-sns-message-from-lambda-functionjava-runtime
 * https://repost.aws/knowledge-center/sns-topic-lambda
+
+
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../_includes/tooling-cloud-aws-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/tooling-cloud-aws-nwywlf.adoc[]
+endif::[]
+
+

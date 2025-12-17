@@ -160,9 +160,22 @@ A scrambled policy will look like this
 
 == Domain Deployment
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 This does everything exactly the same as the same account deploy described
-link:../engineering/ops/infrastructure-as-code/serverless/sls-step-1-domain-deploy.adoc[here], EXCEPT that it also applies a bucket
+link:../../../engineering/ops/infrastructure-as-code/serverless/sls-step-1-domain-deploy.adoc[here], EXCEPT that it also applies a bucket
 policy to allow the account that is being deployed to, to reach back to the deploying (ci/cd) account.
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+This does everything exactly the same as the same account deploy described
+{sl-ops-link-003-004-009}[here], EXCEPT that it also applies a bucket
+policy to allow the account that is being deployed to, to reach back to the deploying (ci/cd) account.
+
+endif::[]
 
 === Execution
 

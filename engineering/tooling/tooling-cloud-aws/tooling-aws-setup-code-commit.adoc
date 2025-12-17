@@ -218,3 +218,16 @@ botocore.exceptions.ClientError: An error occurred (ForbiddenException) when cal
 * https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-create-pull-request-approval-rule.html
 * https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-create-template.html
 * https://dev.to/aws-builders/explore-the-approval-rule-and-notification-rule-in-codecommit-repo-3n9
+
+
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../_includes/tooling-cloud-aws-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/tooling-cloud-aws-nwywlf.adoc[]
+endif::[]
+
+

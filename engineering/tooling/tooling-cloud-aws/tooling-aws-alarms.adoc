@@ -21,3 +21,13 @@ endif::[]
 * aws+alarm+on+return+to+ok+medium&rlz=1C1GCEU_enUS1059US1059&oq=aws+alarm+on+return+to+ok+medium&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIJCAEQIRgKGKABMgkIAhAhGAoYoAHSAQkxMjA3NmowajeoAgCwAgA&sourceid=chrome&ie=UTF-8
 * https://sodkiewiczm.medium.com/how-to-not-miss-cloudwatch-alarms-d3e4ffebfbf3 - this one looks really promising
 * https://stackoverflow.com/questions/52959116/aws-cloudwatch-alarm-not-returning-to-ok-state-even-though-data-looks-fine
+
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../_includes/tooling-cloud-aws-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/tooling-cloud-aws-nwywlf.adoc[]
+endif::[]

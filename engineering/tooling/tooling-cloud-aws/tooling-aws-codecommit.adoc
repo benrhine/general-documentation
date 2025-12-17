@@ -44,7 +44,18 @@ image::images/aws-codecommit-approval-rules-template-3.png[]
 
 === Creating with CloudFormation / Serverless
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 See link:../../../engineering/ops/infrastructure-as-code/examples/aws-cf-sls-codecommit-approval-rules-template.adoc[Create Approval Rules Template with CloudFormation or Serverless Framework]
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+See {sl-ops-link-003-003-001}[Create Approval Rules Template with CloudFormation or Serverless Framework]
+
+endif::[]
 
 === Creating with Terraform
 
@@ -52,8 +63,20 @@ TODO
 
 == Notification Rules
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 [NOTE]
-Pre-requisite: This requires the Aws Slackbot is installed - see link:../../../engineering/how-to/aws-configure-chatbot.adoc[How To: Configure Aws Chatbot]
+Pre-requisite: This requires the Aws Slackbot is installed - see link:../../../engineering/training/how-to/aws-configure-chatbot.adoc[How To: Configure Aws Chatbot]
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+[NOTE]
+Pre-requisite: This requires the Aws Slackbot is installed - see {tl-how-to-link-005}[How To: Configure Aws Chatbot]
+
+endif::[]
 
 Notification rules are useful for when you want to send push notifications on events that occur within or on your CodeCommit repositories.
 
@@ -78,7 +101,18 @@ version controlled. See the following section...
 
 === Creating with CloudFormation / Serverless
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 See link:../../../engineering/ops/infrastructure-as-code/examples/aws-cf-sls-codecommit-notification-rules.adoc[Create Notification Rules with CloudFormation or Serverless Framework]
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+See {sl-ops-link-003-003-002}[Create Notification Rules with CloudFormation or Serverless Framework]
+
+endif::[]
 
 === Creating with Terraform
 
@@ -115,3 +149,13 @@ update is required. These events are idempotent so they can be deployed overtop 
 * https://stackoverflow.com/questions/63511383/unrecognized-resource-types
 * https://repost.aws/questions/QUt8FojiVbTsKtCzEtEMlUrA/template-format-error-unrecognized-resource-types-aws-ses-template-bug-or-expected-behaviour
 * https://gargeebhatnagar.medium.com/explore-the-approval-rule-and-notification-rule-in-codecommit-repo-f1b4a15ea7df
+
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../_includes/tooling-cloud-aws-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/tooling-cloud-aws-nwywlf.adoc[]
+endif::[]

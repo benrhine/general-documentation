@@ -89,7 +89,7 @@ ifdef::deploy[]
 ** {tl-tooling-link-022-022}[Multi Build]
 * {tl-tooling-link-022-013}[IAM]
 * {tl-tooling-link-022-014}[Lambda]
-* {tl-tooling-link-022-009}Cognito]
+* {tl-tooling-link-022-009}[Cognito]
 * {tl-tooling-link-022-001}[Alarms]
 endif::[]
 

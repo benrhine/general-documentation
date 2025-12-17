@@ -119,9 +119,22 @@ public boolean checkIfRecordExists(final DrsServiceBody dr) {
 
 === Create DynamoDB Table with IaC
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 * link:../../../engineering/ops/infrastructure-as-code/aws/aws-cf-create-dynamo-table.adoc[CloudFormation: Create DynamoDB table]
 * link:../../../engineering/ops/infrastructure-as-code/serverless/sls-aws-create-dynamo-table.adoc[Serverless: Create DynamoDB table]
 * link:../../../engineering/ops/infrastructure-as-code/terraform/tf-aws-create-dynamo-table.adoc[Terraform: Create DynamoDB table]
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+* {sl-ops-link-003-001-006}[CloudFormation: Create DynamoDB table]
+* {sl-ops-link-003-004-004}[Serverless: Create DynamoDB table]
+* {sl-ops-link-003-005-004}[Terraform: Create DynamoDB table]
+
+endif::[]
 
 
 == Reference
@@ -179,3 +192,13 @@ public boolean checkIfRecordExists(final DrsServiceBody dr) {
 * https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStarted.DeleteItem.html
 * https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-rolepolicy.html#aws-resource-iam-rolepolicy--examples
 * https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-policy.html#aws-resource-iam-policy--examples
+
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../_includes/tooling-cloud-aws-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/tooling-cloud-aws-nwywlf.adoc[]
+endif::[]

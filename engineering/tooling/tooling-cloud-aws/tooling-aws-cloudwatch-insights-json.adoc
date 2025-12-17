@@ -236,9 +236,22 @@ will require the `logs:PutQueryDefinition` IAM permission.
 
 To create a query in CloudFormation/Serverless it will look as follows ...
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 * link:../../../engineering/ops/infrastructure-as-code/aws/aws-cf-create-cloudwatch-insight-query.adoc[CloudFormation: (AWS) Create CloudWatch Insight Query]
 * link:../../../engineering/ops/infrastructure-as-code/serverless/sls-aws-create-cloudwatch-insight-query.adoc[Serverless: (AWS) Create CloudWatch Insight Query]
 * link:../../../engineering/ops/infrastructure-as-code/terraform/tf-aws-create-cloudwatch-insight-query.adoc[Terraform: (AWS) Create CloudWatch Insight Query]
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+* {sl-ops-link-003-001-003}[CloudFormation: (AWS) Create CloudWatch Insight Query]
+* {sl-ops-link-003-004-001}[Serverless: (AWS) Create CloudWatch Insight Query]
+* {sl-ops-link-003-005-001}[Terraform: (AWS) Create CloudWatch Insight Query]
+
+endif::[]
 
 == Reference
 
@@ -250,6 +263,15 @@ To create a query in CloudFormation/Serverless it will look as follows ...
 * https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sns-subscription.html#aws-resource-sns-subscription--examples
 * https://stackoverflow.com/questions/49341187/confirming-aws-sns-topic-subscription-for-slack-webhook
 
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../_includes/tooling-cloud-aws-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/tooling-cloud-aws-nwywlf.adoc[]
+endif::[]
 
 
 

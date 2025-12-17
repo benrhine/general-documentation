@@ -14,11 +14,26 @@ endif::[]
 
 === Create IAM Role (and policies) with IaC
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 * link:../../../engineering/ops/infrastructure-as-code/aws/aws-cf-create-role-complete.adoc[CloudFormation: Create an IAM role]
 * link:../../../engineering/ops/infrastructure-as-code/serverless/sls-aws-create-role-complete.adoc[Serverless: Create an IAM role]
 * link:../../../engineering/ops/infrastructure-as-code/terraform/tf-aws-create-role-complete.adoc[Terraform: Create an IAM role]
 * link:../../../engineering/ops/infrastructure-as-code/comparison/compare-iac-role.adoc[Compare: IAM role creation across frameworks]
 * link:../../../engineering/ops/infrastructure-as-code/comparison/compare-iac-role-policies.adoc[Compare: IAM role policy creation across frameworks]
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+* {sl-ops-link-003-001-007}[CloudFormation: Create an IAM role]
+* {sl-ops-link-003-004-005}[Serverless: Create an IAM role]
+* {sl-ops-link-003-005-005}[Terraform: Create an IAM role]
+* {sl-ops-link-003-002-006}[Compare: IAM role creation across frameworks]
+* {sl-ops-link-003-002-007}[Compare: IAM role policy creation across frameworks]
+
+endif::[]
 
 
 == Testing IAM roles
@@ -37,5 +52,12 @@ endif::[]
 
 
 
-
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../_includes/tooling-cloud-aws-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/tooling-cloud-aws-nwywlf.adoc[]
+endif::[]
 

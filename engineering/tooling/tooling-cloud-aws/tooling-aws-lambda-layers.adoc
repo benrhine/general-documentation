@@ -26,7 +26,18 @@ duplication unless you very carefully review all the sub dependencies that come 
 
 == How to build and deploy a layer?
 
-To see how to build and deploy a layer using serverless see link:../../../engineering/how-to/aws-lambda-layers.adoc[here].
+// Renders correctly in IDE
+ifndef::deploy[]
+
+To see how to build and deploy a layer using serverless see link:../../../engineering/training/how-to/aws-lambda-layers.adoc[here].
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+To see how to build and deploy a layer using serverless see {tl-how-to-link-016}[here].
+
+endif::[]
 
 == How to view all versions of a layer?
 
@@ -70,5 +81,15 @@ using a few simple commands in the buildspec . Once the re-publishing is complet
 * https://docs.aws.amazon.com/lambda/latest/dg/chapter-layers.html
 * https://docs.aws.amazon.com/lambda/latest/dg/java-package.html
 * https://aws.amazon.com/blogs/compute/using-lambda-layers-to-simplify-your-development-process/
+
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../_includes/tooling-cloud-aws-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/tooling-cloud-aws-nwywlf.adoc[]
+endif::[]
 
 

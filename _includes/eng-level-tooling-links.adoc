@@ -32,6 +32,7 @@ ifndef::deploy[]
 * link:../engineering/tooling/tooling-helm.adoc[Helm]
 * link:../engineering/tooling/tooling-infraweave.adoc[Infraweave]
 * link:../engineering/tooling/tooling-kubernetes.adoc[Kubernetes]
+* link:../engineering/tooling/tooling-cloud-aws.adoc[Cloud: Aws]
 
 endif::[]
 
@@ -62,6 +63,7 @@ ifdef::deploy[]
 * {tl-tooling-link-25}[Helm]
 * {tl-tooling-link-26}[Infraweave]
 * {tl-tooling-link-27}[Kubernetes]
+* {tl-tooling-link-22}[Cloud: Aws]
 
 endif::[]
 

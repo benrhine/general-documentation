@@ -62,10 +62,23 @@ At this point you have configured an automated pipeline, continue adding steps a
 It is also possible to configure CodePipelines using IaC to make setup a breeze. Please see the following for how to use
 your flavor of IaC to configure your CodePipelines.
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 * link:../../../engineering/ops/infrastructure-as-code/aws/aws-cf-create-codepipeline.adoc[CloudFormation: (AWS) Create CodePipeline]
 * link:../../../engineering/ops/infrastructure-as-code/serverless/sls-aws-create-codepipeline.adoc[Serverless: (AWS) Create CodePipeline]
 * link:../../../engineering/ops/infrastructure-as-code/terraform/tf-aws-create-codepipeline.adoc[Terraform: (AWS) Create CodePipeline]
 * link:../../../engineering/ops/infrastructure-as-code/comparison/compare-codepipeline.adoc[Compare: CodePipeline]
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+* {sl-ops-link-003-001-005}[CloudFormation: (AWS) Create CodePipeline]
+* {sl-ops-link-003-004-003}[Serverless: (AWS) Create CodePipeline]
+* {sl-ops-link-003-005-003}[Terraform: (AWS) Create CodePipeline]
+* {sl-ops-link-003-002-002}[Compare: CodePipeline]
+
+endif::[]
 
 == Reference
 
@@ -78,3 +91,16 @@ your flavor of IaC to configure your CodePipelines.
 * https://medium.com/nerd-for-tech/continuous-deployment-of-aws-lambda-with-java-runtime-7b6d6188607
 * https://liakh-aliaksandr.medium.com/building-ci-cd-pipeline-for-lambda-function-on-aws-using-aws-codepipeline-905eb7bdfdbd
 * https://www.google.com/search?q=code+commit+pipeline&rlz=1C1GCEU_enUS1059US1059&oq=code+commit+pipeline&aqs=chrome..69i57j0i22i30j0i390i650l5.3725j0j7&sourceid=chrome&ie=UTF-8
+
+
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../_includes/tooling-cloud-aws-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/tooling-cloud-aws-nwywlf.adoc[]
+endif::[]
+
+

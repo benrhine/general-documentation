@@ -12,8 +12,20 @@ endif::[]
 This page is intended to collect common commands that are executed from the CLI as a easy reference for how to run them
 and what they do.
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 [TIP]
 If you have not yet setup the Aws CLI see link:tooling-aws-setup-cli.adoc[here] first.
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+[TIP]
+If you have not yet setup the Aws CLI see {tl-tooling-link-022-029}[here] first.
+
+endif::[]
 
 == List accounts configured for Sign in
 .Click here to expand ...
@@ -235,11 +247,19 @@ aws sqs send-message --queue-url https://sqs.us-west-2.amazonaws.com/ACCOUNT-ID/
 aws sqs get-queue-attributes --queue-url https://sqs.us-west-2.amazonaws.com/ACCOUNT-ID/lpsc-queue-dev --attribute-names All
 ----
 
-== Not what you were looking for?
 
-* link:../../../../engineering/cloud/infrastructure/aws/aws-setup-cli.adoc[Setup: Aws CLI]
-* link:../../../engineering/onboarding/configure-aws-cli-quick-start.adoc[Aws CLI Quickstart]
 
 == Reference
 * https://medium.com/@schogini/aws-cli-and-sqs-a-tiny-demonstration-18e7136d0258[AWS CLI and SQS - a Tiny Demonstration]
 * https://www.howtoforge.com/manage-aws-sqs-queues-using-aws-cli/[Manage AWS SQS Queues using aws-cli]
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../_includes/tooling-cloud-aws-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/tooling-cloud-aws-nwywlf.adoc[]
+endif::[]
+
+

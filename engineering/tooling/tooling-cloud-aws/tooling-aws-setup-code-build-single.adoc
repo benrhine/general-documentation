@@ -111,4 +111,14 @@ image:images/aws-codebuild-setup-single-6.png[]
 image:images/aws-codebuild-setup-single-7.png[]
 
 
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../_includes/tooling-cloud-aws-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/tooling-cloud-aws-nwywlf.adoc[]
+endif::[]
+
+
 

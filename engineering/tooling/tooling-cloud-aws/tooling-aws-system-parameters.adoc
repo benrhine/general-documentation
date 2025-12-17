@@ -18,6 +18,9 @@ see https://aws.amazon.com/blogs/mt/introducing-parameter-store-cross-account-sh
 
 == Working with system parameters and IaC
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 === Create system parameters with IaC
 
 * link:../../../engineering/ops/infrastructure-as-code/aws/aws-cf-create-system-property.adoc[CloudFormation: Create System Property/Parameter]
@@ -36,6 +39,30 @@ see https://aws.amazon.com/blogs/mt/introducing-parameter-store-cross-account-sh
 
 * link:../../../engineering/development/build/build-ci-codebuild-properties.adoc[CI: CodeBuild property access]
 
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+=== Create system parameters with IaC
+
+* {sl-ops-link-003-001-008}[CloudFormation: Create System Property/Parameter]
+* {sl-ops-link-003-004-006}[Serverless: Create System Property/Parameter]
+* {sl-ops-link-003-005-006}[Terraform: Create System Property/Parameter]
+* {sl-ops-link-003-002-012}[Compare: SSM across frameworks]
+
+=== Retrieve system parameters with IaC
+
+* {sl-ops-link-003-001-009}[CloudFormation: Get System Property]
+* {sl-ops-link-003-004-007}[Serverless: Get System Property]
+* {sl-ops-link-003-005-007}[Terraform: Get System Property]
+* {sl-ops-link-003-002-012}[Compare: SSM across frameworks]
+
+== Working with system parameters within CI
+
+* {sl-development-build-link-005}[CI: CodeBuild property access]
+
+endif::[]
+
 == Shared System parameters
 
 Share parameters/properties from one account to another.
@@ -46,4 +73,16 @@ Share parameters/properties from one account to another.
 
 == Reference
 - https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-shared-parameters.html
+
+
+
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../_includes/tooling-cloud-aws-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/tooling-cloud-aws-nwywlf.adoc[]
+endif::[]
 

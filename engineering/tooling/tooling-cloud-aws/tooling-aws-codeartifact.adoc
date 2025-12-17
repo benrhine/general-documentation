@@ -9,7 +9,26 @@ endif::[]
 
 == Connecting to CodeArtifact with Maven
 
-* link:../../../engineering/how-to/configure-maven-to-connect-to-aws-codeartifact.adoc[Configure: Maven connection]
+// Renders correctly in IDE
+ifndef::deploy[]
+
+* link:../../../engineering/training/how-to/configure-maven-to-connect-to-aws-codeartifact.adoc[Configure: Maven connection]
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+* {tl-how-to-link-026}[Configure: Maven connection]
+
+endif::[]
 
 
 
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../_includes/tooling-cloud-aws-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/tooling-cloud-aws-nwywlf.adoc[]
+endif::[]
