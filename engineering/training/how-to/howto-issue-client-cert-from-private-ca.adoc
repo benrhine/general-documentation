@@ -1,0 +1,147 @@
+= How To - Issue and Sign Client Certificates with Private CA
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
+ifndef::confluence[]
+:toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
+
+// Tags created on pages with keywords relevant to content - default values are present and can be overridden by passed in attribute (and should be). Additionally, when using the publishToConfluence plugin it is more difficult to pass in the keywords so the defaults are preferred.
+:keywords: how, to, open, tofu, terraform, iam, manual
+
+// Renders correctly in IDE for testing purposes
+// ifndef::confluence[]
+// include::../_includes/version-control-warning.adoc[]
+// endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
+
+// This page contains generic information disclaimer
+include::{includedir}/generic-information.adoc[]
+
+This document describes the steps to issue and sign certificates using a Private Certificate Authority (CA) in AWS.
+
+== Prerequisites
+
+You must have an existing Private CA created in AWS. If you do not have one, please refer to the {how-to-11-link}[How To - Create a Private Certificate Authority in AWS] guide.
+
+You also will need openssl installed on your local machine to generate a Certificate Signing Request (CSR).
+
+== Steps to Issue and Sign Certificates
+
+1. **Generate client private key**
++
+[source, bash]
+----
+openssl genrsa -out client.key 2048
+----
+
+2. **Create a Certificate Signing Request (CSR)**
+   - Use OpenSSL to create a CSR for the entity you want to issue a certificate for. Replace `yourdomain.com` with the appropriate domain name.
++
+[source, bash]
+----
+openssl req -new -key client.key -out client.csr \
+  -subj "/C=US/ST=California/L=San Francisco/O=ClientOrg/OU=Engineering/CN=<yourdomain.com>/emailAddress=john.doe@clientorg.com"
+----
++
+**OR**
+
+    - You can generate the CSR using Subject Alternative Names (SAN) by creating a configuration file `client_openssl.cnf` with the following content:
++
+[source, bash]
+----
+cat > client.conf <<EOF
+[req]
+distinguished_name = req_distinguished_name
+req_extensions = v3_req
+prompt = no
+
+[req_distinguished_name]
+C = US
+ST = California
+L = San Francisco
+O = ClientOrg
+OU = permissions:admin,read,write,delete
+givenName = John
+surname = Doe
+CN = John Doe
+emailAddress = john.doe@clientorg.com
+
+[v3_req]
+keyUsage = critical, digitalSignature, keyEncipherment
+extendedKeyUsage = clientAuth
+subjectAltName = @alt_names
+
+[alt_names]
+email.1 = john.doe@clientorg.com
+EOF
+
+# Then generate the CSR using this config file
+openssl req -new -key client.key -out client.csr -config client.conf
+----
+
+3. **Issue the Certificate using AWS Private CA**
+   - Use the AWS CLI to issue a certificate signed by your Private CA. Replace `<YOUR-PROFILE>` with your AWS CLI profile name, and `<NUMBER_OF_DAYS>` with how long you wish the certificate to be active.
++
+[source, bash]
+----
+# Get the ARN of your Private CA
+CA_ARN=$(aws acm-pca list-certificate-authorities \
+  --region us-west-2 \
+  --profile <YOUR-PROFILE> \
+  --query 'CertificateAuthorities[?Status==`ACTIVE`].Arn' \
+  --output text)
+
+# Issue client certificate signed by AWS Private CA
+# This example issues a certificate valid for 7 days
+CLIENT_CERT_ARN=$(aws acm-pca issue-certificate \
+  --certificate-authority-arn $CA_ARN \
+  --csr fileb://client.csr \
+  --signing-algorithm "SHA256WITHRSA" \
+  --template-arn arn:aws:acm-pca:::template/EndEntityCertificate/V1 \
+  --validity Value=<NUMBER_OF_DAYS>,Type="DAYS" \
+  --region us-west-2 \
+  --profile <YOUR-PROFILE> \
+  --query 'CertificateArn' \
+  --output text)
+
+# Retrieve the client certificate
+aws acm-pca get-certificate \
+  --certificate-authority-arn $CA_ARN \
+  --certificate-arn $CLIENT_CERT_ARN \
+  --region us-west-2 \
+  --profile <YOUR-PROFILE> \
+  --query 'Certificate' \
+  --output text > client.crt
+----
++
+**OR**
+
+    - If this is a self-signed certificate without using AWS Private CA, you can sign the CSR locally using OpenSSL:
++
+[source, bash]
+----
+openssl req -x509 -new -key client.key -out client.crt -days 365 -config client.conf
+----
+
+
+4. **Verify the Issued Certificate:**
+    - You can verify the issued certificate using OpenSSL:
++
+[source, bash]
+----
+openssl x509 -in client.crt -text -noout
+----
+    - This command will display the details of the issued certificate, including the issuer, subject, and validity period.
+
+== Not what you were looking for?
+
+include::{includedir}/how-to-not-what-you-are-looking-for.adoc[]
+
+include::{includedir}/tutorial-not-what-you-are-looking-for.adoc[]

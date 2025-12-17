@@ -1,0 +1,327 @@
+= How To - Deploy Ingress Controller to EKS Cluster
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
+ifndef::confluence[]
+:toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
+
+// Tags created on pages with keywords relevant to content - default values are present and can be overridden by passed in attribute (and should be). Additionally, when using the publishToConfluence plugin it is more difficult to pass in the keywords so the defaults are preferred.
+:keywords: how, to, open, tofu, terraform, iam, manual
+
+// Renders correctly in IDE for testing purposes
+// ifndef::confluence[]
+// include::../_includes/version-control-warning.adoc[]
+// endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
+
+// This page contains generic information disclaimer
+include::{includedir}/generic-information.adoc[]
+
+== Prerequisites
+
+* An existing EKS cluster
+* kubectl installed and configured to access your EKS cluster
+* Helm installed
+* AWS CLI installed and configured with appropriate permissions
+
+== Steps to Deploy Ingress Controller
+
+1. **Add the nginx-ingress Helm repository:**
+
+   ```bash
+   helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+   helm repo update
+   ```
+
+2. **Create namespace for the ingress controller:**
+
+   ```bash
+   kubectl create namespace ingress-nginx
+   ```
+
+3. **Install the NGINX Ingress Controller using Helm:**
+    - For EKS with an NLB (Network Load Balancer):
++
+[source,bash]
+----
+helm install ingress-nginx ingress-nginx/ingress-nginx \
+  --namespace ingress-nginx \
+  --set controller.service.type=LoadBalancer \
+  --set controller.service.annotations."service\.beta\.kubernetes\.io/aws-load-balancer-type"="nlb" \
+  --set controller.service.annotations."service\.beta\.kubernetes\.io/aws-load-balancer-scheme"="internal" \
+  --set controller.service.annotations."service\.beta\.kubernetes\.io/aws-load-balancer-cross-zone-load-balancing-enabled"="true" \
+  --version 4.14.0
+----
+    - For internet-facing NLB, change the annotation value to "internet-facing":
++
+[source,bash]
+----
+--set controller.service.annotations."service\.beta\.kubernetes\.io/aws-load-balancer-scheme"="internet-facing"
+----
++
+[NOTE]
+If you need an ALB in front of nginx-ingress (for mTLS or other features), complete this guide first, then follow {how-to-13-link}[How To - Deploy ALB Ingress to EKS Cluster].
+
+4. **Verify the installation:**
+    - Look for the `EXTERNAL-IP` of the `ingress-nginx-controller` service. This is the address you will use to access your applications.
++
+[source,bash]
+----
+# Watch the pod status
+kubectl get pods -n ingress-nginx -w
+
+# Check the service
+kubectl get svc -n ingress-nginx
+
+# Get the load balancer DNS name
+kubectl get svc ingress-nginx-controller -n ingress-nginx -o jsonpath='{.status.loadBalancer.ingress[0].hostname}'
+----
+
+5. **ConfigMap Configuration (Optional):**
+    - You can customize the NGINX Ingress Controller by modifying the ConfigMap. For example, you could apply the following file to enable snippet annotations and disable forced SSL redirect globally:
++
+[source,yaml]
+----
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ingress-nginx-controller
+  namespace: ingress-nginx
+  labels:
+    app.kubernetes.io/name: ingress-nginx
+    app.kubernetes.io/part-of: ingress-nginx
+data:
+  # Allow configuration snippets in ingress annotations
+  allow-snippet-annotations: "true"
+
+  # Disable forced SSL redirect globally (useful when ALB handles TLS)
+  force-ssl-redirect: "false"
+----
+- Restart the ingress controller pods to apply changes:
++
+[source,bash]
+----
+kubectl rollout restart deployment ingress-nginx-controller -n ingress-nginx
+----
++
+[CAUTION]
+====
+If using ArgoCD to manage deployments, ensure that any manual changes made to the ConfigMap are reflected in your Git repository to prevent ArgoCD from reverting them. If you use kubectl apply to make changes, you need to restart the deployment as shown above. If you edit the ConfigMap on your repo, ArgoCD will handle the restart automatically (it might take a moment).
+====
+
+6. **Verify IngressClass:**
+    - Check that the IngressClass has been created:
++
+[source,bash]
+----
+kubectl get ingressclass
+
+# Should show:
+# NAME    CONTROLLER             PARAMETERS   AGE
+# nginx   k8s.io/ingress-nginx   <none>       5m
+----
+
+7. **Test with a sample app:**
+    - Deploy a test application (for this example, we are using a simple echo app found here: https://github.com/mendhak/docker-http-https-echo)
+    - Create the app Kubernetes deployment and service:
++
+[source,yaml]
+----
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: echo-app
+  namespace: test-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: echo-app
+  template:
+    metadata:
+      labels:
+        app: echo-app
+    spec:
+      containers:
+      - name: echo
+        image: mendhak/http-https-echo:latest
+        ports:
+        - containerPort: 8080
+----
++
+[source,yaml]
+----
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-service
+  namespace: test-app
+spec:
+  selector:
+    app: echo-app
+  ports:
+  - port: 80
+    targetPort: 8080
+  type: ClusterIP
+----
+
+    - Create the Ingress resource:
++
+[source,yaml]
+----
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: echo-ingress
+  namespace: test-app
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: <YOUR_DOMAIN>.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: echo-service
+            port:
+              number: 80
+----
+
+    - Create a namespace for the test app and apply the deployment and service:
++
+[source,bash]
+----
+kubectl create namespace test-app
+kubectl apply -f echo-deployment.yaml
+kubectl apply -f echo-service.yaml
+kubectl apply -f echo-ingress.yaml
+----
++
+[NOTE]
+====
+Remember to push in Git if using ArgoCD to manage your deployments.
+====
+
+8. **Test Ingress:**
+    - First, get the NLB DNS name from step 4.
++
+[source,bash]
+----
+NLB_DNS=$(kubectl get svc ingress-nginx-controller -n ingress-nginx -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
+echo "NLB DNS: $NLB_DNS"
+----
++
+[NOTE]
+====
+If using an ALB, use the ALB DNS name instead. Follow the steps in {how-to-13-link}[How To - Deploy ALB Ingress to EKS Cluster] to set up the ALB Ingress Controller.
+====
+
+    - - Test from a pod inside the cluster (replace <NLB_DNS> with actual value from step 4):
++
+[source,bash]
+----
+# To make new temp pod for testing
+kubectl run tmp --image nginx:1.28.0 -n test-cert
+kubectl exec -it -n test-cert tmp -- bash
+
+# Inside the pod, test the ingress
+curl -H "Host: echo.example.com" http://<NLB_DNS>/
+----
+    - Or from local machine if using internet-facing NLB/ALB:
++
+[source,bash]
+----
+curl -H "Host: echo.example.com" http://$NLB_DNS/
+----
+
+9. **Configure TLS/HTTPS (Optional):**
+    - This is an option using manual TLS certificates.
+    - Create a Kubernetes secret with your TLS certificate and key (should be server cert):
++
+[source,bash]
+----
+kubectl create secret tls my-tls-secret \
+  -n test-app \
+  --cert=path/to/server.crt \
+  --key=path/to/server.key
+----
+
+    - Update your Ingress resource to use the TLS secret:
++
+[source,yaml]
+----
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: echo-ingress
+  namespace: test-app
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - echo.example.com
+    secretName: my-tls-secret
+  rules:
+  - host: echo.example.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: echo-service
+            port:
+              number: 80
+----
+
+    - Test HTTPS:
++
+[source,bash]
+----
+curl -k https://$NLB_DNS/ -H "Host: echo.example.com"
+----
+
+== Troubleshooting
+
+**Pod not starting:**
+[source,bash]
+----
+# Check pod logs
+kubectl logs -n ingress-nginx -l app.kubernetes.io/name=ingress-nginx
+
+# Describe pod for events
+kubectl describe pod -n ingress-nginx -l app.kubernetes.io/name=ingress-nginx
+----
+
+**Load Balancer not getting External IP:**
+[source,bash]
+----
+# Check service events
+kubectl describe svc ingress-nginx-controller -n ingress-nginx
+
+# Check AWS for load balancer creation
+aws elbv2 describe-load-balancers --region us-west-2
+----
+
+**404 errors:**
+
+    - Verify the ingress has the correct ingressClassName: nginx
+    - Check that the backend service and pod are running
+    - Verify the Host header matches the ingress rule
+
+== Not what you were looking for?
+
+include::{includedir}/how-to-not-what-you-are-looking-for.adoc[]
+
+include::{includedir}/tutorial-not-what-you-are-looking-for.adoc[]

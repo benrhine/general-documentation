@@ -1,0 +1,256 @@
+= How To - GitHub Workflow
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
+ifndef::confluence[]
+:toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
+
+// Tags created on pages with keywords relevant to content - default values are present and can be overridden by passed in attribute (and should be). Additionally, when using the publishToConfluence plugin it is more difficult to pass in the keywords so the defaults are preferred.
+:keywords: how, to, tutorial, documenation, github, workflow, action, help
+
+// Renders correctly in IDE for testing purposes
+// ifndef::confluence[]
+// include::../_includes/version-control-warning.adoc[]
+// endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
+
+This How To is intended to describe the configuration of a basic GitHub Workflow.
+
+* A workflow CAN NOT have both a uses and runs block
+
+== Dynamically export environment variables
+
+[source, yaml]
+----
+jobs:
+  my_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set dynamic variable
+        run: |
+          echo "DYNAMIC_VAR=some_dynamic_value" >> $GITHUB_ENV
+      - name: Use dynamic variable
+        run: echo "Dynamic variable: $DYNAMIC_VAR"
+----
+
+[CAUTION]
+Values created this way are only available within the job they are created in. I.E. if you need the value between jobs the value should be exported as an {how-to-7-link}#HowToGitHubWorkflow-_step_outputsStepoutputs[Output].
+
+=== Reference
+
+* https://www.google.com/search?q=github+actions+export+environment+variable&oq=github+actions+export+&gs_lcrp=EgZjaHJvbWUqBwgBEAAYgAQyCggAEEUYFhgeGDkyBwgBEAAYgAQyCAgCEAAYFhgeMggIAxAAGBYYHjIICAQQABgWGB4yCAgFEAAYFhgeMggIBhAAGBYYHjIICAcQABgWGB4yCAgIEAAYFhgeMggICRAAGBYYHtIBCTEwNDExajBqN6gCALACAA&sourceid=chrome&ie=UTF-8[Google search]
+
+== Continue on error
+
+You can tell a step to continue even if an error has occurred by adding the following ...
+
+[source, yaml]
+----
+continue-on-error: true
+----
+
+=== Reference
+
+* https://www.google.com/search?q=get+a+unified+error+message+from+combining+github+step+outputs&oq=get+a+unified+error+message+from+combining+github+step+outputs&gs_lcrp=EgZjaHJvbWUyBggAEEUYOdIBCTEyNzAzajBqN6gCALACAA&sourceid=chrome&ie=UTF-8[Google Search]
+
+== Step outputs
+
+In order to pass values from one step to another it is required for each action of a step to set its outputs. Additionally, it is required to set the id key so that values can be correctly referenced.
+
+[source, yaml]
+----
+jobs:
+  example-job:
+    runs-on: ubuntu-latest
+    environment: dev
+    outputs:
+      output-failure: ${{ steps.step-1.outputs.fail || steps.step-2.outputs.fail }}
+    steps:
+      - name: Verify SSM Parameter Availability
+        id: step-1
+        run: |
+          if [ "${{ env.DEV_TF_TFSTATE_BUCKET_NAME }}" == "" ]; then
+            echo "Error: DEV_TF_TFSTATE_BUCKET_NAME is not available. Please ensure it's configured correctly."
+            echo "fail=Error: DEV_TF_TFSTATE_BUCKET_NAME is not available. Please ensure it's configured correctly." >> "$GITHUB_OUTPUT"
+            exit 1
+          else
+            echo "DEV_TF_TFSTATE_BUCKET_NAME is available."
+          fi
+      - name: Verify SSM Parameter Availability
+        id: step-1
+        run: |
+          if [ "${{ env.DOC_PROJECT_CONFLUENCE_PAT }}" == "" ]; then
+            echo "Error: DOC_PROJECT_CONFLUENCE_PAT is not available. Please ensure it's configured correctly."
+            echo "fail=Error: DOC_PROJECT_CONFLUENCE_PAT is not available. Please ensure it's configured correctly." >> "$GITHUB_OUTPUT"
+            exit 1
+          else
+            echo "DOC_PROJECT_CONFLUENCE_PAT is available."
+          fi
+----
+
+Having set outputs from the initial job and its actions to use those outputs in the following job there are two possible ways to reference the outputs.
+
+[NOTE]
+This is in the same workflow file
+
+.Set outputs as incoming env vars
+[source, yaml]
+----
+    on-failure:
+        runs-on: ubuntu-latest
+        environment: dev
+        if: ${{ always() && (needs.example-job.result == 'failure' || needs.example-job.result == 'timed_out') }}
+        needs:
+          - example-job
+        steps:
+            - env:
+                OUTPUT1: ${{ needs.example-job.outputs.output-f2 }}
+              run: echo "$OUTPUT1"
+----
+
+or
+
+.Use outputs directly
+[source, yaml]
+----
+    on-failure:
+        runs-on: ubuntu-latest
+        environment: dev
+        if: ${{ always() && (needs.example-job.result == 'failure' || needs.example-job.result == 'timed_out') }}
+        needs:
+          - example-job
+        steps:
+
+          ...
+
+          - name: Slack Notification
+            uses: rtCamp/action-slack-notify@v2
+            env:
+              SLACK_CHANNEL: general
+              SLACK_COLOR: ${{ needs.example-job.result }} # or a specific color like 'good' or '#ff00ff'
+              SLACK_ICON: https://github.com/rtCamp.png?size=48
+              SLACK_MESSAGE: '${{ github.event.head_commit.message }} :rocket:'
+              SLACK_TITLE: Commit Message
+              SLACK_USERNAME: Bot
+              SLACK_WEBHOOK: ${{ env.BASE_CLOUD_INFRASTRUCTURE_WEBHOOK }}
+              SLACK_FOOTER: Action occurred at ${{ steps.current-time.outputs.time }}
+              SLACK_MESSAGE_ON_SUCCESS: "All expected values are present"
+              SLACK_MESSAGE_ON_FAILURE: ${{ needs.example-job.outputs.output-failure }}
+              SLACK_MESSAGE_ON_CANCEL: "Verification has been canceled"
+----
+
+[CAUTION]
+It does not appear to be possible to assign environment variable values to an output. This lack of functionality requires additional consideration when passing outputs between steps.
+
+=== Reference
+
+* https://www.google.com/search?q=github+step+get+environment+variable+output&oq=github+step+get+environment+variable+output&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIHCAEQIRigATIHCAIQIRigATIHCAMQIRigATIHCAQQIRigAdIBCTEyMTQ4ajBqN6gCALACAA&sourceid=chrome&ie=UTF-8[Google Search]
+* https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/pass-job-outputs
+
+== Execute action on success
+
+To configure a GitHub job to execute on another jobs success then add the job that should execute on success and
+configure it like any other job with the addition of the following ...
+
+[source, yaml]
+----
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Building..."
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Testing..."
+
+  deploy:
+    needs: [build, test]
+    if: ${{ needs.build.result == 'success' && needs.test.result == 'success' }} # Explicitly check for success
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Deploying..."
+----
+
+or
+
+[source, yaml]
+----
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Job 1"
+
+  job2:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Job 2"
+
+  deploy:
+    needs: [job1, job2] # This job runs only if both 'job1' and 'job2' succeed
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Deploying..."
+----
+
+or
+
+[source, yaml]
+----
+# .github/workflows/follow-on-workflow.yml
+name: Follow-on Workflow
+on:
+  workflow_run:
+    workflows: ["Previous Workflow Name"] # Replace with the name of the preceding workflow
+    types: [completed]
+jobs:
+  run_on_success:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - name: Perform action after previous workflow success
+        run: echo "Previous workflow completed successfully, running this action!"
+----
+
+=== Reference
+
+* https://www.google.com/search?q=execute+github+action+on+success&oq=execute+github+action+on+success&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIHCAEQIRigATIHCAIQIRigATIHCAMQIRigATIHCAQQIRigATIHCAUQIRigATIHCAYQIRifBTIHCAcQIRiPAjIHCAgQIRiPAtIBCDUyNjVqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8[Google search 1]
+* https://tomjones.dev/blog/send-github-action-workflow-failure-notifications-to-slack/
+
+== Execute action on failure
+
+To configure a GitHub action for failure add a "job" called `on-failure` and configure it like any other job with the addition of the following ...
+
+[source, yaml]
+----
+  on-failure:
+    runs-on: ubuntu-latest
+    environment: dev
+    if: ${{ always() && (needs.example-job.result == 'failure' || needs.example-job.result == 'timed_out') }}
+    needs:
+      - example-job
+----
+
+This configuration allows for the `on-failure` job to check the status of previous jobs in the workflow.
+
+== Debug Aws Authentication
+
+[source, shell]
+----
+  - name: Debug OIDC token
+    run: echo $ACTIONS_ID_TOKEN_REQUEST_TOKEN | jq -R 'split(".") | .[1] | @base64d | fromjson'
+----
+
+== Reference
+
+* https://tomjones.dev/blog/send-github-action-workflow-failure-notifications-to-slack/

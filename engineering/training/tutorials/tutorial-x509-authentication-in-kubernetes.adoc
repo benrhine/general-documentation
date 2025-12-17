@@ -1,0 +1,301 @@
+= Tutorial - x509 Authentication in Kubernetes
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
+ifndef::confluence[]
+:toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
+
+// Tags created on pages with keywords relevant to content - default values are present and can be overridden by passed in attribute (and should be). Additionally, when using the publishToConfluence plugin it is more difficult to pass in the keywords so the defaults are preferred.
+:keywords: how, to, tutorial, documenation, publish, to, confluence, configuration, help
+
+// Renders correctly in IDE for testing purposes
+// ifndef::confluence[]
+// include::../_includes/version-control-warning.adoc[]
+// endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
+This tutorial combines several How To's into a single tutorial to fully describe how to authenticate a x509 certificate using Kubernetes and an EKS ALB.
+
+== Prerequisites
+* An existing EKS cluster (either in EKS Auto Mode or with an ALB Ingress Controller installed)
+* kubectl configured to access the EKS cluster
+* AWS CLI configured to access the AWS account where the EKS cluster is deployed
+* Helm installed and configured to access the EKS cluster
+* An S3 bucket to store the private CA certificates and CRLs
+
+== What you will build
+
+* An AWS Private Certificate Authority (CA) with revocation support
+* An nginx-ingress-controller deployed in your EKS cluster
+* An Application Load Balancer configured for mTLS verification
+* A test application that receives client certificate metadata
+* Multiple test certificates (valid, expired, unsigned, and revoked) for testing different scenarios
+
+== Architecture Overview
+Client (internal) → ALB (verify mode)(extracts cert metadata) → nginx-ingress (forwards that metadata to app) → sample app (receives cert metadata in headers)
+
+The ALB performs:
+
+1. TLS termination
+2. Client certificate validation against the CA trust store
+3. Certificate revocation checking (optional)
+4. Extraction of certificate metadata into HTTP headers
+
+== How to do it
+
+*First*, create an AWS Private Certificate Authority that will issue and validate certificates.
+
+* {how-to-11-link}[How To - Create a Private Certificate Authority in AWS]
+
+*Second*, generate server certificates with Subject Alternative Names (SAN) for your application domains.
+
+* Your server certificate CN and SAN must match your domain
+* AWS PCA signs the certificate with your CA
+* You'll use this for your application's TLS configuration (optional, depending on your setup)
+
+* {how-to-15-link}[How To - Issue and Sign Server Certificates with SAN using AWS Private CA]
+
+*Next*, deploy the ingress controller that will route traffic to your applications.
+When deploying the ingress controller, make sure to:
+
+* Use an NLB (Network Load Balancer) for the ingress controller
+* Keep the NLB internal (private subnets)
+* Configure the ConfigMap to disable forced SSL redirect
+* Note the ingress controller service name: `ingress-nginx-controller`
+* Make sure to configure TLS/HTTP
+* Since the ALB will handle TLS termination, skip the testing of TLS at the ingress controller level
+
+* {how-to-12-link}[How To - Deploy Ingress Controller to EKS]
+
+*Then*, create an Application Load Balancer that sits in front of nginx-ingress and handles mTLS. When deploying the ALB, make sure to:
+
+* Use your ACM certificate for server TLS
+* Use S3 to store the CA certificate for client cert validation
+* Configure the ALB listener for mTLS verify mode
+* Skip step 7 for the moment (we'll do revocation later).
+
+* {how-to-13-link}[How To - Deploy ALB Ingress to EKS Cluster]
+
+*Next*, generate multiple client certificates to test different authentication scenarios.
+
+**Create these test certificates:**
+
+[NOTE]
+On all of these certificates, use the SAN option to include email, name, and permissions.
+
+1. **Valid certificate** - Signed by your CA, not expired
+* Follow: {how-to-14-link}[How To - Issue and Sign Client Certificates using AWS Private CA]. Make sure to sign with your Private CA.
+
+2. **Expired certificate** - Issue with 1-hour validity, wait for expiration
+* Follow: {how-to-14-link}[How To - Issue and Sign Client Certificates using AWS Private CA]
+* Change validity to 1 day when issuing this certificate (minimum allowed by AWS PCA is 1 day). Make sure to wait until it expires before testing.
+
+3. **Unsigned certificate** - Self-signed, not from your CA
+* Follow: {how-to-14-link}[How To - Issue and Sign Client Certificates using AWS Private CA]
+* Generate a self-signed certificate on step 3 instead of signing with your CA.
+
+4. **Revoked certificate** - Signed by CA but then revoked
+* Follow: {how-to-14-link}[How To - Issue and Sign Client Certificates using AWS Private CA]
+* After issuing the valid signed certificate, follow: {how-to-16-link}[How To - Revoke Certificates using AWS Private CA] to revoke it.
+
+**Expected outcome:** You have four client certificates for testing different scenarios.
+
+*Then*, go back to your ALB and complete step 7 in the {how-to-13-link}[How To - Deploy ALB Ingress to EKS Cluster]
+documentation to set up certificate revocation checking. This will make sure your revoked certificate is known to the ALB.
+[IMPORTANT]
+The ALB trust store takes a snapshot of the CRL in S3 when you configure revocation checking. To keep it updated, you need to set up a Lambda function to periodically update the CRL in S3.
+
+*Finally*, deploy a simple echo application to receive and display the certificate metadata. This application will help
+verify that the ALB is correctly extracting and passing the certificate information.
+
+[source,yaml]
+----
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: test-cert
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: http-echo-app
+  namespace: test-cert
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: http-echo-app
+  template:
+    metadata:
+      labels:
+        app: http-echo-app
+    spec:
+      containers:
+      - name: http-echo
+        image: mendhak/http-https-echo:latest
+        ports:
+        - containerPort: 8080
+          name: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: http-echo
+  namespace: test-cert
+spec:
+  selector:
+    app: http-echo-app
+  ports:
+  - port: 80
+    targetPort: 8080
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: http-echo-ingress
+  namespace: test-cert
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: test.example.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: http-echo
+            port:
+              number: 80
+----
+
+[source,bash]
+----
+kubectl apply -f test-app.yaml
+----
+[CAUTION]
+If using ArgoCD or another GitOps tool, commit the above YAML to your repository and let the tool deploy it.
+
+**Expected outcome:** The echo application is running and accessible through the ingress.
+
+=== Test the Authentication
+
+For easy, automated testing, follow {how-to-17-link}[How To - Automate Certificate Testing (Github Actions)] to set up a GitHub Actions workflow that tests all four certificate scenarios on every push.
+
+Alternatively, you can manually test using curl from a test pod in your cluster:
+
+**Set up test environment:**
+
+[source,bash]
+----
+# Create a test pod with curl
+kubectl run tmp --image nginx:1.28.0 -n test-cert
+
+# Copy your certificates to the pod (from another terminal)
+kubectl cp valid-client.crt test-cert/test-pod:/tmp/
+kubectl cp valid-client.key test-cert/test-pod:/tmp/
+kubectl cp expired-client.crt test-cert/test-pod:/tmp/
+kubectl cp expired-client.key test-cert/test-pod:/tmp/
+kubectl cp unsigned-client.crt test-cert/test-pod:/tmp/
+kubectl cp unsigned-client.key test-cert/test-pod:/tmp/
+kubectl cp revoked-client.crt test-cert/test-pod:/tmp/
+kubectl cp revoked-client.key test-cert/test-pod:/tmp/
+
+# Get ALB DNS name
+kubectl get ingress -n ingress-nginx nginx-ingress-alb -o jsonpath='{.status.loadBalancer.ingress[0].hostname}'
+
+# Go into the pod to begin testing
+kubectl exec -it tmp -n test-cert -- /bin/bash
+cd tmp
+----
+
+**Test 1: Valid Certificate (Should succeed)**
+
+[source,bash]
+----
+curl -v \
+  --cert /tmp/valid-client.crt \
+  --key /tmp/valid-client.key \
+  -H "Host: test.<YOUR_DOMAIN>" \
+  https://$ALB_DNS/
+----
+
+**Expected result:** HTTP 200 with JSON response containing certificate metadata in headers:
+* `x-amzn-mtls-clientcert-serial-number`
+* `x-amzn-mtls-clientcert-subject` (includes email, name, permissions)
+* `x-amzn-mtls-clientcert-issuer`
+* `x-amzn-mtls-clientcert-validity`
+
+**Test 2: Expired Certificate (Should fail)**
+
+[source,bash]
+----
+curl -v \
+  --cert /tmp/expired-client.crt \
+  --key /tmp/expired-client.key \
+  -H "Host: test.<YOUR_DOMAIN>" \
+  https://$ALB_DNS/
+----
+
+**Expected result:** Connection rejected by ALB during TLS handshake.
+
+**Test 3: Unsigned Certificate (Should fail)**
+
+[source,bash]
+----
+curl -v \
+  --cert /tmp/unsigned-client.crt \
+  --key /tmp/unsigned-client.key \
+  -H "Host: test.<YOUR_DOMAIN>" \
+  https://$ALB_DNS/
+----
+
+**Expected result:** Connection reset - ALB doesn't trust the issuer.
+
+**Test 4: Revoked Certificate (Should fail)**
+
+[source,bash]
+----
+curl -v \
+  --cert /tmp/revoked-client.crt \
+  --key /tmp/revoked-client.key \
+  -H "Host: test.<YOUR_DOMAIN>" \
+  https://$ALB_DNS/
+----
+
+**Expected result:** Connection rejected - certificate is in the CRL.
+
+
+== Next Steps
+
+* Implement automated CRL updates with Lambda
+* Add certificate monitoring and alerting
+* Set up application-level authorization based on certificate attributes
+
+== Troubleshooting
+
+=== Revoked Certificate Still Accepted
+
+**Causes:**
+
+* CRL not added to trust store
+* CRL is outdated
+* Certificate was revoked after the CRL was generated
+
+**Solution:** Re-run Step 7 in the {how-to-13-link}[How To - Deploy ALB Ingress to EKS Cluster]
+guide to update the CRL in the ALB trust store. It usually takes a few minutes for the CRL to pick up changes after a cert is revoked and you may have passed it to the trust store too soon.
+
+== Not what you were looking for?
+
+include::{includedir}/how-to-not-what-you-are-looking-for.adoc[]
+
+include::{includedir}/tutorial-not-what-you-are-looking-for.adoc[]

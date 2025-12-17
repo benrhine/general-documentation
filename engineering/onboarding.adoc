@@ -62,7 +62,7 @@ If you are not part of the {team-name-1-abv-upper} team and are referencing this
 
 // Renders correctly in IDE
 ifndef::deploy[]
-include::../_includes/eng-level-team-links.adoc[]
+include::../_includes/team-links.adoc[]
 endif::[]
 // Renders correctly in AsciiDoc Deployment
 ifdef::deploy[]

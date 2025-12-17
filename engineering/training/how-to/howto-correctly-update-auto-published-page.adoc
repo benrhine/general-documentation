@@ -1,0 +1,65 @@
+= How To - Update a Confluence page that is auto-published from Git
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
+ifndef::confluence[]
+:toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
+
+// Tags created on pages with keywords relevant to content - default values are present and can be overridden by passed in attribute (and should be). Additionally, when using the publishToConfluence plugin it is more difficult to pass in the keywords so the defaults are preferred.
+:keywords: how, to, update, confluence, auto, publish
+
+// Renders correctly in IDE for testing purposes
+// ifndef::confluence[]
+// include::../_includes/version-control-warning.adoc[]
+// endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
+
+// This page contains generic information disclaimer
+include::{includedir}/generic-information.adoc[]
+
+This page is intended to describe the correct way to update a page that is auto-published to Confluence from a Git repository.
+
+All pages that are auto-published from git _should_ contain the following warning ...
+
+include::{includedir}/version-control-warning.adoc[]
+
+at the top of the page to inform the user of the page status. The source of truth for any page with this warning is the stated git repository (name contained in the warning). If any page with this warning is updated through Confluence then those changes will be lost (outside reviewing the page through the Confluence revision history feature) the next time the page is updated through the auto-publishing process.
+
+== How NOT to update a Confluence page under version control
+
+DO NOT EDIT THE PAGE THROUGH CONFLUENCE!
+
+== How to correctly update a Confluence page under version control
+
+* Navigate to the repo that the page is published from
+* Identify the page in the repo that requires the update
+* Update the AsciiDoc
+* Allow for the page to republish
+
+If you do not have access to the repo or the correct tools, please contact the team that maintains the repo/application and they will be happy to perform the update for you.
+
+== New Pages
+
+The above information *DOES NOT APPLY* when creating new pages. Creating a new sub-page attached to a page that is auto-published is perfectly acceptable and that page will not be modified or damaged by the auto-publishing process.
+
+Do be aware that IF a auto-published page were to be deleted and a sub-page had been manually published that page could then potentially be lost or orphaned within Confluence.
+
+However, this is not recommended if at all possible. Documentation should be created in the repository for the following ...
+
+* Portability - if any major changes ever need to occur to Confluence or the documentation system needs to change then the doc has been written in a standard format and can be re-published.
+* History - the history of the documentation is doubly preserved between git version control and Confluence history
+* Improves documentation workflow and better incentives devs to document there work as it is already using a standard tool set they are familiar with.
+* Documentation is no longer a follow up step and should be done alongside standard work.
+
+== Not what you were looking for?
+
+include::{includedir}/how-to-not-what-you-are-looking-for.adoc[]
+
+include::{includedir}/tutorial-not-what-you-are-looking-for.adoc[]

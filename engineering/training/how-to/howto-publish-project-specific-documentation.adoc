@@ -1,0 +1,94 @@
+= How To - Publish project specific documentation to Confluence
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
+ifndef::confluence[]
+:toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
+
+// Tags created on pages with keywords relevant to content - default values are present and can be overridden by passed in attribute (and should be). Additionally, when using the publishToConfluence plugin it is more difficult to pass in the keywords so the defaults are preferred.
+:keywords: how, to, tutorial, documenation, publish, to, confluence, configuration, help
+
+// Renders correctly in IDE for testing purposes
+// ifndef::confluence[]
+// include::../_includes/version-control-warning.adoc[]
+// endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
+
+This How To is to highlight the difference in setup required from {how-to-3-link}[How To - Publish to Confluence] in a general way to the additional steps required to publish specific sub-folder documentation. As an example we will use the subproject documentation that is part of the {project-repo}[{sub-project-2}] repository.
+
+[NOTE]
+This How To assumes you have already completed the configurations that are part of {how-to-3-link}[How To - Publish to Confluence].
+
+While the configuration for additional subprojects is very similar to the configuration used in the `confluencePublisher` block it is slightly different ...
+
+== Configure subproject / subfolder documentation for publication
+
+To start with the biggest difference is that the `confluencePublisher` block *CAN NOT* be extended. Meaning that in order to configure additional documentation publishing it is necessary to register an additional Gradle task of type `PublishToConfluenceTask` like the following ...
+
+.Publish top level README.adoc
+[source, kotlin]
+----
+include::../../../../build.gradle.kts[tag=confluencePublisher5]
+----
+
+The above is configured to publish the repositories top level `README.adoc` file. The task keys are more or less the same as the `confluencePublisher` block but the `asciiDocRootFolder` key is set to the top level `projectDir` Gradle variable and the associated `outputDir` is set to a unique location so that when publishing the documentation it is not overwritten. Additionally, attention needs to be paid to the `ancestorId` as this `id` *must* previously exist or the publishing will fail. More on this later ...
+
+Similarly to publishing the project README, to publish a subproject README and the subprojects documentation additional Gradle tasks may be registered. Again, please note the `asciiDocRootFolder` and the `outputDir` ...
+
+.Publish subproject README.adoc
+[source, kotlin]
+----
+include::../../../../build.gradle.kts[tag=confluencePublisher6]
+----
+
+.Publish subproject documentation
+[source, kotlin]
+----
+include::../../../../build.gradle.kts[tag=confluencePublisher7]
+----
+
+Additionally, please note that these new tasks are dependent on other tasks having been previously executed. This is to ensure that the top level confluence folder/directory is already present otherwise these new tasks will not have a location to publish to as they are dependent on having the correct `ancestorId` provided.
+
+== The ancestorId
+
+When publishing subprojects or documentation that belongs below a given page or is attached to a specific page a `ancestorId` must be provided in order for publishing to work correctly. While this is also true of the `confluencePublisher` block it is especially relevant when publishing subprojects as there documentation is most likely supposed to be attached in Confluence somewhere specific.
+
+=== Where do you get the ancestorId?
+
+This has previously been covered as part of {how-to-3-link}[How To - Publish to Confluence] but can be summed up as the following ...
+
+* manually retrieve from a Confluence URL
+* Already provided as a value as part of the build file
+* Retrieved from a stored parameter and provided through the CI process.
+
+== Subproject publishing process
+
+In order to successfully publish subproject documentation the following steps should be followed ...
+
+* Ensure the top level page to attach documentation to is present
+* Verify how the `ancestorId` will be retrieved
+* Configure the additional Gradle tasks discussed above and supply it the appropriate directory paths and the `ancestorId` to attach the documentation to (see Publish subproject README.adoc example)
+* Execute the task from the previous step to create the new page and retrieve the newly created `pageId`
+* Configure secondary additional Gradle task with the `pageId` created in the previous step to attach subproject documentation below subproject README (see Publish subproject documentation example)
+
+
+== Publishing all documentation with one command
+
+To simplify publishing all documentation it is recommended to create an additional Gradle task that overrides `confluencePublisher` that depends on all additional documentation tasks.
+
+.Overridden publishToConfluence
+[source, kotlin]
+----
+include::../../../../build.gradle.kts[tag=confluencePublisher8]
+----
+
+
+== Reference
+

@@ -1,0 +1,74 @@
+= How To - Revoke Certificates using AWS Private CA
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
+ifndef::confluence[]
+:toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
+
+// Tags created on pages with keywords relevant to content - default values are present and can be overridden by passed in attribute (and should be). Additionally, when using the publishToConfluence plugin it is more difficult to pass in the keywords so the defaults are preferred.
+:keywords: how, to, open, tofu, terraform, iam, manual
+
+// Renders correctly in IDE for testing purposes
+// ifndef::confluence[]
+// include::../_includes/version-control-warning.adoc[]
+// endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
+
+// This page contains generic information disclaimer
+include::{includedir}/generic-information.adoc[]
+
+This document describes the steps to revoke a signed certificate using a Private Certificate Authority (CA) in AWS.
+
+== Prerequisites
+
+You must have an existing Private CA created in AWS. If you do not have one, please refer to the {how-to-11-link}[How To - Create a Private Certificate Authority in AWS] guide.
+
+You also will need openssl installed on your local machine to generate a Certificate Signing Request (CSR).
+
+You must have an existing signed certificate that you want to revoke. If you do not have one, please refer to the {how-to-14-link}[How To - Issue and Sign Client Certificates using AWS Private CA] guide.
+
+== Steps to Revoke Certificates
+
+1. **Get the serial number of the certificate to be revoked:**
++
+[source, bash]
+----
+openssl x509 -in client.crt -noout -serial
+# This will output something like: serial=01AB23CD45EF6789
+
+# Now extract serial number in hex format without the 'serial=' prefix
+SERIAL_HEX=$(openssl x509 -in client-revoked.crt -noout -serial | cut -d= -f2)
+----
+
+2. **Revoke the certificate using AWS CLI:**
+   - Use the following command to revoke the certificate. Replace `<your-pca-arn>` with your Private CA ARN.
++
+[source, bash]
+----
+aws acm-pca revoke-certificate \
+  --certificate-authority-arn <your-pca-arn> \
+  --certificate-serial $SERIAL_HEX \
+  --revocation-reason "KEY_COMPROMISE" \
+  --region us-west-2 \
+  --profile brr
+----
+
+[IMPORTANT]
+====
+If TLS termination is being handled by an Application Load Balancer (ALB) or another service that supports Certificate Revocation Lists (CRLs), ensure that the CRL distribution is updated and accessible by the service to enforce revocation checks.
+
+* If using ALB, refer to the {how-to-13-link}[How To - Deploy ALB Ingress to EKS Cluster] guide's step 7 for more details.
+====
+
+== Not what you were looking for?
+
+include::{includedir}/how-to-not-what-you-are-looking-for.adoc[]
+
+include::{includedir}/tutorial-not-what-you-are-looking-for.adoc[]

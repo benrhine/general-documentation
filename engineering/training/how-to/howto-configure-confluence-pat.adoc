@@ -1,4 +1,4 @@
-= Meeting Note(s)
+= How To - Configure Confluence Personal Access Token
 // Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
 // having the :toc: value in the adoc files is required for publishToConfluence to work correctly
 ifndef::confluence[]
@@ -10,7 +10,7 @@ ifdef::confluence[]
 endif::[]
 
 // Tags created on pages with keywords relevant to content - default values are present and can be overridden by passed in attribute (and should be). Additionally, when using the publishToConfluence plugin it is more difficult to pass in the keywords so the defaults are preferred.
-:keywords: team, documenation, meeting, notes
+:keywords: how, to, documentation, help, confluence, pat
 
 // Renders correctly in IDE for testing purposes
 // ifndef::confluence[]
@@ -21,18 +21,14 @@ ifdef::confluence[]
 include::{includedir}/version-control-warning.adoc[]
 endif::[]
 
-[TIP]
-Create new Meeting Notes as a sub-page of this page.
+* In Confluence select your signed-in user
+* Select settings
+* Select Personal Access Tokens on the left hand side
+* Create token
+** Make sure to save the token some place safe as it will only be visible once
 
-Any meeting that specifically had notes recorded should have a new page created for that meeting and attached under this page.
+== Not what you were looking for?
 
-// Renders correctly in IDE
-ifndef::deploy[]
-include::../../_includes/team-nwywlf.adoc[]
-endif::[]
-// Renders correctly in AsciiDoc Deployment
-ifdef::deploy[]
-include::{includedir}/team-nwywlf.adoc[]
-endif::[]
+include::{includedir}/how-to-not-what-you-are-looking-for.adoc[]
 
-
+include::{includedir}/tutorial-not-what-you-are-looking-for.adoc[]

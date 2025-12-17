@@ -1,0 +1,221 @@
+= How to - Automate Certificate Testing (Github Actions)
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
+ifndef::confluence[]
+:toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
+
+// Tags created on pages with keywords relevant to content - default values are present and can be overridden by passed in attribute (and should be). Additionally, when using the publishToConfluence plugin it is more difficult to pass in the keywords so the defaults are preferred.
+:keywords: how, to, help, confluence, token, cloud
+
+// Renders correctly in IDE for testing purposes
+// ifndef::confluence[]
+// include::../_includes/version-control-warning.adoc[]
+// endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
+
+This How To is to detail how to automate certificate testing using Github Actions and curl.
+
+This How To assumes that you are already familiar with the following ...
+
+* {how-to-11-link}[How To - Create a Private Certificate Authority]
+* {how-to-14-link}[How To - Issue and Sign Client Certificates with Private CA]
+* {how-to-15-link}[How To - Issue and Sign Server Certificates with SAN]
+* {how-to-16-link}[How To - Revoke Certificates using AWS Private CA]
+
+== Prerequisites
+* A Private Certificate Authority setup in AWS Private CA.
+* Client certificates issued and signed by your Private CA for the following scenarios:
+** Valid certificate
+** Expired certificate
+** Revoked certificate
+** Unsigned certificate (self-signed)
+* An endpoint setup to use TLS with a certificate issued by your Private CA.
+
+== How to automate certificate testing
+
+This assumes you have an endpoint that is setup to use TLS with a certificate issued by your Private CA. If you don't, there are How To's for how to use EKS and ALB Ingress to setup an endpoint with TLS using a certificate issued by your Private CA. Refer to the links at the bottom of this document for those How To's. There is also a tutorial on setting up x509 mTLS authentication in EKS.
+
+1. *Create a Github Actions workflow:*
+
+* in your repository, create a workflow file. For example, `.github/workflows/cert-testing.yml`.
++
+[source, yaml]
+----
+name: mTLS-authn-tests.yml
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+# Set up permissions for the job to access the OIDC token to assume IAM roles
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  APP_HOST: <YOUR_APP_HOST> # e.g. myapp.example.com
+  ENDPOINT: <YOUR_ENDPOINT>  # e.g. ALB hostname, ingress hostname, etc.
+  # If using EKS, set the following variables:
+  EKS_CLUSTER_NAME: <YOUR_CLUSTER_NAME>
+  TEST_NAMESPACE: <YOUR_TEST_NAMESPACE> # e.g. test-mtls-auth
+----
+
+2. *Setup the job steps:*
+
+* Add the following steps to checkout the repository and configure AWS credentials.
++
+[source, yaml]
+----
+jobs:
+  mtls-validation:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-region: ${{ secrets.AWS_REGION }}
+          role-to-assume: ${{ secrets.AWS_ROLE }}
+          role-session-name: "${{ github.run_name }}-${{ github.run_id }}-${{ github.run_attempt }}"
+          role-duration-seconds: ${{ secrets.AWS_ROLE_DURATION }} # should be 900s (15 minutes) default
+----
+[NOTE]
+This assumes you have the necessary AWS credentials stored in your repository secrets. Note that the role being assumed should have a trust policy allowing your repository's OIDC provider to assume the role.
+
+3. *If using EKS, add a step to configure kubectl: (Optional)*
+
+* If your endpoint is hosted in EKS, add the following step to configure kubectl.
+* Note that this assumes you have your certificates stored in the repository under `./tests/mtls/test-certs/`.
++
+[source, yaml]
+----
+      - name: Update kubeconfig
+        run: |
+          aws eks update-kubeconfig --name ${{ env.EKS_CLUSTER_NAME }} --region ${{ secrets.AWS_REGION }}
+
+      - name: Create namespace for testing # Make sure namespace doesn't already exist
+        run: |
+          kubectl create namespace ${{env.TEST_NAMESPACE}}
+
+      - name: Deploy test pod
+        run: |
+          kubectl run mtls-test-runner --image nginx:1.28.0 -n ${{env.TEST_NAMESPACE}}
+          kubectl wait -n ${{env.TEST_NAMESPACE}} --for=condition=ready pod/mtls-test-runner --timeout=60s
+
+      - name: Copy test certificates to pod (both crt and key)
+        run: |
+          kubectl cp ./tests/mtls/test-certs/client-valid.crt ${{ env.TEST_NAMESPACE }}/mtls-test-runner:/tmp/
+          kubectl cp ./tests/mtls/test-certs/client-valid.key ${{ env.TEST_NAMESPACE }}/mtls-test-runner:/tmp/
+
+          kubectl cp ./tests/mtls/test-certs/client-unsigned.crt ${{ env.TEST_NAMESPACE }}/mtls-test-runner:/tmp/
+          kubectl cp ./tests/mtls/test-certs/client-unsigned.key ${{ env.TEST_NAMESPACE }}/mtls-test-runner:/tmp/
+
+          kubectl cp ./tests/mtls/test-certs/client-expired.crt ${{ env.TEST_NAMESPACE }}/mtls-test-runner:/tmp/
+          kubectl cp ./tests/mtls/test-certs/client-expired.key ${{ env.TEST_NAMESPACE }}/mtls-test-runner:/tmp/
+
+          kubectl cp ./tests/mtls/test-certs/client-revoked.crt ${{ env.TEST_NAMESPACE }}/mtls-test-runner:/tmp/
+          kubectl cp ./tests/mtls/test-certs/client-revoked.key ${{ env.TEST_NAMESPACE }}/mtls-test-runner:/tmp/
+
+----
+
+4. *If using an ALB endpoint, add this step to retrieve the endpoint: (Optional)*
++
+[source, yaml]
+----
+      - name: Get ALB endpoint
+        run: |
+          ALB_ENDPOINT=$(kubectl get ingress -n <ALB_NAMESPACE> -o jsonpath='{.items[0].status.loadBalancer.ingress[0].hostname}')
+          echo "ALB_ENDPOINT=$ALB_ENDPOINT" >> $GITHUB_ENV
+----
+
+5. *Add steps to perform certificate tests using curl:*
+
+* For each certificate scenario, add a step that uses curl to make a request to the endpoint with the respective certificate.
+* Check the HTTP response code to determine if the test passed or failed.
++
+[source, yaml]
+----
+      - name: Test 1 - Valid Certificate (Expected 200)
+        id: test_valid
+        run: |
+          kubectl exec -n test-mtls-auth mtls-test-runner -- bash -c ' # If not using EKS, remove this line
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" -k \
+                --cert /tmp/client-valid.crt \
+                --key /tmp/client-valid.key \
+                https://'"$ALB_ENDPOINT"' \
+              -H "Host: ${{ env.APP_HOST }}")
+          echo "HTTP Response Code: $HTTP_CODE"
+
+          if [ "$HTTP_CODE" -eq 200 ]; then
+            echo "PASS: Valid certificate returned 200"
+            exit 0
+          else
+          echo "FAIL: Valid certificate returned $HTTP_CODE instead of 200"
+            exit 1
+          fi
+          ' # If not using EKS, remove this line
+
+          # Add lines below if using the output and summary for Github Actions
+          if [ $? -eq 0 ]; then
+            echo "result=PASS" >> $GITHUB_OUTPUT
+          else
+            echo "result=FAIL" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+----
+* Repeat similar steps for the other certificate scenarios (expired, revoked, unsigned), adjusting the expected HTTP response codes accordingly.
+* For example, an expired certificate might return a 495 or 000 status code depending on your server configuration.
+
+6. *Cleanup (Optional):*
+* If using EKS, you may want to add a cleanup step to delete the test pod and namespace after tests complete.
++
+[source, yaml]
+----
+      - name: Cleanup test pod
+        if: always()
+        run: |
+          kubectl delete pod mtls-test-runner -n ${{ env.TEST_NAMESPACE }} --ignore-not-found=true
+          kubectl delete namespace ${{ env.TEST_NAMESPACE }}
+----
+
+7. *Test Summary:*
+* You can add a final step to summarize the test results if desired.
++
+[source, yaml]
+----
+      - name: Test Summary
+        if: always()
+        run: |
+          echo "## mTLS Test Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Test Case | Result |" >> $GITHUB_STEP_SUMMARY
+          echo "|-----------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Valid Certificate | ${{ steps.test_valid.outputs.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Unsigned Certificate | ${{ steps.test_unsigned.outputs.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Expired Certificate | ${{ steps.test_expired.outputs.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Revoked Certificate | ${{ steps.test_revoked.outputs.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| No Certificate | ${{ steps.test_no_cert.outputs.result }} |" >> $GITHUB_STEP_SUMMARY
+----
+
+== Troubleshooting
+* Ensure that your certificates are correctly issued and valid for the endpoint you are testing against.
+* Make sure the endpoint is reachable either publicly or within the network context of the Github Actions runner.
+* Check the AWS IAM role permissions and trust policy if you encounter issues with AWS CLI commands and kubectl.
+
+== Not what you were looking for?
+
+include::{includedir}/how-to-not-what-you-are-looking-for.adoc[]
+
+include::{includedir}/tutorial-not-what-you-are-looking-for.adoc[]

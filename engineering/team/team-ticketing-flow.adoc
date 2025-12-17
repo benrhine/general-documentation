@@ -18,3 +18,15 @@ endif::[]
 
 
 todo
+
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../_includes/team-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/team-nwywlf.adoc[]
+endif::[]
+
+

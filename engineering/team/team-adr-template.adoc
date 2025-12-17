@@ -197,15 +197,15 @@ Because the decision-making process can take weeks, we’ve found it useful to c
 // Default values allow documentation to work correctly in the IDE.
 // includedir value should be overridden at build time with an attribute from the build task, other values are suggested to be overridden.
 :includedir: ../../_includes
-:global-org: gdp
-:sub-org: ids
-:organization: DPD
-:org-lower: dpd
+:global-org: rc
+:sub-org: something
+:organization: BRR
+:org-lower: brr
 // Tags created on pages with keywords relevant to content - default values are present and can be overridden by passed in attribute (and should be). Additionally, when using the publishToConfluence plugin it is more difficult to pass in the keywords so the defaults are preferred.
 :keywords: documentation, adr, architectural, decision, record, template
 
 // This include should work for all but only works for confluence - it will not resolve in the html version of the doc
-include::{includedir}/version-control-warning.adoc[]
+// include::{includedir}/version-control-warning.adoc[]
 
 [TIP]
 This page is what the provided "Decision Template" will look like when rendered
@@ -363,8 +363,17 @@ If the enterprise has an agreed-upon set of principles, make sure the decision i
 Because the decision-making process can take weeks, we’ve found it useful to capture notes and issues that the team discusses during the socialization process.
 
 
-== Links
+== Reference
 
 * TODO
 ----
 ====
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../_includes/team-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/team-nwywlf.adoc[]
+endif::[]

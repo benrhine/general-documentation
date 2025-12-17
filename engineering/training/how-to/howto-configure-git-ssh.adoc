@@ -49,7 +49,7 @@ Update your `~/.gitconfig`
 ----
 [user]
         name = YOUR NAME
-        email = YOUR.NAME@jepp.com
+        email = YOUR.NAME@domain.com
 ...
 [credential "https://github.com"]
         provider = generic

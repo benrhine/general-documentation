@@ -1,4 +1,4 @@
-= Meeting Note(s)
+= How To - Localstack
 // Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
 // having the :toc: value in the adoc files is required for publishToConfluence to work correctly
 ifndef::confluence[]
@@ -10,7 +10,7 @@ ifdef::confluence[]
 endif::[]
 
 // Tags created on pages with keywords relevant to content - default values are present and can be overridden by passed in attribute (and should be). Additionally, when using the publishToConfluence plugin it is more difficult to pass in the keywords so the defaults are preferred.
-:keywords: team, documenation, meeting, notes
+:keywords: how, to, tutorial, documenation, localstack, configuration, help
 
 // Renders correctly in IDE for testing purposes
 // ifndef::confluence[]
@@ -21,18 +21,18 @@ ifdef::confluence[]
 include::{includedir}/version-control-warning.adoc[]
 endif::[]
 
-[TIP]
-Create new Meeting Notes as a sub-page of this page.
 
-Any meeting that specifically had notes recorded should have a new page created for that meeting and attached under this page.
 
-// Renders correctly in IDE
-ifndef::deploy[]
-include::../../_includes/team-nwywlf.adoc[]
-endif::[]
-// Renders correctly in AsciiDoc Deployment
-ifdef::deploy[]
-include::{includedir}/team-nwywlf.adoc[]
-endif::[]
+
+
+
+
+
+
+== Not what you were looking for?
+
+include::{includedir}/how-to-not-what-you-are-looking-for.adoc[]
+
+include::{includedir}/tutorial-not-what-you-are-looking-for.adoc[]
 
 

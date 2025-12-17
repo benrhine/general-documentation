@@ -1,0 +1,216 @@
+= How To - Spring profiles with Kubernetes and Docker
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
+ifndef::confluence[]
+:toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
+
+// Tags created on pages with keywords relevant to content - default values are present and can be overridden by passed in attribute (and should be). Additionally, when using the publishToConfluence plugin it is more difficult to pass in the keywords so the defaults are preferred.
+:keywords: how, to, tutorial, documenation, spring, kubernetes, docker, configuration, help, profile
+
+// Renders correctly in IDE for testing purposes
+// ifndef::confluence[]
+// include::../_includes/version-control-warning.adoc[]
+// endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
+
+This how to is to guide you to correctly configure Spring profiles using Docker and Kubernetes. While this may seem simple on the surface, especially if you are familiar with all three of these technologies there are a few gotcha's in this process that are challenging to see.
+
+== Assumptions
+
+It is assumed that you already have an application configured with Spring Profiles or at a minimum you are familiar with how Spring Profiles work. If you need a refresher please review this https://benrhine.net/wiki/spaces/rc/pages/5572263949/How+To+-+Spring+profiles[How To - Spring Profiles]
+
+== Docker
+
+There are a number of various configurations that can be used to get docker operating correctly but there is a preferred option. Below we will discuss those options and several interesting caveats that occur within the dockerfile.
+
+To start lets view the following `build time` portion of the docker file.
+
+.Build time portion of dockerfile
+[source, dockerfile]
+----
+FROM gradle:9.2.0-jdk21-corretto AS build
+COPY --chown=gradle:gradle . /home/gradle/src
+WORKDIR /home/gradle/src
+
+# Pass in the required arguments by adding "--build-arg SKIP_GIT_HOOKS_ENFORCE=true" to the docker command
+ARG SKIP_GIT_HOOKS_ENFORCE
+# Incoming from github workflow
+ARG SPRING_PROFILE
+
+# Build the jar but do NOT run the unit tests - to run the tests remove "-x test"
+# THIS USES THE PRE-INSTALLED GRADLE TO PREVENT THE WRAPPER FROM DOWNLOADING TO SPEED UP THE IMAGE BUILD
+# THIS COMMAND DOES NOT REQUIRE THAT SPRING PROFILES BE SET
+RUN gradle build --no-daemon -x spotbugsMain -x test -x checkstyleMain -x checkstyleTest -x checkstyleIntegrationTest -x checkstyleApiSmokeTest -x pmdMain -x pmdTest -x pmdIntegrationTest -x pmdApiSmokeTest
+
+# Stage 2 - Runtime stage
+FROM amazoncorretto:21.0.8
+EXPOSE 8080
+RUN mkdir /app
+
+# For this to work correctly the generation of the Spring "plain" jar must be disabled in Gradle in the "jar" block
+COPY --from=build /home/gradle/src/build/libs/*.jar /app/app.jar
+----
+
+There is nothing particular about the above code that is pertinent to this how to.
+
+However, what is worth noting is that supposedly values passed into `ARG` can not be used within the `ENTRYPOINT` command.
+
+.This entrypoint will fail
+[source, dockerfile]
+----
+ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=${SPRING_PROFILE}", "/app/app.jar"]
+----
+
+See the following ...
+
+* https://stackoverflow.com/questions/34324277/how-to-pass-arg-value-to-entrypoint
+* https://stackoverflow.com/questions/37904682/how-do-i-use-docker-environment-variable-in-entrypoint-array
+* https://stackoverflow.com/questions/75182451/dockerfile-entrypoint-doesnt-expand-arg-env-variable
+* https://stackoverflow.com/questions/75062680/docker-entrypoint-shell-form-with-parameters/75063327#75063327
+* https://www.google.com/search?q=pass+spring+profile+to+java+jar&oq=pass+spring+profile+to+java+jar&gs_lcrp=EgZjaHJvbWUqBwgAEAAYgAQyBwgAEAAYgAQyBwgBEAAY7wUyCggCEAAYgAQYogQyCggDEAAYogQYiQUyBwgEEAAY7wUyBwgFEAAY7wXSAQg0MTEwajBqN6gCALACAA&sourceid=chrome&ie=UTF-8
+
+In the above links you will see that it suggested that converting an `ARG` to an `ENV` will solve this issue ...
+
+.This entrypoint will also fail
+[source, dockerfile]
+----
+# Incoming from github workflow
+ARG SPRING_PROFILE
+
+ENV PROFILE=$SPRING_PROFILE
+
+ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=${PROFILE}", "/app/app.jar"]
+----
+
+However, this also does not work ...
+
+=== Verify ARG and ENV
+
+Lets verify that values are actually present in the `ARG` and `ENV` values. Add the following (using your respective values) to validate the values are present.
+
+[source, dockerfile]
+----
+ARG SKIP_GIT_HOOKS_ENFORCE
+ARG SPRING_PROFILE
+
+RUN test -z "SKIP_GIT_HOOKS_ENFORCE" && echo "NULL" || echo "Not NULL"
+RUN test -z "SPRING_PROFILE" && echo "NULL" || echo "Not NULL"
+
+# Or hard code the environment variable into the build
+# ENV SKIP_GIT_HOOKS_ENFORCE="true"
+ENV PROFILE=$SPRING_PROFILE
+
+RUN test -z "PROFILE" && echo "NULL" || echo "Not NULL"
+RUN echo "WHICH PROFILE? $PROFILE"
+----
+
+Now if you try to run again using either of the above `ENTRYPOINT` s you will see that the values are present but are not available in the entry point.
+
+== The core issue
+
+Please recall at the beginning of this How To that it was specifically stated the portion of the dockerfile being presented was the `build time` portion. This is the key to what is going on here. Until the execution reaches the `ENTRYPOINT` execution is in the build phase but once the `ENTRYPOINT` is entered the execution is now in the `runtime` phase. *Variables and values available during `build time` are not available during `runtime`*.
+
+[TIP]
+In most cases it also seems that the `ENTRYPOINT` does not support variable expansion. The core of the issues is the above `build time` vs `runtime` but it also seems that variable expansion at a minimum is not well supported within the `ENTRYPOINT`
+
+== Solution
+
+The solution is to set the required variables at `runtime` to ensure they are available when the application is executing. This can be done by providing the values as part of the Kubernetes manifest
+
+.Kubernetes manifest
+[source, yaml]
+----
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: argocd
+  name: egress-deployment-latest
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: egress
+  template:
+    metadata:
+      labels:
+        app: egress
+    spec:
+      # 🔑 CRITICAL: Use the ServiceAccount with IAM role
+      serviceAccountName: dynamodb-app-sa
+
+      containers:
+        - name: egress
+          image: 000000000.dkr.ecr.us-west-2.amazonaws.com/github/benrhine-egress:v0.0.36
+          env:
+            - name: SPRING_PROFILE
+              value: "dev"
+          ports:
+            - containerPort: 8080
+----
+
+Then using one of the following dockerfile `ENTRYPOINT` s ...
+
+.Exec form with a hardcoded value
+[source, dockerfile]
+----
+ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=dev", "/app/app.jar"]
+----
+
+[NOTE]
+This will not work with variable expansion
+
+.Shell form with a variable
+[source, dockerfile]
+----
+ENTRYPOINT sh -c 'java -jar -Dspring.profiles.active="${SPRING_PROFILE}" /app/app.jar'
+----
+
+.Preferred form using a script
+[source, dockerfile]
+----
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
+----
+
+.entrypoint.sh
+[source, shell]
+----
+#!/bin/sh
+set -e
+
+# Debug: print what we're about to run
+echo "For variables to be available at this point in execution they MUST be provided as part of the Kubernetes manifest"
+echo "Variables set in the Dockerfile WILL NOT be available!!!"
+echo "Starting runtime with SPRING_PROFILE=${SPRING_PROFILE}"
+
+# Use exec to replace shell process with java
+exec java -jar -Dspring.profiles.active="${SPRING_PROFILE}" /app/app.jar
+----
+
+=== Why is the script version preferred?
+
+The script version is preferred as this allows for full shell functionality within docker. Meaning that it allows for easier/better debugging. In the above example if you are using the scripted version it will be possible to see in your deployment prior to application startup what values are being passed in rather than just seeing the application fail with the statement of the variable was not available. This ability to better see what is going on is why this is considered the preferred approach.
+
+I would be remiss if I did not mention that some consider this approach to be a minor security issue due to the fact that variables are being passed into the script and it may be conceivable that someone could pass in unexpected data and cause unexpected behavior. For security purposes the "Exec form" for the dockerfile `ENTRYPOINT` is preferred but since it does not support variable expansion and parameterization is required when using Spring Profiles this is not an option in all cases.
+
+== Reference
+
+* https://www.baeldung.com/ops/docker-entrypoint-environment-variables
+* https://www.geeksforgeeks.org/advance-java/setting-active-profile-and-config-location-from-command-line-in-spring-boot/
+
+== Not what you were looking for?
+
+include::{includedir}/how-to-not-what-you-are-looking-for.adoc[]
+
+include::{includedir}/tutorial-not-what-you-are-looking-for.adoc[]
+
+

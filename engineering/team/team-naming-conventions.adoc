@@ -19,7 +19,7 @@ Where possible and it makes sense for naming repositories and top level items we
 
 == Naming Convention - REQUIRED
 
-Enforcing naming convention ensures DPD repos are easy to find in GitHub and repo scope easily understood.
+Enforcing naming convention ensures BRR repos are easy to find in GitHub and repo scope easily understood.
 
 rc-brr-x-y-z
 
@@ -52,7 +52,14 @@ Aws System Manager Properties should follow the following naming convention ...
 example: /rc/brr/dev/tf/slack_brr_dev_aws_dp_alerts_channel_id
 
 
-== Not what you were looking for?
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../_includes/team-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/team-nwywlf.adoc[]
+endif::[]
 
 
 

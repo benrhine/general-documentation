@@ -16,6 +16,16 @@ ifdef::confluence[]
 include::{includedir}/version-control-warning.adoc[]
 endif::[]
 
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../_includes/team-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/team-nwywlf.adoc[]
+endif::[]
+
 == Reference
 
 - https://community.atlassian.com/forums/Bitbucket-questions/Git-work-flow-for-pull-request-in-large-team/qaq-p/891553#:~:text=Once%20a%20developer%20is%20done,from%20the%20develop%20and%20delivered

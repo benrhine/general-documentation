@@ -1,0 +1,289 @@
+= How To - Asciidoc
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
+ifndef::confluence[]
+:toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
+
+// Tags created on pages with keywords relevant to content - default values are present and can be overridden by passed in attribute (and should be). Additionally, when using the publishToConfluence plugin it is more difficult to pass in the keywords so the defaults are preferred.
+:keywords: how, to, tutorial, documenation, asciidoc, configuration, help
+
+// Renders correctly in IDE for testing purposes
+// ifndef::confluence[]
+// include::../_includes/version-control-warning.adoc[]
+// endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
+
+This How To is intended to describe the complete setup and configuration of https://asciidoctor.org/[AsciiDoctor].
+
+== Why Asciidoc?
+
+Asciidoctor is the preferred documentation standard as it is more robust and flexible than using Markdown. It is well-supported in the industry and can easily be converted into PDF or Confluence documentation.
+
+== Suggested documentation structure
+
+Defining a solid documentation structure is 100% critical for this plugin to work smoothly.
+
+Please review {how-to-5-link}[How To - Structure Project Doc as Code]
+
+[CAUTION]
+Please be aware that when modeling the structure there should be an associated folder for every top level `adoc` file.
+i.e. If you have an `onboarding.adoc` then you should have an `onboarding` folder.
+
+== How to add Asciidoc to a project
+
+Find the latest version of the plugin
+
+* https://plugins.gradle.org/plugin/org.asciidoctor.jvm.convert
+* https://plugins.gradle.org/plugin/org.asciidoctor.jvm.pdf
+
+=== Using Gradle (Preferred)
+
+Start by including the plugin in the Gradle build ...
+
+[source, kotlin]
+----
+// include::../../../../build.gradle.kts[tag=asciidocImport]
+----
+
+Next configure the asciidoc plugin ...
+
+.Default Configuration
+[source, kotlin]
+----
+tasks {
+    "asciidoctor"(AsciidoctorTask::class) {
+        setSourceDir(file("documentation"))
+        sources(delegateClosureOf<PatternSet> {
+            include("*.adoc")
+        })
+        setOutputDir(file("build/docs"))
+    }
+}
+----
+
+* `setSourceDir` - tells the plugin where to look for documentation
+* `sources` - tells the plugin what file types to look for
+* `setOutputDir` - tells the plugin where to place processed documentation files
+
+==== Advanced Configuration | Overcoming Limitations
+
+Asciidoc is primarily designed to do single page documentation so when you need to be able to add multiple levels it requires a bit of extra setup. The easiest way achieve multi-level documentation is to register a custom Gradle task for each subdirectory. There is a asciidoc multipage plugin https://www.google.com/search?q=asciidoctor+multipage+gradle&oq=asciidoctor+multipage+gradle&gs_lcrp=EgZjaHJvbWUqBggAEEUYOzIGCAAQRRg7MgcIARAhGKABMgcIAhAhGKABMgcIAxAhGKABMgcIBBAhGKABMgcIBRAhGKAB0gEINTg5MGowajeoAgCwAgA&sourceid=chrome&ie=UTF-8[Google Search] but I have not had success with this and by comparison adding an extra Gradle task is very easy.
+
+It is suggested your documentation follow the structure provided above ...
+
+.Custom task 1
+[source, kotlin]
+----
+tasks {
+    ...
+// include::../../../../build.gradle.kts[tag=docConfluence]
+    ...
+}
+----
+The above task is essentially the same as the "Default Configuration" but we have registered it with a different name. This task builds the top level Confluence anchor pages.
+
+.Custom task 2
+[source, kotlin]
+----
+tasks {
+    ...
+// include::../../../../build.gradle.kts[tag=docConfluenceBusiness]
+    ...
+}
+----
+The above task is essentially the same as the "Default Configuration," but we have registered it with a different name. This task builds documentation that is included under the Business folder.
+
+==== Attributes
+
+Attributes can be supplied to an asciidoc task as follows ...
+
+[source, kotlin]
+----
+attributes(
+    mapOf(
+        "sourcedir"     to file("documentation").absolutePath,
+        "includedir"    to file("documentation/_includes").absolutePath,
+        "author"        to "test author",    // This value will only be visible in generated doc, Confluence derives author from PAT
+        "project-name"  to projectName,      // Dynamically set project name
+        "revdate"       to today,            // Update last updated value
+        "organization"  to organization      // What organization is this documentation under
+    )
+)
+----
+
+When supplying attributes from the task it may not be necessary to include the values in the `adoc` file directly. As an example by supplying the `revdate` as seen above in the task all pages will show an updated revision date.
+
+===== includedir
+
+The `includedir is a special case is a bit funky depending on which system is trying to operate on the AsciiDoc.
+
+* local system / IDE wants a relative path as a provided value like `../_includes`
+* building the doc wants the absolute path like `/User/username/repo/doc/_includes`
+
+In order to make this happy in all variations it is suggested that each `adoc` file have the following ...
+
+* `:includedir: ../../_includes` - or whatever the appropriate relative path is. This will ensure the IDE is happy and the preview documentation renders correctly.
+
+It is also suggested that each AsciiDoc task have an `includedir` attribute with the absolute path to the actual `_include` directory like the following ...
+
+[source, kotlin]
+----
+attributes(
+    mapOf(
+        "includedir"    to file("documentation/_includes").absolutePath
+    )
+)
+----
+
+This will ensure when the AsciiDoc task is executed that the full and complete paths are present and all includes will be fully rendered in the generated documentation.
+
+=== Using Maven
+
+* TODO
+
+== Attributes
+
+Adding `attributes` to the asciidoc configuration allows you to pass runtime data to the asciidoc build process.
+
+== Substitutions
+
+Asciidoc can take values passed to it through the asciidoc gradle task attributes and place them in the final documentation. To reference an attribute in a `.adoc` file just include `{my-attribute-value}`.
+
+[CAUTION]
+While asciidoc itself supports substitutions with values provided through the asciidoc gradle task attributes into the final documentation, the publishToConfluence task does not, and you will end up seeing the variable names in the doc that is published to confluence. For details see - {how-to-3-link}[How To - Publish to Confluence].
+
+== Expected Warnings
+
+You should expect to see a number of warnings when running Asciidoc as there are some older libraries used during the task execution.
+
+[NOTE]
+This may be something that will be resolved in the future and looks like it might be related to the newer Java 24. See - https://github.com/gradle/gradle/issues/31625
+
+[source, shell]
+----
+> Task :docConfluenceXXXXXXXXXX
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::arrayBaseOffset has been called by org.jruby.util.StringSupport (file:/Users/fz203f/.gradle/caches/modules-2/files-2.1/org.jruby/jruby-complete/9.3.8.0/8e11191265ab501930125081d8c21a3f55f1b8cd/jruby-complete-9.3.8.0.jar)
+WARNING: Please consider reporting this to the maintainers of class org.jruby.util.StringSupport
+WARNING: sun.misc.Unsafe::arrayBaseOffset will be removed in a future release
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by com.kenai.jffi.internal.StubLoader in an unnamed module (file:/Users/fz203f/.gradle/caches/modules-2/files-2.1/org.jruby/jruby-complete/9.3.8.0/8e11191265ab501930125081d8c21a3f55f1b8cd/jruby-complete-9.3.8.0.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+----
+
+You may also see warnings like the following stating that an `include` can not be found ... this is only partially true and I don't full understand why. The `include`(s) that have been configured show up correctly in the repo AND correctly in confluence but NOT in the generated html pages. This warning is saying that the html pages were unable to see it. I don't understand how it works in two places and not the other.
+
+Additional errors in the ascii doc will show up similarly in this section when you run the task. If you are having issues this is where you should be looking.
+
+[source, shell]
+----
+Aug 05, 2025 9:30:15 AM uri:classloader:/gems/asciidoctor-2.0.18/lib/asciidoctor/reader.rb preprocess_include_directive
+SEVERE: howto-asciidoc.adoc: line 10: include file not found: /Users/fz203f/Repository/dpc/_includes/version-control-warning.adoc
+include file not found: /Users/fz203f/Repository/dpc/_includes/version-control-warning.adoc :: howto-asciidoc.adoc :: /Users/fz203f/Repository/dpc/dpc-base-cloud-resources//Users/fz203f/Repository/dpc/dpc-base-cloud-resources/documentation/confluence/how-to/howto-asciidoc.adoc:10 (uri:classloader:/gems/asciidoctor-2.0.18/lib/asciidoctor/reader.rb:preprocess_include_directive)
+Aug 05, 2025 9:30:15 AM uri:classloader:/gems/asciidoctor-2.0.18/lib/asciidoctor/reader.rb preprocess_include_directive
+include file not found: /Users/fz203f/build.gradle.kts :: howto-asciidoc.adoc :: /Users/fz203f/Repository/dpc/dpc-base-cloud-resources//Users/fz203f/Repository/dpc/dpc-base-cloud-resources/documentation/confluence/how-to/howto-asciidoc.adoc:49 (uri:classloader:/gems/asciidoctor-2.0.18/lib/asciidoctor/reader.rb:preprocess_include_directive)
+SEVERE: howto-asciidoc.adoc: line 49: include file not found: /Users/fz203f/build.gradle.kts
+Aug 05, 2025 9:30:15 AM uri:classloader:/gems/asciidoctor-2.0.18/lib/asciidoctor/reader.rb preprocess_include_directive
+SEVERE: howto-asciidoc.adoc: line 83: include file not found: /Users/fz203f/build.gradle.kts
+include file not found: /Users/fz203f/build.gradle.kts :: howto-asciidoc.adoc :: /Users/fz203f/Repository/dpc/dpc-base-cloud-resources//Users/fz203f/Repository/dpc/dpc-base-cloud-resources/documentation/confluence/how-to/howto-asciidoc.adoc:83 (uri:classloader:/gems/asciidoctor-2.0.18/lib/asciidoctor/reader.rb:preprocess_include_directive)
+Aug 05, 2025 9:30:15 AM uri:classloader:/gems/asciidoctor-2.0.18/lib/asciidoctor/reader.rb preprocess_include_directive
+SEVERE: howto-asciidoc.adoc: line 94: include file not found: /Users/fz203f/build.gradle.kts
+include file not found: /Users/fz203f/build.gradle.kts :: howto-asciidoc.adoc :: /Users/fz203f/Repository/dpc/dpc-base-cloud-resources//Users/fz203f/Repository/dpc/dpc-base-cloud-resources/documentation/confluence/how-to/howto-asciidoc.adoc:94 (uri:classloader:/gems/asciidoctor-2.0.18/lib/asciidoctor/reader.rb:preprocess_include_directive)
+Aug 05, 2025 9:30:15 AM uri:classloader:/gems/asciidoctor-2.0.18/lib/asciidoctor/reader.rb preprocess_include_directive
+SEVERE: howto-publish-to-confluence.adoc: line 10: include file not found: /Users/fz203f/Repository/dpc/_includes/version-control-warning.adoc
+include file not found: /Users/fz203f/Repository/dpc/_includes/version-control-warning.adoc :: howto-publish-to-confluence.adoc :: /Users/fz203f/Repository/dpc/dpc-base-cloud-resources//Users/fz203f/Repository/dpc/dpc-base-cloud-resources/documentation/confluence/how-to/howto-publish-to-confluence.adoc:10 (uri:classloader:/gems/asciidoctor-2.0.18/lib/asciidoctor/reader.rb:preprocess_include_directive)
+
+----
+
+== Adoc Reference
+
+Below are some examples of asciidoc syntax
+
+[source, asciidoc]
+----
+== Document Title
+Author Name
+:revdate: {current-date}
+:toc:
+
+This is the preamble of the document. It provides an introduction to the content that follows.
+
+this is an edit
+edit again
+
+test again and again
+
+and another update
+
+== Section 1: Introduction
+
+This section introduces the main topic. AsciiDoc is a lightweight markup language that is easy to read and write.
+
+=== Subsection 1.1: Basic Formatting
+
+Here are some examples of basic inline formatting:
+
+*   *Bold text*
+*   _Italic text_
+*   `Monospace text`
+*   `+Literal text+`
+*   ^Superscript^
+*   ~Subscript~
+
+This is a new paragraph within the same subsection.
+
+=== Subsection 1.2: Lists
+
+. Numbered List
+.. Item one
+.. Item two
+. Item three
+
+* Unordered List
+** Sub-item A
+** Sub-item B
+* Sub-item C
+
+== Section 2: Advanced Elements
+
+This section demonstrates more advanced AsciiDoc features.
+
+=== Table Example
+
+.Sample Data Table
+|===
+|Header 1 |Header 2 |Header 3
+|Cell A1 |Cell B1 |Cell C1
+|Cell A2 |Cell B2 |Cell C2
+|===
+
+=== Code Block
+
+```java
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, AsciiDoc!");
+    }
+}
+```
+----
+
+== Not what you were looking for?
+
+include::{includedir}/how-to-not-what-you-are-looking-for.adoc[]
+
+include::{includedir}/tutorial-not-what-you-are-looking-for.adoc[]
+
+== Reference
+
+* https://docs.asciidoctor.org/asciidoc/latest/

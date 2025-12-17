@@ -26,11 +26,11 @@ This page is intended to capture all documentation specific to the team and team
 
 // Renders correctly in IDE
 ifndef::deploy[]
-include::../_includes/eng-level-team-links.adoc[]
+include::../_includes/team-links.adoc[]
 endif::[]
 // Renders correctly in AsciiDoc Deployment
 ifdef::deploy[]
-include::{includedir}/eng-level-team-links.adoc[]
+include::{includedir}/team-links.adoc[]
 endif::[]
 
 // Renders correctly in IDE

@@ -36,12 +36,18 @@ This team follows the "Docs as Code" philosophy.
 
 == How should Docs as Code be structured?
 
-To view the recommended directory and page structure for a new project please review the documentation {how-to-5-link}e[here].
+To view the recommended directory and page structure for a new project please review the documentation {tl-how-to-link-075}[here].
 
 == How should Docs as Code be published?
 
-To view the complete process of how documentation is programmatically published please review the documentation {tutorial-1-link}[here].
+To view the complete process of how documentation is programmatically published please review the documentation {tl-tutorials-link-03}[here].
 
-== Not what you were looking for?
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../_includes/team-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/team-nwywlf.adoc[]
+endif::[]
 
-include::{includedir}/team-not-what-you-are-looking-for.adoc[]

@@ -74,6 +74,14 @@ A reference template has been created by the {team-name-1-abv-upper} team and ca
 
 To review project specific architectural decision records please see the ADRs folder located under the specific project under {sl-projects-link}[Projects].
 
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../_includes/team-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/team-nwywlf.adoc[]
+endif::[]
 
 == Reference
 

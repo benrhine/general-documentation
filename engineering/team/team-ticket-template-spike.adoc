@@ -51,9 +51,14 @@ Spikes should have all the necessary resources attached to them. This can be thr
 * Who to reach out to for questions
 * Who to reach out to for any usernames or passwords
 
-== Not what you were looking for?
-
-include::{includedir}/team-not-what-you-are-looking-for.adoc[]
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../_includes/team-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/team-nwywlf.adoc[]
+endif::[]
 
 
 

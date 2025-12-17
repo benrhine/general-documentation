@@ -1,0 +1,299 @@
+= How To - Deploy ALB Ingress to EKS Cluster
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
+ifndef::confluence[]
+:toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
+
+// Tags created on pages with keywords relevant to content - default values are present and can be overridden by passed in attribute (and should be). Additionally, when using the publishToConfluence plugin it is more difficult to pass in the keywords so the defaults are preferred.
+:keywords: how, to, open, tofu, terraform, iam, manual
+
+// Renders correctly in IDE for testing purposes
+// ifndef::confluence[]
+// include::../_includes/version-control-warning.adoc[]
+// endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
+
+// This page contains generic information disclaimer
+include::{includedir}/generic-information.adoc[]
+
+This document describes the steps to deploy an Application Load Balancer (ALB) Ingress Controller to an Amazon EKS cluster using Kubernetes.
+
+== Prerequisites
+
+This assumes you have an existing EKS cluster configured on EKS Auto Mode (this is the default for clusters deployed by the Platform team with InfraWeave). If your cluster is not on EKS Auto Mode, you must also install the AWS Load Balancer Controller manually.
+This also assumes you have an `nginx-ingress-controller` already installed in your EKS cluster.
+
+== Steps to Deploy ALB Ingress Controller
+
+1. **Create IngressClassParams:**
+  - Create parameters for the ALB IngressClass:
++
+[source, yaml]
+----
+apiVersion: eks.amazonaws.com/v1
+kind: IngressClassParams
+metadata:
+  name: alb-mtls-params
+spec:
+  scheme: internal
+  ipAddressType: ipv4
+----
+
+2. **Create IngressClass:**
+    - Create the ALB IngressClass using the parameters created above:
++
+[source, yaml]
+----
+apiVersion: networking.k8s.io/v1
+kind: IngressClass
+metadata:
+  name: alb-mtls
+spec:
+  controller: eks.amazonaws.com/alb
+  parameters:
+    apiGroup: eks.amazonaws.com
+    kind: IngressClassParams
+    name: alb-mtls-params
+----
+
+3. **Verify Installation:**
+  - Apply the above configurations to your EKS cluster using `kubectl apply -f <filename>.yaml`.
+  - Verify that the IngressClass and IngressClassParams have been created successfully:
++
+[source, bash]
+----
+kubectl get ingressclass
+----
+
+4. **Create Ingress for ALB:**
+    - Create an Ingress resource that uses the ALB IngressClass:
++
+[source, yaml]
+----
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginx-ingress-alb
+  namespace: ingress-nginx
+  annotations:
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/backend-protocol: HTTP
+    alb.ingress.kubernetes.io/healthcheck-path: /healthz
+    alb.ingress.kubernetes.io/healthcheck-port: "10254"
+    alb.ingress.kubernetes.io/healthcheck-protocol: HTTP
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
+    alb.ingress.kubernetes.io/certificate-arn: <YOUR-ACM-CERT-ARN>
+spec:
+  ingressClassName: alb-mtls
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: ingress-nginx-controller
+                port:
+                  number: 80
+----
++
+[NOTE]
+====
+To get your ACM Certificate ARN, you can use the AWS Management Console or AWS CLI to list your certificates (`aws acm list-certificates`) and find the appropriate ARN.
+====
+
+5. **Get ALB and Listener ARNs:**
+- After applying the Ingress resource, retrieve the ALB and Listener ARNs:
++
+[source, bash]
+----
+# Get the ALB ARN
+ALB_ARN=$(aws elbv2 describe-load-balancers \
+  --region us-west-2 \
+  --profile <YOUR-PROFILE> \
+  --query 'LoadBalancers[?Type==`application`].LoadBalancerArn' \
+  --output text)
+
+# Get the HTTPS listener ARN (port 443)
+LISTENER_ARN=$(aws elbv2 describe-listeners \
+  --load-balancer-arn $ALB_ARN \
+  --region us-west-2 \
+  --profile <YOUR-PROFILE> \
+  --query 'Listeners[?Port==`443`].ListenerArn' \
+  --output text)
+----
+
+6. **Create Trust Store:**
++
+[NOTE]
+====
+You must have a CA certificate from the AWS Private CA created earlier to proceed with this step (`ca.crt` file). If you do not have one, refer to the {how-to-11-link}[How to Create Certificate Authority] documentation.
+====
+- Create a trust store for the ALB to use the internal CA:
++
+[source, bash]
+----
+# Create S3 bucket for trust store
+aws s3 mb s3://<YOUR-TRUST-STORE-BUCKET> --region us-west-2 --profile <YOUR-PROFILE>
+
+# Upload CA cert to S3
+aws s3 cp ca.crt s3://<YOUR-TRUST-STORE-BUCKET>/ca.crt --profile <YOUR-PROFILE>
+
+aws elbv2 create-trust-store \
+  --name my-mtls-trust-store \
+  --ca-certificates-bundle-s3-bucket <YOUR-TRUST-STORE-BUCKET> \
+  --ca-certificates-bundle-s3-key ca.crt \
+  --region us-west-2 \
+  --profile <YOUR-PROFILE>
+
+# Get the ARN from the output and save it
+NEW_TRUST_STORE_ARN="<paste-arn-from-output>"
+
+aws elbv2 modify-listener \
+  --listener-arn $LISTENER_ARN \
+  --mutual-authentication Mode=verify,TrustStoreArn=$NEW_TRUST_STORE_ARN \
+  --region us-west-2 \
+  --profile <YOUR-PROFILE>
+
+# Verify the listener has been updated
+aws elbv2 describe-listeners \
+  --listener-arn $LISTENER_ARN \
+  --region us-west-2 \
+  --profile <YOUR-PROFILE> \
+  --query 'Listeners[0].MutualAuthentication'
+----
+
+7. **Configure CRL for Private CA (Optional):**
+- If you want to configure a Certificate Revocation List (CRL) in your trust store, follow these steps:
++
+[source, bash]
+----
+# Get latest CRL from AWS PCA
+LATEST_CRL=$(aws s3 ls s3://<CRL-BUCKET>/crl/<CA-ID>/ --profile <YOUR-PROFILE> | sort | tail -1 | awk '{print $4}')
+
+# Download and convert to PEM
+aws s3 cp s3://<CRL-BUCKET>/crl/<CA-ID>/$LATEST_CRL ./latest.crl --profile <YOUR-PROFILE>
+openssl crl -in latest.crl -out latest-pem.crl -outform PEM
+
+# Upload to trust store bucket
+aws s3 cp latest-pem.crl s3://<YOUR-TRUST-STORE-BUCKET>/revocation.crl --profile <YOUR-PROFILE>
+
+# Add to trust store
+aws elbv2 add-trust-store-revocations \
+  --trust-store-arn $NEW_TRUST_STORE_ARN \
+  --revocation-contents S3Bucket=<YOUR-TRUST-STORE-BUCKET>,S3Key=revocation.crl \
+  --region us-west-2 \
+  --profile <YOUR-PROFILE>
+----
++
+[CAUTION]
+====
+CRL updates must be manually re-added whenever certificates are revoked. The trust store simply takes a snapshot of the CRL S3 bucket. Consider automating this with Lambda.
+====
+
+8. **Configure nginx-ingress for SSL Redirect:**
+- Disable SSL redirect in nginx-ingress since ALB handles TLS. This affects all ingresses managed by nginx-ingress controller:
++
+[source, bash]
+----
+kubectl patch configmap ingress-nginx-controller -n ingress-nginx --type=merge -p='{"data":{"force-ssl-redirect":"false"}}'
+
+# Restart controller
+kubectl rollout restart deployment -n ingress-nginx ingress-nginx-controller
+----
+
+9. **Per Application Ingress Configuration:**
+- In your application-specific Ingress resource, ensure SSL redirect is disabled by adding the annotation seen below:
++
+[source, yaml]
+----
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-app-ingress
+  namespace: <YOUR-NAMESPACE>
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: <YOUR-HOSTNAME>
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: <YOUR-SERVICE>
+            port:
+              number: 80
+----
+
+
+10. **Test:**
+- Test the setup by accessing your application through the ALB DNS name over HTTPS. Ensure that mutual TLS authentication is functioning as expected. You will need to be in a pod within the cluster.
++
+[NOTE]
+====
+You will need a client certificate signed by the internal CA to test mutual TLS. If you do not have one, refer to the {how-to-14-link}[How to Issue and Sign Certificates with Private Certificate Authority] documentation to issue a client certificate.
+====
++
+[source, bash]
+----
+# To make new temp pod for testing
+kubectl run tmp --image nginx:1.28.0 -n test-cert
+kubectl cp client.crt tmp:tmp -n test-cert
+kubectl cp client.key tmp:tmp -n test-cert
+kubectl cp ca.crt tmp:tmp -n test-cert
+kubectl exec -it -n test-cert tmp -- bash
+
+# Inside the pod, use curl to test
+cd tmp
+curl -v \
+  --cert client.crt \
+  --key client.key \
+  --cacert ca.crt \
+  https://<ALB-DNS-NAME>/ \
+  -H "Host: <YOUR-HOSTNAME>"
+----
+
+== Troubleshooting
+
+=== 404 errors
+- Check nginx config: `kubectl exec -n ingress-nginx deployment/ingress-nginx-controller -- cat /etc/nginx/nginx.conf | grep <YOUR-HOSTNAME>`
+- Verify ingress exists: `kubectl get ingress -A`
+
+=== 308 redirects
+- Ensure `force-ssl-redirect: false` in ConfigMap
+- Add `ssl-redirect: "false"` annotation to app ingress
+
+=== Connection reset
+- Verify trust store has correct CA certificate
+- Check client cert is signed by the CA in trust store
+- Verify CRL is up to date if using revocation
+
+=== No cert metadata in headers
+- Ensure ALB listener has `Mode: verify` (not `passthrough` or `off`)
+- Check trust store association status is `active`
+
+== Key Considerations
+
+1. **EKS Auto Mode specific**: Uses `eks.amazonaws.com/v1` API, not standard AWS Load Balancer Controller
+2. **No configuration-snippet**: Complex nginx snippets may cause ingress to be ignored silently
+3. **HTTP backend**: ALB → nginx uses HTTP (TLS terminated at ALB)
+4. **CRL updates**: Must be manually refreshed when certificates are revoked
+5. **Subnet selection**: EKS Auto Mode auto-detects subnets based on tags
+
+== Not what you were looking for?
+
+include::{includedir}/how-to-not-what-you-are-looking-for.adoc[]
+
+include::{includedir}/tutorial-not-what-you-are-looking-for.adoc[]

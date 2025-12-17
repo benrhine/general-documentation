@@ -1,0 +1,46 @@
+= How To - Automatically publishing a Changelog
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
+ifndef::confluence[]
+:toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
+
+// Tags created on pages with keywords relevant to content - default values are present and can be overridden by passed in attribute (and should be). Additionally, when using the publishToConfluence plugin it is more difficult to pass in the keywords so the defaults are preferred.
+:keywords: how, to, help, confluence, token, cloud
+
+// Renders correctly in IDE for testing purposes
+// ifndef::confluence[]
+// include::../_includes/version-control-warning.adoc[]
+// endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
+
+This How To is to detail how to configure an auto publishing changelog from applications to Confluence.
+
+This How To assumes that you are already familiar with the following ...
+
+* {how-to-1-link}[How To - Configure Confluence Personal Access Token]
+* {how-to-10-link}[How To - Configure Confluence Cloud Token]
+* {how-to-2-link}[How To - Asciidoc]
+* {how-to-3-link}[How To - Publish to Confluence]
+* {how-to-4-link}[How To - Publish project specific documentation to Confluence]
+
+== Quick and Dirty version
+
+* Add the git-changelog-gradle-plugin
+** https://plugins.gradle.org/plugin/se.bjurr.gitchangelog.git-changelog-gradle-plugin
+* Configure the plugin
+* Add a step to the GitHub Documentation Publishing Workflow
+* Allow documentation publishing to occur as normal
+** This will pick up the newly generated changelog file
+
+== Creating a changelog based on git commit messages
+
+
+== Publishing the generated changelog to Confluence

@@ -1,0 +1,125 @@
+= How To - Create a Private Certificate Authority in AWS
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
+ifndef::confluence[]
+:toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
+
+// Tags created on pages with keywords relevant to content - default values are present and can be overridden by passed in attribute (and should be). Additionally, when using the publishToConfluence plugin it is more difficult to pass in the keywords so the defaults are preferred.
+:keywords: how, to, open, tofu, terraform, iam, manual
+
+// Renders correctly in IDE for testing purposes
+// ifndef::confluence[]
+// include::../_includes/version-control-warning.adoc[]
+// endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
+
+// This page contains generic information disclaimer
+include::{includedir}/generic-information.adoc[]
+
+This document describes the steps to create a Certificate Authority (CA) using AWS. A CA is essential for issuing digital certificates that verify the identity of entities in a network.
+
+== Prerequisites
+
+You will need an S3 bucket to store the Certificate Revocation List (CRL). This bucket can be created when creating the Private CA or you can use an existing bucket.
+
+Because of the Platform 2.0 security policies, you must ask Shaimon Athimattathil to add the `s3:GetBucketLocation` permission to the bucket policy of the S3 bucket you will use.
+
+== Steps to Create a Certificate Authority
+
+[CAUTION]
+====
+If using terminal, you might need to include `--profile example` in your AWS CLI commands to ensure you are using the correct AWS account.
+====
+
+1. **Create a Private CA in AWS:**
+   - Navigate to the AWS Certificate Manager (ACM) console.
+   - Select "Private CAs" from the sidebar and click "Create a private CA".
+   - Choose a root CA with short-lived as the mode.
+   - Fill in the required details for the CA, such as organization name, organizational unit, country, etc.
+   - Leave the key algorithm as the default (RSA 2048).
+   - For the certificate revocation list (CRL) configuration, choose the S3 bucket you prepared earlier (see Prerequisites).
+   - Select 'BUCKET_OWNER_FULL_CONTROL' for the bucket access policy.
+   - Complete the creation process.
+
+2. **Issue CA Certificate:**
+    - After creating the CA, get the ARN of the newly created CA using the AWS CLI:
++
+[source, bash]
+----
+CA_ARN=$(aws acm-pca list-certificate-authorities \
+  --region us-west-2 \
+  --profile <YOUR-PROFILE> \
+  --query 'CertificateAuthorities[?Status==`PENDING_CERTIFICATE`].Arn' \
+  --output text)
+----
+    - Get the CSR (Certificate Signing Request) for the CA:
++
+[source, bash]
+----
+aws acm-pca get-certificate-authority-csr \
+  --certificate-authority-arn $CA_ARN \
+  --output text \
+  --profile <YOUR-PROFILE> \
+  --region us-west-2 > ca.csr
+----
+- Issue the root CA certificate:
++
+[source, bash]
+----
+CA_CERT_ARN=$(aws acm-pca issue-certificate \
+  --certificate-authority-arn $CA_ARN \
+  --csr fileb://ca.csr \
+  --signing-algorithm "SHA256WITHRSA" \
+  --template-arn arn:aws:acm-pca:::template/RootCACertificate/V1 \
+  --validity Value=10,Type="YEARS" \
+  --region us-west-2 \
+  --profile <YOUR-PROFILE> \
+  --query 'CertificateArn' \
+  --output text)
+----
+- Wait for a few moments and then retrieve the issued CA certificate:
++
+[source, bash]
+----
+aws acm-pca get-certificate \
+  --certificate-authority-arn $CA_ARN \
+  --certificate-arn $CA_CERT_ARN \
+  --region us-west-2 \
+  --profile <YOUR-PROFILE> \
+  --query 'Certificate' \
+  --output text > ca.crt
+----
+- Import the issued CA certificate back into the Private CA:
++
+[source, bash]
+----
+aws acm-pca import-certificate-authority-certificate \
+  --certificate-authority-arn $CA_ARN \
+  --certificate fileb://ca.crt \
+  --region us-west-2 \
+  --profile <YOUR-PROFILE>
+----
+- Verify the CA status:
++
+[source, bash]
+----
+# Verify CA is active
+aws acm-pca describe-certificate-authority \
+  --certificate-authority-arn $CA_ARN \
+  --region us-west-2 \
+  --profile <YOUR-PROFILE> \
+  --query 'CertificateAuthority.Status'
+----
+
+== Notes
+
+* S3 bucket used for CRL testing (in the dev-aws-dp account): `test-cert-auth-revocation-list`
+

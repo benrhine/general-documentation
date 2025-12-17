@@ -1,0 +1,199 @@
+= How To - Create an IAM role on Platform 2.0
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
+ifndef::confluence[]
+:toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
+
+// Tags created on pages with keywords relevant to content - default values are present and can be overridden by passed in attribute (and should be). Additionally, when using the publishToConfluence plugin it is more difficult to pass in the keywords so the defaults are preferred.
+:keywords: how, to, open, tofu, terraform, iam, manual
+
+// Renders correctly in IDE for testing purposes
+// ifndef::confluence[]
+// include::../_includes/version-control-warning.adoc[]
+// endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
+
+// This page contains generic information disclaimer
+include::{includedir}/generic-information.adoc[]
+
+This page is intended to describe how to create new IAM roles on platform 2.0 using Terraform, OpenTofu, or manually.
+
+[CAUTION]
+All the following assume that you as a user have the correct permissions to be able to create new IAM roles. If you are having issues creating new roles please check with your manager/lead if you have appropriate access.
+
+[WARNING]
+This is written from the perspective that the project is using the "local to the project" modules for IAM role creation
+
+== Platform 2.0 Considerations
+
+When creating IAM roles in the new platform there are additional security considerations that were not previously part of the developers' workflow. Previously it was possible to create IAM roles following the standard Aws documentation but with the advent of platform 2.0 there are previously optional values that are now required.
+
+To successfully create IAM roles in Platform 2.0 using any non-super admin role you must now attach a _boundary policy_. (For more information on boundary policies see https://aws.amazon.com/blogs/security/when-and-where-to-use-iam-permissions-boundaries/[here].) This can be accomplished by setting the modules `iam_permissions_boundary` property with this provided value ...
+
+* `arn:aws:iam::043509841698:policy/DP-DefaultPermissionBoundary`
+
+[NOTE]
+The above value is a bit problematic in my mind as this value is account specific and will need to be available in every account that we deploy to. Meaning we will have to track this value and supply unique account specific values whenever creating new IAM roles.
+
+[WARNING]
+It is NOT possible to sub the account number with a blank value or a wildcard `*`. Either of these substitutions will result in errors.
+
+The following have been updated to reflect this additional requirement.
+
+== https://opentofu.org/[OpenTofu]
+
+[NOTE]
+OpenTofu is a Terraform fork due to licensing changes in main line Terraform. It is supposed to be a feature enhanced drop in replacement for Terraform.
+
+.terraform.tf
+[source, terraform]
+----
+terraform {
+  required_providers {
+    # Configures access to AWS
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 6.11.0"
+    }
+    # Configures access to GitHub - ONLY REQUIRED to set GitHub Action secrets
+    github = {
+      source  = "integrations/github"
+      version = "~> 6.6.0"
+    }
+  }
+# THIS LINE IS DIFFERENT BETWEEN OPEN TOFU AND TERRAFORM!!!
+  required_version = "~> 1.10.0"
+
+# Enable after initial run
+#  backend "s3" {
+#    bucket       = "tf-state-38i59nb5"
+#    key          = "base-cloud-resources/terraform.tfstate"
+#    region       = "us-west-2"
+#    encrypt      = true
+#    use_lockfile = true #S3 native locking
+#    profile      = "dev"
+#  }
+}
+----
+
+.main.tf
+[source, terraform]
+----
+# Create an IAM role to be assumed by GitHub Action
+module "github_oidc_assume_role" {
+  source = "../../modules/iam-roles" # Where to find the module
+  ######################################################################################################################   # Value passed in via variables.tf
+  iam_role_name            = var.iam_role_name
+  iam_role_description     = "This is the base role that will be assumed"
+  iam_assume_role_policy   = data.aws_iam_policy_document.github_oidc_assume_role.json
+  iam_permissions_boundary = var.permissions_boundary // This is a requirement of the Platform Team
+  iam_tags_environment     = var.tag_environment
+  iam_tags_origination     = var.tag_origination_repo
+  iam_tags_project         = var.project_name
+}
+----
+
+[TIP]
+Values are configured in the `variables.tf` file.
+
+== https://developer.hashicorp.com/terraform[Terraform]
+
+.terraform.tf
+[source, terraform]
+----
+terraform {
+  required_providers {
+    # Configures access to AWS
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 6.11.0"
+    }
+    # Configures access to GitHub - ONLY REQUIRED to set GitHub Action secrets
+    github = {
+      source  = "integrations/github"
+      version = "~> 6.6.0"
+    }
+  }
+# THIS LINE IS DIFFERENT BETWEEN TERRAFORM AND OPEN TOFU!!!
+  required_version = "~> 1.13.1"
+
+# Enable after initial run
+#  backend "s3" {
+#    bucket       = "tf-state-38i59nb5"
+#    key          = "base-cloud-resources/terraform.tfstate"
+#    region       = "us-west-2"
+#    encrypt      = true
+#    use_lockfile = true #S3 native locking
+#    profile      = "dev"
+#  }
+}
+----
+
+.main.tf
+[source, terraform]
+----
+# Create an IAM role to be assumed by GitHub Action
+module "github_oidc_assume_role" {
+  source = "../../modules/iam-roles" # Where to find the module
+  ######################################################################################################################   # Value passed in via variables.tf
+  iam_role_name            = var.iam_role_name
+  iam_role_description     = "This is the base role that will be assumed"
+  iam_assume_role_policy   = data.aws_iam_policy_document.github_oidc_assume_role.json
+  iam_permissions_boundary = var.permissions_boundary // This is a requirement of the Platform Team
+  iam_tags_environment     = var.tag_environment
+  iam_tags_origination     = var.tag_origination_repo
+  iam_tags_project         = var.project_name
+}
+----
+
+[TIP]
+Values are configured in the `variables.tf` file.
+
+== Manually
+
+* Navigate to Aws Console
+* Log in
+* In the top search bar -> search "IAM"
+** Click IAM
+* Select "Roles" from the left hand menu
+* After the page loads select "Create role" button on the upper right hand side
+* Select "Trusted entity type" and "Use case"
+* Next
+* Select a policy (or don't)
+* Next
+* Provide a role name and description
+* Modify the "Trust Policy" if required
+* Click "Create role"
+* Done
+
+== Errors
+
+=== Boundary Policy with no account in ARN
+
+If you attempt to attach a boundary policy with no account specified in the ARN you will see the following error ...
+
+[source, shell]
+----
+│ Error: creating IAM Role (github_oidc_assume_role): operation error IAM: CreateRole, https response error StatusCode: 404, RequestID: 10185db5-1b13-4237-ac02-3faefee9b9ad, api error NoSuchEntity: Scope ARN: arn:aws:iam:::policy/DP-DefaultPermissionBoundary does not exist or is not attachable.
+----
+
+=== Boundary Policy with wildcard in ARN
+
+If you attempt to attach a boundary policy with a wildcard value (`*`) for the account specified in the ARN you will see the following error ...
+
+[source, shell]
+----
+│ Error: "permissions_boundary" (arn:aws:iam::*:policy/DP-DefaultPermissionBoundary) is an invalid ARN: invalid account ID value (expecting to match regular expression: ^(aws|aws-managed|third-party|aws-marketplace|\d{12}|cw.{10})$)
+----
+
+== Reference
+
+* https://aws.amazon.com/blogs/security/when-and-where-to-use-iam-permissions-boundaries/

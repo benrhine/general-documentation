@@ -1,0 +1,82 @@
+= How To - Structure Project Doc as Code
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
+ifndef::confluence[]
+:toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+endif::[]
+
+// Tags created on pages with keywords relevant to content - default values are present and can be overridden by passed in attribute (and should be). Additionally, when using the publishToConfluence plugin it is more difficult to pass in the keywords so the defaults are preferred.
+:keywords: how, to, tutorial, documenation, asciidoc, configuration, help, structure, project, as ,code
+
+// Renders correctly in IDE for testing purposes
+// ifndef::confluence[]
+// include::../_includes/version-control-warning.adoc[]
+// endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
+
+This How To is intended to describe how to correctly structure project documentation within a repository for auto-publishing using the Gradle publishToConfluence plugin.
+
+[CAUTION]
+This page *DOES NOT* describe how to use AsciiDoc OR the publishToConfluence plugin. This page is _EXCLUSIVELY_ describing the directory structure required for the aforementioned items.
+
+
+
+== Directory Structure
+
+The following directory structure is what is *HIGHLY* suggested ...
+
+----
+project-repo-name
+| -> README.adoc
+| -> documentation
+|   -> _includes
+|   -> architectural-decision-records.adoc
+|   -> adr
+|       -> decisions
+|           -> TODO.adoc
+|   -> tech-specs.adoc
+|   -> tech-spec
+|       -> specs
+|           -> TODO.adoc
+|   -> deployment.adoc
+|   -> properties.adoc
+|   -> troubleshooting.adoc
+|   -> disaster-recovery.adoc
+|   -> changelog.adoc
+|       -> changelog
+|           -> TODO.adoc
+| -> TF Sub Project
+|   -> documentation
+|       -> deployment.adoc
+|       -> properties.adoc
+|       -> troubleshooting.adoc
+|       -> disaster-recovery.adoc
+----
+
+To explain a bit more what the above directory structure provides...
+
+* The `README.adoc` will translate to the top level repository page under {team-projects-link}[Projects]
+* Any `.adoc` file present in the `_includes` directory is reusable to reduce common pieces of documentation
+* All `.adoc` files directly under `documentation` will create a header page _under_ the repository page
+* All created ADR's should be placed under `decisions`
+* All created Tech Specs should be placed under `specs`
+* Any subproject (such as Terraform) should have their own `documentation` folder with sub-pages specific to their execution and function
+
+Final project structure in Confluence should look similar to the following ...
+
+image:../../images/confluence-project-structure.png[]
+
+== Not what you were looking for?
+
+include::{includedir}/how-to-not-what-you-are-looking-for.adoc[]
+
+include::{includedir}/tutorial-not-what-you-are-looking-for.adoc[]
+
+

@@ -81,10 +81,17 @@ testing process.
 * architectural contact
 ** This could just be the lead but may be a floating senior leader with technical expertise
 * Example/Sample Data
-** There *MUST* be a sample of every expected input and every expected output. If there are no direct inpputs/outputs
+** There *MUST* be a sample of every expected input and every expected output. If there are no direct inputs/outputs
 this should be noted as N/A
 *
 
-
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../_includes/team-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/team-nwywlf.adoc[]
+endif::[]
 
 

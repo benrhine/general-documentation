@@ -125,5 +125,12 @@ The expectation is that when the team goes into refinement and planning meetings
 * If QA has free time they are expected to help design more complete and more automated test suites
 
 
-
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../_includes/team-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/team-nwywlf.adoc[]
+endif::[]
 

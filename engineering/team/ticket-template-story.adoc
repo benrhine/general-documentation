@@ -49,4 +49,11 @@ Tickets should have all the necessary resources attached to them. This can be th
 * Test data
 ** At a minimum a success case, and a fail case
 
-
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../_includes/team-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/team-nwywlf.adoc[]
+endif::[]

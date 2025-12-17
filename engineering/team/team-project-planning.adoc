@@ -34,7 +34,14 @@ endif::[]
 * scope statement
 * project charter - name, purpose, high level description, milestone schedule, stakeholders, pm name, pm responsibility, pms authority, formal declaration of sponsors support
 
-
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../_includes/team-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/team-nwywlf.adoc[]
+endif::[]
 
 
 
