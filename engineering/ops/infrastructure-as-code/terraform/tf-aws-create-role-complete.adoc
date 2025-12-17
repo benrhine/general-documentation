@@ -9,8 +9,21 @@ region.
 [NOTE]
 The following two example roles are the base roles that are expected to be available in every AWS account.
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 [NOTE]
-To view details on IAM, see link:../../../../engineering/cloud/infrastructure/aws/aws-iam.adoc[Aws: IAM]
+To view details on IAM, see link:../../../../engineering/tooling/tooling-cloud-aws/tooling-aws-iam.adoc[Aws: IAM]
+
+endif::[]
+
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+[NOTE]
+To view details on IAM, see {tl-tooling-link-022-013}[Aws: IAM]
+
+endif::[]
 
 [TIP]
 There is no cost associated with creating Aws IAM roles and policies only the resources the roles may allow access to.
@@ -145,9 +158,18 @@ resource "aws_iam_role_policy_attachment" "attach_policy" {
 
 == Testing a Role
 
-To manually test if a role works as expected see the directions link:../../../../engineering/cloud/infrastructure/aws/aws-iam.adoc#_testing_iam_roles[here].
+// Renders correctly in IDE
+ifndef::deploy[]
 
+To manually test if a role works as expected see the directions link:../../../../engineering/tooling/tooling-cloud-aws/tooling-aws-iam.adoc#_testing_iam_roles[here].
 
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+To manually test if a role works as expected see the directions {tl-tooling-link-022-013}#_testing_iam_roles[here].
+
+endif::[]
 
 
 // Renders correctly in IDE

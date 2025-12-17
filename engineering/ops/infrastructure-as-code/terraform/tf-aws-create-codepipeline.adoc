@@ -2,12 +2,29 @@
 // Not sure how placement will affect publishing to Confluence
 :toc: left
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 [CAUTION]
 Please be aware that to be able to create a CodePipeline job using IaC the executing role
 will require the CodePipeline IAM permission (see link:tf-aws-create-codepipeline.adoc#_permissions_required[Permissions Required]
 
 [NOTE]
-To view details on CodePipeline see link:../../../../engineering/cloud/infrastructure/aws/aws-setup-code-pipeline.adoc[Setup: CodePipline]
+To view details on CodePipeline see link:../../../../engineering/tooling/tooling-cloud-aws/tooling-aws-setup-code-pipeline.adoc[Setup: CodePipeline]
+
+endif::[]
+
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+[CAUTION]
+Please be aware that to be able to create a CodePipeline job using IaC the executing role
+will require the CodePipeline IAM permission (see {sl-ops-link-003-005-003}#_permissions_required[Permissions Required]
+
+[NOTE]
+To view details on CodePipeline see {tl-tooling-link-022-025}[Setup: CodePipeline]
+
+endif::[]
 
 == CodePipeline
 

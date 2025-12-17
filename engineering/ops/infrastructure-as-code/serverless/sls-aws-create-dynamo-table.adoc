@@ -12,10 +12,12 @@ existing resource. Additionally, if you attempt to remove the infrastructure, th
 failing component of the remove and it is expected it will mark the whole build as failed. Lastly, the `DeletionPolicy`
 is not an attribute that is available to every IaC framework.
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 [CAUTION]
 For DynamoDB access to be successful the application using the table must be running with a role that has a minimum `dynamodb`
 access policy as defined under link:sls-aws-create-dynamo-table.adoc#_permissions_required[permissions required].
-
 
 [NOTE]
 Be aware this process is exactly the same as link:../aws/aws-cf-create-dynamo-table.adoc[CloudFormation: (AWS) Create DynamoDB table]
@@ -23,7 +25,25 @@ Be aware this process is exactly the same as link:../aws/aws-cf-create-dynamo-ta
 Serverless creates resources; Serverless resource creation is just pure CloudFormation.
 
 [NOTE]
-To view details on DynamoDB, see link:../../../../engineering/cloud/infrastructure/aws/aws-dynamodb.adoc[Aws: DynamoDB]
+To view details on DynamoDB, see link:../../../../engineering/tooling/tooling-cloud-aws/tooling-aws-dynamodb.adoc[Aws: DynamoDB]
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+[CAUTION]
+For DynamoDB access to be successful the application using the table must be running with a role that has a minimum `dynamodb`
+access policy as defined under {Function…}#_permissions_required[permissions required].
+
+[NOTE]
+Be aware this process is exactly the same as {Function…}[CloudFormation: (AWS) Create DynamoDB table]
+*_EXCEPT_* for the `Resources` block being contained under an additional `resources` block. This is due to how
+Serverless creates resources; Serverless resource creation is just pure CloudFormation.
+
+[NOTE]
+To view details on DynamoDB, see {tl-tooling-link-022-010}[Aws: DynamoDB]
+
+endif::[]
 
 [TIP]
 DynamoDB has a free tier and provides 25GB of storage, along with 25 provisioned Write and 25 provisioned Read Capacity

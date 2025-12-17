@@ -4,13 +4,30 @@
 Please be aware that to be able to save a Log Insight Query using IaC the executing role
 will require the `logs:PutQueryDefinition` IAM permission.
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 [NOTE]
 Be aware this process is exactly the same as link:../aws/aws-cf-create-cloudwatch-insight-query.adoc[CloudFormation: (AWS) Create CloudWatch Insight Query]
 *_EXCEPT_* CloudFormation only has a single `Resources` block. It does not require the additional `resources` block that
 Serverless uses.
 
 [NOTE]
-To view suggested pre-defined queries see link:../../../../engineering/cloud/infrastructure/aws/aws-cloudwatch-insights-json.adoc[CloudWatch Insights for JSON logs]
+To view suggested pre-defined queries see link:../../../../engineering/tooling/tooling-cloud-aws/tooling-aws-cloudwatch-insights-json.adoc[CloudWatch Insights for JSON logs]
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+[NOTE]
+Be aware this process is exactly the same as {sl-ops-link-003-001-003}[CloudFormation: (AWS) Create CloudWatch Insight Query]
+*_EXCEPT_* CloudFormation only has a single `Resources` block. It does not require the additional `resources` block that
+Serverless uses.
+
+[NOTE]
+To view suggested pre-defined queries see {tl-tooling-link-022-006}[CloudWatch Insights for JSON logs]
+
+endif::[]
 
 .serverless.yml
 [source, yaml]

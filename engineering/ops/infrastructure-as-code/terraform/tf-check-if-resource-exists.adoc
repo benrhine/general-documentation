@@ -43,8 +43,19 @@ As part of this project all initial outputs should be stored within "Property Ma
 the values in property manager can be referenced using Terraform data resources in projects that build on it. This should
  guarantee the existence of required values.
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 Another option may be to use Terraform link:tf-lifecycle-hooks.adoc[Lifecycle Hooks]
 
+endif::[]
+
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+Another option may be to use Terraform {sl-ops-link-003-005-013}[Lifecycle Hooks]
+
+endif::[]
 
 
 == Resources

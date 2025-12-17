@@ -10,10 +10,24 @@ Example build steps
 * Link build step here
 * Link build step here
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 [NOTE]
 Be aware that role names should not be changed unless absolutely necessary. If a role name changes *ALL* CodeBuild
-processes that use work based off this repository will need to be updated. See or link:../../../../engineering/how-to/aws-codebuild-after-recreating-resources.adoc[How To: Fix Aws CodeBuild after
+processes that use work based off this repository will need to be updated. See or link:../../../../engineering/training/how-to/aws-codebuild-after-recreating-resources.adoc[How To: Fix Aws CodeBuild after
 recreating resources] or link:sls-troubleshooting.adoc[Troubleshooting]. If names are not changed CodeBuild process should remember the previously attached role and should not need to be edited.
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+[NOTE]
+Be aware that role names should not be changed unless absolutely necessary. If a role name changes *ALL* CodeBuild
+processes that use work based off this repository will need to be updated. See or {tl-how-to-link-004}[How To: Fix Aws CodeBuild after
+recreating resources] or {sl-ops-link-003-004-012}[Troubleshooting]. If names are not changed CodeBuild process should remember the previously attached role and should not need to be edited.
+
+endif::[]
 
 == Requirements
 

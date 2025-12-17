@@ -4,8 +4,20 @@
 Please be aware that to be able to save a Log Insight Query using IaC the executing role
 will require the `logs:PutQueryDefinition` IAM permission.
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 [NOTE]
-To view suggested pre-defined queries see link:../../../../engineering/cloud/infrastructure/aws/aws-cloudwatch-insights-json.adoc[CloudWatch Insights for JSON logs]
+To view suggested pre-defined queries see link:../../../../engineering/tooling/tooling-cloud-aws/tooling-aws-cloudwatch-insights-json.adoc[CloudWatch Insights for JSON logs]
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+[NOTE]
+To view suggested pre-defined queries see {tl-tooling-link-022-006}[CloudWatch Insights for JSON logs]
+
+endif::[]
 
 == CloudWatch Insights
 
@@ -40,8 +52,20 @@ module "cloudwatch_queries_tools" {
 }
 ----
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 [NOTE]
 To see how variables are declared and setup within Terraform please review link:../terraform/tf-variables.adoc[Terraform: Variables]
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+[NOTE]
+To see how variables are declared and setup within Terraform please review {sl-ops-link-003-005-019}[Terraform: Variables]
+
+endif::[]
 
 
 // Renders correctly in IDE
