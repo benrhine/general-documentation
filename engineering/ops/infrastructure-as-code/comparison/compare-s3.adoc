@@ -95,9 +95,22 @@ The above module declaration *ONLY* creates the S3 bucket, it does not attach th
 
 === Fully create an S3 bucket in Terraform like CloudFormation/Serverless
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 To fully create an S3 bucket like the CloudFormation/Serverless counterpart declaration, include the `s3` module as
 shown above. Include the `s3_policy` declaration as show link:compare-s3-policies.adoc#_include_s3_policy_module[here].
 This will complete attaching the bucket policy to the bucket.
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+To fully create an S3 bucket like the CloudFormation/Serverless counterpart declaration, include the `s3` module as
+shown above. Include the `s3_policy` declaration as show {sl-ops-link-003-002-011}#_include_s3_policy_module[here].
+This will complete attaching the bucket policy to the bucket.
+
+endif::[]
 
 
 // Renders correctly in IDE

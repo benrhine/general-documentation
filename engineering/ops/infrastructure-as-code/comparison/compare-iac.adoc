@@ -94,8 +94,20 @@ TODO
 
 === Terraform
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
+Terraform by default will log out to the console. If you wish it to log to a given log service it can be configured. For
+more detail on Terraform logging see link:../terraform.adoc#_logging[Terraform Logging].
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
 Terraform by default will log out to the console. If you wish it to log to a given log service it can be configured. For
 more detail on Terraform logging see link:../terraform/tf.adoc#_logging[Terraform Logging].
+
+endif::[]
 
 .Click here to expand ...
 [%collapsible]

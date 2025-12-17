@@ -157,8 +157,20 @@ module "module_name" {
 Variable declarations can be overridden at runtime by placing a `.tfvars` on the classpath or specifically passing in a
 `.tfvars` file. This can be used to inject sensitive values into a project.
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 [NOTE]
 For more information on how Terraform variables work please see link:../terraform/tf-variables.adoc[Terraform: Variables]
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+[NOTE]
+For more information on how Terraform variables work please see {sl-ops-link-003-005-019}[Terraform: Variables]
+
+endif::[]
 
 === System Properties
 

@@ -2,8 +2,20 @@
 // Not sure how placement will affect publishing to Confluence
 :toc: left
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 This is specifically geared toward multiple environments, _NOT_ cross-account deployments. To see about
 multi-account / cross-account see link:compare-cross-account.adoc[here].
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+This is specifically geared toward multiple environments, _NOT_ cross-account deployments. To see about
+multi-account / cross-account see {sl-ops-link-003-002-003}[here].
+
+endif::[]
 
 == CloudFormation
 
@@ -21,18 +33,47 @@ the stage you are telling Serverless to create a new environment. See examples b
 `--stage` adds unique values to resources that are created during the deployment to create a fully separated deployment
 from others that are created within that account.
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 [CAUTION]
 Please be aware the `--stage` argument is creating an environment within the currently logged in cloud provider account.
 This will not do cross-account or multi-account deployments. If you need to perform a cross-account deployment see
 link:compare-cross-account.adoc#_serverless_framework[here].
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+[CAUTION]
+Please be aware the `--stage` argument is creating an environment within the currently logged in cloud provider account.
+This will not do cross-account or multi-account deployments. If you need to perform a cross-account deployment see
+{sl-ops-link-003-002-003}#_serverless_framework[here].
+
+endif::[]
 
 == Terraform
 
 As in other areas, Terraform is a bit more complicated. I've included some great write-ups I've found as PDFs to ensure
 they don't get lost and to help clarify my own notes.
 
-- link:../documents/Terraform-manage-multiple-environments.pdf[Terraform Manage Multiple Environments]
-- link:../documents/How-to-Manage-Multiple-Terraform-Environments-Efficiently.pdf[How to Manage Multiple Terraform Environments Efficiently]
+// Renders correctly in IDE
+ifndef::deploy[]
+
+* link:../documents/Terraform-manage-multiple-environments.pdf[Terraform Manage Multiple Environments]
+* link:../documents/How-to-Manage-Multiple-Terraform-Environments-Efficiently.pdf[How to Manage Multiple Terraform Environments Efficiently]
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+* {}[Terraform Manage Multiple Environments]
+* {}[How to Manage Multiple Terraform Environments Efficiently]
+
+[NOTE]
+These are documents and can be found in the documents folder
+
+endif::[]
 
 Terraform has several different ways in which you can configure multiple environments the first of which is workspaces.
 
@@ -89,11 +130,22 @@ Downsides
 
 To execute a specific environment just `cd` into the given environment directory and execute terraform as normal.
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 [CAUTION]
 This will not do cross-account or multi-account deployments. If you need to perform a cross-account deployment see
 link:compare-cross-account.adoc#_serverless_framework[here].
 
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
 
+[CAUTION]
+This will not do cross-account or multi-account deployments. If you need to perform a cross-account deployment see
+{sl-ops-link-003-002-003}#_serverless_framework[here].
+
+endif::[]
 
 === Third-party tools
 

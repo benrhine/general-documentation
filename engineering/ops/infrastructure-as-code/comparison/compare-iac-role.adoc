@@ -254,11 +254,26 @@ The above module declaration *ONLY* creates the IAM roles, it does not attach th
 
 === Fully create an IAM role in Terraform like CloudFormation/Serverless
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 To fully create an IAM role like the CloudFormation/Serverless counterpart declaration, include the `iam_roles` module as
 shown above. Include the `iam_roles_policy` declaration as show link:compare-iac-role-policies.adoc#_include_iam_roles_policy_module[here].
 Next we need to attach the policies to the roles. This is an area where Terraform significantly diverges from how
 CloudFormation/Serverless works as it requires the manual attachment of each policy that is implicitly implied with the
 layout of the declaration in the yaml. To attach declared policies in Terraform instantiate the following module ...
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+To fully create an IAM role like the CloudFormation/Serverless counterpart declaration, include the `iam_roles` module as
+shown above. Include the `iam_roles_policy` declaration as show {sl-ops-link-003-002-007}#_include_iam_roles_policy_module[here].
+Next we need to attach the policies to the roles. This is an area where Terraform significantly diverges from how
+CloudFormation/Serverless works as it requires the manual attachment of each policy that is implicitly implied with the
+layout of the declaration in the yaml. To attach declared policies in Terraform instantiate the following module ...
+
+endif::[]
 
 .main.tf
 [souce, shell]
@@ -327,7 +342,18 @@ CloudFormation/Serverless.
 
 == Testing a Role
 
-To manually test if a role works as expected see the directions link:../../../../engineering/cloud/infrastructure/aws/aws-iam.adoc#_testing_iam_roles[here].
+// Renders correctly in IDE
+ifndef::deploy[]
+
+To manually test if a role works as expected see the directions link:../../../../engineering/tooling/tooling-cloud-aws/tooling-aws-iam.adoc#_testing_iam_roles[here].
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+To manually test if a role works as expected see the directions {tl-tooling-link-022-013}#_testing_iam_roles[here].
+
+endif::[]
 
 
 // Renders correctly in IDE

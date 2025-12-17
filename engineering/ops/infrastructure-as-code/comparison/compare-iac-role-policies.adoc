@@ -104,7 +104,18 @@ module "iam_policies" {
 
 == Testing a role with policies
 
-To manually test if a role works as expected see the directions link:../../../../engineering/cloud/infrastructure/aws/aws-iam.adoc#_testing_iam_roles[here].
+// Renders correctly in IDE
+ifndef::deploy[]
+
+To manually test if a role works as expected see the directions link:../../../../engineering/tooling/tooling-cloud-aws/tooling-aws-iam.adoc#_testing_iam_roles[here].
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+To manually test if a role works as expected see the directions {tl-tooling-link-022-013}#_testing_iam_roles[here].
+
+endif::[]
 
 
 // Renders correctly in IDE

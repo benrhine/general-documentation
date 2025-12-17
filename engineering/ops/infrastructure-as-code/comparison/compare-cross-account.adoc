@@ -114,9 +114,22 @@ profile and has nothing to do with the account being deployed to. I.e. you are l
 run the above command with the `--profile` argument for both dev and test. This will deploy _BOTH_ dev and test to the
 *SAME* aws account.
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 [NOTE]
 There is also the `--stage X` option for dev, test, stage... ect. This option is for multi-environment NOT account (see
 link:compare-multiple-environments.adoc#_serverless_framework[here]).
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+[NOTE]
+There is also the `--stage X` option for dev, test, stage... ect. This option is for multi-environment NOT account (see
+{sl-ops-link-003-002-009}#_serverless_framework[here]).
+
+endif::[]
 
 ==== CI
 
