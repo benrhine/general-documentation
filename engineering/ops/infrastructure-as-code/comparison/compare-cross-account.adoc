@@ -2,10 +2,24 @@
 // Not sure how placement will affect publishing to Confluence
 :toc: left
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 This is specifically geared toward multiple accounts or cross-account work, _NOT_ multiple environments. To see about
 multi-environment see link:compare-multiple-environments.adoc[here]. While cross/multi-account and multi-environment are
 closely related they are not the same thing. It is quite common to have multiple environments within the same account; it
 is also quite common to have multiple accounts for various aspects of your infrastructure.
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+This is specifically geared toward multiple accounts or cross-account work, _NOT_ multiple environments. To see about
+multi-environment see {sl-ops-link-003-002-009}[here]. While cross/multi-account and multi-environment are
+closely related they are not the same thing. It is quite common to have multiple environments within the same account; it
+is also quite common to have multiple accounts for various aspects of your infrastructure.
+
+endif::[]
 
 All the following directions assume that cross-account IAM roles have already been configured. Without having the appropriate
 IAM roles in place the following will not work.
@@ -54,8 +68,20 @@ The external role is expected to have an admin access or power user access polic
 }
 ----
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 For further details on role creation see link:compare-iac-role.adoc[Compare: Creating a IAM role] or the complete example
 here [TODO - fill in with repo]
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+For further details on role creation see {sl-ops-link-003-002-006}[Compare: Creating a IAM role] or the complete example
+here [TODO - fill in with repo]
+
+endif::[]
 
 == CloudFormation
 
@@ -115,8 +141,20 @@ and it will deploy to the authenticated environment. To do this in multiple envi
 block retrieving the credentials for a role that will allow access to the other account and then execute the serverless
 command again.
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 [TIP]
 For more information on multiple environments see link:compare-multiple-environments.adoc#_serverless_framework[here].
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+[TIP]
+For more information on multiple environments see {sl-ops-link-003-002-009}#_serverless_framework[here].
+
+endif::[]
 
 == Terraform
 
@@ -257,8 +295,21 @@ I believe that the correct option here will be to have a buildspec per account. 
 to tools, np, or p and execute the terraform for the given account, so you will have 3 different CI jobs (one per env) to
 perform the correct authorization and then execute the deployment.
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 [TIP]
 For more information on multiple environments see link:compare-multiple-environments.adoc#_terraform[here].
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+
+[TIP]
+For more information on multiple environments see {sl-ops-link-003-002-009}#_terraform[here].
+
+endif::[]
 
 == Resources
 
