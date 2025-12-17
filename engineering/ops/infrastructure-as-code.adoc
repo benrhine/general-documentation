@@ -28,55 +28,55 @@ endif::[]
 
 // Renders correctly in IDE
 ifndef::deploy[]
-include::../../_includes/fourth-level-iac-aws.adoc[]
+include::../../_includes/ops-iac-aws-links.adoc[]
 endif::[]
 // Renders correctly in AsciiDoc Deployment
 ifdef::deploy[]
-include::{includedir}/fourth-level-iac-aws.adoc[]
+include::{includedir}/ops-iac-aws-links.adoc[]
 endif::[]
 
 == Examples
 
 // Renders correctly in IDE
 ifndef::deploy[]
-include::../../_includes/fourth-level-iac-examples.adoc[]
+include::../../_includes/ops-iac-examples-links.adoc[]
 endif::[]
 // Renders correctly in AsciiDoc Deployment
 ifdef::deploy[]
-include::{includedir}/fourth-level-iac-examples.adoc[]
+include::{includedir}/ops-iac-examples-links.adoc[]
 endif::[]
 
 == Serverless
 
 // Renders correctly in IDE
 ifndef::deploy[]
-include::../../_includes/fourth-level-iac-serverless.adoc[]
+include::../../_includes/ops-iac-serverless-links.adoc[]
 endif::[]
 // Renders correctly in AsciiDoc Deployment
 ifdef::deploy[]
-include::{includedir}/fourth-level-iac-serverless.adoc[]
+include::{includedir}/ops-iac-serverless-links.adoc[]
 endif::[]
 
 == Terraform
 
 // Renders correctly in IDE
 ifndef::deploy[]
-include::../../_includes/fourth-level-iac-terraform.adoc[]
+include::../../_includes/ops-iac-terraform-links.adoc[]
 endif::[]
 // Renders correctly in AsciiDoc Deployment
 ifdef::deploy[]
-include::{includedir}/fourth-level-iac-terraform.adoc[]
+include::{includedir}/ops-iac-terraform-links.adoc[]
 endif::[]
 
 == Comparison
 
 // Renders correctly in IDE
 ifndef::deploy[]
-include::../../_includes/fourth-level-iac-comparison.adoc[]
+include::../../_includes/ops-iac-comparison-links.adoc[]
 endif::[]
 // Renders correctly in AsciiDoc Deployment
 ifdef::deploy[]
-include::{includedir}/fourth-level-iac-comparison.adoc[]
+include::{includedir}/ops-iac-comparison-links.adoc[]
 endif::[]
 
 

@@ -4,11 +4,26 @@
 System Manager properties/parameter can be either GLOBAL _or_ REGIONAL. By Default properties _are_ regional. Additionally,
 Aws has recently introduced "Cross-account" parameter sharing ... see https://aws.amazon.com/blogs/mt/introducing-parameter-store-cross-account-sharing/[here].
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 [NOTE]
 Be aware this process is _VERY_ similar to link:../serverless/sls-aws-get-system-property.adoc[Serverless: (AWS) Get System Property/Parameter]
 
 [NOTE]
-To view details on System Manager Parameters/Properties, see link:../../../../engineering/cloud/infrastructure/aws/aws-system-parameters.adoc[System Parameters]
+To view details on System Manager Parameters/Properties, see link:../../../../engineering/tooling/tooling-cloud-aws/tooling-aws-system-parameters.adoc[System Parameters]
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+[NOTE]
+Be aware this process is _VERY_ similar to {sl-ops-link-003-004-007}[Serverless: (AWS) Get System Property/Parameter]
+
+[NOTE]
+To view details on System Manager Parameters/Properties, see {tl-tooling-link-022-028}[System Parameters]
+
+endif::[]
 
 [TIP]
 System Manager properties/parameter are Aws Free Tier eligible for _Standard parameters_. If you need to secure parameters

@@ -4,14 +4,30 @@
 System Manager properties/parameter can be either GLOBAL _or_ REGIONAL. By Default properties _are_ regional. Additionally,
 Aws has recently introduced "Cross-account" parameter sharing ... see https://aws.amazon.com/blogs/mt/introducing-parameter-store-cross-account-sharing/[here].
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 [NOTE]
 Be aware this process is exactly the same as link:../serverless/sls-aws-create-system-property.adoc[Serverless: (AWS) Create System Property/Parameter]
 *_EXCEPT_* CloudFormation only has a single `Resources` block. It does not require the additional `resources` block that
 Serverless uses.
 
 [NOTE]
-To view details on System Manager Parameters/Properties, see link:../../../../engineering/cloud/infrastructure/aws/aws-system-parameters.adoc[System Parameters]
+To view details on System Manager Parameters/Properties, see link:../../../../engineering/tooling/tooling-cloud-aws/tooling-aws-system-parameters.adoc[System Parameters]
 
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+[NOTE]
+Be aware this process is exactly the same as {sl-ops-link-003-004-006}[Serverless: (AWS) Create System Property/Parameter]
+*_EXCEPT_* CloudFormation only has a single `Resources` block. It does not require the additional `resources` block that
+Serverless uses.
+
+[NOTE]
+To view details on System Manager Parameters/Properties, see {tl-tooling-link-022-028}[System Parameters]
+
+endif::[]
 
 [TIP]
 System Manager properties/parameter are Aws Free Tier eligible for _Standard parameters_. If you need to secure parameters

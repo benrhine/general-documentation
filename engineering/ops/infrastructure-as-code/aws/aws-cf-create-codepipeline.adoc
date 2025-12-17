@@ -2,6 +2,9 @@
 // Not sure how placement will affect publishing to Confluence
 :toc: left
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 [CAUTION]
 Please be aware that to be able to create a CodePipeline job using IaC the executing role
 will require the CodePipeline IAM permission (see link:aws-cf-create-codepipeline.adoc#_permissions_required[Permissions Required]
@@ -13,8 +16,26 @@ Be aware this process is exactly the same as link:../serverless/sls-aws-create-c
 Serverless uses.
 
 [NOTE]
-To view details on CodePipeline see link:../../../../engineering/cloud/infrastructure/aws/aws-setup-code-pipeline.adoc[Setup: CodePipline]
+To view details on CodePipeline see link:../../../../engineering/tooling/tooling-cloud-aws/tooling-aws-setup-code-pipeline.adoc[Setup: CodePipeline]
 
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+[CAUTION]
+Please be aware that to be able to create a CodePipeline job using IaC the executing role
+will require the CodePipeline IAM permission (see {sl-ops-link-003-001-005}#_permissions_required[Permissions Required]
+
+
+[NOTE]
+Be aware this process is exactly the same as {sl-ops-link-003-004-003}[Serverless: (AWS) Create CodePipeline]
+*_EXCEPT_* CloudFormation only has a single `Resources` block. It does not require the additional `resources` block that
+Serverless uses.
+
+[NOTE]
+To view details on CodePipeline see {tl-tooling-link-022-025}[Setup: CodePipeline]
+
+endif::[]
 
 .CloudFormation Template
 [source, yaml]

@@ -28,11 +28,11 @@ This folder contains IaC documentation that is specific to Aws.
 
 // Renders correctly in IDE
 ifndef::deploy[]
-include::../../../_includes/fourth-level-iac-aws.adoc[]
+include::../../../_includes/ops-iac-aws-links.adoc[]
 endif::[]
 // Renders correctly in AsciiDoc Deployment
 ifdef::deploy[]
-include::{includedir}/fourth-level-iac-aws.adoc[]
+include::{includedir}/ops-iac-aws-links.adoc[]
 endif::[]
 
 == Create an IAM role with associated policies

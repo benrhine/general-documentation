@@ -26,11 +26,11 @@ endif::[]
 
 // Renders correctly in IDE
 ifndef::deploy[]
-include::../../../_includes/fourth-level-iac-comparison.adoc[]
+include::../../../_includes/ops-iac-comparison-links.adoc[]
 endif::[]
 // Renders correctly in AsciiDoc Deployment
 ifdef::deploy[]
-include::{includedir}/fourth-level-iac-comparison.adoc[]
+include::{includedir}/ops-iac-comparison-links.adoc[]
 endif::[]
 
 

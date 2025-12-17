@@ -6,15 +6,30 @@ CloudFormation is a proprietary IaC language that only works with AWS. It can be
 
 * Create a template in either JSON or YAML and uploaded through the Aws Console.
 * Create a template and upload/deploy through the Aws CLI (pretty sure this is the case but not 100% - I have not done this)
-* Might be able to be leveraged through link:../../../../engineering/cloud/infrastructure/aws/aws-sam.adoc[SAM] or
-link:../../../../engineering/cloud/infrastructure/aws/aws-cdk.adoc[CDK] - Unknown; I have not explored either of these options
+// Renders correctly in IDE
+ifndef::deploy[]
+* Might be able to be leveraged through link:../../../../engineering/tooling/tooling-cloud-aws/tooling-aws-sam.adoc[SAM] or
+link:../../../../engineering/tooling/tooling-cloud-aws/tooling-aws-cdk.adoc[CDK] - Unknown; I have not explored either of these options
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+* Might be able to be leveraged through {tl-tooling-link-022-018}[SAM] or
+{tl-tooling-link-022-002}[CDK] - Unknown; I have not explored either of these options
+endif::[]
 
 [NOTE]
 A auto-generated S3 bucket will be created when uploading a CF template.
 
 == Creating a base CloudFormation Template
 
+// Renders correctly in IDE
+ifndef::deploy[]
+* link:../../../../engineering/training/how-to/create-base-cloudformation-template.adoc[How To: Create a base CloudFormation template]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
 * {tl-how-to-link-030}[How To: Create a base CloudFormation template]
+endif::[]
 
 == Reference
 

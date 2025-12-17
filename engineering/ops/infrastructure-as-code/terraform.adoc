@@ -29,11 +29,11 @@ but it also has a much steeper learning curve.
 
 // Renders correctly in IDE
 ifndef::deploy[]
-include::../../../_includes/fourth-level-iac-terraform.adoc[]
+include::../../../_includes/ops-iac-terraform-links.adoc[]
 endif::[]
 // Renders correctly in AsciiDoc Deployment
 ifdef::deploy[]
-include::{includedir}/fourth-level-iac-terraform.adoc[]
+include::{includedir}/ops-iac-terraform-links.adoc[]
 endif::[]
 
 == Get Started
@@ -1193,7 +1193,7 @@ Do you want to perform these actions?
 
 A successful `terraform apply` will have results similar to the following ...
 
-image:../images/tf-apply-result.png[]
+image:images/tf-apply-result.png[]
 
 [TIP]
 You will only have *Outputs* if you have defined values in the `outputs.tf` file.
@@ -1207,7 +1207,7 @@ terraform destroy
 
 This is essentially `terraform apply` in reverse and creates essentially the same output with a confirmation block
 
-image::../images/tf-destroy-result.png[]
+image::images/tf-destroy-result.png[]
 
 == Additional Tooling
 

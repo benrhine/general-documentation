@@ -29,11 +29,11 @@ multiple cloud providers and is intended to be simpler than CloudFormation, SAM 
 
 // Renders correctly in IDE
 ifndef::deploy[]
-include::../../../_includes/fourth-level-iac-serverless.adoc[]
+include::../../../_includes/ops-iac-serverless-links.adoc[]
 endif::[]
 // Renders correctly in AsciiDoc Deployment
 ifdef::deploy[]
-include::{includedir}/fourth-level-iac-serverless.adoc[]
+include::{includedir}/ops-iac-serverless-links.adoc[]
 endif::[]
 
 == Why Serverless?
