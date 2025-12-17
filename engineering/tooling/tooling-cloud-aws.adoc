@@ -34,22 +34,46 @@ Notes and setups for AWS specific items.
 
 == Setups
 
+// Renders correctly in IDE
+ifndef::deploy[]
 * link:tooling-cloud-aws/tooling-aws-setup-cli.adoc[Setup: Aws CLI]
 * link:tooling-cloud-aws/tooling-aws-setup-code-commit.adoc[Setup: CodeCommit]
 * link:tooling-cloud-aws/tooling-aws-setup-code-build.adoc[Setup: CodeBuild]
 * link:tooling-cloud-aws/tooling-aws-setup-code-pipeline.adoc[Setup: CodePipeline]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+* {tl-tooling-link-022-029}[Setup: Aws CLI]
+* {tl-tooling-link-022-024}[Setup: CodeCommit]
+* {tl-tooling-link-022-021}[Setup: CodeBuild]
+* {tl-tooling-link-022-025}[Setup: CodePipeline]
+endif::[]
 
 == How To
 
+// Renders correctly in IDE
+ifndef::deploy[]
 * link:tooling-cloud-aws/tooling-aws-cli.adoc[How To: Aws CLI Usage]
 * link:../../engineering/training/how-to/aws-powertools.adoc[How To: Power Tools]
 * link:../../engineering/training/how-to/aws-build-time-credentialing.adoc[How To: Build time credentialing]
 * link:../../engineering/training/how-to/aws-get-generated-lambda-uri.adoc[How To: Get generated Aws Lambda URI]
 * link:../../engineering/training/how-to/aws-snap-start-java.adoc[How To: SnapStart for Java]
 * link:../../engineering/training/how-to/aws-codebuild-after-recreating-resources.adoc[How To: Aws CodeBuild after recreating resources]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+* {tl-tooling-link-022-004}[How To: Aws CLI Usage]
+* {tl-how-to-link-017}[How To: Power Tools]
+* {tl-how-to-link-003}[How To: Build time credentialing]
+* {tl-how-to-link-013}[How To: Get generated Aws Lambda URI]
+* {tl-how-to-link-021}[How To: SnapStart for Java]
+* {tl-how-to-link-004}[How To: Aws CodeBuild after recreating resources]
+endif::[]
 
 == Services
 
+// Renders correctly in IDE
+ifndef::deploy[]
 * link:tooling-cloud-aws/tooling-aws-setup-code-build.adoc[CodeBuild]
 ** link:tooling-cloud-aws/tooling-aws-setup-code-build-single.adoc[Single Build]
 ** link:tooling-cloud-aws/tooling-aws-setup-code-build-multiple.adoc[Multi Build]
@@ -57,6 +81,17 @@ Notes and setups for AWS specific items.
 * link:tooling-cloud-aws/tooling-aws-lambda.adoc[Lambda]
 * link:tooling-cloud-aws/tooling-aws-cognito.adoc[Cognito]
 * link:tooling-cloud-aws/tooling-aws-alarms.adoc[Alarms]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+* {tl-tooling-link-022-021}[CodeBuild]
+** {tl-tooling-link-022-023}[Single Build]
+** {tl-tooling-link-022-022}[Multi Build]
+* {tl-tooling-link-022-013}[IAM]
+* {tl-tooling-link-022-014}[Lambda]
+* {tl-tooling-link-022-009}Cognito]
+* {tl-tooling-link-022-001}[Alarms]
+endif::[]
 
 == Test blc
 

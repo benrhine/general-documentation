@@ -135,7 +135,7 @@ LISTENER_ARN=$(aws elbv2 describe-listeners \
 +
 [NOTE]
 ====
-You must have a CA certificate from the AWS Private CA created earlier to proceed with this step (`ca.crt` file). If you do not have one, refer to the {how-to-11-link}[How to Create Certificate Authority] documentation.
+You must have a CA certificate from the AWS Private CA created earlier to proceed with this step (`ca.crt` file). If you do not have one, refer to the {tl-how-to-link-060}[How to - Create Certificate Authority] documentation.
 ====
 - Create a trust store for the ALB to use the internal CA:
 +

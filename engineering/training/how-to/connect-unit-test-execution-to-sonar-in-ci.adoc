@@ -10,15 +10,18 @@ endif::[]
 Adding unit tests and sonar directly to an application is a relatively simple process but unfortunately getting it to
 successfully execute as part of the CI process requires a bit more work.
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 == Unit Tests
 
 As a quick refresher, execute unit tests with the following ./gradlew clean test for more details on unit testing please
-see link:../engineering/development/testing/testing-unit.adoc[here].
+see link:../../../engineering/development/testing/testing-unit.adoc[here].
 
 === Sonar
 
 As a quick refresher, execute sonar with the following ./gradlew clean sonar for more details on sonar please see
-link:../../engineering/tooling/tooling-sonar.adoc[here].
+link:../../../engineering/tooling/tooling-sonar.adoc[here].
 
 === Executing Sonar in CI
 
@@ -26,7 +29,31 @@ In order to be able to run sonar during CI we may need to connect the build to a
 ServiceNow ticket requesting the ips from the Aws account be whitelisted with sonar may be necessary.
 
 [NOTE]
-It is assumed the CodeBuild job for sonar is already created and configured, if not please see link:../../engineering/tooling/tooling-sonar.adoc[here]
+It is assumed the CodeBuild job for sonar is already created and configured, if not please see link:../../../engineering/tooling/tooling-sonar.adoc[here]
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+== Unit Tests
+
+As a quick refresher, execute unit tests with the following ./gradlew clean test for more details on unit testing please
+see {sl-development-testing-link-009}[here].
+
+=== Sonar
+
+As a quick refresher, execute sonar with the following ./gradlew clean sonar for more details on sonar please see
+{tl-tooling-link-15}[here].
+
+=== Executing Sonar in CI
+
+In order to be able to run sonar during CI we may need to connect the build to a VPC that has access to sonar AND a
+ServiceNow ticket requesting the ips from the Aws account be whitelisted with sonar may be necessary.
+
+[NOTE]
+It is assumed the CodeBuild job for sonar is already created and configured, if not please see {tl-tooling-link-15}[here]
+
+endif::[]
 
 === Configure CodeBuild Sonar Job
 

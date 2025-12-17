@@ -10,6 +10,9 @@ endif::[]
 
 This page is to instruct on how to enable an alarm once other metrics are in place.
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 [NOTE]
 Please be aware that this page contains similar content to link:aws-configure-dlq-alarm.adoc[How To: Configure DLQ Alarm]
 but has some variations.
@@ -18,6 +21,21 @@ but has some variations.
 
 Adding an alarm into a previous Metric Filter configuration is pretty straight forward. Using the
 link:aws-configure-metric-filters.adoc[How To: Configure Metric Filters] as our starting point
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+[NOTE]
+Please be aware that this page contains similar content to {tl-how-to-link-007}[How To: Configure DLQ Alarm]
+but has some variations.
+
+== Using Serverless
+
+Adding an alarm into a previous Metric Filter configuration is pretty straight forward. Using the
+{tl-how-to-link-008}[How To: Configure Metric Filters] as our starting point
+
+endif::[]
 
 In your `serverless-resource.yml` file add the following.
 

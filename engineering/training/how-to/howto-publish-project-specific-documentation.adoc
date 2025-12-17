@@ -21,7 +21,7 @@ ifdef::confluence[]
 include::{includedir}/version-control-warning.adoc[]
 endif::[]
 
-This How To is to highlight the difference in setup required from {how-to-3-link}[How To - Publish to Confluence] in a general way to the additional steps required to publish specific sub-folder documentation. As an example we will use the subproject documentation that is part of the {project-repo}[{sub-project-2}] repository.
+This How To is to highlight the difference in setup required from {tl-how-to-link-069}[How To - Publish to Confluence] in a general way to the additional steps required to publish specific sub-folder documentation. As an example we will use the subproject documentation that is part of the xxxxx[yyyyy] repository.
 
 [NOTE]
 This How To assumes you have already completed the configurations that are part of {how-to-3-link}[How To - Publish to Confluence].

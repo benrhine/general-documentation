@@ -10,9 +10,22 @@ endif::[]
 
 This page describes how to setup a DLQ (Dead Letter Queue)
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 [CAUTION]
 If you are looking for general info on SNS and SQS see
 link:aws-configure-sns-or-sqs.adoc[How To: Configure SNS or SQS]
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+[CAUTION]
+If you are looking for general info on SNS and SQS see
+{tl-how-to-link-010}[How To: Configure SNS or SQS]
+
+endif::[]
 
 == Using Serverless
 
@@ -42,7 +55,7 @@ Resources:
 ----
 
 [WARNING]
-Unfortunately, to make use of DLQ while leveraging the servlerless framework has a shortcoming of currently it is only
+Unfortunately, to make use of DLQ while leveraging the serverless framework has a shortcoming of currently it is only
 possible to hook it up if you are also using SNS. For more details see https://www.serverless.com/framework/docs/providers/aws/guide/functions#dead-letter-queue-dlq[here]
 
 [CAUTION]

@@ -210,7 +210,7 @@ However, that is not the best approach. While it is quite likely that _some_ `pa
 
 == Stored pagedId's and the CI build
 
-In the case of {team-name-1-abv-upper} team, top level Confluence `pageId` 's are stored in Aws System Manager parameter store when {sub-project-2-link}[{sub-project-2}] Terraform/OpenTofu subproject is executed. This allows known top level Confluence `pageId` 's to be available to all projects that the {team-name-1-abv-upper} team is working on.
+In the case of {team-name-1-abv-upper} team, top level Confluence `pageId` 's are stored in Aws System Manager parameter store when xxxx[YYYY] Terraform/OpenTofu subproject is executed. This allows known top level Confluence `pageId` 's to be available to all projects that the {team-name-1-abv-upper} team is working on.
 
 === Get pageIds from Aws System Manager in a GitHub Action
 

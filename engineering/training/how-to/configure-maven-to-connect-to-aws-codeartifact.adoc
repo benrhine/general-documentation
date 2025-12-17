@@ -12,8 +12,20 @@ outside of the developer workflow that will need to be either manually executed 
 
 == Step 1
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 The first step of this is you must have the Aws CLI installed otherwise there is no way to be able to retrieve the
-repository token. For instructions on installing the CLI see link:../engineering/onboarding/configure-aws-cli-quick-start.adoc[here].
+repository token. For instructions on installing the CLI see link:../../../engineering/training/how-to/howto-configure-aws-cli-quick-start.adoc[here].
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+The first step of this is you must have the Aws CLI installed otherwise there is no way to be able to retrieve the
+repository token. For instructions on installing the CLI see {tl-how-to-link-039}[here].
+
+endif::[]
 
 == Step 2
 
@@ -114,8 +126,20 @@ dependencies. This level of control is seriously detrimental to certain aspects 
 is Gradle which does allow for execution prior to dependencies being fetched. A variation of this token retrieval for
 Aws CodeArtifact(s) can be seen in the lyp-service[TODO link to example code] (in step-001....gradle).
 
-* link:../engineering/development/java/java-maven.adoc[Java: Maven]
-* link:../engineering/development/java/java-gradle.adoc[Java: Gradle]
+// Renders correctly in IDE
+ifndef::deploy[]
+
+* link:../../../engineering/development/java/java-maven.adoc[Java: Maven]
+* link:../../../engineering/development/java/java-gradle.adoc[Java: Gradle]
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+* {sl-development-java-link-004}[Java: Maven]
+* {sl-development-java-link-003}[Java: Gradle]
+
+endif::[]
 
 == Reference
 

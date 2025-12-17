@@ -10,6 +10,9 @@ endif::[]
 
 This page describes how to programmatically setup a DLQ (Dead Letter Queue) Alarm
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 [CAUTION]
 If you are looking for general info on SNS and SQS see link:aws-configure-sns-or-sqs.adoc[How To: Configure SNS or SQS].
 Please be aware that this page contains similar content to link:aws-configure-metric-filters-alarm.adoc[How To: Configure Metrics Filters Alarm]
@@ -19,6 +22,22 @@ but has some variations.
 
 Adding an alarm into a previous link:aws-configure-dlq.adoc[DLQ configuration] is pretty straight forward. Using the
 link:aws-configure-dlq.adoc[How To: Configure DLQ] as our starting point
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+[CAUTION]
+If you are looking for general info on SNS and SQS see {tl-how-to-link-010}[How To: Configure SNS or SQS].
+Please be aware that this page contains similar content to {tl-how-to-link-009}[How To: Configure Metrics Filters Alarm]
+but has some variations.
+
+== Using Serverless
+
+Adding an alarm into a previous {tl-how-to-link-006}[DLQ configuration] is pretty straight forward. Using the
+{tl-how-to-link-006}[How To: Configure DLQ] as our starting point
+
+endif::[]
 
 In your `serverless-resource.yml` file add the following.
 

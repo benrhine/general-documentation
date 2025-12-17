@@ -25,11 +25,11 @@ This How To is to detail how to configure an auto publishing changelog from appl
 
 This How To assumes that you are already familiar with the following ...
 
-* {how-to-1-link}[How To - Configure Confluence Personal Access Token]
-* {how-to-10-link}[How To - Configure Confluence Cloud Token]
-* {how-to-2-link}[How To - Asciidoc]
-* {how-to-3-link}[How To - Publish to Confluence]
-* {how-to-4-link}[How To - Publish project specific documentation to Confluence]
+* {tl-how-to-link-056}[How To - Configure Confluence Personal Access Token]
+* {tl-how-to-link-055}[How To - Configure Confluence Cloud Token]
+* {tl-how-to-link-052}[How To - Asciidoc]
+* {tl-how-to-link-069}[How To - Publish to Confluence]
+* {tl-how-to-link-068}[How To - Publish project specific documentation to Confluence]
 
 == Quick and Dirty version
 

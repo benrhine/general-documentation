@@ -10,10 +10,24 @@ endif::[]
 [WARNING]
 This page as of 20230706 is experimental and currently untested. Use it for reference then update the page
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 The intent of this page is to describe how to convert Serverless / `servlerless.yml` to pure https://aws.amazon.com/cloudformation/[CloudFormation]
 in the event there is ever a desire to to move away from the https://www.serverless.com[Serverless framework] or if
 there is a need to inspect the generated https://aws.amazon.com/cloudformation/[CloudFormation] directly. For internal
-documentation on Cloudformation see link:../engineering/ops/infrastructure-as-code/aws/aws-cf.adoc[here].
+documentation on Cloudformation see [TODO].
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+The intent of this page is to describe how to convert Serverless / `servlerless.yml` to pure https://aws.amazon.com/cloudformation/[CloudFormation]
+in the event there is ever a desire to to move away from the https://www.serverless.com[Serverless framework] or if
+there is a need to inspect the generated https://aws.amazon.com/cloudformation/[CloudFormation] directly. For internal
+documentation on Cloudformation see {}[TODO].
+
+endif::[]
 
 == How to convert Serverless to Cloudformation
 

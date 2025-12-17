@@ -25,10 +25,10 @@ This How To is to detail how to automate certificate testing using Github Action
 
 This How To assumes that you are already familiar with the following ...
 
-* {how-to-11-link}[How To - Create a Private Certificate Authority]
-* {how-to-14-link}[How To - Issue and Sign Client Certificates with Private CA]
-* {how-to-15-link}[How To - Issue and Sign Server Certificates with SAN]
-* {how-to-16-link}[How To - Revoke Certificates using AWS Private CA]
+* {tl-how-to-link-060}[How To - Create a Private Certificate Authority]
+* {tl-how-to-link-065}[How To - Issue and Sign Client Certificates with Private CA]
+* {tl-how-to-link-066}[How To - Issue and Sign Server Certificates with SAN]
+* {tl-how-to-link-070}[How To - Revoke Certificates using AWS Private CA]
 
 == Prerequisites
 * A Private Certificate Authority setup in AWS Private CA.

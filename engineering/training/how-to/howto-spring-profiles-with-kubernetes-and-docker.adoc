@@ -25,7 +25,7 @@ This how to is to guide you to correctly configure Spring profiles using Docker 
 
 == Assumptions
 
-It is assumed that you already have an application configured with Spring Profiles or at a minimum you are familiar with how Spring Profiles work. If you need a refresher please review this https://benrhine.net/wiki/spaces/rc/pages/5572263949/How+To+-+Spring+profiles[How To - Spring Profiles]
+It is assumed that you already have an application configured with Spring Profiles or at a minimum you are familiar with how Spring Profiles work. If you need a refresher please review this {tl-how-to-link-072}[How To - Spring Profiles]
 
 == Docker
 

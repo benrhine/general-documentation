@@ -16,11 +16,26 @@ This is somewhat challenging to ensure everything is setup correctly
 [TIP]
 All cross account build spec files contain cross account in the name ex. `buildspec-cross-account-build-deploy.yml`
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 This follows the same general flow of deployments within the same account (described
-link:../engineering/ops/infrastructure-as-code/serverless/sls.adoc[here],
-link:../engineering/ops/infrastructure-as-code/serverless/sls-step-1-domain-deploy.adoc[Step 1],
-link:../engineering/ops/infrastructure-as-code/serverless/sls-step-2-app-resource-deploy.adoc[Step 2],
-link:../engineering/ops/infrastructure-as-code/serverless/sls-step-3-application-deploy.adoc[Step 3]) but there are some differences.
+link:../../../engineering/ops/infrastructure-as-code/serverless.adoc[here],
+link:../../../engineering/ops/infrastructure-as-code/serverless/sls-step-1-domain-deploy.adoc[Step 1],
+link:../../../engineering/ops/infrastructure-as-code/serverless/sls-step-2-app-resource-deploy.adoc[Step 2],
+link:../../../engineering/ops/infrastructure-as-code/serverless/sls-step-3-application-deploy.adoc[Step 3]) but there are some differences.
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+This follows the same general flow of deployments within the same account (described
+{sl-ops-link-003-004}[here],
+{sl-ops-link-003-004-009}[Step 1],
+{sl-ops-link-003-004-010}[Step 2],
+{sl-ops-link-003-004-011}[Step 3]) but there are some differences.
+
+endif::[]
 
 == External Account Configuration
 
@@ -249,14 +264,32 @@ This is the same as the above but for local account deployment only.
 
 == Application Resource Deployment
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 While similar to same account application resources deploy described
-link:../engineering/ops/infrastructure-as-code/serverless/sls-step-2-app-resource-deploy.adoc[here], this step is broken up somewhat differently.
+link:../../../engineering/ops/infrastructure-as-code/serverless/sls-step-2-app-resource-deploy.adoc[here], this step is broken up somewhat differently.
 The same as before this will create the `codebuildApplicationServiceRole` for the application deploy in the next step
 using the `serverless-cross-account-resources.yml` file (similar to the `serverless-local-resources.yml`) but it no
 longer creates the lambda execution role. That will now be created as part of the `serverless-cross-account-external-resources.yml`
 as the execution role must be created in the environment that will be executing the actual code. Additionally, this
 will also configure the first steps for
-link:../../engineering/how-to/aws-create-a-custom-domain.adoc[creating a custom domain] for the running lambda.
+link:../../../engineering/training/how-to/aws-create-a-custom-domain.adoc[creating a custom domain] for the running lambda.
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+While similar to same account application resources deploy described
+{sl-ops-link-003-004-010}[here], this step is broken up somewhat differently.
+The same as before this will create the `codebuildApplicationServiceRole` for the application deploy in the next step
+using the `serverless-cross-account-resources.yml` file (similar to the `serverless-local-resources.yml`) but it no
+longer creates the lambda execution role. That will now be created as part of the `serverless-cross-account-external-resources.yml`
+as the execution role must be created in the environment that will be executing the actual code. Additionally, this
+will also configure the first steps for
+{tl-how-to-link-011}[creating a custom domain] for the running lambda.
+
+endif::[]
 
 === Execution
 
@@ -398,13 +431,30 @@ phases:
 
 == Application Deployment
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 Like the steps above this is similar to the same account step described
-link:../engineering/ops/infrastructure-as-code/serverless/sls-step-3-application-deploy.adoc[here] but has been modified to add in a custom
+link:../../../engineering/ops/infrastructure-as-code/serverless/sls-step-3-application-deploy.adoc[here] but has been modified to add in a custom
 domain name and must assume an external role in order to complete cross account deployment.
 
 === Modified serverless.yml
 
 Updates for applying a link:aws-create-a-custom-domain.adoc[custom domain].
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+Like the steps above this is similar to the same account step described
+{sl-ops-link-003-004-011}[here] but has been modified to add in a custom
+domain name and must assume an external role in order to complete cross account deployment.
+
+=== Modified serverless.yml
+
+Updates for applying a {tl-how-to-link-011}[custom domain].
+
+endif::[]
 
 [source, yaml]
 ----

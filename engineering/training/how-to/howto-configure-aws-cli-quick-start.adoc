@@ -33,9 +33,22 @@ To configure Aws CLI you can use the following file ...
 This file is specifically for X and Y environments. If you are not working in those environments please use this as an
 example layout and update with your accounts, region, and details
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 [NOTE]
 For more info on Aws CLI configuration please see the following
-link:../../engineering/cloud/infrastructure/aws/aws-setup-cli.adoc[Setup: Aws CLI] - This document will give you the full explanation of how to setup Aws CLI and the reasons behind it.
+link:../../../engineering/tooling/tooling-cloud-aws/tooling-aws-setup-cli.adoc[Setup: Aws CLI] - This document will give you the full explanation of how to setup Aws CLI and the reasons behind it.
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+[NOTE]
+For more info on Aws CLI configuration please see the following
+{tl-tooling-link-022-029}[Setup: Aws CLI] - This document will give you the full explanation of how to setup Aws CLI and the reasons behind it.
+
+endif::[]
 
 [source, shell]
 ----

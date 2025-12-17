@@ -12,11 +12,26 @@ The goal of this page is to describe how to deploy a CA_CERT (ie root cert) to t
 
 == Build your certificate layer
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 Building a layer to import a certificate is essentially exactly the same as
 link:aws-lambda-layers.adoc[How To: Lambda Layers], but there is some
 additional requirements to get everything working. The certificate layer can be modeled after this sub-folder in the
 lambda-layers-shared-services repository. Place your `cacert` file in the `src/main/resources` folder all other files can
 be copied and deployed just as this repo is.
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+Building a layer to import a certificate is essentially exactly the same as
+{tl-tooling-link-022-017}[How To: Lambda Layers], but there is some
+additional requirements to get everything working. The certificate layer can be modeled after this sub-folder in the
+lambda-layers-shared-services repository. Place your `cacert` file in the `src/main/resources` folder all other files can
+be copied and deployed just as this repo is.
+
+endif::[]
 
 [WARNING]
 There is no direct way to verify the file path of something contained within a layer.
@@ -34,9 +49,22 @@ tasks.register('buildLayer', Copy) {
 }
 ----
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 If following the linked
 link:aws-lambda-layers.adoc[How To: Lambda Layers] place the certificate under the `src/main/resources` folder. Then once a
 layer is deployed and a lambda ingests the layer the certificate will be available at `/opt/java/lib/my-file`.
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+If following the linked
+{tl-tooling-link-022-017}[How To: Lambda Layers] place the certificate under the `src/main/resources` folder. Then once a
+layer is deployed and a lambda ingests the layer the certificate will be available at `/opt/java/lib/my-file`.
+
+endif::[]
 
 == Include the certificate in the application
 

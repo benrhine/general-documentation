@@ -10,10 +10,24 @@ endif::[]
 [WARNING]
 This page as of 20230706 is experimental and currently untested. Use it for reference then update the page
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 The intent of this page is to describe how to convert Serverless / `servlerless.yml` to https://aws.amazon.com/serverless/sam/[Aws SAM]
 in the event there is
 ever a desire to to move away from the https://www.serverless.com[Serverless framework]. For internal documentation on
-Aws Sam see link:../../engineering/cloud/infrastructure/aws/aws-sam.adoc[here].
+Aws Sam see link:../../../engineering/tooling/tooling-cloud-aws/tooling-aws-sam.adoc[here].
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+The intent of this page is to describe how to convert Serverless / `servlerless.yml` to https://aws.amazon.com/serverless/sam/[Aws SAM]
+in the event there is
+ever a desire to to move away from the https://www.serverless.com[Serverless framework]. For internal documentation on
+Aws Sam see {tl-tooling-link-022-018}[here].
+
+endif::[]
 
 == How to convert Serverless to Aws SAM
 

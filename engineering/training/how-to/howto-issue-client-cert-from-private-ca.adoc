@@ -28,7 +28,7 @@ This document describes the steps to issue and sign certificates using a Private
 
 == Prerequisites
 
-You must have an existing Private CA created in AWS. If you do not have one, please refer to the {how-to-11-link}[How To - Create a Private Certificate Authority in AWS] guide.
+You must have an existing Private CA created in AWS. If you do not have one, please refer to the {tl-how-to-link-060}[How To - Create a Private Certificate Authority in AWS] guide.
 
 You also will need openssl installed on your local machine to generate a Certificate Signing Request (CSR).
 

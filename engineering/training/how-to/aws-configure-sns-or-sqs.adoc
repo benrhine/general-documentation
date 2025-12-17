@@ -9,13 +9,13 @@ ifdef::confluence[]
 endif::[]
 
 This page describes how to configure SNS or SQS. Generic queues (SQS) are great when there is only a single consumer of
-messages but there are times where it may be desirable to have multiple consumers or to just provide greater flexibility
+messages but there are times when it may be desirable to have multiple consumers or to just provide greater flexibility
 to your interfaces. Enter SNS (aka pub/sub). While SNS can go to multiple subscribers it can also be used with a single
 queue/app almost exactly the same as plain SQS but allows additional flexibility
 
 == Using Serverless
 
-First note that all SNS or SQS related setup should occur in the servereless-resource.yml  so that it can be updated independently of any application logic.
+First note that all SNS or SQS related setup should occur in the serverless-resource.yml  so that it can be updated independently of any application logic.
 
 This example supports conditional resource creation as we currently support multiple deployment environments from a single aws account.
 
@@ -26,9 +26,22 @@ This snippet will create the following
 * sns topic for sqs queue
 * sns topic for alerts
 
+// Renders correctly in IDE
+ifndef::deploy[]
+
 For specific details on the DLQ see link:aws-configure-dlq.adoc[How To: Configure DLQ].
 
 For specific details on the DLQ Alert see link:aws-configure-dlq-alarm.adoc[How To: Configure DLQ Alarm]
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+For specific details on the DLQ see {tl-how-to-link-006}[How To: Configure DLQ].
+
+For specific details on the DLQ Alert see {tl-how-to-link-007}[How To: Configure DLQ Alarm]
+
+endif::[]
 
 [source, yaml]
 ----
@@ -138,7 +151,19 @@ receivingDevAlertSubscription:
 
 [WARNING]
 There are additional steps to complete configuring the alert, if that is what you are attempting to do see
+
+// Renders correctly in IDE
+ifndef::deploy[]
+
 link:aws-configure-dlq-alarm.adoc[How To: Configure DLQ Alarm]
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+{tl-how-to-link-007}[How To: Configure DLQ Alarm]
+
+endif::[]
 
 == Using AWS Cli to send to SQS Queue
 

@@ -62,7 +62,7 @@ project-repo-name
 
 To explain a bit more what the above directory structure provides...
 
-* The `README.adoc` will translate to the top level repository page under {team-projects-link}[Projects]
+* The `README.adoc` will translate to the top level repository page under {sl-projects-link}[Projects]
 * Any `.adoc` file present in the `_includes` directory is reusable to reduce common pieces of documentation
 * All `.adoc` files directly under `documentation` will create a header page _under_ the repository page
 * All created ADR's should be placed under `decisions`
@@ -71,12 +71,9 @@ To explain a bit more what the above directory structure provides...
 
 Final project structure in Confluence should look similar to the following ...
 
-image:../../images/confluence-project-structure.png[]
+image:images/confluence-project-structure.png[]
 
 == Not what you were looking for?
 
-include::{includedir}/how-to-not-what-you-are-looking-for.adoc[]
-
-include::{includedir}/tutorial-not-what-you-are-looking-for.adoc[]
 
 
