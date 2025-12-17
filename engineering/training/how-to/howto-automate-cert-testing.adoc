@@ -214,8 +214,4 @@ This assumes you have the necessary AWS credentials stored in your repository se
 * Make sure the endpoint is reachable either publicly or within the network context of the Github Actions runner.
 * Check the AWS IAM role permissions and trust policy if you encounter issues with AWS CLI commands and kubectl.
 
-== Not what you were looking for?
-
-include::{includedir}/how-to-not-what-you-are-looking-for.adoc[]
-
-include::{includedir}/tutorial-not-what-you-are-looking-for.adoc[]
+include::../../../_includes/training-how-to-nwywlf.adoc[]

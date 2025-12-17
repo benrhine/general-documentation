@@ -179,3 +179,7 @@ functions:
 - https://fidelapi.com/blog/how-to-set-up-sqs-dead-letter-queues-with-alarm-notifications/
 - https://stackoverflow.com/questions/31326574/amazon-cloudwatch-alarm-not-triggered
 - https://mnapoli.fr/sqs-dead-letter-queue-alarm
+
+
+include::../../../_includes/training-how-to-nwywlf.adoc[]
+

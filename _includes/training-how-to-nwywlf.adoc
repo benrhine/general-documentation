@@ -1,0 +1,21 @@
+
+
+
+ifdef::deploy[]
+
+* {tl-how-to-link}[How To]
+* {tl-tutorials-link}[Tutorials]
+
+endif::[]
+
+== Not what you were looking for?
+
+ifndef::deploy[]
+// These will only work from the file they are included in - NOT this file
+* link:../engineering/training/how-to.adoc[How To]
+
+endif::[]
+
+ifdef::deploy[]
+* {tl-how-to-link}[How To]
+endif::[]

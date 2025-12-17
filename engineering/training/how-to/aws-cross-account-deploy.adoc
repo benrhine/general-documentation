@@ -542,3 +542,6 @@ If you need to review build logs these will be available in the same account whe
 - https://www.serverless.com/framework/docs/providers/aws/guide/credentials
 - https://seed.run/blog/how-to-deploy-your-serverless-app-into-multiple-aws-accounts.html
 - https://seed.run/docs/serverless-errors/the-serverless-deployment-bucket-does-not-exist.html
+
+
+include::../../../_includes/training-how-to-nwywlf.adoc[]

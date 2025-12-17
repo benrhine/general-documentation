@@ -187,5 +187,5 @@ for (X509Certificate cert : certificates) {
 
 
 
-
+include::../../../_includes/training-how-to-nwywlf.adoc[]
 

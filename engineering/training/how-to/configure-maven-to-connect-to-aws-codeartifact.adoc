@@ -157,7 +157,7 @@ endif::[]
 
 
 
-
+include::../../../_includes/training-how-to-nwywlf.adoc[]
 
 
 

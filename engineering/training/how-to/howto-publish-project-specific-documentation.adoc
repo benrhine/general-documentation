@@ -45,13 +45,13 @@ Similarly to publishing the project README, to publish a subproject README and t
 .Publish subproject README.adoc
 [source, kotlin]
 ----
-include::../../../../build.gradle.kts[tag=confluencePublisher6]
+// include::../../../../build.gradle.kts[tag=confluencePublisher6]
 ----
 
 .Publish subproject documentation
 [source, kotlin]
 ----
-include::../../../../build.gradle.kts[tag=confluencePublisher7]
+// include::../../../../build.gradle.kts[tag=confluencePublisher7]
 ----
 
 Additionally, please note that these new tasks are dependent on other tasks having been previously executed. This is to ensure that the top level confluence folder/directory is already present otherwise these new tasks will not have a location to publish to as they are dependent on having the correct `ancestorId` provided.
@@ -86,9 +86,10 @@ To simplify publishing all documentation it is recommended to create an addition
 .Overridden publishToConfluence
 [source, kotlin]
 ----
-include::../../../../build.gradle.kts[tag=confluencePublisher8]
+// include::../../../../build.gradle.kts[tag=confluencePublisher8]
 ----
 
 
 == Reference
 
+include::../../../_includes/training-how-to-nwywlf.adoc[]

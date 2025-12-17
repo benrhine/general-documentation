@@ -69,8 +69,10 @@ For more info on Git configuration please see the following
 [credential "https://git-codecommit.us-west-2.amazonaws.com/v1/repos/aws-s3-wrapper"]
 ----
 
-== Not what you were looking for?
+include::../../../_includes/training-how-to-nwywlf.adoc[]
 
 * link:../../engineering/onboarding/howto-configure-git-ssh.adoc[Configure: Git SSH]
+
+
 
 

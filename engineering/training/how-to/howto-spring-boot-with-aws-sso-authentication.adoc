@@ -20,3 +20,8 @@ endif::[]
 ifdef::confluence[]
 include::{includedir}/version-control-warning.adoc[]
 endif::[]
+
+
+include::../../../_includes/training-how-to-nwywlf.adoc[]
+
+

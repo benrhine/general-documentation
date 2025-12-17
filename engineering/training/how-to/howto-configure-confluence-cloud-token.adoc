@@ -28,8 +28,7 @@ endif::[]
 * Create API token
 ** Make sure to save the token some place safe as it will only be visible once
 
-== Not what you were looking for?
+include::../../../_includes/training-how-to-nwywlf.adoc[]
 
-include::{includedir}/how-to-not-what-you-are-looking-for.adoc[]
 
-include::{includedir}/tutorial-not-what-you-are-looking-for.adoc[]
+

@@ -132,11 +132,11 @@ The following documentation is not fully complete and DOES NOT work correctly, u
 
 If you require Windows WSL please see {tl-how-to-link-049}[here]
 
-== Not what you were looking for?
-
-// include::{includedir}/setups-not-what-you-are-looking-for.adoc[]
 
 == Related Links
+
+include::../../../_includes/training-how-to-nwywlf.adoc[]
+
 
 
 

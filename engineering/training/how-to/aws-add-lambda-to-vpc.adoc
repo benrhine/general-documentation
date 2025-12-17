@@ -39,3 +39,5 @@ This can be solved by keeping another lambda stub running that is connected to t
 - https://stackoverflow.com/questions/50498620/serverless-framework-add-lambda-to-an-existing-vpc-and-subnet
 
 
+include::../../../_includes/training-how-to-nwywlf.adoc[]
+

@@ -34,3 +34,5 @@ No one on the team is currently on a linux machine. Thus this section is mostly 
 
 
 
+include::../../../_includes/training-how-to-nwywlf.adoc[]
+

@@ -140,8 +140,4 @@ openssl x509 -in client.crt -text -noout
 ----
     - This command will display the details of the issued certificate, including the issuer, subject, and validity period.
 
-== Not what you were looking for?
-
-include::{includedir}/how-to-not-what-you-are-looking-for.adoc[]
-
-include::{includedir}/tutorial-not-what-you-are-looking-for.adoc[]
+include::../../../_includes/training-how-to-nwywlf.adoc[]

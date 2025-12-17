@@ -10,3 +10,8 @@ endif::[]
 == Reference
 
 - https://medium.com/@iamfaisalkhatri/how-to-check-and-update-newer-versions-for-dependencies-in-the-maven-project-3fd20e0dc783
+
+
+
+include::../../../_includes/training-how-to-nwywlf.adoc[]
+

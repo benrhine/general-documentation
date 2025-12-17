@@ -236,9 +236,7 @@ Aws CLI was installed as part of the setup script
 
 
 
-== Not what you were looking for?
-
-// include::{includedir}/setups-not-what-you-are-looking-for.adoc[]
+include::../../../_includes/training-how-to-nwywlf.adoc[]
 
 
 

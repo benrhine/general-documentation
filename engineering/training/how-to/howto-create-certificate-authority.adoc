@@ -123,3 +123,6 @@ aws acm-pca describe-certificate-authority \
 
 * S3 bucket used for CRL testing (in the dev-aws-dp account): `test-cert-auth-revocation-list`
 
+include::../../../_includes/training-how-to-nwywlf.adoc[]
+
+

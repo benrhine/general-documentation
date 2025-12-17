@@ -8,3 +8,7 @@ ifdef::confluence[]
 endif::[]
 
 FILL IN PER COMPANY
+
+
+
+include::../../../_includes/training-how-to-nwywlf.adoc[]

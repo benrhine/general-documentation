@@ -207,10 +207,8 @@ I would be remiss if I did not mention that some consider this approach to be a 
 * https://www.baeldung.com/ops/docker-entrypoint-environment-variables
 * https://www.geeksforgeeks.org/advance-java/setting-active-profile-and-config-location-from-command-line-in-spring-boot/
 
-== Not what you were looking for?
+include::../../../_includes/training-how-to-nwywlf.adoc[]
 
-include::{includedir}/how-to-not-what-you-are-looking-for.adoc[]
 
-include::{includedir}/tutorial-not-what-you-are-looking-for.adoc[]
 
 

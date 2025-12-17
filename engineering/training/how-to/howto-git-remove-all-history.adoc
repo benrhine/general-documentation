@@ -31,3 +31,8 @@ Now all your commit history has been wiped
 == Reference
 
 * https://clearinsights.io/blog/how-to-remove-all-git-commit-history/
+
+
+include::../../../_includes/training-how-to-nwywlf.adoc[]
+
+

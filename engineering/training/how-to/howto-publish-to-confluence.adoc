@@ -393,17 +393,16 @@ In addition, to ensure these dynamic values are substituted correctly and do not
 
 [source, kotlin]
 ----
-include::../../../../build.gradle.kts[tag=confluencePublisher3]
+// include::../../../../build.gradle.kts[tag=confluencePublisher3]
 ----
 
-== Not what you were looking for?
-
-include::{includedir}/how-to-not-what-you-are-looking-for.adoc[]
-
-include::{includedir}/tutorial-not-what-you-are-looking-for.adoc[]
 
 == Reference
 
 * https://nomisp.github.io/confluence-publisher-plugin/
 * https://www.google.com/search?q=gradle+register+custom+confluencePublisher+task&oq=gradle+register+custom+confluencePublisher+task&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIJCAEQIRgKGKABMgkIAhAhGAoYoAEyCQgDECEYChigATIHCAQQIRiPAtIBCDk3ODFqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8
 *
+
+
+include::../../../_includes/training-how-to-nwywlf.adoc[]
+

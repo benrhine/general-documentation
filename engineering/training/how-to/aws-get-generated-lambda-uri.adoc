@@ -16,3 +16,6 @@ In order to programmatically get the auto generated Aws Lambda URI for use in fu
 - echo "API Gateway URL:" ${API_GATEWAY_URL}
 - echo "----------------------------------------------- Complete ------------------------------------------------"
 ----
+
+
+include::../../../_includes/training-how-to-nwywlf.adoc[]

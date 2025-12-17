@@ -254,3 +254,7 @@ This configuration allows for the `on-failure` job to check the status of previo
 == Reference
 
 * https://tomjones.dev/blog/send-github-action-workflow-failure-notifications-to-slack/
+
+
+include::../../../_includes/training-how-to-nwywlf.adoc[]
+

@@ -41,7 +41,7 @@ The CodeBuild action should now once again function as intended
 
 
 
-
+include::../../../_includes/training-how-to-nwywlf.adoc[]
 
 
 

@@ -204,7 +204,7 @@ aws sns publish --topic-arn arn:aws:sns:us-west-2:xxxxxxxx:queue-topic-dev --mes
 - https://medium.com/consulner/aws-lambda-sqs-events-with-serverless-framework-7429471ac664
 
 
-
+include::../../../_includes/training-how-to-nwywlf.adoc[]
 
 
 

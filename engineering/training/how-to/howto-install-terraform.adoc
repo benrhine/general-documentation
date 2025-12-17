@@ -25,9 +25,12 @@ Download the executable files and follow the installer.
 
 See the Linux section of the top link for distro specific instructions.
 
-===== Reference
+== Reference
 
 There is also a brew install available directly from the brew website but it only installs an old version of terraform.
 It is highly suggested to NOT INSTALL from this script and to use the official install provided via HashiCorp.
 
 * https://formulae.brew.sh/formula/terraform
+
+
+include::../../../_includes/training-how-to-nwywlf.adoc[]

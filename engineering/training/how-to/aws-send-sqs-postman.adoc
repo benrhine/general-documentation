@@ -75,7 +75,7 @@ image:images/postman-2.png[]
 - https://documenter.getpostman.com/view/2631434/SWLh56pX#bc7c4c99-d538-490d-b6b2-11792b93be22
 
 
-
+include::../../../_includes/training-how-to-nwywlf.adoc[]
 
 
 

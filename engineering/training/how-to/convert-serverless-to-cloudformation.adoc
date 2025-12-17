@@ -53,6 +53,6 @@ in JSON format that can then be executed.
 - https://stackoverflow.com/questions/69012620/how-to-transform-a-serverless-framework-yaml-to-template-of-cloudformation
 
 
-
+include::../../../_includes/training-how-to-nwywlf.adoc[]
 
 

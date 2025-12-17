@@ -197,3 +197,8 @@ If you attempt to attach a boundary policy with a wildcard value (`*`) for the a
 == Reference
 
 * https://aws.amazon.com/blogs/security/when-and-where-to-use-iam-permissions-boundaries/
+
+
+include::../../../_includes/training-how-to-nwywlf.adoc[]
+
+

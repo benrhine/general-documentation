@@ -116,3 +116,6 @@ _TODO_
 == Other
 
 _TODO_
+
+
+include::../../../_includes/training-how-to-nwywlf.adoc[]

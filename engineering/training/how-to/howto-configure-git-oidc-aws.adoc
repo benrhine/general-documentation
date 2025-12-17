@@ -108,3 +108,6 @@ module "aws_tools_github_oidc_assume_role" {
 * https://github.com/aws/aws-sdk-js/issues/55
 * https://www.google.com/search?client=safari&rls=en&q=Could+not+assume+role+with+OIDC%3A+getaddrinfo+ENOTFOUND+sts.aws-east-2.amazonaws.com&ie=UTF-8&oe=UTF-8
 *
+
+
+include::../../../_includes/training-how-to-nwywlf.adoc[]

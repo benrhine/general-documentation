@@ -111,7 +111,7 @@ Now determine what roles will be required; All CodeBuild jobs will require a rol
 ----
 # All resources that are created from this CloudFormation Template
 Resources:
-    ...
+   # ...
   # --------------------------------------------------------------------------------------------------------------------
   # Create ALL base roles in support of CodeBuild and CodePipeline
   # --------------------------------------------------------------------------------------------------------------------
@@ -2680,4 +2680,6 @@ Resources:
 - https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-available.html
 - https://docs.aws.amazon.com/codebuild/latest/userguide/create-project-cloud-formation.html
 - https://dev.to/tiamatt/aws-project-module-2-automate-the-build-of-a-static-website-on-aws-s3-via-codebuild-and-cloudformation-nc2
+
+include::../../../_includes/training-how-to-nwywlf.adoc[]
 

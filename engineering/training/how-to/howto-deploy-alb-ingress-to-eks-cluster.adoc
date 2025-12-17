@@ -292,8 +292,4 @@ curl -v \
 4. **CRL updates**: Must be manually refreshed when certificates are revoked
 5. **Subnet selection**: EKS Auto Mode auto-detects subnets based on tags
 
-== Not what you were looking for?
-
-include::{includedir}/how-to-not-what-you-are-looking-for.adoc[]
-
-include::{includedir}/tutorial-not-what-you-are-looking-for.adoc[]
+include::../../../_includes/training-how-to-nwywlf.adoc[]

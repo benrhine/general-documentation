@@ -70,4 +70,4 @@ increase performance with mixed results and are more challenging to setup.
 - https://www.serverless.com/framework/docs/providers/aws/guide/serverless.yml#functions
 
 
-
+include::../../../_includes/training-how-to-nwywlf.adoc[]

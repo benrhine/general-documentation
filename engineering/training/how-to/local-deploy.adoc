@@ -703,7 +703,7 @@ tasks.register('removeLocalAllWithAuth') {
 
 
 
-test comment
+include::../../../_includes/training-how-to-nwywlf.adoc[]
 
 
 

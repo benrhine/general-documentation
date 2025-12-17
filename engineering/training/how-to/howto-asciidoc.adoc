@@ -278,12 +278,10 @@ public class HelloWorld {
 ```
 ----
 
-== Not what you were looking for?
-
-include::{includedir}/how-to-not-what-you-are-looking-for.adoc[]
-
-include::{includedir}/tutorial-not-what-you-are-looking-for.adoc[]
 
 == Reference
 
 * https://docs.asciidoctor.org/asciidoc/latest/
+
+
+include::../../../_includes/training-how-to-nwywlf.adoc[]

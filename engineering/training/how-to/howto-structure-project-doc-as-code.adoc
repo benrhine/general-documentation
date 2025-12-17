@@ -73,7 +73,7 @@ Final project structure in Confluence should look similar to the following ...
 
 image:images/confluence-project-structure.png[]
 
-== Not what you were looking for?
+include::../../../_includes/training-how-to-nwywlf.adoc[]
 
 
 

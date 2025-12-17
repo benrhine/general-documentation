@@ -29,10 +29,4 @@ endif::[]
 
 
 
-== Not what you were looking for?
-
-include::{includedir}/how-to-not-what-you-are-looking-for.adoc[]
-
-include::{includedir}/tutorial-not-what-you-are-looking-for.adoc[]
-
-
+include::../../../_includes/training-how-to-nwywlf.adoc[]

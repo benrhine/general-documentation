@@ -72,5 +72,5 @@ executorService.shutdown();
 - https://linuxhandbook.com/get-file-path/
 
 
-
+include::../../../_includes/training-how-to-nwywlf.adoc[]
 

@@ -25,3 +25,6 @@ endif::[]
 
 
 == Configure Classic PAT
+
+
+include::../../../_includes/training-how-to-nwywlf.adoc[]

@@ -37,7 +37,7 @@ Using Maven sometimes requires an extra step to be able to authenticate to inter
 </settings>
 ----
 
-== Not what you were looking for?
+include::../../../_includes/training-how-to-nwywlf.adoc[]
 
 * link:../engineering/development/java/java-maven.adoc[Maven]
 * link:../development/build/build-maven-artifact.adoc[Maven: Build Artifact]

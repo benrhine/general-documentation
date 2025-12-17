@@ -22,3 +22,9 @@ include::{includedir}/version-control-warning.adoc[]
 endif::[]
 
 This How To is intended to describe the configuration of a basic GitHub Action.
+
+
+
+include::../../../_includes/training-how-to-nwywlf.adoc[]
+
+

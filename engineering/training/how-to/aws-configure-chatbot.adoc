@@ -178,3 +178,7 @@ resources:                                              # Specify all resources 
 - https://docs.aws.amazon.com/chatbot/latest/adminguide/slack-setup.html#cfn-slack
 - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sns-subscription.html#aws-resource-sns-subscription--examples
 - https://stackoverflow.com/questions/49341187/confirming-aws-sns-topic-subscription-for-slack-webhook
+
+
+include::../../../_includes/training-how-to-nwywlf.adoc[]
+

@@ -76,7 +76,7 @@ image:images/metric-filters-2.png[]
 
 
 
-
+include::../../../_includes/training-how-to-nwywlf.adoc[]
 
 
 

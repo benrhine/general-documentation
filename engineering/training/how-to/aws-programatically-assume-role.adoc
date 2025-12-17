@@ -240,3 +240,8 @@ def lambda_handler(event, context):
 - https://atulquest93.medium.com/aws-lambda-with-cross-account-access-using-assume-role-in-java-d6ad2b32b40b
 - https://joelforjava.com/blog/2019/11/27/using-assume-role-with-aws-sdk.html
 
+
+include::../../../_includes/training-how-to-nwywlf.adoc[]
+
+
+

@@ -31,3 +31,6 @@ include::{includedir}/generic-information.adoc[]
 endif::[]
 
 TODO 20251215
+
+
+include::../../../_includes/training-how-to-nwywlf.adoc[]

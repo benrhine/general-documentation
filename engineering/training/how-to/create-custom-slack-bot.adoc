@@ -71,3 +71,5 @@ image:images/slack-enable-incoming-webhooks.png[]
 - https://docs.aws.amazon.com/chatbot/latest/adminguide/chatbot-cli-commands.html
 - https://docs.aws.amazon.com/chatbot/latest/adminguide/slack-setup.html#cfn-slack
 
+include::../../../_includes/training-how-to-nwywlf.adoc[]
+

@@ -107,10 +107,11 @@ sso_account_id = XXXXXXXXX
 sso_role_name = ViewOnlyAccess
 ----
 
-== Not what you were looking for?
+include::../../../_includes/training-how-to-nwywlf.adoc[]
 
-* link:../../engineering/cloud/infrastructure/aws/aws-setup-cli.adoc[Setup: Aws CLI]
-* link:../../engineering/cloud/infrastructure/aws/aws-cli.adoc[How To: Aws CLI Usage]
+
+
+
 
 
 
