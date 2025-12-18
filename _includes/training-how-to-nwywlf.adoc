@@ -1,12 +1,6 @@
 
 
 
-ifdef::deploy[]
-
-* {tl-how-to-link}[How To]
-* {tl-tutorials-link}[Tutorials]
-
-endif::[]
 
 == Not what you were looking for?
 
