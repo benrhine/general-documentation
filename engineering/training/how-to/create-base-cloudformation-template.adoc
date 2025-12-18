@@ -6,6 +6,8 @@ endif::[]
 // Renders correctly in AsciiDoc Deployment
 ifdef::confluence[]
 :toc:
+
+include::{includedir}/version-control-warning.adoc[]
 endif::[]
 
 Creating a base CloudFormation template can be used to support additional CloudFormation or the Serverless Framework.

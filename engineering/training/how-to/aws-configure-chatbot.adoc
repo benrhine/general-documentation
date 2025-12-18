@@ -5,6 +5,8 @@ endif::[]
 // Renders correctly in AsciiDoc Deployment
 ifdef::confluence[]
 :toc:
+
+include::{includedir}/version-control-warning.adoc[]
 endif::[]
 
 Setting up the Aws Chatbot is the first step to significantly improving the alerting for all Aws based projects. This

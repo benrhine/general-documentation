@@ -9,18 +9,11 @@ endif::[]
 // Renders correctly in AsciiDoc Deployment
 ifdef::confluence[]
 :toc:
+
+include::{includedir}/version-control-warning.adoc[]
 endif::[]
 
 :keywords: engineering, properties
-
-// Renders correctly in IDE for testing purposes
-// ifndef::confluence[]
-// include::../_includes/version-control-warning.adoc[]
-// endif::[]
-// Renders correctly in AsciiDoc Deployment
-ifdef::confluence[]
-include::{includedir}/version-control-warning.adoc[]
-endif::[]
 
 This page and pages below are dedicated to tracking properties that are used within all {team-name-1-abv-upper} environments. While some properties may be under version control and included in the deployment process others are not or can not be put in the repositories for security purposes.
 

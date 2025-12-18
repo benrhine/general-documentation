@@ -9,18 +9,11 @@ endif::[]
 // Renders correctly in AsciiDoc Deployment
 ifdef::confluence[]
 :toc:
+
+include::{includedir}/version-control-warning.adoc[]
 endif::[]
 
 :keywords: engineering, team
-
-// Renders correctly in IDE for testing purposes
-// ifndef::confluence[]
-// include::../_includes/version-control-warning.adoc[]
-// endif::[]
-// Renders correctly in AsciiDoc Deployment
-ifdef::confluence[]
-include::{includedir}/version-control-warning.adoc[]
-endif::[]
 
 This page is intended to capture all documentation specific to the team and team processes to create a single unified place for reference. If you are new to the team please review these practices to become familiar with how {team-name-1-abv-upper} teams operate.
 

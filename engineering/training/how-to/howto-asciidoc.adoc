@@ -7,19 +7,12 @@ endif::[]
 // Renders correctly in AsciiDoc Deployment
 ifdef::confluence[]
 :toc:
+
+include::{includedir}/version-control-warning.adoc[]
 endif::[]
 
 // Tags created on pages with keywords relevant to content - default values are present and can be overridden by passed in attribute (and should be). Additionally, when using the publishToConfluence plugin it is more difficult to pass in the keywords so the defaults are preferred.
 :keywords: how, to, tutorial, documenation, asciidoc, configuration, help
-
-// Renders correctly in IDE for testing purposes
-// ifndef::confluence[]
-// include::../_includes/version-control-warning.adoc[]
-// endif::[]
-// Renders correctly in AsciiDoc Deployment
-ifdef::confluence[]
-include::{includedir}/version-control-warning.adoc[]
-endif::[]
 
 This How To is intended to describe the complete setup and configuration of https://asciidoctor.org/[AsciiDoctor].
 

@@ -9,18 +9,11 @@ endif::[]
 // Renders correctly in AsciiDoc Deployment
 ifdef::confluence[]
 :toc:
+
+include::{includedir}/version-control-warning.adoc[]
 endif::[]
 
 :keywords: engineering, support, run, books
-
-// Renders correctly in IDE for testing purposes
-// ifndef::confluence[]
-// include::../_includes/version-control-warning.adoc[]
-// endif::[]
-// Renders correctly in AsciiDoc Deployment
-ifdef::confluence[]
-include::{includedir}/version-control-warning.adoc[]
-endif::[]
 
 [NOTE]
 If further help is required please review the individual project Troubleshooting or Disaster Recovery pages located under {sl-projects-link}[Projects]. Example location `Projects -> Repo/Project Name -> Sub-project/Terraform name`

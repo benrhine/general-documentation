@@ -6,6 +6,8 @@ endif::[]
 // Renders correctly in AsciiDoc Deployment
 ifdef::confluence[]
 :toc:
+
+include::{includedir}/version-control-warning.adoc[]
 endif::[]
 
 This page is intended to describe how to apply a custom domain to your project using the Serverless Framework.

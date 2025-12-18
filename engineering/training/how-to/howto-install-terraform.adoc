@@ -5,6 +5,8 @@ endif::[]
 // Renders correctly in AsciiDoc Deployment
 ifdef::confluence[]
 :toc:
+
+include::{includedir}/version-control-warning.adoc[]
 endif::[]
 
 To install Terraform start by navigating to the https://developer.hashicorp.com/terraform/install?product_intent=terraform[Terraform Download] page.

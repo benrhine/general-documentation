@@ -8,39 +8,44 @@ endif::[]
 // Renders correctly in AsciiDoc Deployment
 ifdef::confluence[]
 :toc:
+
+include::{includedir}/version-control-warning.adoc[]
 endif::[]
 
 :keywords: engineering, troubleshooting,
 
-// Renders correctly in IDE for testing purposes
-// ifndef::confluence[]
-// include::../_includes/version-control-warning.adoc[]
-// endif::[]
-// Renders correctly in AsciiDoc Deployment
-ifdef::confluence[]
-include::{includedir}/version-control-warning.adoc[]
-endif::[]
-
 A directory of all troubleshooting documentation ...
 
-* link:engineering/development/build/build-maven-troubleshooting.adoc[Build: Maven Troubleshooting]
-* link:engineering/development/build/build-gradle-troubleshooting.adoc[Build: Gradle Troubleshooting]
+// Renders correctly in IDE
+ifndef::deploy[]
+* link:../engineering/development/build/build-maven-troubleshooting.adoc[Build: Maven Troubleshooting]
+* link:../engineering/development/build/build-gradle-troubleshooting.adoc[Build: Gradle Troubleshooting]
 * link:../engineering/ops/infrastructure-as-code/aws/aws-cf-troubleshooting.adoc[CloudFormation: Troubleshooting]
 * link:../engineering/ops/infrastructure-as-code/serverless/sls-troubleshooting.adoc[Serverless: Troubleshooting]
 * link:../engineering/ops/infrastructure-as-code/terraform/tf-troubleshooting.adoc[Terraform: Troubleshooting]
-* link:../engineering/cloud/infrastructure/aws/aws-cli-troubleshooting.adoc[CLI: Troubleshooting]
-* link:../engineering/cloud/infrastructure/aws/aws-cdk-troubleshooting.adoc[CDK: Troubleshooting]
-* link:../engineering/cloud/infrastructure/aws/aws-sam-troubleshooting.adoc[SAM: Troubleshooting]
-* link:../engineering/cloud/infrastructure/aws/aws-dynamodb-troubleshooting.adoc[DynamoDB: Troubleshooting]
-
-
+* link:../engineering/tooling/tooling-cloud-aws/tooling-aws-cli-troubleshooting.adoc[CLI: Troubleshooting]
+* link:../engineering/tooling/tooling-cloud-aws/tooling-aws-cdk-troubleshooting.adoc[CDK: Troubleshooting]
+* link:../engineering/tooling/tooling-cloud-aws/tooling-aws-sam-troubleshooting.adoc[SAM: Troubleshooting]
+* link:../engineering/tooling/tooling-cloud-aws/tooling-aws-dynamodb-troubleshooting.adoc[DynamoDB: Troubleshooting]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+* {sl-development-build-link-015}[Build: Maven Troubleshooting]
+* {sl-development-build-link-012}[Build: Gradle Troubleshooting]
+* {sl-ops-link-003-001-010}[CloudFormation: Troubleshooting]
+* {sl-ops-link-003-004-012}[Serverless: Troubleshooting]
+* {sl-ops-link-003-005-018}[Terraform: Troubleshooting]
+* {tl-tooling-link-022-005}[CLI: Troubleshooting]
+* {tl-tooling-link-022-003}[CDK: Troubleshooting]
+* {tl-tooling-link-022-019}[SAM: Troubleshooting]
+* {tl-tooling-link-022-011}[DynamoDB: Troubleshooting]
+endif::[]
 
 
 
 
 // Renders correctly in IDE
 ifndef::deploy[]
-:intellij: intellij
 include::../_includes/repo-level-engineering-not-what-you-were-looking-for.adoc[]
 endif::[]
 // Renders correctly in AsciiDoc Deployment

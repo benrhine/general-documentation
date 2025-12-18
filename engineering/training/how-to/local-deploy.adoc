@@ -6,6 +6,8 @@ endif::[]
 // Renders correctly in AsciiDoc Deployment
 ifdef::confluence[]
 :toc:
+
+include::{includedir}/version-control-warning.adoc[]
 endif::[]
 
 The intent of this page is to describe how to perform a deploy from a local developers machine for all new lambdas that

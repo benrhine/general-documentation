@@ -5,6 +5,8 @@ endif::[]
 // Renders correctly in AsciiDoc Deployment
 ifdef::confluence[]
 :toc:
+
+include::{includedir}/version-control-warning.adoc[]
 endif::[]
 
 Using Maven sometimes requires an extra step to be able to authenticate to internal repositories.

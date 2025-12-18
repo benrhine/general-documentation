@@ -6,6 +6,8 @@ endif::[]
 // Renders correctly in AsciiDoc Deployment
 ifdef::confluence[]
 :toc:
+
+include::{includedir}/version-control-warning.adoc[]
 endif::[]
 
 The goal of this page is how to define a custom SNS access policy at resource deployment time

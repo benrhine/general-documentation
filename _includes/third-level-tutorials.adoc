@@ -9,11 +9,15 @@ ifndef::deploy[]
 // These will only work from the file they are included in - NOT this file
 
 * link:../engineering/training/tutorials/tutorial-cloudwatch-send-slack.adoc[Tutorial: CloudWatch send to Slack]
+* link:../engineering/training/tutorials/tutorial-auto-publish-documentation-to-confluence.adoc[Tutorial: Auto publish documentation to Confluence]
+* link:../engineering/training/tutorials/tutorial-x509-authentication-in-kubernetes.adoc[Tutorial: x509 Authentication in Kubernetes]
 
 endif::[]
 
 ifdef::deploy[]
 
 * {tl-tutorials-link-01}[Tutorial: CloudWatch send to Slack]
+* {tl-tutorials-link-03}[Tutorial: Auto publish documentation to Confluence]
+* {tl-tutorials-link-02}[Tutorial: x509 Authentication in Kubernetes]
 
 endif::[]

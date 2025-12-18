@@ -1,15 +1,18 @@
 = Reference
-
-:keywords: engineering, reference
-
-// Renders correctly in IDE for testing purposes
-// ifndef::confluence[]
-// include::../_includes/version-control-warning.adoc[]
-// endif::[]
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
+// Not sure how placement will affect publishing to Confluence
+ifndef::confluence[]
+:toc: left
+endif::[]
 // Renders correctly in AsciiDoc Deployment
 ifdef::confluence[]
+:toc:
+
 include::{includedir}/version-control-warning.adoc[]
 endif::[]
+
+:keywords: engineering, reference
 
 * https://intellipaat.com/community/2369/downloading-the-latest-file-in-an-s3-bucket-using-aws-cli
 * https://intellipaat.com/community/534/how-to-display-just-the-name-of-files-using-aws-s3-ls-command

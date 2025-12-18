@@ -9,20 +9,12 @@ endif::[]
 // Renders correctly in AsciiDoc Deployment
 ifdef::confluence[]
 :toc:
-endif::[]
 
-:keywords: engineering, projects
-
-// Renders correctly in IDE for testing purposes
-// ifndef::confluence[]
-// include::../_includes/version-control-warning.adoc[]
-// include::../_includes/confluence-key-property.adoc[]
-// endif::[]
-// Renders correctly in AsciiDoc Deployment
-ifdef::confluence[]
 include::{includedir}/version-control-warning.adoc[]
 include::{includedir}/confluence-key-property.adoc[]
 endif::[]
+
+:keywords: engineering, projects
 
 // Renders correctly in IDE
 ifndef::deploy[]

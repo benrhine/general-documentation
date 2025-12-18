@@ -5,6 +5,8 @@ endif::[]
 // Renders correctly in AsciiDoc Deployment
 ifdef::confluence[]
 :toc:
+
+include::{includedir}/version-control-warning.adoc[]
 endif::[]
 
 Metric Filters are essentially queries that can be pre-defined to run against Aws CloudWatch. Creating Metric Filters
