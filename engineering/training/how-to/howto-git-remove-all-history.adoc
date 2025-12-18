@@ -33,6 +33,16 @@ Now all your commit history has been wiped
 * https://clearinsights.io/blog/how-to-remove-all-git-commit-history/
 
 
+// Renders correctly in IDE
+ifndef::deploy[]
 include::../../../_includes/training-how-to-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/training-how-to-nwywlf.adoc[]
+endif::[]
+
+
+
 
 

@@ -204,7 +204,14 @@ aws sns publish --topic-arn arn:aws:sns:us-west-2:xxxxxxxx:queue-topic-dev --mes
 - https://medium.com/consulner/aws-lambda-sqs-events-with-serverless-framework-7429471ac664
 
 
+// Renders correctly in IDE
+ifndef::deploy[]
 include::../../../_includes/training-how-to-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/training-how-to-nwywlf.adoc[]
+endif::[]
 
 
 

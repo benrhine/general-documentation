@@ -404,5 +404,12 @@ In addition, to ensure these dynamic values are substituted correctly and do not
 *
 
 
+// Renders correctly in IDE
+ifndef::deploy[]
 include::../../../_includes/training-how-to-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/training-how-to-nwywlf.adoc[]
+endif::[]
 

@@ -76,6 +76,13 @@ This assumes you have already configured an ssh key that is working for personal
 * https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account
 
 
+// Renders correctly in IDE
+ifndef::deploy[]
 include::../../../_includes/training-how-to-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/training-how-to-nwywlf.adoc[]
+endif::[]
 
 

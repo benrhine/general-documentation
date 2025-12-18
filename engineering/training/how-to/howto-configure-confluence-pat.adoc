@@ -27,4 +27,12 @@ endif::[]
 * Create token
 ** Make sure to save the token some place safe as it will only be visible once
 
+// Renders correctly in IDE
+ifndef::deploy[]
 include::../../../_includes/training-how-to-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/training-how-to-nwywlf.adoc[]
+endif::[]
+

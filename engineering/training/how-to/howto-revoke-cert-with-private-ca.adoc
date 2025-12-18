@@ -67,6 +67,15 @@ If TLS termination is being handled by an Application Load Balancer (ALB) or ano
 * If using ALB, refer to the {how-to-13-link}[How To - Deploy ALB Ingress to EKS Cluster] guide's step 7 for more details.
 ====
 
-include::../../../_includes/training-how-to-nwywlf.adoc[]
 
+
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../_includes/training-how-to-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/training-how-to-nwywlf.adoc[]
+endif::[]
 

@@ -207,8 +207,13 @@ I would be remiss if I did not mention that some consider this approach to be a 
 * https://www.baeldung.com/ops/docker-entrypoint-environment-variables
 * https://www.geeksforgeeks.org/advance-java/setting-active-profile-and-config-location-from-command-line-in-spring-boot/
 
+// Renders correctly in IDE
+ifndef::deploy[]
 include::../../../_includes/training-how-to-nwywlf.adoc[]
-
-
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/training-how-to-nwywlf.adoc[]
+endif::[]
 
 

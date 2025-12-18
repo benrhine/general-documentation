@@ -140,4 +140,13 @@ openssl x509 -in client.crt -text -noout
 ----
     - This command will display the details of the issued certificate, including the issuer, subject, and validity period.
 
+// Renders correctly in IDE
+ifndef::deploy[]
 include::../../../_includes/training-how-to-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/training-how-to-nwywlf.adoc[]
+endif::[]
+
+

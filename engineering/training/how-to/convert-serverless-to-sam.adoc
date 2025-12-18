@@ -36,6 +36,13 @@ endif::[]
 - https://www.serverless.com/blog/serverless-framework-now-supports-aws-sam-cloudformation
 - https://alexharv074.github.io/2020/01/13/a-method-for-migrating-serverless-framework-to-sam.html
 
+// Renders correctly in IDE
+ifndef::deploy[]
 include::../../../_includes/training-how-to-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/training-how-to-nwywlf.adoc[]
+endif::[]
 
 

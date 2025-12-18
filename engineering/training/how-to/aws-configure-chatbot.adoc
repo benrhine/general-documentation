@@ -180,5 +180,12 @@ resources:                                              # Specify all resources 
 - https://stackoverflow.com/questions/49341187/confirming-aws-sns-topic-subscription-for-slack-webhook
 
 
+// Renders correctly in IDE
+ifndef::deploy[]
 include::../../../_includes/training-how-to-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/training-how-to-nwywlf.adoc[]
+endif::[]
 

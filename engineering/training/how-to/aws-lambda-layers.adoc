@@ -330,6 +330,13 @@ If you need to perform any of these actions using the CLI ...
 - https://medium.com/@bhanukabandara97/getting-started-with-aws-lambda-layers-with-serverless-framework-c08f1cb20712
 -https://github.com/awsdocs/aws-lambda-developer-guide/blob/main/sample-apps/s3-java/build.gradle
 
+// Renders correctly in IDE
+ifndef::deploy[]
 include::../../../_includes/training-how-to-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/training-how-to-nwywlf.adoc[]
+endif::[]
 
 

@@ -58,7 +58,16 @@ However, this is not recommended if at all possible. Documentation should be cre
 * Improves documentation workflow and better incentives devs to document there work as it is already using a standard tool set they are familiar with.
 * Documentation is no longer a follow up step and should be done alongside standard work.
 
+// Renders correctly in IDE
+ifndef::deploy[]
 include::../../../_includes/training-how-to-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/training-how-to-nwywlf.adoc[]
+endif::[]
+
+
 
 
 

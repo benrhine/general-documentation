@@ -76,7 +76,14 @@ To publish from your local machine to the Aws CodeArtifact repo ...
 - https://github.com/clarityai-eng/codeartifact-gradle-plugin
 - https://medium.com/@chauyan/use-aws-codeartifact-in-your-project-7bf5d3e0d3dc
 
+// Renders correctly in IDE
+ifndef::deploy[]
 include::../../../_includes/training-how-to-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/training-how-to-nwywlf.adoc[]
+endif::[]
 
 
 

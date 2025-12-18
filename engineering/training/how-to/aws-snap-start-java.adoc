@@ -70,4 +70,11 @@ increase performance with mixed results and are more challenging to setup.
 - https://www.serverless.com/framework/docs/providers/aws/guide/serverless.yml#functions
 
 
+// Renders correctly in IDE
+ifndef::deploy[]
 include::../../../_includes/training-how-to-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/training-how-to-nwywlf.adoc[]
+endif::[]
