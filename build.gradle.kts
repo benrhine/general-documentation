@@ -220,11 +220,6 @@ val asciiDocAttributes = mapOf(
     "sl-development-data-link-005"       to "https://doc.benrhine.com/engineering/development/data/generation",
     "sl-development-data-link-006"       to "https://doc.benrhine.com/engineering/development/data/makers",
     "sl-development-data-link-007"       to "https://doc.benrhine.com/engineering/development/data/type",
-    "sl-development-java-link"       to "https://doc.benrhine.com/engineering/development/java/",
-    "sl-development-java-link-001"       to "https://doc.benrhine.com/engineering/development/java/java",
-    "sl-development-java-link-002"       to "https://doc.benrhine.com/engineering/development/java/java-build-library-with-support-for-multiple-versions-of-java",
-    "sl-development-java-link-003"       to "https://doc.benrhine.com/engineering/development/java/java-gradle",
-    "sl-development-java-link-004"       to "https://doc.benrhine.com/engineering/development/java/java-maven",
     "sl-development-lib-link"       to "https://doc.benrhine.com/engineering/development/libraries/libraries",
     "sl-development-log-link"       to "https://doc.benrhine.com/engineering/development/logging/",
     "sl-development-log-link-001"       to "https://doc.benrhine.com/engineering/development/logging/logging",
@@ -397,6 +392,12 @@ val asciiDocAttributes = mapOf(
     "tl-tooling-link-25"        to "https://doc.benrhine.com/engineering/tooling/tooling-helm",
     "tl-tooling-link-26"        to "https://doc.benrhine.com/engineering/tooling/tooling-infraweave",
     "tl-tooling-link-27"        to "https://doc.benrhine.com/engineering/tooling/tooling-kubernetes",
+    "sl-tooling-java-link"      to "https://doc.benrhine.com/engineering/tooling/tooling-java/",
+    "sl-tooling-java-link-002"  to "https://doc.benrhine.com/engineering/tooling/tooling-java/tooling-java-build-library-with-support-for-multiple-versions-of-java",
+    "sl-tooling-java-link-003"  to "https://doc.benrhine.com/engineering/tooling/tooling-java/tooling-java-gradle",
+    "sl-tooling-java-link-004"  to "https://doc.benrhine.com/engineering/tooling/tooling-java/tooling-java-maven",
+    "sl-tooling-docker-link"      to "https://doc.benrhine.com/engineering/tooling/tooling-docker/",
+    "sl-tooling-slack-link"      to "https://doc.benrhine.com/engineering/tooling/tooling-slack/",
     "sl-training-link"          to "https://doc.benrhine.com/engineering/training",
     "sl-troubleshooting-link"   to "https://doc.benrhine.com/engineering/troubleshooting",
     "sl-reference-link"         to "https://doc.benrhine.com/links/reference",
@@ -695,7 +696,7 @@ tasks {
         attributes(asciiDocAttributes )
         // Fill in will all sub-page jobs
         dependsOn(
-            "docEngToolingCloudAws"
+            "docEngToolingCloudAws", "docEngToolingJava"
         )
     }
     register<AsciidoctorTask>("docEngToolingCloudAws")  {
@@ -891,7 +892,7 @@ tasks {
         attributes(asciiDocAttributes )
         // Fill in will all sub-page jobs
         dependsOn(
-            "docEngDevBuild", "docEngDevContainers", "docEngDevData", "docEngDevJava",
+            "docEngDevBuild", "docEngDevData",
             "docEngDevLibraries", "docEngDevLogging", "docEngDevMetrics", "docEngDevRecovery",
             "docEngDevSlack", "docEngDevStyle", "docEngDevTesting", "docEngDevThirdPartyServices"
         )
@@ -906,30 +907,6 @@ tasks {
         // Define custom attributes using a map
         attributes(asciiDocAttributes )
     }
-    register<AsciidoctorTask>("docEngDevContainers")  {
-        setSourceDir(file("engineering/development/containers"))
-        sources(delegateClosureOf<PatternSet> {
-            include("*.adoc")
-        })
-        setOutputDir(file("build/docs/engineering/development/containers"))
-
-        // Define custom attributes using a map
-        attributes(asciiDocAttributes )
-        // Fill in will all sub-page jobs
-        dependsOn(
-            "docEngDevContainersDocker"
-        )
-    }
-    register<AsciidoctorTask>("docEngDevContainersDocker")  {
-        setSourceDir(file("engineering/development/containers/docker"))
-        sources(delegateClosureOf<PatternSet> {
-            include("*.adoc")
-        })
-        setOutputDir(file("build/docs/engineering/development/containers/docker"))
-
-        // Define custom attributes using a map
-        attributes(asciiDocAttributes )
-    }
     register<AsciidoctorTask>("docEngDevData")  {
         setSourceDir(file("engineering/development/data"))
         sources(delegateClosureOf<PatternSet> {
@@ -940,12 +917,12 @@ tasks {
         // Define custom attributes using a map
         attributes(asciiDocAttributes )
     }
-    register<AsciidoctorTask>("docEngDevJava")  {
-        setSourceDir(file("engineering/development/java"))
+    register<AsciidoctorTask>("docEngToolingJava")  {
+        setSourceDir(file("engineering/tooling/tooling-java"))
         sources(delegateClosureOf<PatternSet> {
             include("*.adoc")
         })
-        setOutputDir(file("build/docs/engineering/development/java"))
+        setOutputDir(file("build/docs/engineering/tooling/tooling-java"))
 
         // Define custom attributes using a map
         attributes(asciiDocAttributes )

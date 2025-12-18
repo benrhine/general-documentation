@@ -171,6 +171,11 @@ image:images/java-faster-strings-2.png[]
 * Any attempt to modify the String class creates a new object in the heap memory, which has significant performance drawbacks.
 * StringBuilder is ideal for modifying string content; it does so without creating any extra objects in the memory.
 
+== Reference
+
+* https://dev.to/this-is-learning/performance-benchmarking-string-and-string-builder-3bid
+
+
 // Renders correctly in IDE
 ifndef::deploy[]
 include::../../_includes/eng-level-tooling-not-what-you-were-looking-for.adoc[]
@@ -179,7 +184,3 @@ endif::[]
 ifdef::deploy[]
 include::{includedir}/eng-level-tooling-not-what-you-were-looking-for.adoc[]
 endif::[]
-
-== Reference
-
-* https://dev.to/this-is-learning/performance-benchmarking-string-and-string-builder-3bid

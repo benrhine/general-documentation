@@ -1,5 +1,27 @@
-= Slack
+= Tooling: Slack
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
+// Not sure how placement will affect publishing to Confluence
+ifndef::confluence[]
+:toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
 
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
+
+:keywords: engineering, tooling, slack
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../_includes/generic-information.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/generic-information.adoc[]
+endif::[]
 
 
 
@@ -35,3 +57,14 @@
 * https://aws.amazon.com/blogs/mt/how-to-enable-amazon-cloudwatch-alarms-to-send-repeated-notifications/
 * https://www.antstack.com/blog/how-to-get-instant-email-notifications-for-aws/
 * https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/permissions-reference-cwl.html
+
+
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../_includes/eng-level-tooling-not-what-you-were-looking-for.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/eng-level-tooling-not-what-you-were-looking-for.adoc[]
+endif::[]

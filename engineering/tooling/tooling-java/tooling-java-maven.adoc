@@ -28,3 +28,13 @@ To create or update the maven wrapper see https://www.baeldung.com/maven-wrapper
 * https://www.baeldung.com/maven-wrapper
 
 
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../_includes/tooling-java-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/tooling-java-nwywlf.adoc[]
+endif::[]
+
+

@@ -72,4 +72,11 @@ TODO
 
 
 
-
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../_includes/tooling-java-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/tooling-java-nwywlf.adoc[]
+endif::[]

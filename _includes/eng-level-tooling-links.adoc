@@ -33,6 +33,10 @@ ifndef::deploy[]
 * link:../engineering/tooling/tooling-infraweave.adoc[Infraweave]
 * link:../engineering/tooling/tooling-kubernetes.adoc[Kubernetes]
 * link:../engineering/tooling/tooling-cloud-aws.adoc[Cloud: Aws]
+* link:../engineering/tooling/tooling-java.adoc[Java]
+* link:../engineering/tooling/tooling-docker.adoc[Docker]
+* link:../engineering/tooling/tooling-slack[Slack]
+
 
 endif::[]
 
@@ -64,6 +68,9 @@ ifdef::deploy[]
 * {tl-tooling-link-26}[Infraweave]
 * {tl-tooling-link-27}[Kubernetes]
 * {tl-tooling-link-22}[Cloud: Aws]
+* {sl-tooling-java-link}[Java]
+* {sl-tooling-docker-link}[Docker]
+* {sl-tooling-slack-link}[Slack]
 
 endif::[]
 

@@ -34,7 +34,7 @@ endif::[]
 
 == Build Systems
 
-* {team-name-1-abv-upper} Team will use the {sl-development-java-link-003}[Gradle build system] as a best practice when writing Java code due to its greater flexibility over Maven
+* {team-name-1-abv-upper} Team will use the {sl-tooling-java-link-003}[Gradle build system] as a best practice when writing Java code due to its greater flexibility over Maven
 
 == Documentation
 

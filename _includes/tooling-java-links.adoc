@@ -1,0 +1,23 @@
+
+
+:includedir: ../../../_include
+
+include::substitution-values.adoc[]
+
+ifndef::deploy[]
+
+// These will only work from the file they are included in - NOT this file
+
+* link:../engineering/tooling/tooling-java/tooling-java-build-library-with-support-for-multiple-versions-of-java.adoc[Java: Build library with multiple version support]
+* link:../engineering/tooling/tooling-java/tooling-java-maven.adoc[Java: Maven]
+* link:../engineering/tooling/tooling-java/tooling-java-gradle.adoc[Java: Gradle]
+
+endif::[]
+
+ifdef::deploy[]
+
+* {sl-tooling-java-link-002}[Java: Build library with multiple version support]
+* {sl-tooling-java-link-002}[Java: Maven]
+* {sl-tooling-java-link-003}[Java: Gradle]
+
+endif::[]

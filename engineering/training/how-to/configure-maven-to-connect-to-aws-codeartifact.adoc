@@ -138,8 +138,8 @@ endif::[]
 // Renders correctly in AsciiDoc Deployment
 ifdef::deploy[]
 
-* {sl-development-java-link-004}[Java: Maven]
-* {sl-development-java-link-003}[Java: Gradle]
+* {sl-tooling-java-link-004}[Java: Maven]
+* {sl-tooling-java-link-003}[Java: Gradle]
 
 endif::[]
 

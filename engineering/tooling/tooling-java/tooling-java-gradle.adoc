@@ -39,16 +39,17 @@ To verify the upgrade was successful execute the following ...
 ./gradlew -v
 ----
 
-== Not what you were looking for?
-
-* link:../engineering/development/java/java-maven.adoc[Java: Maven]
-* link:../build/build-maven-artifact.adoc[Maven: Build Artifact]
-* link:../build/build-maven-troubleshooting.adoc[Maven: Troubleshooting]
-* link:../build/build-gradle-artifact.adoc[Gradle: Build Artifact]
-* link:../build/build-gradle-troubleshooting.adoc[Gradle: Troubleshooting]
-* link:../build/build-ci-codebuild.adoc[CI: CodeBuild]
-
 == Reference
 
 * https://www.baeldung.com/gradle-wrapper
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../_includes/tooling-java-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/tooling-java-nwywlf.adoc[]
+endif::[]
+
 

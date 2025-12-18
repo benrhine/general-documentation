@@ -1,2 +1,12 @@
 == Third Party Services
 This page is to track all third party services that are being used and how to use them.
+
+In more detail any API's or external vendors that are used or integrated with should be listed on this page and there should be a sub-page dealing with the third party details specifically.
+
+The sub-page should contain the following details ...
+
+* Who is our internal contact for contracts with this vendor
+* Who is our contact at the vendor for contracts
+* Who is our technical contact at the vendor
+* Links to documentation the vendor provides (things provided during contract negotiation, API Documentation, Ect.)
+* Links to _OUR_ documentation on how we are integrating with them on a technical level

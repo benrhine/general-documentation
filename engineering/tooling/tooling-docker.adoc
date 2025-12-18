@@ -1,7 +1,8 @@
-= Tooling: ArgoCD
+= Tooling: Docker
 // Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
 // having the :toc: value in the adoc files is required for publishToConfluence to work correctly
 // Not sure how placement will affect publishing to Confluence
+// Renders correctly in IDE
 ifndef::confluence[]
 :toc: left
 endif::[]
@@ -12,7 +13,7 @@ ifdef::confluence[]
 include::{includedir}/version-control-warning.adoc[]
 endif::[]
 
-:keywords: engineering, tooling, argo, cd
+:keywords: engineering, tooling, docker
 
 // Renders correctly in IDE
 ifndef::deploy[]
@@ -24,7 +25,15 @@ include::{includedir}/generic-information.adoc[]
 endif::[]
 
 
+
+
+
+
+
 == Reference
+
+
+
 
 
 
@@ -36,3 +45,5 @@ endif::[]
 ifdef::deploy[]
 include::{includedir}/eng-level-tooling-not-what-you-were-looking-for.adoc[]
 endif::[]
+
+

@@ -102,10 +102,10 @@ me to more quickly bring necessary documentation and notes to any new team in th
     - [Compare: State](engineering/ops/infrastructure-as-code/comparison/compare-state.adoc)
     - [Compare: Modules](engineering/ops/infrastructure-as-code/comparison/comparison-modules.adoc)
   - [Documents](engineering/ops/infrastructure-as-code/documents)
-- [Java](engineering/development/java/java.adoc)
-  - [Maven](engineering/development/java/java-maven.adoc)
-  - [Gradle](engineering/development/java/java-gradle.adoc)
-  - [Building a library with support for multiple versions of java](engineering/development/java/java-build-library-with-support-for-multiple-versions-of-java.adoc)
+- [Java](engineering/tooling/tooling-java.adoc)
+  - [Maven](engineering/tooling/tooling-java/tooling-java-maven.adoc)
+  - [Gradle](engineering/tooling/tooling-java/tooling-java-gradle.adoc)
+  - [Building a library with support for multiple versions of java](engineering/tooling/tooling-java/tooling-java-build-library-with-support-for-multiple-versions-of-java.adoc)
 - [Libraries](engineering/development/libraries/libraries.adoc)
 - Links
   - [Reference](links/reference.adoc)
@@ -138,7 +138,7 @@ me to more quickly bring necessary documentation and notes to any new team in th
   - [Setup: MacOS](engineering/training/how-to/howto-setup-mac-os.adoc)
   - [Setup: Windows](engineering/training/how-to/howto-setup-windows.adoc)
   - [Setup: Request Slack Access](engineering/training/how-to/howto-request-slack-access.adoc)
-- [Slack](engineering/development/slack/slack.adoc)
+- [Slack](engineering/tooling/tooling-slack.adoc)
 - [Style](engineering/development/style/style.adoc)
 - [Support](engineering/support/run-books.adoc)
   - Run Books
