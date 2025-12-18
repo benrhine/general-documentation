@@ -7,6 +7,8 @@ endif::[]
 // Renders correctly in AsciiDoc Deployment
 ifdef::confluence[]
 :toc:
+
+include::{includedir}/version-control-warning.adoc[]
 endif::[]
 
 This page is intended to collect common commands that are executed from the CLI as a easy reference for how to run them

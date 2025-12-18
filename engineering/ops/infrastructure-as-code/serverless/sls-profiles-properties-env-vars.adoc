@@ -1,6 +1,16 @@
 = Profiles / Properties / Environment Variables
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
 // Not sure how placement will affect publishing to Confluence
+ifndef::confluence[]
 :toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
 
 A chronic debate in the development community is what is the best way to handle environment specific values. Many times
 in more traditional java development we would use spring profiles and property files that were defined by environment.

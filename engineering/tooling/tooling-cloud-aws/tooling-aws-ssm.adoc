@@ -5,6 +5,8 @@ endif::[]
 // Renders correctly in AsciiDoc Deployment
 ifdef::confluence[]
 :toc:
+
+include::{includedir}/version-control-warning.adoc[]
 endif::[]
 
 AWS Systems Manager (SSM) parameters, particularly those within Parameter Store, are regional by default, not global.

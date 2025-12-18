@@ -1,4 +1,6 @@
 == CloudFormation
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
 // Not sure how placement will affect publishing to Confluence
 ifndef::confluence[]
 :toc: left
@@ -6,7 +8,10 @@ endif::[]
 // Renders correctly in AsciiDoc Deployment
 ifdef::confluence[]
 :toc:
+
+include::{includedir}/version-control-warning.adoc[]
 endif::[]
+
 
 CloudFormation is a proprietary IaC language that only works with AWS. It can be leveraged in the following ways ...
 

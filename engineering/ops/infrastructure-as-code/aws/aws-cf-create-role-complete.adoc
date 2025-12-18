@@ -1,4 +1,16 @@
 = CloudFormation: (AWS) Create an IAM role
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
+// Not sure how placement will affect publishing to Confluence
+ifndef::confluence[]
+:toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
 
 The following is an example of how to create a user(s) using CloudFormation and YAML syntax.
 

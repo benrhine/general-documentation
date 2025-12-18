@@ -6,6 +6,8 @@ endif::[]
 // Renders correctly in AsciiDoc Deployment
 ifdef::confluence[]
 :toc:
+
+include::{includedir}/version-control-warning.adoc[]
 endif::[]
 
 Lambda layers is an additional construct that can significantly increase how quickly a lambda can be deployed as well as

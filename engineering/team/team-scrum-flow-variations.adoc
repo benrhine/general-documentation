@@ -6,16 +6,10 @@ endif::[]
 // Renders correctly in AsciiDoc Deployment
 ifdef::confluence[]
 :toc:
-endif::[]
 
-// Renders correctly in IDE for testing purposes
-// ifndef::confluence[]
-// include::../_includes/version-control-warning.adoc[]
-// endif::[]
-// Renders correctly in AsciiDoc Deployment
-ifdef::confluence[]
 include::{includedir}/version-control-warning.adoc[]
 endif::[]
+
 
 This page is intended to cover options for the various Scrum flows and to help come up with the single best flow that keeps
 the team moving and the most people happy.
