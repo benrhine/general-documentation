@@ -36,5 +36,3 @@ endif::[]
 ifdef::deploy[]
 include::{includedir}/tooling-java-nwywlf.adoc[]
 endif::[]
-
-

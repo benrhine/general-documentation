@@ -35,7 +35,7 @@ ifndef::deploy[]
 * link:../engineering/tooling/tooling-cloud-aws.adoc[Cloud: Aws]
 * link:../engineering/tooling/tooling-java.adoc[Java]
 * link:../engineering/tooling/tooling-docker.adoc[Docker]
-* link:../engineering/tooling/tooling-slack[Slack]
+* link:../engineering/tooling/tooling-slack.adoc[Slack]
 
 
 endif::[]
