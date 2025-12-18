@@ -7,19 +7,14 @@ endif::[]
 // Renders correctly in AsciiDoc Deployment
 ifdef::confluence[]
 :toc:
+
+include::{includedir}/version-control-warning.adoc[]
 endif::[]
 
 // Tags created on pages with keywords relevant to content - default values are present and can be overridden by passed in attribute (and should be). Additionally, when using the publishToConfluence plugin it is more difficult to pass in the keywords so the defaults are preferred.
 :keywords: how, to, tutorial, documenation, publish, to, confluence, configuration, help
 
-// Renders correctly in IDE for testing purposes
-// ifndef::confluence[]
-// include::../_includes/version-control-warning.adoc[]
-// endif::[]
-// Renders correctly in AsciiDoc Deployment
-ifdef::confluence[]
-include::{includedir}/version-control-warning.adoc[]
-endif::[]
+
 This tutorial combines several How To's into a single tutorial to fully describe how to authenticate a x509 certificate using Kubernetes and an EKS ALB.
 
 == Prerequisites
@@ -51,7 +46,7 @@ The ALB performs:
 
 *First*, create an AWS Private Certificate Authority that will issue and validate certificates.
 
-* {how-to-11-link}[How To - Create a Private Certificate Authority in AWS]
+* {tl-how-to-link-060}[How To - Create a Private Certificate Authority in AWS]
 
 *Second*, generate server certificates with Subject Alternative Names (SAN) for your application domains.
 
@@ -59,7 +54,7 @@ The ALB performs:
 * AWS PCA signs the certificate with your CA
 * You'll use this for your application's TLS configuration (optional, depending on your setup)
 
-* {how-to-15-link}[How To - Issue and Sign Server Certificates with SAN using AWS Private CA]
+* {tl-how-to-link-066}[How To - Issue and Sign Server Certificates with SAN using AWS Private CA]
 
 *Next*, deploy the ingress controller that will route traffic to your applications.
 When deploying the ingress controller, make sure to:
@@ -71,7 +66,7 @@ When deploying the ingress controller, make sure to:
 * Make sure to configure TLS/HTTP
 * Since the ALB will handle TLS termination, skip the testing of TLS at the ingress controller level
 
-* {how-to-12-link}[How To - Deploy Ingress Controller to EKS]
+* {tl-how-to-link-062}[How To - Deploy Ingress Controller to EKS]
 
 *Then*, create an Application Load Balancer that sits in front of nginx-ingress and handles mTLS. When deploying the ALB, make sure to:
 
@@ -80,7 +75,7 @@ When deploying the ingress controller, make sure to:
 * Configure the ALB listener for mTLS verify mode
 * Skip step 7 for the moment (we'll do revocation later).
 
-* {how-to-13-link}[How To - Deploy ALB Ingress to EKS Cluster]
+* {tl-how-to-link-061}[How To - Deploy ALB Ingress to EKS Cluster]
 
 *Next*, generate multiple client certificates to test different authentication scenarios.
 
@@ -90,23 +85,23 @@ When deploying the ingress controller, make sure to:
 On all of these certificates, use the SAN option to include email, name, and permissions.
 
 1. **Valid certificate** - Signed by your CA, not expired
-* Follow: {how-to-14-link}[How To - Issue and Sign Client Certificates using AWS Private CA]. Make sure to sign with your Private CA.
+* Follow: {tl-how-to-link-065}[How To - Issue and Sign Client Certificates using AWS Private CA]. Make sure to sign with your Private CA.
 
 2. **Expired certificate** - Issue with 1-hour validity, wait for expiration
-* Follow: {how-to-14-link}[How To - Issue and Sign Client Certificates using AWS Private CA]
+* Follow: {tl-how-to-link-065}[How To - Issue and Sign Client Certificates using AWS Private CA]
 * Change validity to 1 day when issuing this certificate (minimum allowed by AWS PCA is 1 day). Make sure to wait until it expires before testing.
 
 3. **Unsigned certificate** - Self-signed, not from your CA
-* Follow: {how-to-14-link}[How To - Issue and Sign Client Certificates using AWS Private CA]
+* Follow: {tl-how-to-link-065}[How To - Issue and Sign Client Certificates using AWS Private CA]
 * Generate a self-signed certificate on step 3 instead of signing with your CA.
 
 4. **Revoked certificate** - Signed by CA but then revoked
-* Follow: {how-to-14-link}[How To - Issue and Sign Client Certificates using AWS Private CA]
-* After issuing the valid signed certificate, follow: {how-to-16-link}[How To - Revoke Certificates using AWS Private CA] to revoke it.
+* Follow: {tl-how-to-link-065}[How To - Issue and Sign Client Certificates using AWS Private CA]
+* After issuing the valid signed certificate, follow: {tl-how-to-link-070}[How To - Revoke Certificates using AWS Private CA] to revoke it.
 
 **Expected outcome:** You have four client certificates for testing different scenarios.
 
-*Then*, go back to your ALB and complete step 7 in the {how-to-13-link}[How To - Deploy ALB Ingress to EKS Cluster]
+*Then*, go back to your ALB and complete step 7 in the {tl-how-to-link-061}[How To - Deploy ALB Ingress to EKS Cluster]
 documentation to set up certificate revocation checking. This will make sure your revoked certificate is known to the ALB.
 [IMPORTANT]
 The ALB trust store takes a snapshot of the CRL in S3 when you configure revocation checking. To keep it updated, you need to set up a Lambda function to periodically update the CRL in S3.
@@ -189,7 +184,7 @@ If using ArgoCD or another GitOps tool, commit the above YAML to your repository
 
 === Test the Authentication
 
-For easy, automated testing, follow {how-to-17-link}[How To - Automate Certificate Testing (Github Actions)] to set up a GitHub Actions workflow that tests all four certificate scenarios on every push.
+For easy, automated testing, follow {tl-how-to-link-053}[How To - Automate Certificate Testing (Github Actions)] to set up a GitHub Actions workflow that tests all four certificate scenarios on every push.
 
 Alternatively, you can manually test using curl from a test pod in your cluster:
 
@@ -291,11 +286,14 @@ curl -v \
 * CRL is outdated
 * Certificate was revoked after the CRL was generated
 
-**Solution:** Re-run Step 7 in the {how-to-13-link}[How To - Deploy ALB Ingress to EKS Cluster]
+**Solution:** Re-run Step 7 in the {tl-how-to-link-061}[How To - Deploy ALB Ingress to EKS Cluster]
 guide to update the CRL in the ALB trust store. It usually takes a few minutes for the CRL to pick up changes after a cert is revoked and you may have passed it to the trust store too soon.
 
-== Not what you were looking for?
-
-include::{includedir}/how-to-not-what-you-are-looking-for.adoc[]
-
-include::{includedir}/tutorial-not-what-you-are-looking-for.adoc[]
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../_includes/training-tutorial-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/training-tutorial-nwywlf.adoc[]
+endif::[]

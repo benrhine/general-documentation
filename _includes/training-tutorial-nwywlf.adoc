@@ -1,0 +1,13 @@
+
+
+== Not what you were looking for?
+
+ifndef::deploy[]
+// These will only work from the file they are included in - NOT this file
+* link:../engineering/training/tutorials.adoc[Tutorials]
+
+endif::[]
+
+ifdef::deploy[]
+* {tl-tutorials-link}[Tutorials]
+endif::[]

@@ -12,13 +12,12 @@ endif::[]
 - https://medium.com/@iamfaisalkhatri/how-to-check-and-update-newer-versions-for-dependencies-in-the-maven-project-3fd20e0dc783
 
 
-include::{includedir}/training-how-to-nwywlf.adoc[]
 
 // Renders correctly in IDE
-// ifndef::deploy[]
-// include::../../../_includes/training-how-to-nwywlf.adoc[]
-// endif::[]
-// // Renders correctly in AsciiDoc Deployment
-// ifdef::deploy[]
-// include::{includedir}/training-how-to-nwywlf.adoc[]
-// endif::[]
+ifndef::deploy[]
+include::../../../_includes/training-how-to-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/training-how-to-nwywlf.adoc[]
+endif::[]
