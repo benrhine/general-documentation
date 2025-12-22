@@ -193,25 +193,6 @@ val asciiDocAttributes = mapOf(
     "sl-deployment-link-002"    to "https://doc.benrhine.com/engineering/deployment/deployment-checklists",
     "sl-deployment-link-003"    to "https://doc.benrhine.com/engineering/deployment/deployment-lyp-example-checklist",
     "sl-development-link"       to "https://doc.benrhine.com/engineering/development",
-    "sl-development-build-link"       to "https://doc.benrhine.com/engineering/development/build/",
-    "sl-development-build-link-001"       to "https://doc.benrhine.com/engineering/development/build/build",
-    "sl-development-build-link-002"       to "https://doc.benrhine.com/engineering/development/build/build-cd-codepipeline",
-    "sl-development-build-link-003"       to "https://doc.benrhine.com/engineering/development/build/build-ci-bitbucket-pipelines",
-    "sl-development-build-link-004"       to "https://doc.benrhine.com/engineering/development/build/build-ci-codebuild",
-    "sl-development-build-link-005"       to "https://doc.benrhine.com/engineering/development/build/build-ci-codebuild-properties",
-    "sl-development-build-link-006"       to "https://doc.benrhine.com/engineering/development/build/build-ci-github-actions",
-    "sl-development-build-link-007"       to "https://doc.benrhine.com/engineering/development/build/build-ci-gitlab-pipelines",
-    "sl-development-build-link-008"       to "https://doc.benrhine.com/engineering/development/build/build-ci-jenkins",
-    "sl-development-build-link-009"       to "https://doc.benrhine.com/engineering/development/build/build-dependencies-updates",
-    "sl-development-build-link-010"       to "https://doc.benrhine.com/engineering/development/build/build-gradle-artifact",
-    "sl-development-build-link-011"       to "https://doc.benrhine.com/engineering/development/build/build-gradle-git-hooks",
-    "sl-development-build-link-012"       to "https://doc.benrhine.com/engineering/development/build/build-gradle-troubleshooting",
-    "sl-development-build-link-013"       to "https://doc.benrhine.com/engineering/development/build/build-logging",
-    "sl-development-build-link-014"       to "https://doc.benrhine.com/engineering/development/build/build-maven-artifacts",
-    "sl-development-build-link-015"       to "https://doc.benrhine.com/engineering/development/build/build-maven-troubleshooting",
-    "sl-development-containers-link"       to "https://doc.benrhine.com/engineering/development/containers/",
-    "sl-development-containers-link-001"       to "https://doc.benrhine.com/engineering/development/containers/docker/docker",
-    "sl-development-containers-link-002"       to "https://doc.benrhine.com/engineering/development/containers/",
     "sl-development-data-link"       to "https://doc.benrhine.com/engineering/development/data/",
     "sl-development-data-link-001"       to "https://doc.benrhine.com/engineering/development/data/data",
     "sl-development-data-link-002"       to "https://doc.benrhine.com/engineering/development/data/data-cleanup",
@@ -248,6 +229,7 @@ val asciiDocAttributes = mapOf(
     "sl-onboarding-link"        to "https://doc.benrhine.com/engineering/onboarding",
     "sl-ops-link"               to "https://doc.benrhine.com/engineering/ops",
     "sl-ops-link-001"           to "https://doc.benrhine.com/engineering/ops/argo-cd",
+    "sl-ops-link-001-001"       to "https://doc.benrhine.com/engineering/ops/argo-cd/argo-cd-port-forward-argo",
     "sl-ops-link-002"           to "https://doc.benrhine.com/engineering/ops/helm",
     "sl-ops-link-003"           to "https://doc.benrhine.com/engineering/ops/infrastructure-as-code",
     "sl-ops-link-003-001"       to "https://doc.benrhine.com/engineering/ops/infrastructure-as-code/aws",
@@ -398,6 +380,22 @@ val asciiDocAttributes = mapOf(
     "sl-tooling-java-link-004"  to "https://doc.benrhine.com/engineering/tooling/tooling-java/tooling-java-maven",
     "sl-tooling-docker-link"      to "https://doc.benrhine.com/engineering/tooling/tooling-docker",
     "sl-tooling-slack-link"      to "https://doc.benrhine.com/engineering/tooling/tooling-slack",
+    "sl-development-build-link"       to "https://doc.benrhine.com/engineering/tooling/build",
+    "sl-development-build-link-001"       to "https://doc.benrhine.com/engineering/tooling/tooling-build/build",
+    "sl-development-build-link-002"       to "https://doc.benrhine.com/engineering/tooling/tooling-build/build-cd-codepipeline",
+    "sl-development-build-link-003"       to "https://doc.benrhine.com/engineering/tooling/tooling-build/build-ci-bitbucket-pipelines",
+    "sl-development-build-link-004"       to "https://doc.benrhine.com/engineering/tooling/tooling-build/build-ci-codebuild",
+    "sl-development-build-link-005"       to "https://doc.benrhine.com/engineering/tooling/tooling-build/build-ci-codebuild-properties",
+    "sl-development-build-link-006"       to "https://doc.benrhine.com/engineering/tooling/tooling-build/build-ci-github-actions",
+    "sl-development-build-link-007"       to "https://doc.benrhine.com/engineering/tooling/tooling-build/build-ci-gitlab-pipelines",
+    "sl-development-build-link-008"       to "https://doc.benrhine.com/engineering/tooling/tooling-build/build-ci-jenkins",
+    "sl-development-build-link-009"       to "https://doc.benrhine.com/engineering/tooling/tooling-build/build-dependencies-updates",
+    "sl-development-build-link-010"       to "https://doc.benrhine.com/engineering/tooling/tooling-build/build-gradle-artifact",
+    "sl-development-build-link-011"       to "https://doc.benrhine.com/engineering/tooling/tooling-build/build-gradle-git-hooks",
+    "sl-development-build-link-012"       to "https://doc.benrhine.com/engineering/tooling/tooling-build/build-gradle-troubleshooting",
+    "sl-development-build-link-013"       to "https://doc.benrhine.com/engineering/tooling/tooling-build/build-logging",
+    "sl-development-build-link-014"       to "https://doc.benrhine.com/engineering/tooling/tooling-build/build-maven-artifacts",
+    "sl-development-build-link-015"       to "https://doc.benrhine.com/engineering/tooling/tooling-build/build-maven-troubleshooting",
     "sl-training-link"          to "https://doc.benrhine.com/engineering/training",
     "sl-troubleshooting-link"   to "https://doc.benrhine.com/engineering/troubleshooting",
     "sl-reference-link"         to "https://doc.benrhine.com/links/reference",
@@ -696,7 +694,7 @@ tasks {
         attributes(asciiDocAttributes )
         // Fill in will all sub-page jobs
         dependsOn(
-            "docEngToolingCloudAws", "docEngToolingJava"
+            "docEngToolingCloudAws", "docEngToolingJava", "docEngToolingBuild"
         )
     }
     register<AsciidoctorTask>("docEngToolingCloudAws")  {
@@ -892,17 +890,17 @@ tasks {
         attributes(asciiDocAttributes )
         // Fill in will all sub-page jobs
         dependsOn(
-            "docEngDevBuild", "docEngDevData",
+            "docEngDevData",
             "docEngDevLibraries", "docEngDevLogging", "docEngDevMetrics", "docEngDevRecovery",
             "docEngDevSlack", "docEngDevStyle", "docEngDevTesting", "docEngDevThirdPartyServices"
         )
     }
-    register<AsciidoctorTask>("docEngDevBuild")  {
-        setSourceDir(file("engineering/development/build"))
+    register<AsciidoctorTask>("docEngToolingBuild")  {
+        setSourceDir(file("engineering/tooling/tooling-build"))
         sources(delegateClosureOf<PatternSet> {
             include("*.adoc")
         })
-        setOutputDir(file("build/docs/engineering/development/build"))
+        setOutputDir(file("build/docs/engineering/tooling/tooling-build"))
 
         // Define custom attributes using a map
         attributes(asciiDocAttributes )

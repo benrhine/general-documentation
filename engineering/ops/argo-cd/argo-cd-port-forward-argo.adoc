@@ -1,0 +1,318 @@
+= ArgoCD: Port Forwarding
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
+// Not sure how placement will affect publishing to Confluence
+ifndef::confluence[]
+:toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
+
+:keywords: engineering, ops, argo, cd, port, forward
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../_includes/generic-information.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/generic-information.adoc[]
+endif::[]
+
+In order to access Argo you will need to locally port forward to the instance for access.
+
+[CAUTION]
+I do not currently know if there is a way to make this available externally to larger networks. I am sure there is but this is an item to investigate how this should work
+
+== Port Forwarding using Gradle (Preferred)
+
+This is an optional enhancement of the shell script included on this page, but it is highly recommended as it then allows for a more unified developer experience. The following details a number of extremely helpful Gradle tasks that can be chained together to provide a highly automated developer experience.
+
+=== getEksToken
+
+This task can be used to retrieve the EKS token for a specific cluster. It may be advisable to make this task depend on the awsSso task as this task will only run successfully when fully authenticated with the Aws environment. A unfortunate side effect of this is that it then authenticates on every call as I have yet to devise a way to check if things are correctly authenticated without just calling the auth method again.
+
+.getEksToken
+[source, groovy]
+----
+tasks.register('getEksToken', Exec) {
+    description = 'Retrieve EKS Token'
+    group       = 'aws'
+    workingDir  = "$projectDir"
+    commandLine 'aws', 'eks', 'get-token', '--cluster-name', 'YOUR-CLUSTER-NAME'
+    dependsOn('awsSso') // (Optional: This will guarantee that authentication is in the required state for success)
+}
+----
+
+=== getArgoPassword
+
+This task can be used to retrieve the default password that argo generates for login. The output of the command is saved into the task output and is available to be printed or passed to other tasks. If you want to print the password with the execution of this task uncomment the `doLast`.
+
+[NOTE]
+A very important note for the following task is that in order to use the `|` you must call `commandLin using `bash -c` which is granting Gradle full bash access. Without this the `|` will not resolve correctly and the task will fail.
+
+[source, groovy]
+----
+tasks.register('getArgoPassword', Exec) {
+    description = 'Get ArgoCD initial admin password from Kubernetes secret'
+    group       = 'kubernetes'
+    workingDir  = "$projectDir"
+
+    // Use bash to execute the piped command
+    commandLine 'bash', '-c',
+            'kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d'
+
+    standardOutput = new ByteArrayOutputStream()
+    ext.output = { standardOutput.toString().trim() }
+
+//    doLast {
+//        // Optionally print or use the password
+//        println "ArgoCD Password: ${ext.output()}"
+//    }
+}
+----
+
+=== portForwardArgoCD
+
+This task is the big kahuna of the bunch as it aggregates some of the previously discussed functionality into a single command to perform a complete port-forward to Argo. This command will port-forward to Argo and print the required username along with the password followed by opening the forwarded url in your default browser.
+
+[NOTE]
+This task is also making use of `bash -c` when using `commandline` in order to ensure that the bash commands being processed by Gradle execute correctly
+
+[CAUTION]
+Much of this command was generated in combination of using a script I did not write and Claude to get the syntax correct. This seems to have created a task that is much more advanced that what I alone could achieve but there are some nuances I am unfamiliar with on a deep leve.
+
+[source, groovy]
+----
+tasks.register('portForwardArgoCD', Exec) {
+    description = 'Port-forward ArgoCD server service to localhost'
+    group       = 'kubernetes'
+    workingDir  = "$projectDir"
+
+    def argoCDNamespace = project.findProperty('argocdNamespace') ?: 'argocd'
+    def localPort = project.findProperty('localPort') ?: '8081'
+    def pidFile = file("${buildDir}/.argocd-port-forward.pid")
+
+    doFirst {
+        // Ensure build directory exists
+        pidFile.parentFile.mkdirs()
+
+        // Check if port-forward is already running
+        if (pidFile.exists()) {
+            def existingPid = pidFile.text.trim()
+            def checkResult = exec {
+                commandLine 'bash', '-c', "kill -0 ${existingPid} 2>/dev/null"
+                ignoreExitValue = true
+            }
+
+            if (checkResult.exitValue == 0) {
+                println "Port-forwarding already running on port ${localPort} (PID: ${existingPid})"
+                throw new StopExecutionException("Port-forward already active")
+            } else {
+                pidFile.delete()
+            }
+        }
+    }
+
+    // Use bash to execute the port-forward in background and capture PID
+    commandLine 'bash', '-c', """
+        kubectl port-forward svc/argocd-server -n ${argoCDNamespace} ${localPort}:80 > /dev/null 2>&1 &
+        echo \$!
+    """.trim()
+
+    standardOutput = new ByteArrayOutputStream()
+    ext.output = { standardOutput.toString().trim() }
+
+    dependsOn("getArgoPassword", "openArgoCD")
+
+    doLast {
+        def pid = ext.output()
+        pidFile.text = pid
+
+        println "✓ Port-forwarding started on port ${localPort}"
+        println "  PID: ${pid}"
+        println "  Access ArgoCD at: http://localhost:${localPort}"
+        println "  Username: admin"
+        println "  Password: " + tasks.getArgoPassword.output()
+        println "  To stop: ./gradlew stopPortForwardArgoCD"
+    }
+}
+----
+
+=== stopPortForwardArgoCD
+
+The `portForwardArgoCD` runs in the background so we can no longer `ctrl-c` to stop the port-forward. This task was created to stop the port-forward and correctly clean up.
+
+[source, groovy]
+----
+tasks.register('stopPortForwardArgoCD', Exec) {
+    description = 'Stop ArgoCD port-forwarding'
+    group       = 'kubernetes'
+    workingDir  = "$projectDir"
+
+    def pidFile = file("${buildDir}/.argocd-port-forward.pid") // This needs fixed buildDir is depricated
+
+    doFirst {
+        if (!pidFile.exists()) {
+            println "No port-forward process found"
+            throw new StopExecutionException("No PID file exists")
+        }
+
+        def pid = pidFile.text.trim()
+        commandLine 'bash', '-c', "kill ${pid} 2>/dev/null || true"
+    }
+
+    ignoreExitValue = true
+
+    doLast {
+        def pid = pidFile.exists() ? pidFile.text.trim() : 'unknown'
+        pidFile.delete()
+        println "✓ Port-forwarding stopped (PID: ${pid})"
+    }
+}
+----
+
+=== statusPortForwardArgoCD
+
+Check if the port-forward is active.
+
+TODO - I should add to this and have it return the running url
+
+[source, groovy]
+----
+tasks.register('statusPortForwardArgoCD', Exec) {
+    description = 'Check ArgoCD port-forwarding status'
+    group       = 'kubernetes'
+    workingDir  = "$projectDir"
+
+    def pidFile = file("${buildDir}/.argocd-port-forward.pid")
+
+    doFirst {
+        if (!pidFile.exists()) {
+            println "Port-forwarding is NOT running"
+            throw new StopExecutionException("No PID file exists")
+        }
+
+        def pid = pidFile.text.trim()
+        commandLine 'bash', '-c', "kill -0 ${pid} 2>/dev/null"
+    }
+
+    ignoreExitValue = true
+
+    doLast {
+        def pid = pidFile.text.trim()
+        if (executionResult.get().exitValue == 0) {
+            println "✓ Port-forwarding is RUNNING (PID: ${pid})"
+        } else {
+            println "Port-forwarding is NOT running (stale PID file)"
+            pidFile.delete()
+        }
+    }
+}
+----
+
+=== openArgoCD
+
+This task will automatically open the port-forward in the current default browser.
+
+[source, groovy]
+----
+tasks.register('openArgoCD', Exec) {
+    description = 'Open ArgoCD URL in default browser'
+    group       = 'kubernetes'
+    workingDir  = "$projectDir"
+
+    def localPort = project.findProperty('LOCAL_PORT') ?: '8081' // default port
+    def url = "https://localhost:${localPort}"
+
+    doFirst {
+        def osName = System.getProperty('os.name').toLowerCase()
+
+        if (osName.contains('mac') || osName.contains('darwin')) {
+            commandLine 'open', url
+        } else if (osName.contains('linux')) {
+            commandLine 'xdg-open', url
+        } else if (osName.contains('windows')) {
+            commandLine 'cmd', '/c', "start ${url}"
+        } else {
+            // For unsupported OS, just print the message
+            commandLine 'echo', "Please open the URL in your browser manually: ${url}"
+        }
+    }
+
+    doLast {
+        println "Attempted to open: ${url}"
+    }
+}
+----
+
+== Port Forwarding using a shell script
+
+* Create a file called `argo.sh`
+* Execute `chmod 755 argo.sh` from the directory that `argo.sh` resides in
+* Paste the following into `argo.sh`
+** Change to your `EKS_CLUSTER_NAME`
+** Change the `ARGOCD_NAMESPACE` (optional?)
+
+.argo.sh
+[source, shell]
+----
+#!/bin/bash
+# Set variables
+EKS_CLUSTER_NAME="team-example"
+ARGOCD_NAMESPACE="argocd"
+LOCAL_PORT=8081
+# Get EKS cluster credentials
+aws eks get-token --cluster-name $EKS_CLUSTER_NAME > /dev/null 2>&1
+if [ $? -ne 0 ]; then
+  echo "Failed to get EKS token. Make sure you have the necessary AWS permissions and the AWS CLI is configured correctly."
+  exit 1
+fi
+# Get initial admin password
+ARGOCD_PASSWORD=$(kubectl -n $ARGOCD_NAMESPACE get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
+if [ -z "$ARGOCD_PASSWORD" ]; then
+  echo "Failed to get ArgoCD initial admin password. The secret may have been deleted after the first login."
+  exit 1
+fi
+# Port-forward the ArgoCD server service to localhost
+kubectl port-forward svc/argocd-server -n $ARGOCD_NAMESPACE $LOCAL_PORT:80 > /dev/null 2>&1 &
+PORT_FORWARD_PID=$!
+# Ensure the port-forwarding stops when the script exits
+trap "kill $PORT_FORWARD_PID" EXIT
+# Wait a few seconds to ensure port-forwarding is established
+sleep 5
+# Print access information
+echo "ArgoCD UI is accessible at: https://localhost:$LOCAL_PORT"
+echo "Username: admin"
+echo "Password: $ARGOCD_PASSWORD"
+# Open ArgoCD UI in the default browser (works on macOS and Linux)
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  open "https://localhost:$LOCAL_PORT"
+elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+  xdg-open "https://localhost:$LOCAL_PORT"
+else
+  echo "Please open the URL in your browser manually."
+fi
+# Wait for user to close the script
+echo "Press [Ctrl+C] to stop port-forwarding and exit."
+wait $PORT_FORWARD_PID
+
+----
+
+
+
+
+
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../_includes/eng-level-tooling-not-what-you-were-looking-for.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/eng-level-tooling-not-what-you-were-looking-for.adoc[]
+endif::[]

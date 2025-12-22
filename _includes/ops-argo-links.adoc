@@ -1,0 +1,19 @@
+
+
+:includedir: ../../../../_include
+
+include::substitution-values.adoc[]
+
+ifndef::deploy[]
+
+// These will only work from the file they are included in - NOT this file
+
+* link:../engineering/ops/argo-cd/argo-cd-port-forward-argo.adoc[ArgoCD: Port forwarding Argo]
+
+endif::[]
+
+ifdef::deploy[]
+
+* {sl-ops-link-001-001}[ArgoCD: Port forwarding Argo]
+
+endif::[]

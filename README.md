@@ -12,7 +12,7 @@ me to more quickly bring necessary documentation and notes to any new team in th
 - [Best Practices](engineering/best-practices.adoc)
   - [Faster Strings](engineering/tooling/tooling-java-faster-strings.adoc)
   - [Use of the keyword final](engineering/tooling/tooling-java-use-of-the-keyword-final.adoc)
-- [Build](engineering/development/build/build.adoc)
+- [Build](engineering/tooling/tooling-build/build.adoc)
 - Cloud
   - [Cloud Infrastructure](engineering/cloud/cloud-infrastructure.adoc)
     - [Aws](engineering/cloud/infrastructure/aws/aws.adoc)

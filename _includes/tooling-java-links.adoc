@@ -17,7 +17,7 @@ endif::[]
 ifdef::deploy[]
 
 * {sl-tooling-java-link-002}[Java: Build library with multiple version support]
-* {sl-tooling-java-link-002}[Java: Maven]
+* {sl-tooling-java-link-004}[Java: Maven]
 * {sl-tooling-java-link-003}[Java: Gradle]
 
 endif::[]

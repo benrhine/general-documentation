@@ -14,9 +14,52 @@ endif::[]
 // Tags created on pages with keywords relevant to content - default values are present and can be overridden by passed in attribute (and should be). Additionally, when using the publishToConfluence plugin it is more difficult to pass in the keywords so the defaults are preferred.
 :keywords: how, to, tutorial, documenation, spring, kubernetes, docker, configuration, help, profile
 
+This How To is to describe what Spring Profiles are and how to use them.
 
+== What are Spring Profiles
 
+Spring Profiles are a Spring mechanism that allows for different functionality to be enabled and or disabled within a Spring application based on parameters that are passed to the application.
 
+== Why might you want to use and or need profiles?
+
+You _might_ want to use Spring profiles as it allows you to turn things on for different environments. A great example of this is if you need to authenticate against different Aws environments. You may instantiate different Aws clients on a per environment basis using the `@Profile` annotation.
+
+[TIP]
+You can find examples of this in the {}[spring-boot-with-dynamodb] repository.
+
+The above may also be a reason you need to use profiles as each Aws environment should have different credentials meaning that you will need to structure authentication differently and you can do this with profiles.
+
+== How do you configure a Spring profile?
+
+There is a mountain of things that can be configured when using a profile but for this documentation I will focus on the core of how to get a profile functioning within the application.
+
+In the application start by adding profile `.yml` files under `src/resources`. You should end up with a `.yml` for each profile that you wish to create. In example ...
+
+* `application.yml`
+** This is the default profile required by Spring
+* `application-test.yml`
+** This profile is specific to unit tests
+** Changes are this profile doesn't do much
+* `application-integration.yml`
+** This profile is specific to integration tests
+** This profile probably does quite a bit to configure dependencies for integration tests
+* `application-local.yml`
+** This setups up the app to run fully in a local environment
+* `application-local-dev.yml`
+** This profile is for running from a local environment to a hosted dev environment
+* `application-local-test.yml`
+** This profile is for running from a local environment to a hosted test environment
+* `application-dev.yml`
+** This profile is for running in a hosted dev environment
+* `application-test.yml`
+** This profile is for running in a hosted test environment
+* `application-prod.yml`
+** This profile is for running in a hosted prod environment
+
+[TIP]
+The above profile layout is geared for applications that need to work with Aws or other cloud providers
+
+Once the `application.yml` files are in place you can annotate your code with the `@Profile` annotation such that those pieces of code will be enabled when that profile is executed.
 
 
 
