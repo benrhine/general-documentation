@@ -26,7 +26,13 @@ endif::[]
 
 
 
+== Random docker needs organized
 
+----
+docker pull XXXXXX.dkr.ecr.us-west-2.amazonaws.com/brr/container-repo/bens-app:v0.0.6
+
+docker pull XXXXXX.dkr.ecr.us-west-2.amazonaws.com/github/benrhine/bens-app:v0.0.6
+----
 
 
 

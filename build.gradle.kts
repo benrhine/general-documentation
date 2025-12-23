@@ -477,6 +477,11 @@ val asciiDocAttributes = mapOf(
     "tl-how-to-link-073"        to "https://doc.benrhine.com/engineering/training/how-to/howto-spring-profiles-with-kubernetes-and-docker",
     "tl-how-to-link-074"        to "https://doc.benrhine.com/engineering/training/how-to/howto-spring-profiles-with-localstack",
     "tl-how-to-link-075"        to "https://doc.benrhine.com/engineering/training/how-to/howto-structure-project-doc-as-code",
+
+    "tl-how-to-link-076"        to "https://doc.benrhine.com/engineering/training/how-to/howto-configure-mockito-to-run-as-agent",
+    "tl-how-to-link-077"        to "https://doc.benrhine.com/engineering/training/how-to/howto-ecr-pull-through",
+    "tl-how-to-link-078"        to "https://doc.benrhine.com/engineering/training/how-to/howto-use-atlassian-api",
+
     "tl-tutorials-link"         to "https://doc.benrhine.com/engineering/training/tutorials",
     "tl-tutorials-link-01"      to "https://doc.benrhine.com/engineering/training/tutorials/tutorial-cloudwatch-send-slack",
     "tl-tutorials-link-02"      to "https://doc.benrhine.com/engineering/training/tutorials/tutorial-x509-authentication-in-kubernetes",

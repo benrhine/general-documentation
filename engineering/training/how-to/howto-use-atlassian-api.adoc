@@ -1,0 +1,58 @@
+= How To - Using the Atlassian API
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
+ifndef::confluence[]
+:toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
+
+// Tags created on pages with keywords relevant to content - default values are present and can be overridden by passed in attribute (and should be). Additionally, when using the publishToConfluence plugin it is more difficult to pass in the keywords so the defaults are preferred.
+:keywords: how, to, tutorial, documenation, atlassian, confluence, api
+
+
+----
+curl -X POST \
+-H "Authorization: Bearer YOUR-TOKEN" \
+-H "Content-Type: application/json" \
+-d '{
+"name": "v1.2.3",
+"description": "Build #456 from CI pipeline",
+"project": "DPDS"
+"projectId": :16301,
+"released": false,
+"releaseDate": "2024-01-15"
+}' \
+https://YOUR-URL.com/jira/rest/api/3/version
+----
+
+----
+curl -X GET \
+-H "Authorization: Bearer YOUR-TOKEN" \
+-H "Content-Type: application/json" \
+https://YOUR-URL.com/rest/api/3/project/DPDS
+----
+
+----
+curl -X GET \
+-H "Authorization: Bearer YOUR-TOKEN" \
+-H "Content-Type: application/json" \
+https://YOUR-URL.com/jira/rest/api/2/mypermissions?projectKey=XXXX
+----
+
+== Reference
+
+* https://docs.atlassian.com/software/jira/docs/api/REST/7.6.1/#api/2/version-createVersion
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../_includes/training-how-to-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/training-how-to-nwywlf.adoc[]
+endif::[]

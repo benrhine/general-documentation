@@ -130,6 +130,25 @@ and in Docker Desktop you should see ...
 
 image::images/localstack-01.png[]
 
+=== Step 3.1: Accessing Localstack interface
+
+To access localstack interface you need to open the container terminal ...
+
+image::images/localstack-04.png[]
+
+or
+
+image::images/localstack-05.png[]
+
+=== Step 3.2: Interacting with localstack
+
+Once the container terminal is open you can execute standard aws cli commands against localstack. Below are some examples ...
+
+* `awslocal dynamodb list-tables`
+* `awslocal dynamodb scan --table-name YourTableName`
+* `awslocal dynamodb get-item --table-name YourTableName --key '{"YourPartitionKeyName": {"S": "YourPartitionKeyValue"}}'`
+* `awslocal dynamodb delete-table --table-name <your-table-name>`
+
 === Step 4: Run as a single command (Optional)
 
 While personally I prefer running applications with the previously mentioned setup as it allows the services to stay running in the background and shortens start up time for the actual application under development. There may be times that it is preferable to start everything with a single command or in the case you regularly forget to run the `docker-compose` command. If you prefer a single command to run everything configure the following in your Spring Boot profiles (and/or `application.yml`)
@@ -238,6 +257,11 @@ public class TestContainersConfig {
 
 This configuration instructs the tests how to communicate with the configured docker containers.
 
+== Reference
+
+* https://docs.localstack.cloud/aws/services/dynamodb/
+* https://useme-alehosaini.medium.com/dynamodb-management-using-aws-cli-with-localstack-bf56771a2ea4
+* https://dynobase.dev/code-examples/dynamodb-delete-all-items-java/
 
 // Renders correctly in IDE
 ifndef::deploy[]

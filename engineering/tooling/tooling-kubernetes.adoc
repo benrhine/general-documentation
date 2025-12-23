@@ -24,6 +24,29 @@ include::{includedir}/generic-information.adoc[]
 endif::[]
 
 
+== Random commands that need organized
+
+----
+kubectl --namespace=argocd port-forward bens-deployment-latest-66759bf5b4-v969z 3000:8080
+
+kubectl --namespace=argocd port-forward bens-deployment-latest-79c4974d5f-7fv64 3000:8080
+
+kubectl create secret generic regcred \
+    --from-file=.dockerconfigjson=~/.docker/config.json  \
+    --type=kubernetes.io/dockerconfigjson
+
+ kubectl create secret docker-registry ghcr-login-secret --docker-server=https://ghcr.io --docker-username=benjamin-rhine --docker-password=github_pat --docker-email=benjamin.rhine@fake.com
+
+docker login ghcr.io -u benjamin-rhine -p github_pat
+
+kubectl create secret docker-registry ghcr-login-secret2 --docker-server=https://ghcr.io --docker-username=benjamin-rhine --docker-password=ghp --docker-email=benjamin.rhine@fake.com
+
+kubectl create secret docker-registry ghcr-login-secret3 --docker-server=https://ghcr.io --docker-username=benjamin-rhine --docker-password=ghp--docker-email=benjamin.rhine@fake.com
+
+kubectl --namespace=argocd port-forward bens-deployment-latest-XXXXXX-v969z 3000:8080
+----
+
+
 // Renders correctly in IDE
 ifndef::deploy[]
 include::../../_includes/eng-level-tooling-not-what-you-were-looking-for.adoc[]

@@ -25,6 +25,8 @@ endif::[]
 
 === GitHub is down / unavailable
 
+* If images/packages are published to GH should be using ehr/ecr pull through so images are duplicated in aws
+
 === Aws Region becomes unavailable
 
 === Aws Specific solution

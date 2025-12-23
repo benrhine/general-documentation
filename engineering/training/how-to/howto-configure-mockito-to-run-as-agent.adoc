@@ -1,0 +1,50 @@
+= How To - Configure Mockito to run as agent
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
+ifndef::confluence[]
+:toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
+
+// Tags created on pages with keywords relevant to content - default values are present and can be overridden by passed in attribute (and should be). Additionally, when using the publishToConfluence plugin it is more difficult to pass in the keywords so the defaults are preferred.
+:keywords: how, to, tutorial, documenation, mockito, run, agent
+
+Starting in Gradle 9 I began to see warnings about https://site.mockito.org[Mockito] needing to run as an agent. This change in how it executes will apparently be required starting in Gradle 10. In order to achieve this the following should be added to the `test-config.gradle` file.
+
+[TIP]
+For the mockito maven dependencies see https://mvnrepository.com/artifact/org.mockito[here]
+
+[source, groovy]
+----
+tasks.withType(Test).configureEach {
+    doFirst {
+        def mockitoAgent = classpath.files.find {
+            it.name.contains('mockito-core')
+        }?.absolutePath
+
+        if (mockitoAgent) {
+            jvmArgs "-javaagent:${mockitoAgent}", "-Xshare:off"
+        }
+    }
+}
+----
+
+The above Gradle task will execute for all tasks configured with a `Test` type and will perform the agent configuration
+
+== Reference
+
+*
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../_includes/training-how-to-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/training-how-to-nwywlf.adoc[]
+endif::[]

@@ -77,6 +77,9 @@ ifndef::deploy[]
 * link:../engineering/training/how-to/howto-spring-profiles-with-kubernetes-and-docker.adoc[How To - Spring profiles with Kubernetes and Docker]
 * link:../engineering/training/how-to/howto-spring-profiles-with-localstack.adoc[How To - Spring profiles with Localstack]
 * link:../engineering/training/how-to/howto-structure-project-doc-as-code.adoc[How To - Structure Project Doc as Code]
+* link:../engineering/training/how-to/howto-configure-mockito-to-run-as-agent.adoc[How To - Configure Mockito to run as agent]
+* link:../engineering/training/how-to/howto-ecr-pull-through.adoc[How To - Aws ECR pull through]
+* link:../engineering/training/how-to/howto-use-atlassian-api.adoc[How To - Using the Atlassian API]
 
 
 endif::[]
@@ -153,5 +156,8 @@ ifdef::deploy[]
 * {tl-how-to-link-073}[How To - Spring profiles with Kubernetes and Docker]
 * {tl-how-to-link-074}[How To - Spring profiles with Localstack]
 * {tl-how-to-link-075}[How To - Structure Project Doc as Code]
+* {tl-how-to-link-076}[How To - Configure Mockito to run as agent]
+* {tl-how-to-link-077}[How To - Aws ECR pull through]
+* {tl-how-to-link-078}[How To - Using the Atlassian API]
 
 endif::[]
