@@ -25,6 +25,13 @@ endif::[]
 
 Notes and setups for AWS specific items.
 
+== Environments
+
+* https://chrisrbailey.medium.com/aws-account-setup-for-multiple-environments-with-easy-switching-between-accounts-30094a94d103
+* https://docs.aws.amazon.com/pdfs/whitepapers/latest/organizing-your-aws-environment/organizing-your-aws-environment.pdf
+* https://www.clearvector.com/blog/how-to-set-up-an-aws-environment/
+* https://aosolorzano.medium.com/implementing-a-multi-account-environment-with-aws-organizations-and-the-iam-identity-center-d1cdb40bdf4d this one is promising
+
 == Setups
 
 // Renders correctly in IDE

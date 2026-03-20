@@ -103,7 +103,8 @@ https://spacelift.io/blog/terraform-join
 https://spacelift.io/blog/terraform-coalesce
 https://spacelift.io/blog/terraform-locals
 https://developer.hashicorp.com/terraform/language/values/locals
-
+https://medium.com/onfido-tech/aws-api-gateway-with-terraform-7a2bebe8b68f
+https://blog.demir.io/building-a-serverless-email-sending-service-with-aws-5a0e9d1a6b90
 
 
 // Renders correctly in IDE

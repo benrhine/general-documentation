@@ -50,7 +50,7 @@ endif::[]
 * https://www.serverless.com/framework/docs/providers/aws/guide/iam
 * https://developer.hashicorp.com/terraform/tutorials/aws/aws-iam-policy
 * https://policysim.aws.amazon.com/home/index.jsp
-
+* https://kloudle.com/academy/how-to-create-an-iam-admin-user-in-aws/
 
 
 

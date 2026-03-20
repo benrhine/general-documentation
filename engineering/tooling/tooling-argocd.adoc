@@ -21,8 +21,6 @@ include::../../_includes/generic-information.adoc[]
 
 include::../../_includes/ops-argo-links.adoc[]
 
-include::../../_includes/eng-level-tooling-not-what-you-were-looking-for.adoc[]
-
 endif::[]
 // Renders correctly in AsciiDoc Deployment
 ifdef::deploy[]
@@ -31,9 +29,23 @@ include::{includedir}/generic-information.adoc[]
 
 include::{includedir}/ops-argo-links.adoc[]
 
-include::{includedir}/eng-level-tooling-not-what-you-were-looking-for.adoc[]
 endif::[]
 
 
 == Reference
 
+* https://medium.com/@cloudcommander/argocd-on-aws-eks-as-simple-as-ever-171ae71f3a37
+* https://medium.com/@Jitendra09/from-push-to-pull-why-github-actions-argocd-is-the-devops-duo-you-need-in-2025-a38978f3dafe
+* https://medium.com/@anujkishor1994/streamlining-multi-environment-argocd-management-centralized-control-for-multiple-applications-7e11a6d70c42
+
+// Renders correctly in IDE
+ifndef::deploy[]
+
+include::../../_includes/eng-level-tooling-not-what-you-were-looking-for.adoc[]
+
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+
+include::{includedir}/eng-level-tooling-not-what-you-were-looking-for.adoc[]
+endif::[]

@@ -89,3 +89,33 @@ endif::[]
 * https://blog.contactsunny.com/tech/overriding-spring-boot-properties-in-amazon-lambda
 * https://stackoverflow.com/questions/52926367/aws-lambda-loading-the-properties-file-according-to-aws-account
 
+== Links saved while at Jepp
+
+* https://www.danvega.dev/blog/2024/11/11/no-lombok
+* https://dev.to/yanev/why-i-believe-lombok-should-be-discarded-from-java-projects-1g4h
+* https://aws.amazon.com/blogs/containers/amazon-eks-pod-identity-a-new-way-for-applications-on-eks-to-obtain-iam-credentials/ * new credentialling
+* https://docs.aws.amazon.com/eks/latest/userguide/pod-identities.html
+* https://docs.aws.amazon.com/eks/latest/userguide/pod-id-configure-pods.html
+* https://stackoverflow.com/questions/61078900/app-deployed-to-kubernetes-but-it-is-not-accessible
+* https://www.baeldung.com/spring-boot-4-spring-framework-7
+* https://www.reddit.com/r/javahelp/comments/szfook/spring_nullpointerexception_trying_to_access/
+* https://docs.localstack.cloud/aws/services/dynamodb/
+* https://medium.com/javarevisited/implementing-sso-based-authentication-between-spring-boot-and-angular-a-journey-with-aws-cognito-1ebdd285edd0
+* https://www.google.com/search?q=create+dynamodb+global+table+terraform&oq=create+dynamodb+global+table+terraform&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIHCAEQIRigATIHCAIQIRigATIHCAMQIRigATIHCAQQIRigATIHCAUQIRigAdIBCDkxNjRqMGo0qAIAsAIB&sourceid=chrome&ie=UTF-8
+* https://medium.com/@joudwawad/dynamodb-global-tables-e62f2dce5f76
+* https://www.baeldung.com/spring-data-dynamodb
+* https://www.jetbrains.com/help/idea/http-client-variables.html#use-a-variable-inside-the-request
+* https://medium.com/thefreshwrites/mapping-entities-to-dtos-and-vice-versa-in-java-fe126f6bb6b2
+* https://assertj.github.io/doc/
+* https://rieckpil.de/how-to-configure-mockito-agent-for-java-21-without-warning/
+* https://stackoverflow.com/questions/79278490/mockito-is-currently-self-attaching-to-enable-the-inline-mock-maker-this-will-n
+* https://jspecify.dev/docs/user-guide/
+* https://rest-assured.io/
+* https://www.jetbrains.com/guide/go/tutorials/grpc_part_three/testing/
+* https://www.jetbrains.com/help/idea/http-client-in-product-code-editor.html#openapi
+
+== other things i had open
+
+- https://geospy.ai
+- https://peterattiamd.com/outlive/videos/
+- https://ghost.org/themes/?category=free

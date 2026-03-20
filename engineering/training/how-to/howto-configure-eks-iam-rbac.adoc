@@ -1,0 +1,72 @@
+= How To - Configure EKS IAM and Kubernetes RBAC
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
+ifndef::confluence[]
+:toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
+
+// Tags created on pages with keywords relevant to content - default values are present and can be overridden by passed in attribute (and should be). Additionally, when using the publishToConfluence plugin it is more difficult to pass in the keywords so the defaults are preferred.
+:keywords: how, to, documentation, help, eks, iam, kubernetes, rbac, config
+
+This is one of the more challenging configurations I have run across and I struggled to get clear information on how to bridge the gap between IAM and RBAC.
+
+For a quick summary of the issue at hand there is a disconnect between Aws IAM permissions and Kubernetes RBAC permissions. While these are both authorization systems they do not talk to each other without configuration and are entirely separate.
+
+This can lead to a large amount of confusion as you may have successfully deployed an EKS cluster, and you may have successfully deployed pods to Kubernetes, but you are getting errors when running `kubectl` commands or messages that you are not logged in.
+
+There is also a lot of older documentation still present online discussing how to use the older auth_map / config_map ? (don't recall the name) in Kubernetes which is now deprecated and is not production ready.
+
+Additionally, I found that AI really struggled with this issue, it was able to diagnose the problem but was unable to provide the correct solution for bridging the gap.
+
+== Prerequisites
+
+It is highly recommended that you have already completed this [How To - Deeply understanding Aws IAM configuration] so that your local roles are already configured as needed and so that you have a better understanding of how IAM works.
+
+== Configuring default Kubernetes admin role using Aws Console
+
+After EKS setup is complete if you navigate to the cluster in Aws Console there should be a banner up top asking if you want to add a role if you have already done so in order to access the cluster.
+
+// TODO add pictures
+
+== Configuring default Kubernetes admin role using Terraform
+
+To automatically bridge the gap between IAM and Kubernetes RBAC a role can be added while Terraform is building the cluster. This applies to roles created during the cluster build or you can apply it a pre-existing role like your SSO role. See the following example of how to use your SSO ...
+
+[source, hcl]
+----
+resource "aws_eks_access_entry" "sso_role_access" {
+  cluster_name      = aws_eks_cluster.eks_cluster.name
+  principal_arn     = data.aws_iam_role.sso.arn
+  type              = "STANDARD"
+}
+
+resource "aws_eks_access_policy_association" "sso_role_access_policy" {
+  cluster_name  = aws_eks_cluster.eks_cluster.name
+  policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+  principal_arn = data.aws_iam_role.sso.arn
+
+  access_scope {
+    type       = "cluster"
+  }
+  depends_on = [aws_iam_role.eks_role, aws_eks_cluster.eks_cluster]
+}
+----
+
+Add the above to add your SSO role as a Kubernetes cluster administrator.
+
+
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../_includes/training-how-to-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/training-how-to-nwywlf.adoc[]
+endif::[]

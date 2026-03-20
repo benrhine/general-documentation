@@ -1,0 +1,268 @@
+= How To - Deeply understanding Aws IAM configuration
+// Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
+// having the :toc: value in the adoc files is required for publishToConfluence to work correctly
+ifndef::confluence[]
+:toc: left
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::confluence[]
+:toc:
+
+include::{includedir}/version-control-warning.adoc[]
+endif::[]
+
+// Tags created on pages with keywords relevant to content - default values are present and can be overridden by passed in attribute (and should be). Additionally, when using the publishToConfluence plugin it is more difficult to pass in the keywords so the defaults are preferred.
+:keywords: how, to, documentation, help, iam, configuration, assume, role
+
+This how to will probably be long and meandering as there are quite a few random things I "think" I now understand about how IAM works and how roles are assumed.
+
+There will also be a fair amount of information on how this relates to EKS, Kubernetes and RBAC
+
+== Root Account IAM Identity Center
+
+This step I am a bit unsure on, there were several articles that pointed me to this and I did the configuration, but then I was able to do the same thing for other roles that I had not configured without issue. That is to say I don't know if this step is actually required or not but I am writing it up so that this step is remembered and for how to do it if it is needed in the future.
+
+* Log in to the ROOT account
+* Navigate to the IAM Identity Center > Permission Sets
+* Select Permissions tab
+* Create a new Inline policy
+
+[source, json]
+----
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AllowAssumeAccountAdminRole",
+            "Effect": "Allow",
+            "Action": "sts:AssumeRole",
+            "Resource": [
+                "arn:aws:iam::XXXXXXXXXXX:role/admin_assume_role",
+                "arn:aws:iam::XXXXXXXXXXX:role/admin_assume_role"
+            ]
+        }
+    ]
+}
+----
+
+The inline policy should look like the above for your roles.
+
+If you want to make it simple and to allow it to match all roles you should be able to just do `arn:aws:iam::XXXXXXXXXXX:role/*`
+
+[CAUTION]
+Again I am not sure the above is strictly necessary, but I read doc that it was required. The reality is when doing, so I did not find that I needed this policy update for my other IAM roles to be able to assume other roles correctly.
+
+== Allowing your SSO role to assume true IAM roles
+
+[CAUTION]
+Some articles / documentation state this is not the best way or the most secure way to allow other IAM roles to be assumed. There may also be cases where things do not operate as expected as an SSO role *IS NOT* a true IAM role.
+
+It is reasonably easy to allow your configured (local machine) SSO role to assume other IAM roles. For any role that you wish to assume with your SSO role add the following to the role that will be assumed "Trust relationship" ...
+
+[source, json]
+----
+{
+    "Effect": "Allow",
+    "Principal": {
+        "AWS": "arn:aws:iam::XXXXXXXX:role/aws-reserved/sso.amazonaws.com/us-east-2/AWSReservedSSO_AdministratorAccess_eeb8e639XXXXXXXX"
+    },
+    "Action": "sts:AssumeRole"
+}
+----
+
+So a complete "Trust relationship" may look similar to the following ...
+
+[source, json]
+----
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "Federated": "arn:aws:iam::XXXXXXXX:oidc-provider/token.actions.githubusercontent.com"
+            },
+            "Action": "sts:AssumeRoleWithWebIdentity",
+            "Condition": {
+                "StringEquals": {
+                    "token.actions.githubusercontent.com:aud": "sts.amazonaws.com"
+                },
+                "StringLike": {
+                    "token.actions.githubusercontent.com:sub": "repo:benrhine/repo-name:ref:refs/heads/main"
+                }
+            }
+        },
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::XXXXXXXX:role/aws-reserved/sso.amazonaws.com/us-east-2/AWSReservedSSO_AdministratorAccess_XXXXXXXXXXXX"
+            },
+            "Action": "sts:AssumeRole"
+        }
+    ]
+}
+----
+
+[NOTE]
+The `AWSReservedSSO_AdministratorAccess_XXXXX` role does not require any changes
+
+=== Configure local aws/config
+
+On your local machine your `~.aws/config` should look similar to the following ...
+
+[source, text]
+----
+[default]
+region = us-east-2
+output = json
+login_session = arn:aws:sts::XXXXXXX:assumed-role/AWSReservedSSO_AdministratorAccess_XXXXXXX/awsIdentity
+
+[sso-session brr-sso]
+sso_start_url = https://d-XXXXXXX.awsapps.com/start
+sso_region = us-east-2
+sso_registration_scopes = sso:account:access
+
+[profile tools-admin]
+sso_session = my-sso
+sso_account_id = XXXXXXX
+sso_role_name = AdministratorAccess
+region = us-east-2
+output = json
+----
+
+The above is more or less a default configuration for using Aws SSO with the Aws CLI. Now to allow for the chosen role to be assumed. Add the following to your `~.aws/config`
+
+[source, text]
+----
+[profile ci-oidc]
+source_profile = tools-admin
+role_arn = arn:aws:iam::XXXXXX:role/github_oidc_ci_assume_role
+region = us-east-2
+sso_session = my-sso
+sso_account_id = XXXXXX
+sso_role_name = AdministratorAccess
+output = json
+----
+
+When this profile is used to sign in it is telling the Aws CLI to use your local SSO profile then assume the role that is being provided.
+
+=== Signing in with alternate role
+
+Sign in works the same way as with sso, just use the new profile ...
+
+[source, shell]
+----
+aws sso login --profile ci-oidc
+----
+
+This will execute the standard login process.
+
+=== Verifying login
+
+While I have not found a way to verify the specific role at this point, it is possible to execute `aws sts get-caller-identity` and get the following result ...
+
+[source, json]
+----
+{
+    "UserId": "AROA3RILGIGJKNKKPCAWT:awsIdentity",
+    "Account": "XXXXXXXXX",
+    "Arn": "arn:aws:sts::XXXXXXXXX:assumed-role/AWSReservedSSO_AdministratorAccess_XXXXXXXXX/awsIdentity"
+}
+----
+
+which shows that behind the scenes you were logged in using your SSO account and have a currently valid SSO session.
+
+[NOTE]
+This process _should_ work for any role you want to assume and have permission to do so on.
+
+== Working with a _true_ IAM role
+
+One of the patterns that I have seen repeated on how to appropriately configure SSO and IAM to get the most out of it is to operate with an intermediary role. This is more or less doing exactly what was described in the last section but with more purpose.
+
+As mentioned the SSO role is not a _true_ IAM role. The SSO role is controlled by the IAM Identity Center in the ROOT account and may or may not have differing restrictions on it that may limit how it is used.
+
+To work around this potential limitation the suggested pattern is to set up a true IAM proxy role that can be assumed through the SSO role. This would look like the following ...
+
+----
+SSO User
+  ↓
+AccountAdminRole
+  ↓
+AnyOtherRole (EKS, Terraform, CI, etc.)
+----
+
+The way to achieve this and make sure that everything is working smoothly is as follows ...
+
+* When setting up Aws account create an AccountAdminRole IAM role
+* If possible follow the directions under [Root Account IAM Identity Center] and add the AccountAdminRole to the inline policy
+** This ensures the SSO role can always assume the AccountAdminRole
+* Make sure the AccountAdminRole has the trust policy as described in [Allowing your SSO role to assume true IAM roles]
+* Set up your local `~.aws/config` as described in [Allowing your SSO role to assume true IAM roles]
+* Now you should be able to login using AccountAdminRole and as it is a role you created and have full control over you can allow it to assume other roles etc. And, as AccountAdminRole is a true IAM role it should not run into any arbitrary limitations that the SSO role alone may have
+
+
+
+// Renders correctly in IDE
+ifndef::deploy[]
+include::../../../_includes/training-how-to-nwywlf.adoc[]
+endif::[]
+// Renders correctly in AsciiDoc Deployment
+ifdef::deploy[]
+include::{includedir}/training-how-to-nwywlf.adoc[]
+endif::[]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -203,7 +203,10 @@ aws sns publish --topic-arn arn:aws:sns:us-west-2:xxxxxxxx:queue-topic-dev --mes
 
 == Reference
 
-- https://medium.com/consulner/aws-lambda-sqs-events-with-serverless-framework-7429471ac664
+* https://medium.com/consulner/aws-lambda-sqs-events-with-serverless-framework-7429471ac664
+* https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/sqs-examples-send-receive-messages.html
+* https://medium.com/geekculture/aws-lambda-and-sqs-what-nobody-tells-you-about-their-mix-c9e4631dbb0f this gives some really great info on configuring lambda with sql
+* https://rieckpil.de/amazon-sqs-listener-testing-with-sqstest-spring-cloud-aws/ spring sqs testing
 
 
 // Renders correctly in IDE

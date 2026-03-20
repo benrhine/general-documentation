@@ -32,6 +32,8 @@ endif::[]
 
 * https://antora.org
 ** This may allow a real left hand link bar, should review once doc is a little more stable
+* https://samizdat.dev/use-markdown-for-confluence/
+* https://github.com/kovetskiy/mark
 
 
 // Renders correctly in IDE

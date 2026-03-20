@@ -18,4 +18,18 @@ endif::[]
 
 This is the top level location for all architecture documentation. It has been placed at this level to support visibility but could easily be placed under [Engineering] if the documentation design demands it.
 
+== Cloud Architecture
+
+Cloud items seem to come in 3's ...
+
+There are 3 truly giant cloud providers ... AWS, GCP, and Azure. While there are more smaller providers some fo the times they are running on top of the big 3.
+
+The providers are then followed by 3 main second level frameworks ... CloudFormation, Serverless Framework, and Terraform/OpenTofu.
+
+And these are once again followed by several further abstractions
+
+* https://ampt.dev
+* https://temporal.io
+* https://vercel.com
+
 include::_includes/repo-level-not-what-you-were-looking-for.adoc[]

@@ -14,6 +14,11 @@ endif::[]
 
 :keywords: engineering, tooling, java
 
+== Architecture
+
+* https://dev.to/appmap/visualize-the-architecture-of-your-java-app-in-intellij-idea-in-2-minutes-2dp7
+** Take a look at this and see if this is helpful
+
 // Renders correctly in IDE
 ifndef::deploy[]
 

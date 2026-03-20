@@ -60,8 +60,31 @@ endif::[]
 * https://docs.aws.amazon.com/lambda/latest/dg/lambda-intro-execution-role.html
 * https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html
 * https://aws.amazon.com/blogs/devops/setting-up-a-secure-ci-cd-pipeline-in-a-private-amazon-virtual-private-cloud-with-no-public-internet-access/
+* https://medium.com/datreeio/writing-portable-serverless-applications-252fd8623bce. This is a good explanation
+* https://medium.com/@connorbutch/api-gateway-service-integrations-are-cool-but-should-you-really-use-them-f6f565ffcf84 unique lambda ideas
+* https://medium.com/swlh/3-ways-to-up-your-game-with-amazon-api-gateway-6455e00beb91
+* https://blog.demir.io/building-a-serverless-email-sending-service-with-aws-5a0e9d1a6b90 sending emails server less
+* https://github.com/ndemir/aws-projects/tree/main/project2 code
+* https://medium.com/awesome-cloud/aws-difference-between-serverless-lambda-and-containers-kubernetes-serverless-vs-containers-lambda-vs-k8s-a166931870a2 server less v kubernettes
+* https://www.element84.com/blog/exploring-serverless-portability
+* https://www.simform.com/blog/aws-lambda-performance/
+* https://medium.com/contino-engineering/terraform-serverless-framework-a-match-made-in-heaven-part-i-69af51155e00
+* https://medium.com/contino-engineering/terraform-serverless-framework-a-match-made-in-heaven-part-ii-c115254efa6b
+* https://ajasinski.medium.com/terraform-serverless-framework-a-match-made-in-heaven-part-iii-7e6c9420586d
+* https://www.businessinsider.com/chatgpt-ai-technology-end-of-coding-software-developers-jobs-2023-4?utm_source=digg&utm_medium=social&utm_campaign=standard-post interesting reading
+* https://aws.amazon.com/blogs/compute/deploying-aws-lambda-layers-automatically-across-multiple-regions/  store dependencies for faster run
+* https://aws.amazon.com/blogs/compute/understanding-how-aws-lambda-scales-when-subscribed-to-amazon-sqs-queues/
+* https://dashbird.io/blog/can-api-gateway-act-load-balancer/ discusses how lambda load balances vs an actual load balancer
+* https://medium.com/@.com/how-we-handle-thousands-of-requests-per-second-55185c6bed08 many requests per second
+* https://www.serverless.com/framework/docs/providers/aws/guide/functions#aws-x-ray-tracing
+* https://www.serverless.com/blog/aws-lambda-function-urls-with-serverless-framework instead of API Gateway assign a url directly to a function
+* https://stackoverflow.com/questions/55542422/how-to-get-url-endpoint-detail-as-variable-in-serverless-frameworks-serverless how to get aws generated url
 
-
+=== http authorization
+- https://dev.to/aws-builders/using-aws-jwt-authorizers-with-auth0-3l7c
+- https://www.youtube.com/watch?v=xlbuEEiBSxU this was my primary one I used to get going
+- https://awskarthik82.medium.com/part-3-securing-aws-api-gateway-using-jwt-authorizer-okta-jwt-access-token-cb2c9425b026
+- https://jimmydqv.com/secure-api-gw-with-auth0/
 
 
 

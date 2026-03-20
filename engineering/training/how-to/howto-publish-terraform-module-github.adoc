@@ -1,4 +1,4 @@
-= How To - Aws ECR pull through
+= How To - Publish Terraform module to GitHub
 // Creates the table of contents - this value could be removed and passed in as an attribute from the build task BUT
 // having the :toc: value in the adoc files is required for publishToConfluence to work correctly
 ifndef::confluence[]
@@ -12,7 +12,7 @@ include::{includedir}/version-control-warning.adoc[]
 endif::[]
 
 // Tags created on pages with keywords relevant to content - default values are present and can be overridden by passed in attribute (and should be). Additionally, when using the publishToConfluence plugin it is more difficult to pass in the keywords so the defaults are preferred.
-:keywords: how, to, tutorial, documenation, aws, ecr, pull, through
+:keywords: how, to, tutorial, documenation, github, terraform, module, publish, release
 
 == Using Aws Console
 
@@ -28,6 +28,12 @@ TODO
 
 == Reference
 
+* https://dev.to/ayoub3bidi/quick-tutorial-how-to-add-a-release-github-workflow-56ib
+* https://github.com/rymndhng/release-on-push-action - doesnt seem to work
+* https://github.com/softprops/action-gh-release - using this one
+* https://github.com/marketplace/actions/create-release - ive seen this one a lot, and it has a lot of options
+* https://medium.com/nerd-for-tech/terraform-modules-101-create-version-and-publish-on-github-4455f3673559
+* https://dev.to/pwd9000/automate-terraform-module-releases-on-the-public-registry-using-github-actions-26em
 *
 
 // Renders correctly in IDE

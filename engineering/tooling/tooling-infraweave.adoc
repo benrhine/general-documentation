@@ -23,6 +23,8 @@ ifdef::deploy[]
 include::{includedir}/generic-information.adoc[]
 endif::[]
 
+Following the installation instructions is pretty straight forward from this location https://preview.infraweave.io/getting-started/setting-up/ however, the Bootstrap Environment is somewhat unclear https://github.com/infraweave-io/aws-bootstrap. This bootstrap must be in place prior to being able to execute any infraweave and it is VERY complex.
+
 
 // Renders correctly in IDE
 ifndef::deploy[]

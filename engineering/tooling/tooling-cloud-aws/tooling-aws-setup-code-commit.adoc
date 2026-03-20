@@ -147,6 +147,27 @@ Legacy IAM (ie. Non-SSO login) is deprecated
 While this setup is still valid and available it is now deprecated in favor of AWS SSO. To setup CodeCommit this way follow
 the directions https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-gc.html[here] as they are significantly more straight forward and do not require additional tooling.
 
+== Unknown Aws Git Note
+
+The following is a note I took "i think" about how to change an upstream repository but I am not longer certain. I have placed it here for reference
+
+[source, shell]
+----
+git init
+git remote add origin https://git-codecommit.us-east-2.amazonaws.com/v1/repos/BoeingGradleLambdaTemplate
+git push --set-upstream origin master
+git remote add origin https://git-codecommit.us-east-2.amazonaws.com/v1/repos/BoeingGradleLambdaTemplate
+git push --set-upstream origin master
+git status
+git diff --stat --cached origin /master
+git diff --stat --cached origin/master
+git push -u origin master
+git add .
+git status
+git commit -m "initial commit"
+git push --set-upstream origin master
+----
+
 == Troubleshooting
 
 If you have issues cloning and have an error like follows
